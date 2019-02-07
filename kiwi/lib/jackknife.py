@@ -5,10 +5,8 @@ from pathlib import Path
 import torch
 
 from kiwi import load_model
-from kiwi.data import utils
-from kiwi.data.iterators import build_bucket_iterator
 from kiwi.data.utils import cross_split_dataset, save_predicted_probabilities
-from kiwi.lib.train import log, make_trainer, retrieve_datasets, setup
+from kiwi.lib import train
 from kiwi.lib.utils import merge_namespaces
 from kiwi.loggers import mlflow_logger
 
@@ -32,7 +30,7 @@ def run_from_options(options):
     )
 
     with mlflow_run:
-        output_dir = setup(
+        output_dir = train.setup(
             output_dir=pipeline_options.output_dir,
             debug=pipeline_options.debug,
             quiet=pipeline_options.quiet,
@@ -41,7 +39,7 @@ def run_from_options(options):
         all_options = merge_namespaces(
             meta_options, pipeline_options, model_options
         )
-        log(
+        train.log(
             output_dir,
             save_config=False,
             config_options=vars(all_options),
@@ -67,7 +65,7 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
     fieldset = ModelClass.fieldset(
         wmt18_format=model_options.__dict__.get('wmt18_format')
     )
-    train_dataset, _, *extra_datasets = retrieve_datasets(
+    train_set, dev_set, *_ = train.retrieve_datasets(
         fieldset, pipeline_options, model_options, output_dir
     )
 
@@ -77,43 +75,18 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
 
     parent_dir = output_dir
     train_predictions = defaultdict(list)
-    for i, (train_fold, dev_fold) in enumerate(
-        cross_split_dataset(train_dataset, splits)
-    ):
+    splitted_datasets = cross_split_dataset(train_set, splits)
+    for i, (train_fold, pred_fold) in enumerate(splitted_datasets):
+
         run_name = 'train_split_{}'.format(i)
         output_dir = Path(parent_dir, run_name)
-        output_dir.mkdir(parents=True, exist_ok=False)
+        output_dir.mkdir(parents=True, exist_ok=True)
         # options.output_dir = str(options.output_dir)
-
-        # Trainer step
-        vocabs = utils.fields_to_vocabs(train_fold.fields)
-        model = ModelClass.from_options(vocabs=vocabs, opts=model_options)
-
-        trainer = make_trainer(
-            model, pipeline_options, model_options, output_dir, device_id
-        )
-
-        logger.info(str(trainer.model))
-        logger.info('{} parameters'.format(trainer.model.num_parameters()))
-
-        # Dataset iterators
-        train_iter = build_bucket_iterator(
-            train_fold,
-            batch_size=pipeline_options.train_batch_size,
-            is_train=True,
-            device=device_id,
-        )
-        valid_iter = build_bucket_iterator(
-            dev_fold,
-            batch_size=pipeline_options.valid_batch_size,
-            is_train=False,
-            device=device_id,
-        )
 
         # Train
         mlflow_run = mlflow_logger.start_nested_run(run_name=run_name)
         with mlflow_run:
-            setup(
+            train.setup(
                 output_dir=output_dir,
                 seed=pipeline_options.seed,
                 gpu_id=pipeline_options.gpu_id,
@@ -121,12 +94,17 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
                 quiet=pipeline_options.quiet,
             )
 
-            trainer.run(train_iter, valid_iter, epochs=pipeline_options.epochs)
+            trainer = train.build_and_execute(ModelClass,
+                                              output_dir,
+                                              pipeline_options,
+                                              model_options,
+                                              [train_fold, dev_set],
+                                              device_id)
 
         # Predict
         predictor = load_model(trainer.checkpointer.best_model_path())
         predictions = predictor.run(
-            dev_fold, batch_size=pipeline_options.valid_batch_size
+            pred_fold, batch_size=pipeline_options.valid_batch_size
         )
 
         torch.cuda.empty_cache()
