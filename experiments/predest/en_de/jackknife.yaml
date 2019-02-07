@@ -1,0 +1,5 @@
+model: estimator
+train-config: experiments/predest/en_de/smt_18.yaml
+splits: 10
+output-dir: predictions/predest/non-roundtrip
+experiment-name: PREDEST-JACKKNIFE

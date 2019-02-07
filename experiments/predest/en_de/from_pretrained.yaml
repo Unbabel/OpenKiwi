@@ -67,4 +67,3 @@ valid-target: data/WMT18/word_level/en_de.smt/dev.mt
 valid-target-tags: data/WMT18/word_level/en_de.smt/dev.tags
 valid-pe: data/WMT18/word_level/en_de.smt/dev.pe
 valid-sentence-scores: data/WMT18/sentence_level/en_de.smt/dev.hter
-

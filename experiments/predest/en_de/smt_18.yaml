@@ -37,10 +37,8 @@ gaps-bad-weight: 8
 
 ### Loading ###
 
-load-pred-target: data/trained_models/predest/en_de/wmt18/smt/model.torch
+load-pred-target: data/trained_models/predest/en_de/predictor/model_1.torch
 #load-model: /mnt/data/datasets/kiwi/trained_models/predest/en_de/pretrain.torch
-
-load-vocab: /mnt/data/datasets/kiwi/trained_models/predest/en_de/vocab.torch
 
 
 ### Saving ###
