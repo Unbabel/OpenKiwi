@@ -39,6 +39,9 @@ a local Python interpreter through [pyenv](https://github.com/pyenv/pyenv).
 If you don't have Python 3.5, 3.6, or 3.7, or need help creating a virtualenv, check online guides
 like [this](https://realpython.com/python-virtual-environments-a-primer/).
 
+**Note**: There's currently an issue with poetry not detecting conda virtual environments. As such
+we suggest using virtualenv.
+
 After cloning this repository and creating and activating a virtualenv, instead of the traditional
 `pip install -r requirements.txt`, just run
 ```bash
