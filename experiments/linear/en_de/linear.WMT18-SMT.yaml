@@ -1,5 +1,7 @@
 model: linear
 
+experiment-name: Linear WMT18 en-de SMT
+
 output-dir: runs/linear_experiments_wmt18_smt/
 
 epochs: 20
@@ -8,24 +10,24 @@ regularization-constant: 0.001
 cost-false-positives: 0.2
 cost-false-negatives: 0.8
 
-train-source: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/train.src
-train-target: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/train.mt
-train-target-tags: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/train.tags
-train-alignments: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/train.src-mt.alignments
+train-source: data/WMT18/word_level/en_de.smt/train.src
+train-target: data/WMT18/word_level/en_de.smt/train.mt
+train-target-tags: data/WMT18/word_level/en_de.smt/train.tags
+train-alignments: data/WMT18/word_level/en_de.smt/train.src-mt.alignments
 
-train-source-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.src.pos
-train-target-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.mt.pos
-train-target-ngram: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.mt.ngrams
-train-target-parse: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.mt.parses
-train-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT18/word_level/en_de.smt/ape/train.ape.stacked
+train-source-pos: data/WMT18/word_level/en_de.smt/additional/train.src.pos
+train-target-pos: data/WMT18/word_level/en_de.smt/additional/train.mt.pos
+train-target-ngram: data/WMT18/word_level/en_de.smt/additional/train.mt.ngrams
+train-target-parse: data/WMT18/word_level/en_de.smt/additional/train.mt.parses
+train-target-stacked: data/predictions/WMT18/word_level/en_de.smt/ape/train.ape.stacked
 
-valid-source: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.src
-valid-target: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.mt
-valid-target-tags: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.tags
-valid-alignments: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.src-mt.alignments
+valid-source: data/WMT18/word_level/en_de.smt/dev.src
+valid-target: data/WMT18/word_level/en_de.smt/dev.mt
+valid-target-tags: data/WMT18/word_level/en_de.smt/dev.tags
+valid-alignments: data/WMT18/word_level/en_de.smt/dev.src-mt.alignments
 
-valid-source-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.src.pos
-valid-target-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.mt.pos
-valid-target-ngram: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.mt.ngrams
-valid-target-parse: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.mt.parses
-valid-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT18/word_level/en_de.smt/ape/dev.ape.stacked
+valid-source-pos: data/WMT18/word_level/en_de.smt/additional/dev.src.pos
+valid-target-pos: data/WMT18/word_level/en_de.smt/additional/dev.mt.pos
+valid-target-ngram: data/WMT18/word_level/en_de.smt/additional/dev.mt.ngrams
+valid-target-parse: data/WMT18/word_level/en_de.smt/additional/dev.mt.parses
+valid-target-stacked: data/predictions/WMT18/word_level/en_de.smt/ape/dev.ape.stacked
