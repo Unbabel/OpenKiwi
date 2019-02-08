@@ -1,6 +1,8 @@
 model: linear
 
-load-model: runs/linear_experiments_wmt18/
+output-dir: runs/linear_experiments_wmt18_smt_predict/
+
+load-model: runs/linear_experiments_wmt18_smt/best_model.torch
 
 test-source: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/test.src
 test-target: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/test.mt

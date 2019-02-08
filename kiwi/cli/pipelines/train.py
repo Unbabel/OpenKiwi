@@ -70,7 +70,7 @@ def train_opts(parser):
         type=lambda x: bool(strtobool(x)),
         nargs='?',
         const=True,
-        default=False,
+        default=True,
         help='Save a training snapshot when validation is run.',
     )
     group.add_argument(

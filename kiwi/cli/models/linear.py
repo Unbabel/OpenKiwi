@@ -229,9 +229,9 @@ def _add_output_options(group):
         default='f1_mult',
         help='Evaluation metric (f1_mult or f1_bad).',
     )
-    group.add_argument(
-        '--model-file', type=str, required=True, help='Path for the model file.'
-    )
+    #group.add_argument(
+    #    '--model-file', type=str, required=True, help='Path for the model file.'
+    #)
 
 
 def add_training_options(training_parser):

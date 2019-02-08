@@ -1,10 +1,8 @@
 model: linear
 
-output-dir: linear_experiments_wmt18_smt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8
-model-file: linear_model_wmt18_smt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8.pkl
-# output-file: linear_model_wmt18_smt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8.pred
+output-dir: runs/linear_experiments_wmt18_smt/
 
-epochs: 2
+epochs: 20
 
 regularization-constant: 0.001
 cost-false-positives: 0.2
