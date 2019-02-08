@@ -9,7 +9,6 @@ import pandas as pd
 from more_itertools import flatten
 from scipy.stats.stats import pearsonr, rankdata, spearmanr
 
-import seaborn as sns
 from kiwi import constants
 from kiwi.cli.opts import PathType
 from kiwi.data.utils import read_file
@@ -435,6 +434,8 @@ def eval_skips_at_quality(
 
 
 def print_graphs(graphs, output_dir):
+    import seaborn as sns
+
     df_dict = {'source': [], 'skips': [], 'ter': []}
     for name, graph in graphs.items():
         skips, qual = zip(*graph)
