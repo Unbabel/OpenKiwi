@@ -1,19 +1,20 @@
 model: estimator
 experiment-name: Predictor Estimator WMT18
-
+gpu-id: 0
 epochs: 5
 warmup: 0
 log-interval: 100
 learning-rate: 1e-3
-
+learning-rate-decay: 0.6
+learning-rate-decay-start: 2
 train-batch-size: 32
-valid-batch-size: 32
+valid-batch-size: 40
 
 mlflow-tracking-uri: mlruns/
 
 ## Architecture
 
-
+seed: 3
 hidden-pred: 400
 hidden-est: 125
 out-size: 400
@@ -27,10 +28,9 @@ token-level: True
 sentence-level: True
 sentence-ll: True
 binary-level: True
-bad-weight: 2.5
 dropout-est: 0.0
 predict-target: true
-predict-gaps: false
+predict-gaps: true
 target-bad-weight: 2
 gaps-bad-weight: 8
 
@@ -43,9 +43,9 @@ load-pred-target: data/trained_models/predest/en_de/predictor/model_1.torch
 
 ### Saving ###
 
-checkpoint-validation-samples: 0
+checkpoint-validation-samples: 100
 checkpoint-validation-epochs: 1
-checkpoint-save: false
+checkpoint-save: true
 checkpoint-keep-only-best: 1
 #checkpoint-early-stop-patience: 5
 
@@ -53,35 +53,35 @@ checkpoint-keep-only-best: 1
 ### Data Source ###
 
 
-train-source: data/WMT18/word_level/en_de.nmt/train.src
-train-source-tags: data/WMT18/word_level/en_de.nmt/train.src_tags
-train-target: data/WMT18/word_level/en_de.nmt/train.mt
-train-target-tags: data/WMT18/word_level/en_de.nmt/train.tags
-train-pe: data/WMT18/word_level/en_de.nmt/train.pe
-train-sentence-scores: data/WMT18/sentence_level/en_de.nmt/train.hter
+# train-source: data/WMT18/word_level/en_de.nmt/train.src
+# train-source-tags: data/WMT18/word_level/en_de.nmt/train.src_tags
+# train-target: data/WMT18/word_level/en_de.nmt/train.mt
+# train-target-tags: data/WMT18/word_level/en_de.nmt/train.tags
+# train-pe: data/WMT18/word_level/en_de.nmt/train.pe
+# train-sentence-scores: data/WMT18/sentence_level/en_de.nmt/train.hter
 
-valid-source: data/WMT18/word_level/en_de.nmt/dev.src
-valid-source-tags: data/WMT18/word_level/en_de.nmt/dev.src_tags
-valid-target: data/WMT18/word_level/en_de.nmt/dev.mt
-valid-target-tags: data/WMT18/word_level/en_de.nmt/dev.tags
-valid-pe: data/WMT18/word_level/en_de.nmt/dev.pe
-valid-sentence-scores: data/WMT18/sentence_level/en_de.nmt/dev.hter
+# valid-source: data/WMT18/word_level/en_de.nmt/dev.src
+# valid-source-tags: data/WMT18/word_level/en_de.nmt/dev.src_tags
+# valid-target: data/WMT18/word_level/en_de.nmt/dev.mt
+# valid-target-tags: data/WMT18/word_level/en_de.nmt/dev.tags
+# valid-pe: data/WMT18/word_level/en_de.nmt/dev.pe
+# valid-sentence-scores: data/WMT18/sentence_level/en_de.nmt/dev.hter
 
 # SMT
-# train-source: data/WMT18/word_level/en_de.smt/train.src
-# train-source-tags: data/WMT18/word_level/en_de.smt/train.src_tags
-# train-target: data/WMT18/word_level/en_de.smt/train.mt
-# train-target-tags: data/WMT18/word_level/en_de.smt/train.tags
-# train-pe: data/WMT18/word_level/en_de.smt/train.pe
-# train-sentence-scores: data/WMT18/sentence_level/en_de.smt/train.hter
+train-source: data/WMT18/word_level/en_de.smt/train.src
+train-source-tags: data/WMT18/word_level/en_de.smt/train.src_tags
+train-target: data/WMT18/word_level/en_de.smt/train.mt
+train-target-tags: data/WMT18/word_level/en_de.smt/train.tags
+train-pe: data/WMT18/word_level/en_de.smt/train.pe
+train-sentence-scores: data/WMT18/sentence_level/en_de.smt/train.hter
 
-# valid-source: data/WMT18/word_level/en_de.smt/dev.src
-# valid-source-tags: data/WMT18/word_level/en_de.smt/dev.src_tags
-# valid-target: data/WMT18/word_level/en_de.smt/dev.mt
-# valid-target-tags: data/WMT18/word_level/en_de.smt/dev.tags
-# valid-pe: data/WMT18/word_level/en_de.smt/dev.pe
-# valid-sentence-scores: data/WMT18/sentence_level/en_de.smt/dev.hter
-
+valid-source: data/WMT18/word_level/en_de.smt/dev.src
+valid-source-tags: data/WMT18/word_level/en_de.smt/dev.src_tags
+valid-target: data/WMT18/word_level/en_de.smt/dev.mt
+valid-target-tags: data/WMT18/word_level/en_de.smt/dev.tags
+valid-pe: data/WMT18/word_level/en_de.smt/dev.pe
+valid-sentence-scores: data/WMT18/sentence_level/en_de.smt/dev.hter
+wmt18-format: True
 source-max-length: 50
 source-min-length: 1
 target-max-length: 50

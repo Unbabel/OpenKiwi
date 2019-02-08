@@ -25,7 +25,7 @@ class Checkpoint:
         checkpoint_save=False,
         checkpoint_keep_only_best=0,
         checkpoint_early_stop_patience=0,
-        checkpoint_validation_steps=100,
+        checkpoint_validation_steps=0,
     ):
         """
 
@@ -67,17 +67,17 @@ class Checkpoint:
         # This should be kept as a heap
         self.best_stats_summary = []
         self.stats_summary_history = []
-        self._last_saved_epoch = 0
-        self._last_saved_step = 0
+        self._last_saved_valid_step = 0
+        self._valid_step = 0
 
     def must_eval(self, epoch=None, step=None):
         if epoch is not None:
             return True
         if step is not None:
-            step = (
+            return (
                 self.validation_steps > 0 and step % self.validation_steps == 0
             )
-        return step
+        return False
 
     def must_save(self, stats):
         if self.save:
@@ -121,19 +121,18 @@ class Checkpoint:
                 )
 
     def check_in(self, trainer, stats, epoch=None, step=None):
+        self._valid_step += 1
         self.stats_summary_history.append(stats)
-        if (
-            len(self.best_stats_summary) >= self.keep_only_best
-            and not stats > self.best_stats_summary[0][0]
-        ):
+        heap_is_full = len(self.best_stats_summary) >= self.keep_only_best
+        stats_is_good_enough = stats.better_than(self.worst_stats())
+        if heap_is_full and not stats_is_good_enough:
             return None
-
         if self.save:
+            self._last_saved_valid_step = self._valid_step
+
             if epoch is not None:
-                self._last_saved_epoch = epoch
                 sub_dir = 'epoch_{}'.format(epoch)
             elif step is not None:
-                self._last_saved_step = step
                 sub_dir = 'step_{}'.format(step)
             else:
                 sub_dir = 'epoch_unknown'
@@ -143,18 +142,18 @@ class Checkpoint:
             output_path = None
 
         # Keep a heap of best stats and output directory. The second element
-        #   is used to be sure we get the first inserted element in case of
-        #   a tie.
+        #   (negative `_valid_step`) is used as a timestamp to ensure that we
+        #   in case of a tie, we get the earliest model with the best value.
         if len(self.best_stats_summary) < self.keep_only_best:
             heapq.heappush(
                 self.best_stats_summary,
-                (stats, -len(self.stats_summary_history), output_path),
+                (stats, -self._valid_step, output_path),
             )
             path_to_remove = None
         else:
             worst_stat = heapq.heapreplace(
                 self.best_stats_summary,
-                (stats, -len(self.stats_summary_history), output_path),
+                (stats, -self._valid_step, output_path),
             )
             path_to_remove = str(worst_stat[2])  # Worst output path
 
@@ -190,6 +189,13 @@ class Checkpoint:
                         logger.exception(e)
         return output_path
 
+    @property
+    def worst_stat(self):
+        if self.best_stats_summary:
+            return self.best_stats_summary[0][0]
+        else:
+            return None
+
     def best_stats_and_path(self):
         if self.best_stats_summary:
             stat, order, path = max(self.best_stats_summary)
@@ -201,6 +207,12 @@ class Checkpoint:
 
     def best_stats(self):
         return self.best_stats_and_path()[0]
+
+    def worst_stats(self):
+        if self.best_stats_summary:
+            return self.best_stats_summary[0][0]
+        else:
+            return None
 
     def best_model_path(self):
         path = self.output_directory / constants.BEST_MODEL_FILE
