@@ -122,10 +122,9 @@ class Checkpoint:
 
     def check_in(self, trainer, stats, epoch=None, step=None):
         self.stats_summary_history.append(stats)
-        if len(
-            self.best_stats_summary
-        ) >= self.keep_only_best and not stats.better_than(
-            self.best_stats_summary[0][0]
+        if (
+            len(self.best_stats_summary) >= self.keep_only_best
+            and not stats > self.best_stats_summary[0][0]
         ):
             return None
 
