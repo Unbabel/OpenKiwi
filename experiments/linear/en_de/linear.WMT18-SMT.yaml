@@ -17,7 +17,7 @@ train-source-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/
 train-target-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.mt.pos
 train-target-ngram: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.mt.ngrams
 train-target-parse: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.mt.parses
-train-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT18/word_level/en_de.smt/nuqe/train.nuqe.stacked
+train-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT18/word_level/en_de.smt/ape/train.ape.stacked
 
 valid-source: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.src
 valid-target: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.mt
@@ -28,4 +28,4 @@ valid-source-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/
 valid-target-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.mt.pos
 valid-target-ngram: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.mt.ngrams
 valid-target-parse: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.mt.parses
-valid-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT18/word_level/en_de.smt/nuqe/dev.nuqe.stacked
+valid-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT18/word_level/en_de.smt/ape/dev.ape.stacked
