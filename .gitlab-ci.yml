@@ -1,0 +1,68 @@
+image: python:3.6
+
+#variables:
+#    DOCKER_DRIVER: overlay2
+#    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+
+stages:
+    - lint
+    - test
+    - pages
+    - pypi
+
+before_script:
+    # Python 3.5 installation of pyyaml breaks without Python.h
+    - apt update && apt install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+    - pip install poetry
+    - poetry config settings.virtualenvs.create false
+    - pip install tox
+
+.test:
+    variables:
+        APP_ENV: "testing"
+
+lint:
+    extends: .test
+    stage: lint
+    script:
+        - tox -e lint
+
+test:
+    extends: .test
+    stage: test
+    coverage: '/^TOTAL.*\s+(\d+\%)$/'
+    script:
+        - tox -e py
+
+pages:
+    # Generate docs and publish to GH Pages
+    extends: .test
+    stage: pages
+    script:
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
+        - git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
+        - tox -e gh-pages
+        - git config --global user.email "openkiwi@unbabel.com"
+        - git config --global user.name "GitLab CI"
+        - lasttag=`git rev-parse --short HEAD`; cd gh-pages; git add .; git commit -m "Update docs for $lasttag"
+        - git push git@github.com:Unbabel/OpenKiwi.git gh-pages
+#    only:
+#        - tags
+#    except:
+#        - branches
+    when: manual
+
+pypi:
+    # Upload to PyPI index
+    stage: pypi
+    script:
+        - poetry publish --build -u ${PYPI_REPOSITORY_USERNAME} -p '${PYPI_REPOSITORY_PASSWORD}'
+    only:
+        - tags
+    except:
+        - branches
