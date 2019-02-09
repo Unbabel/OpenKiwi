@@ -1,0 +1,93 @@
+#### Train Predictor  ####
+
+model: predictor
+
+# Model Files will be saved here
+output-dir: runs/predictor
+
+#### MODEL SPECIFIC OPTS ####
+
+## PREDICTOR ##
+
+# LSTM Settings (Both SRC and TGT)
+hidden-pred: 400
+rnn-layers-pred: 2
+# If set, takes precedence over other embedding params
+embedding-sizes: 200
+# Source, Target, and Target Softmax Embedding
+source-embeddings-size: 200
+target-embeddings-size: 200
+out-embeddings-size: 200
+# Dropout
+dropout-pred: 0.5
+# Set to true to predict from target to source
+# (To create a source predictor for source tag prediction)
+predict-inverse: false
+
+### TRAIN OPTS ###
+epochs: 6
+# Eval and checkpoint every n samples
+# Disable by setting to zero (default)
+checkpoint-validation-steps: 5000
+# If False, never save the Models
+checkpoint-save: true
+# Keep Only the n best models according to the main metric (Perplexity by default)
+# Ueful to avoid filling the harddrive during a long run
+checkpoint-keep-only-best: 1
+# If greater than zero, Early Stop after n evaluation cycles without improvement
+checkpoint-early-stop-patience: 0
+
+optimizer: adam
+# Print Train Stats Every n batches
+log-interval: 100
+# Learning Rate
+# 1e-3 * (batch_size / 32) seems to work well
+learning-rate: 2e-3
+learning-rate-decay: 0.6
+learning-rate-decay-start: 2
+train-batch-size: 64
+valid-batch-size: 64
+
+### DATA OPTS ###
+
+# Source and Target Files
+train-source: data/parallel/corpus.en
+train-target: data/parallel/corpus.de
+# Optionally load more data which is used only for vocabulary creation.
+# This is useful to reduce OOV words if the parallel data
+# and QE data are from different domains.
+extend-source-vocab: data/WMT17/word_level/en_de/train.src
+extend-target-vocab: data/WMT17/word_level/en_de/train.pe
+# Optionally Specify Validation Sets
+valid-source: data/WMT17/word_level/en_de/dev.src
+valid-target: data/WMT17/word_level/en_de/dev.pe
+# If No valid is specified, randomly split the train corpus
+split: 0.99
+
+
+## VOCAB ##
+
+# Load Vocabulary from a previous run.
+# This is needed e.g. for training a source predictor via the flag
+# predict-inverse: True
+# If set, the other vocab options are ignored.
+# load-vocab: /mnt/data/datasets/kiwi/trained_models/predest/en_de/vocab.torch
+
+source-vocab-size: 45000
+target-vocab-size: 45000
+# Remove Sentences not in the specified Length Range
+source-max-length: 50
+source-min-length: 1
+target-max-length: 50
+target-min-length: 1
+# Require Minimum Frequency of words
+source-vocab-min-frequency: 1
+target-vocab-min-frequency: 1
+
+
+### GENERAL OPTS ###
+
+# Experiment Name for MLFlow
+experiment-name: EN-DE Pretrain Predictor
+# Do not set or set to negative number for CPU
+gpu-id: 0

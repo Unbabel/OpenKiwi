@@ -1,0 +1,136 @@
+# TODO: Use caching
+version: 2
+jobs:
+    lint:
+        docker:
+            - image: circleci/python:3.6
+        steps:
+            - checkout
+            - run:
+                  command: |
+                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev
+                      sudo pip install poetry
+                      poetry config settings.virtualenvs.create false
+                      sudo pip install tox
+            - run: tox -e lint
+    test:
+#        environment:
+#            CC_TEST_REPORTER_ID: CIRCLECI_CC_TEST_REPORTER_ID
+        docker:
+            - image: circleci/python:3.6
+        steps:
+            - checkout
+            - run:
+                  name: Prepare system
+                  command: |
+                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev
+                      sudo pip install poetry
+                      poetry config settings.virtualenvs.create false
+                      sudo pip install tox
+            - run:
+                  name: CodeClimate before-build
+                  command: |
+                      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+                      chmod +x ./cc-test-reporter
+                      ./cc-test-reporter before-build
+            - run:
+                  name: Run Python tests
+                  command: tox -e py
+            - run:
+                  name: CodeClimate combine and upload coverage
+                  command: |
+                      ./cc-test-reporter after-build -t coverage.py --exit-code $?
+                      ./cc-test-reporter format-coverage -t coverage.py coverage.xml
+                      ./cc-test-reporter upload-coverage || true
+    pages:
+        docker:
+            - image: circleci/python:3.6
+        steps:
+            - add_ssh_keys:
+                  fingerprints:
+                      - "f3:65:88:37:1e:8d:9b:dc:22:40:9f:c2:2d:1c:a4:36"
+            - checkout
+            - run:
+                  name: Prepare system
+                  command: |
+                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+                      sudo pip install poetry
+                      poetry config settings.virtualenvs.create false
+                      sudo pip install tox
+            - run:
+                  name: Retrieve GH pages
+                  command: |
+                      sudo ssh-keyscan github.com >> ~/.ssh/known_hosts
+                      sudo chmod 644 ~/.ssh/known_hosts
+                      git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
+            - run:
+                  name: Generate and upload GH pages
+                  command: |
+                      tox -e gh-pages
+                      git config --global user.email "openkiwi@unbabel.com"
+                      git config --global user.name "GitLab CI"
+                      export lasttag=`git rev-parse --short HEAD`
+                      cd gh-pages
+                      git add .
+                      git diff-index --quiet HEAD || git commit -m "Update docs for $lasttag [ci skip]"
+                      git push git@github.com:Unbabel/OpenKiwi.git gh-pages
+    pypi:
+        docker:
+            - image: circleci/python:3.6
+        steps:
+            - checkout
+            - run:
+                  name: Prepare system
+                  command: |
+                      sudo pip install poetry
+            - run:
+                  name: Upload to PyPI index
+                  command: poetry publish --build -u ${PYPI_REPOSITORY_USERNAME} -p ${PYPI_REPOSITORY_PASSWORD}
+
+workflows:
+    version: 2
+    check:
+        jobs:
+            - lint
+            - test
+            - pages:
+                  type: approval
+                  requires:
+                      - lint
+                      - test
+                  filters:
+                      branches:
+                          only: master
+    check-and-publish:
+        jobs:
+            - lint:
+                  filters:
+                      tags:
+                          only: /[0-9]+\.[0-9]+\.[0-9]+/
+                      branches:
+                          ignore: /.*/
+            - test:
+                  filters:
+                      tags:
+                          only: /[0-9]+\.[0-9]+\.[0-9]+/
+                      branches:
+                          ignore: /.*/
+            - pages:
+                  requires:
+                      - lint
+                      - test
+                  filters:
+                      tags:
+                          only: /[0-9]+\.[0-9]+\.[0-9]+/
+                      branches:
+                          ignore: /.*/
+            - pypi:
+                  requires:
+                      - lint
+                      - test
+                      - pages
+                  filters:
+                      tags:
+                          only: /[0-9]+\.[0-9]+\.[0-9]+/
+                      branches:
+                          ignore: /.*/
