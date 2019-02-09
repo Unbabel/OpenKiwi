@@ -82,23 +82,6 @@ kiwi
 Go on to [Usage](#usage) for further instructions.
 
 
-### Installing new packages
-
-Just use `pipenv` instead of `pip`. It will install the package and also update the Pipfiles, so be sure to commit them afterwards.
-
-Use specific versions for critical packages, as recommended in `CONTRIBUTING.md`. If you forgot to do it at installation time, edit `Pipfile` and add it there.
-
-If it's a package for development, install it with `pipenv install --dev PACKAGE`.
-
-
-## Available models
-
- - [QUETCH](http://aclweb.org/anthology/W15-3037)
- - [NUQE](http://www.aclweb.org/anthology/Q17-1015)
- - [PREDEST](http://www.aclweb.org/anthology/W17-4763)
- - [LINEAR] (not yet)
-
-
 ## Usage
 
 Here we describe the basic usage steps.
@@ -113,11 +96,12 @@ train, predict, jackknife
 ```
 
 The models supported are:
-```
-predictor, estimator, nuqe
-```
+ - `predictor` and `estimator` (http://www.aclweb.org/anthology/W17-4763)
+ - `nuqe` (http://www.aclweb.org/anthology/Q17-1015)
+ - `quetch` (http://aclweb.org/anthology/W15-3037)
+ - `linear`
 
-The `predest` model relies on the pre-training of its component model `predictor`.
+The Predictor-Estimator model relies on the pre-training of its component model `predictor`.
 
 Options are handled via `YAML` configuration files.
 On the command line, you can alternatively pass parameters as arguments,
@@ -166,7 +150,7 @@ kiwi.train(train_nuqe_config)
 python kiwi train --config {model_config_file} [OPTS]
 ```
 
-#### Available parameters:
+#### Available parameters
 
 * `epochs`  
 Number of epochs to train. Default: `50`
