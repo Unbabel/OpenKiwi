@@ -1,0 +1,7 @@
+config: experiments/predest/en_de/predictor_estimator.yaml
+
+hidden-est: [50, 100, 150]
+mlp-est: [True, False]
+rnn-layers-est: [1, 2, 3]
+
+experiment-name: Predictor Estimator WMT17 En De Architecture

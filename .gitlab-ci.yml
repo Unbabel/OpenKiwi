@@ -1,0 +1,52 @@
+image: python:3.6
+
+variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+
+stages:
+    - lint
+    - test
+    - docs
+    - pypi
+
+before_script:
+    # Python 3.5 installation of pyyaml breaks without Python.h
+    - apt update && apt install -y --no-install-recommends libpython3.5-dev python3.5-dev
+    - pip install poetry
+    - poetry config settings.virtualenvs.create false
+    - pip install tox
+
+.test:
+    variables:
+        APP_ENV: "testing"
+
+lint:
+    extends: .test
+    stage: lint
+    script:
+        - tox -e lint
+
+test:
+    extends: .test
+    stage: test
+    coverage: '/^TOTAL.*\s+(\d+\%)$/'
+    script:
+        - tox -e py
+
+docs:
+    extends: .test
+    stage: docs
+    script:
+        - tox -e docs
+
+pypi:
+    # Upload to internal PyPI index
+    stage: pypi
+    script:
+        - poetry config repositories.unbabel ${UNBABEL_PYPI_REPOSITORY_URL}
+        - poetry config http-basic.unbabel ${UNBABEL_PYPI_REPOSITORY_USERNAME} ${UNBABEL_PYPI_REPOSITORY_PASSWORD}
+#        - poetry install
+        - poetry publish --build -r unbabel
+    only:
+        - tags  # Only allow this stage to be run when a new tag is pushed

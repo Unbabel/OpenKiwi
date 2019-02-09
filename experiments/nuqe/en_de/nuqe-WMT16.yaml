@@ -1,0 +1,127 @@
+model: nuqe
+# to run:
+# python3 -m kiwi.cli.main quetch --config experiments/quetch-WMT16.yaml
+
+# 
+# MAIN OPTIONS (running args)
+# 
+experiment-name: NUQE WMT16
+# run-uuid: null
+
+# 
+# GENERAL OPTIONS
+# 
+# random
+seed: 42
+
+# gpu
+# gpu-id: 0
+
+
+# logging
+debug: false
+# output-dir: null  # mlflow will create one if this is null
+mlflow-tracking-uri: mlruns/
+
+# save and load
+# save-model: null
+# load-model: null
+resume: false
+
+
+# 
+# DATA OPTIONS
+# 
+# corpus
+test-source: data/WMT16/word_level/en_de/test.src
+# test-source-pos: null
+# test-source-tags: null
+test-target: data/WMT16/word_level/en_de/test.mt
+# test-target-pos: null
+test-target-tags: data/WMT16/word_level/en_de/test_words.tags
+test-alignments: data/WMT16/word_level/en_de/test.alignments
+
+train-source: data/WMT16/word_level/en_de/train.src
+# train-source-pos: null
+# train-source-tags: null
+train-target: data/WMT16/word_level/en_de/train.mt
+# train-target-pos: null
+train-target-tags: data/WMT16/word_level/en_de/train.tags
+train-alignments: data/WMT16/word_level/en_de/train.alignments
+
+valid-source: data/WMT16/word_level/en_de/dev.src
+# valid-source-pos: null
+# valid-source-tags: null
+valid-target: data/WMT16/word_level/en_de/dev.mt
+# valid-target-pos: null
+valid-target-tags: data/WMT16/word_level/en_de/dev.tags
+valid-alignments: data/WMT16/word_level/en_de/dev.alignments
+
+# vocabulary
+# source-vocab: null
+source-vocab-min-frequency: 2
+# source-vocab-size: null
+# target-vocab: null
+target-vocab-min-frequency: 2
+# target-vocab-size: null
+keep-rare-words-with-embeddings: true
+add-embeddings-vocab: false
+
+# embeddings
+embeddings-format: polyglot
+source-embeddings: data/embeddings2/en/embeddings_pkl.tar.bz2
+target-embeddings: data/embeddings2/de/embeddings_pkl.tar.bz2
+
+# load and save data (preprocessed datasets and built vocabs)
+# save-data: null
+# load-data: null
+
+
+# 
+# MODEL OPTIONS
+# 
+# embeddings
+source-embeddings-size: 50
+source-pos-embeddings-size: 20
+target-embeddings-size: 50
+target-pos-embeddings-size: 20
+
+# network
+hidden-sizes: [400, 200, 100, 50]
+# output-size: 50
+dropout: 0.0
+embeddings-dropout: 0.5
+freeze-embeddings: false
+bad-weight: 3.0
+
+# initialization
+init-support: 0.1
+init-type: uniform
+
+
+# 
+# TRAINING OPTIONS
+# 
+epochs: 100
+shuffle: true
+train-batch-size: 64
+valid-batch-size: 64
+
+checkpoint-validation-epochs: 1
+checkpoint-save: true
+checkpoint-keep-only-best: 1
+checkpoint-early-stop-patience: 5
+
+
+# 
+# TRAINING OPTIMIZATION
+# 
+optimizer: adam
+learning-rate: 0.001
+
+
+# 
+# QUETCH OPTIONS
+# 
+window-size: 3
+max-aligned: 5

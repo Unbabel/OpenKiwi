@@ -1,0 +1,92 @@
+model: predictor
+##### Pretrain Predictor on Parallel Data ######
+
+
+### LOGGING ###
+
+
+# Experiment Name for MLFlow
+experiment-name: EN-DE Pretrain Predictor
+#mlflow-tracking-uri: http://192.168.100.109:5000
+# Print Train Stats Every n batches
+log-interval: 100
+# Pretrain for this many batches
+warmup: 50000000
+# Or this many Epochs
+epochs: 10
+
+
+### CHECKPOINTING ###
+
+output-dir: /mnt/data/home/sony/pred_train/extend_indomain
+# Eval and checkpoint every n samples
+checkpoint-validation-steps: 5000
+# If False, never save the Models
+checkpoint-save: true
+# Keep Only the n best models according to the main metric (Perplexity by default)
+# USeful to avoid filling the harddrive during a long run
+checkpoint-keep-only-best: 3
+# If greater than zero, Early STop after n evaluation cycles without improvement
+checkpoint-early-stop-patience: 0
+
+
+### TRAINING ###
+
+
+# LR. Currently ADAM is only optimizer supported.
+learning-rate: 2e-3
+train-batch-size: 64
+valid-batch-size: 64
+# To use CPU, do not set or set to negative number 
+gpu-id: 0
+
+
+### MODEL ARCHITECTURE ###
+
+
+# LSTM Settings (Both SRC and TGT)
+hidden-pred: 600
+rnn-layers-pred: 3
+dropout-pred: 0.5
+# If set, takes precedence over other embedding params
+embedding-sizes: 300
+# Source, Target, and Target Softmax Embedding
+source-embeddings-size: 400
+target-embeddings-size: 400
+embed-out: 400
+# Set to true to predict from source to target
+predict-inverse: false
+
+
+### DATA ###
+
+
+# Source and Target Files
+train-source: data/parallel/europarl/europarl-v7.de-en.tc.en
+train-target: data/parallel/europarl/europarl-v7.de-en.tc.de
+# Optionally load more data which is used only for vocabulary creation.
+# This is useful to reduce OOV words if the parallel data
+# and QE data are from different domains.
+extend-source-vocab: /home/sony/tmp/OpenNMT-py/corpus/corpus.en
+extend-target-vocab: /home/sony/tmp/OpenNMT-py/corpus/corpus.en
+# Optionally Specify Validation Sets
+valid-source: data/WMT17/word_level/en_de/dev.src
+valid-target: data/WMT17/word_level/en_de/dev.pe
+# If No valid is specified, randomly split the train corpus
+split: 0.99
+
+
+### VOCAB ###
+
+# Load vocab file from a previous run.
+# This takes precedence over the other vocab options.
+source-vocab-size: 70000
+target-vocab-size: 70000
+# Remove Sentences not in the specified Length Range
+source-max-length: 50
+source-min-length: 1
+target-max-length: 50
+target-min-length: 1
+# Require Minimum Frequency of words
+source-vocab-min-frequency: 1
+target-vocab-min-frequency: 1

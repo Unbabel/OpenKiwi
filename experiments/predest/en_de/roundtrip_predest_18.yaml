@@ -1,0 +1,62 @@
+model: estimator
+experiment-name: Predictor Estimator WMT18
+
+epochs: 5
+warmup: 0
+log-interval: 100
+learning-rate: 1e-3
+
+train-batch-size: 32
+valid-batch-size: 32
+
+mlflow-tracking-uri: mlruns/
+
+## Architecture
+
+hidden-pred: 400
+hidden-est: 125
+out-size: 400
+rnn-layers-pred: 3
+rnn-layers-est: 1
+source-embeddings-size: 400
+target-embeddings-size: 400
+embed-out: 400
+mlp-est: True
+token-level: True
+sentence-level: True
+sentence-ll: True
+binary-level: True
+bad-weight: 2.25
+gaps-bad-weight: 6
+dropout-est: 0.0
+start-stop: True
+predict-gaps: true
+
+# Loading
+
+
+# Saving
+
+checkpoint-validation-samples: 100000
+checkpoint-validation-epochs: 1
+checkpoint-save: true
+checkpoint-keep-only-best: 3
+#checkpoint-early-stop-patience: 5
+
+
+# Data Source
+wmt18-format: true
+
+train-source: data/datasets/roundtrip/500K.tc.src
+train-source-tags: data/datasets/roundtrip/WMT18/source_tags.tc
+train-target: data/datasets/roundtrip/500K.tc.mt
+train-target-tags: data/datasets/roundtrip/WMT18/tags.tc
+train-pe: data/datasets/roundtrip/500K.tc.pe
+train-sentence-scores: data/datasets/roundtrip/500K.hter
+
+valid-source: data/WMT18/word_level/en_de.smt/dev.src
+valid-source-tags: data/WMT18/word_level/en_de.smt/dev.src_tags
+valid-target: data/WMT18/word_level/en_de.smt/dev.mt
+valid-target-tags: data/WMT18/word_level/en_de.smt/dev.tags
+valid-pe: data/WMT18/word_level/en_de.smt/dev.pe
+valid-sentence-scores: data/WMT18/sentence_level/en_de.smt/dev.hter

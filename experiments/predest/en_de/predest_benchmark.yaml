@@ -1,0 +1,90 @@
+model: estimator
+experiment-name: Predictor Estimator WMT18
+
+epochs: 5
+warmup: 0
+log-interval: 100
+learning-rate: 1e-3
+
+train-batch-size: 32
+valid-batch-size: 32
+
+mlflow-tracking-uri: mlruns/
+
+## Architecture
+
+
+hidden-pred: 400
+hidden-est: 100
+out-size: 400
+rnn-layers-pred: 3
+rnn-layers-est: 1
+source-embeddings-size: 400
+target-embeddings-size: 400
+embed-out: 400
+mlp-est: True
+token-level: True
+sentence-level: True
+sentence-ll: True
+binary-level: True
+bad-weight: 2.5
+dropout-est: 0.0
+predict-target: true
+predict-gaps: true
+target-bad-weight: 2
+gaps-bad-weight: 8
+
+
+### Loading ###
+load-pred-target: /mnt/data/home/sony/predest_benchmark/best_model.torch
+
+### Saving ###
+
+checkpoint-validation-samples: 0
+checkpoint-validation-epochs: 1
+checkpoint-save: false
+checkpoint-keep-only-best: 1
+#checkpoint-early-stop-patience: 5
+
+
+### Data Source ###
+
+
+train-source: data/WMT18/word_level/en_de.smt/train.src
+train-source-tags: data/WMT18/word_level/en_de.smt/train.src_tags
+train-target: data/WMT18/word_level/en_de.smt/train.mt
+train-target-tags: data/WMT18/word_level/en_de.smt/train.tags
+train-pe: data/WMT18/word_level/en_de.smt/train.pe
+train-sentence-scores: data/WMT18/sentence_level/en_de.smt/train.hter
+
+valid-source: data/WMT18/word_level/en_de.smt/dev.src
+valid-source-tags: data/WMT18/word_level/en_de.smt/dev.src_tags
+valid-target: data/WMT18/word_level/en_de.smt/dev.mt
+valid-target-tags: data/WMT18/word_level/en_de.smt/dev.tags
+valid-pe: data/WMT18/word_level/en_de.smt/dev.pe
+valid-sentence-scores: data/WMT18/sentence_level/en_de.smt/dev.hter
+
+# SMT
+# train-source: data/WMT18/word_level/en_de.smt/train.src
+# train-source-tags: data/WMT18/word_level/en_de.smt/train.src_tags
+# train-target: data/WMT18/word_level/en_de.smt/train.mt
+# train-target-tags: data/WMT18/word_level/en_de.smt/train.tags
+# train-pe: data/WMT18/word_level/en_de.smt/train.pe
+# train-sentence-scores: data/WMT18/sentence_level/en_de.smt/train.hter
+
+# valid-source: data/WMT18/word_level/en_de.smt/dev.src
+# valid-source-tags: data/WMT18/word_level/en_de.smt/dev.src_tags
+# valid-target: data/WMT18/word_level/en_de.smt/dev.mt
+# valid-target-tags: data/WMT18/word_level/en_de.smt/dev.tags
+# valid-pe: data/WMT18/word_level/en_de.smt/dev.pe
+# valid-sentence-scores: data/WMT18/sentence_level/en_de.smt/dev.hter
+
+source-max-length: 50
+source-min-length: 1
+target-max-length: 50
+target-min-length: 1
+
+target-vocab-size: 50000
+source-vocab-size: 50000
+
+gpu-id: 0

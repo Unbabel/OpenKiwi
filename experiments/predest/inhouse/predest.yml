@@ -1,0 +1,84 @@
+
+# Predictor-Estimator model
+# Sony's default params
+# No sentece level. 
+# Predictor pre-trained with 3mill lines of random generic data. 
+
+model: estimator
+
+experiment-name: Predictor Estimator In-house data 2
+mlflow-tracking-uri: mlruns/
+
+bad-weight: 2.125
+dropout-est: 0.0
+epochs: 5
+warmup: 0
+log-interval: 100
+learning-rate: 1e-3
+
+hidden-pred: 400
+hidden-est: 125
+out-size: 400
+rnn-layers-pred: 3
+rnn-layers-est: 1
+source-embeddings-size: 400
+target-embeddings-size: 400
+embed-out: 400
+
+mlp-est: True
+token-level: True
+sentence-level: False
+sentence-ll: False
+binary-level: False
+tock: 10000
+
+#save-checkpoint-steps: 100000
+#save-checkpoint-epochs: 0
+
+#checkpoint-validation-samples: 0
+checkpoint-validation-epochs: 1
+checkpoint-save: false
+#checkpoint-keep-only-best: 1
+#checkpoint-early-stop-patience: 5
+
+# Model from the last pre-trained predictor:
+load-model: /mnt/data/home/eduardofarah/OpenKiwi/runs/2/03473289f96f49dca97140f5842eca81/step_121862/model.torch
+
+source-vocab-size: 50000
+target-vocab-size: 50000
+
+train-batch-size: 16
+valid-batch-size: 16
+
+# For pre-processed data:
+
+source-vocab-min-frequency: 1
+target-vocab-min-frequency: 1
+
+train-source: /mnt/data/home/eduardofarah/qe_data/en-es-2017_july2018/train.src.tk
+train-target: /mnt/data/home/eduardofarah/qe_data/en-es-2017_july2018/train.mt.tk
+train-pe: /mnt/data/home/eduardofarah/qe_data/en-es-2017_july2018/train.pe.tk
+train-target-tags: /mnt/data/home/eduardofarah/qe_data/en-es-2017_july2018/train.tags
+
+source-parallel: /mnt/data/home/eduardofarah/qe_data/en-es_generic_data/training_corpus_3mill.tok.en
+target-parallel: /mnt/data/home/eduardofarah/qe_data/en-es_generic_data/training_corpus_3mill.tok.es
+
+valid-source: /mnt/data/home/eduardofarah/qe_data/en-es-2017_july2018/dev.src.tk
+valid-target: /mnt/data/home/eduardofarah/qe_data/en-es-2017_july2018/dev.mt.tk
+valid-pe: /mnt/data/home/eduardofarah/qe_data/en-es-2017_july2018/dev.pe.tk
+valid-target-tags: /mnt/data/home/eduardofarah/qe_data/en-es-2017_july2018/dev.pe.tk
+
+load-vocab: /mnt/data/home/eduardofarah/OpenKiwi/runs/2/03473289f96f49dca97140f5842eca81/vocab.torch
+predictor-split: 0.98
+source-vocab-min-frequency: 1
+target-vocab-min-frequency: 1
+
+
+
+source-max-length: 50
+source-min-length: 1
+target-max-length: 50
+target-min-length: 1
+
+gpu-id: 0
+

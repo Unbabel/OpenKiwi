@@ -1,0 +1,33 @@
+# MAIN OPTIONS (running args)
+
+experiment-name: Predest
+
+output-dir: predictions/predest/wmt18/en_de/nmt
+
+#
+# GENERAL OPTIONS
+#
+# random
+seed: 42
+
+# gpu
+# gpu-id: 0
+gpu-verbose-level: 0
+
+mlflow-tracking-uri: http://192.168.109.100:5000
+
+# save and load
+
+
+#
+# DATA OPTIONS
+#
+#test-source: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/test.src
+#test-target: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/test.mt
+
+test-source: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/test.src
+test-target: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/test.mt
+
+sentence-level: true
+valid-batch-size: 64
+

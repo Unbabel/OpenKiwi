@@ -1,0 +1,18 @@
+model: linear
+
+#load-model: linear_model_wmt18_nmt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8.pkl
+
+output-dir: linear_experiments_wmt18_nmt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8
+model-file: linear_model_wmt18_nmt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8.pkl
+output-file: linear_model_wmt18_nmt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8.pred
+
+test-source: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/test.src
+test-target: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/test.mt
+test-target-tags: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/test.tags
+test-alignments: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/test.src-mt.alignments
+
+test-source-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/additional/test.src.pos
+test-target-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/additional/test.mt.pos
+test-target-ngram: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/features/test.mt.ngrams
+test-target-parse: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.nmt/additional/test.mt.parses
+test-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT18/word_level/en_de.nmt/test.nuqe.stacked

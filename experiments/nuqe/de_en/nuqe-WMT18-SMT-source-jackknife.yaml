@@ -1,0 +1,5 @@
+model: nuqe
+base-config: experiments/nuqe/de_en/nuqe-WMT18-SMT-source.yaml
+splits: 5
+output-dir: predictions/nuqe/WMT18-SMT/de_en/source/jackknife/
+experiment-name: NUQE-WMT18-de_en-SMT-SOURCE-JACKKNIFE

@@ -1,0 +1,6 @@
+config: experiments/predest/en_de/predictor_estimator_18.yaml
+
+predict-gaps: [True, False]
+predict-target: [True, False]
+
+experiment-name: WMT18 Multilevel

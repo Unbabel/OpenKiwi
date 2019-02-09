@@ -1,0 +1,5 @@
+model: nuqe
+base-config: experiments/nuqe/de_en/nuqe-WMT18-SMT-gaps.yaml
+splits: 5
+output-dir: predictions/nuqe/WMT18-SMT/de_en/gaps/jackknife/
+experiment-name: NUQE-WMT18-de_en-SMT-GAPS-JACKKNIFE

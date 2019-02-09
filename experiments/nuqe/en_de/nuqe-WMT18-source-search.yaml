@@ -1,0 +1,130 @@
+model: nuqe
+# to run:
+# python3 -m kiwi.cli.main quetch --config experiments/quetch-WMT16.yaml
+
+# 
+# WMT2018-NUQE OPTION
+# 
+predict-side: source_tags
+wmt18-format: true
+
+# 
+# MAIN OPTIONS (running args)
+# 
+experiment-name: NuQE WMT18 Source Hyper-search
+# run-uuid: null
+
+# 
+# GENERAL OPTIONS
+# 
+# random
+seed: 42
+
+# logging
+debug: false
+# output-dir: null  # mlflow will create one if this is null
+mlflow-tracking-uri: mlruns/
+
+# save and load
+# save-model: null
+# load-model: null
+resume: false
+
+
+# 
+# DATA OPTIONS
+# 
+# corpus
+#test-source: data/WMT18/word_level/en_de.nmt/test.src
+## test-source-pos: data/WMT18/word_level/en_de.nmt/test.src.pos
+## test-source-tags: null
+#test-target: data/WMT18/word_level/en_de.nmt/test.mt
+## test-target-pos: data/WMT18/word_level/en_de.nmt/test.mt.pos
+## test-target-tags: data/WMT18/word_level/en_de.nmt/test_words.tags
+#test-alignments: data/WMT18/word_level/en_de.nmt/test.src-mt.alignments
+
+train-source: data/WMT18/word_level/en_de.nmt/train.src
+# train-source-pos: data/WMT18/word_level/en_de.nmt/train.src.pos
+train-source-tags: data/WMT18/word_level/en_de.nmt/train.src_tags
+train-target: data/WMT18/word_level/en_de.nmt/train.mt
+# train-target-pos: data/WMT18/word_level/en_de.nmt/train.mt.pos
+train-target-tags: data/WMT18/word_level/en_de.nmt/train.tags
+train-alignments: data/WMT18/word_level/en_de.nmt/train.src-mt.alignments
+
+valid-source: data/WMT18/word_level/en_de.nmt/dev.src
+# valid-source-pos: data/WMT18/word_level/en_de.nmt/dev.src.pos
+valid-source-tags: data/WMT18/word_level/en_de.nmt/dev.src_tags
+valid-target: data/WMT18/word_level/en_de.nmt/dev.mt
+# valid-target-pos: data/WMT18/word_level/en_de.nmt/dev.mt.pos
+valid-target-tags: data/WMT18/word_level/en_de.nmt/dev.tags
+valid-alignments: data/WMT18/word_level/en_de.nmt/dev.src-mt.alignments
+
+# vocabulary
+# source-vocab: null
+source-vocab-min-frequency: 2
+# source-vocab-size: null
+# target-vocab: null
+target-vocab-min-frequency: 2
+# target-vocab-size: null
+keep-rare-words-with-embeddings: true
+add-embeddings-vocab: [false, true]
+
+# embeddings
+embeddings-format: polyglot
+source-embeddings: data/embeddings2/en/embeddings_pkl.tar.bz2
+target-embeddings: data/embeddings2/de/embeddings_pkl.tar.bz2
+
+# load and save data (preprocessed datasets and built vocabs)
+# save-data: null
+# load-data: null
+
+
+# 
+# MODEL OPTIONS
+# 
+# embeddings
+source-embeddings-size: 50
+source-pos-embeddings-size: 20
+target-embeddings-size: 50
+target-pos-embeddings-size: 20
+
+# network
+hidden-sizes: [400, 200, 100, 50]
+# output-size: 50
+dropout: 0.0
+embeddings-dropout: [0., 0.25, 0.5]
+freeze-embeddings: false
+bad-weight: [3.0, 5.0]
+
+# initialization
+#init-support: 0.1
+#init-type: uniform
+
+
+# 
+# TRAINING OPTIONS
+# 
+epochs: 100
+shuffle: true
+train-batch-size: [32, 64, 128]
+valid-batch-size: 64
+
+checkpoint-validation-epochs: 1
+log-interval: 0
+checkpoint-save: true
+checkpoint-keep-only-best: 1
+checkpoint-early-stop-patience: 10
+
+
+# 
+# TRAINING OPTIMIZATION
+# 
+optimizer: adam
+learning-rate: [0.001, 0.003, 0.01]
+
+
+# 
+# QUETCH OPTIONS
+# 
+window-size: [3, 5]
+max-aligned: 5

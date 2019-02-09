@@ -1,0 +1,30 @@
+# MAIN OPTIONS (running args)
+
+experiment-name: Predest
+
+output-dir: predictions/predest/wmt17/en_de
+
+#
+# GENERAL OPTIONS
+#
+# random
+seed: 42
+
+# gpu
+# gpu-id: 0
+gpu-verbose-level: 0
+
+mlflow-tracking-uri: http://192.168.109.100:5000
+
+# save and load
+load-model: data/trained_models/predest/en_de/estimator_dev_52.torch
+load-vocab: data/trained_models/predest/en_de/vocab.torch
+
+
+#
+# DATA OPTIONS
+#
+test-source: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/test.src
+test-target: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/test.mt
+valid-batch-size: 64
+

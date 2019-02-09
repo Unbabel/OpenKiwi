@@ -1,0 +1,24 @@
+model: estimator
+mlflow-tracking-uri: mlruns/
+
+load-vocab: /mnt/data/datasets/kiwi/trained_models/predest/en_de/vocab.torch
+
+# Data Sources:
+output-dir: ./prep
+train-source: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/train.src
+train-target: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/train.mt
+train-pe: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/train.pe
+train-target-tags: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/train.tags
+train-sentence-scores: /mnt/data/datasets/kiwi/WMT17/sentence_level/en_de/train.hter
+
+valid-source: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/dev.src
+valid-target: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/dev.mt
+valid-pe: /mnt/data/datasets/kiwi/WMT17/sentence_level/en_de/dev.pe
+valid-target-tags: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/dev.tags
+valid-sentence-scores: /mnt/data/datasets/kiwi/WMT17/sentence_level/en_de/dev.hter
+
+source-max-length: 50
+source-min-length: 1
+target-max-length: 50
+target-min-length: 1
+

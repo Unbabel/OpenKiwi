@@ -1,0 +1,33 @@
+model: linear
+
+output-dir: linear_experiments_wmt18_smt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8
+model-file: linear_model_wmt18_smt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8.pkl
+# output-file: linear_model_wmt18_smt_parse-1_stacked-1_nuqe_reg-0.001_costs-0.2-0.8.pred
+
+epochs: 2
+
+regularization-constant: 0.001
+cost-false-positives: 0.2
+cost-false-negatives: 0.8
+
+train-source: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/train.src
+train-target: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/train.mt
+train-target-tags: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/train.tags
+train-alignments: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/train.src-mt.alignments
+
+train-source-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.src.pos
+train-target-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.mt.pos
+train-target-ngram: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.mt.ngrams
+train-target-parse: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/train.mt.parses
+train-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT18/word_level/en_de.smt/nuqe/train.nuqe.stacked
+
+valid-source: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.src
+valid-target: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.mt
+valid-target-tags: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.tags
+valid-alignments: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/dev.src-mt.alignments
+
+valid-source-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.src.pos
+valid-target-pos: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.mt.pos
+valid-target-ngram: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.mt.ngrams
+valid-target-parse: /mnt/data/datasets/kiwi/WMT18/word_level/en_de.smt/additional/dev.mt.parses
+valid-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT18/word_level/en_de.smt/nuqe/dev.nuqe.stacked

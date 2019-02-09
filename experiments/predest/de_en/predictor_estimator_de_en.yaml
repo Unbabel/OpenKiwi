@@ -1,0 +1,70 @@
+model: estimator
+
+experiment-name: Predictor Estimator WMT17 de_en
+mlflow-tracking-uri: mlruns/
+
+seed: 42
+
+# ----------------------------------------------------------------------------
+# TRAINING
+# ----------------------------------------------------------------------------
+log-interval: 100
+
+#checkpoint-validation-samples: 0
+checkpoint-validation-epochs: 1
+checkpoint-save: False
+#checkpoint-keep-only-best: 1
+#checkpoint-early-stop-patience: 5
+
+epochs: 5
+warmup: 0
+
+train-batch-size: 32
+valid-batch-size: 32
+
+bad-weight: 3
+learning-rate: 1e-3
+
+
+# ----------------------------------------------------------------------------
+# MODEL
+# ----------------------------------------------------------------------------
+# Estimator options
+dropout-est: 0.0
+hidden-est: 150
+rnn-layers-est: 1
+mlp-est: True
+
+# Load pre-trained Predictor
+#load-model: data/trained_models/europarl/step_240000/model.torch
+load-model: data/trained_models/predest/de_en/model.step_240000.torch
+
+# Otherwise:
+#hidden-pred: 400
+#out-size: 400
+#rnn-layers-pred: 3
+#source-embeddings-size: 400
+#target-embeddings-size: 400
+#embed-out: 200
+
+
+# ----------------------------------------------------------------------------
+# DATA
+# ----------------------------------------------------------------------------
+# For pre-processed data:
+load-data: data/preprocessed_data/europarl_de_en/
+
+# Otherwise:
+#source-vocab-size: 80000
+#target-vocab-size: 80000
+#train-source: data/WMT17/word_level/en_de/train.src
+#train-target: data/WMT17/word_level/en_de/train.mt
+#train-target-tags: data/WMT17/word_level/en_de/train.tags
+#valid-source: data/WMT17/word_level/en_de/dev.src
+#valid-target: data/WMT17/word_level/en_de/dev.mt
+#valid-target-tags: data/WMT17/word_level/en_de/dev.tags
+
+source-max-length: 50
+source-min-length: 1
+target-max-length: 50
+target-min-length: 1

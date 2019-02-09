@@ -1,0 +1,63 @@
+#### MODEL SPECIFIC OPTIONS ####
+#
+model: nuqe
+
+window-size: 3
+max-aligned: 5
+
+# embeddings
+source-embeddings-size: 50
+source-pos-embeddings-size: 20
+target-embeddings-size: 50
+target-pos-embeddings-size: 20
+
+# network
+hidden-sizes: [400, 200, 100, 50]
+# output-size: 50
+dropout: 0.0
+embeddings-dropout: 0.5
+freeze-embeddings: false
+bad-weight: 3.0
+
+# initialization
+init-support: 0.1
+init-type: uniform
+
+### Pretrained Embedding Options ###
+#embeddings-format: polyglot
+#source-embeddings: path/to/source/embeddings_pkl.tar.bz2
+#target-embeddings: path/to/target/embeddings_pkl.tar.bz2
+
+#
+# TRAINING OPTIONS
+#
+epochs: 10
+train-batch-size: 64
+valid-batch-size: 64
+
+log-interval: 100
+checkpoint-save: true
+checkpoint-keep-only-best: 1
+checkpoint-early-stop-patience: 10
+
+optimizer: adam
+learning-rate: 0.001
+
+#
+# DATA OPTIONS
+#
+train-source: testdata/WMT17/word_level/train.src
+train-target: testdata/WMT17/word_level/train.mt
+train-target-tags: testdata/WMT17/word_level/train.tags
+train-alignments: testdata/WMT17/word_level/train.src-mt.alignments
+
+valid-source: testdata/WMT17/word_level/dev.src
+valid-target: testdata/WMT17/word_level/dev.mt
+valid-target-tags: testdata/WMT17/word_level/dev.tags
+valid-alignments: testdata/WMT17/word_level/dev.src-mt.alignments
+
+# vocabulary
+source-vocab-min-frequency: 2
+target-vocab-min-frequency: 2
+keep-rare-words-with-embeddings: true
+add-embeddings-vocab: false

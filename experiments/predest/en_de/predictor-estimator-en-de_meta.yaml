@@ -1,0 +1,5 @@
+model: estimator
+dropout = [0.0, 0.5]
+bad_weight = [1.5, 2.0, 2.5, 3.0]
+hidden-est = [50, 100, 150, 200]
+epochs: 4

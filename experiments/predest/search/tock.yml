@@ -1,0 +1,5 @@
+config: experiments/predest/en_de/predictor_estimator.yaml
+
+tock: [1, 10, 10000]
+
+experiment-name: PredTock

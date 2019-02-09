@@ -1,0 +1,50 @@
+model: quetch
+# to run:
+# python3 -m kiwi.cli.main quetch --config experiments/quetch-WMT16.yaml
+
+# 
+# MAIN OPTIONS (running args)
+# 
+experiment-name: QUETCH WMT16
+# run-uuid: null
+
+output-dir: predictions/quetch/WMT16/
+
+# 
+# GENERAL OPTIONS
+# 
+# random
+seed: 42
+
+# gpu
+# gpu-id: 0
+
+
+# logging
+debug: false
+# output-dir: null  # mlflow will create one if this is null
+mlflow-tracking-uri: mlruns/
+
+# save and load
+# save-model: null
+load-model: runs/19/40fc1d9f725848e6a979636541d64f09/epoch_33/model.torch
+load-vocab: runs/19/40fc1d9f725848e6a979636541d64f09/vocab.torch
+#resume: false
+
+
+# 
+# DATA OPTIONS
+# 
+# corpus
+test-source: data/WMT16/word_level/en_de/test.src
+# test-source-pos: null
+# test-source-tags: null
+test-target: data/WMT16/word_level/en_de/test.mt
+# test-target-pos: null
+test-target-tags: data/WMT16/word_level/en_de/test_words.tags
+test-alignments: data/WMT16/word_level/en_de/test.alignments
+
+
+# load and save data (preprocessed datasets and built vocabs)
+# save-data: null
+# load-data: null

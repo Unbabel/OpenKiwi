@@ -1,0 +1,14 @@
+model: linear
+
+load-model: runs/linear_experiments_wmt17/
+
+test-source: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/test.src
+test-target: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/test.mt
+test-target-tags: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/test.tags
+test-alignments: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/test.src-mt.alignments
+
+test-source-pos: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/additional/test.src.pos
+test-target-pos: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/additional/test.mt.pos
+test-target-ngram: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/additional/test.mt.ngrams
+test-target-parse: /mnt/data/datasets/kiwi/WMT17/word_level/en_de/additional/test.mt.parses
+test-target-stacked: /mnt/data/datasets/kiwi/predictions/WMT17/word_level/en_de/nuqe/test.nuqe.stacked
