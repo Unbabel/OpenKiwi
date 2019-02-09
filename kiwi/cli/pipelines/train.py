@@ -76,7 +76,7 @@ def train_opts(parser):
     group.add_argument(
         '--checkpoint-keep-only-best',
         type=int,
-        default=0,
+        default=1,
         help='Keep only this number of saved snapshots; 0 will keep all.',
     )
     group.add_argument(
