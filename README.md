@@ -3,8 +3,26 @@
 [![pipeline status](https://gitlab.com/Unbabel/OpenKiwi/badges/master/pipeline.svg)](https://gitlab.com/Unbabel/OpenKiwi/commits/master)
 [![coverage report](https://gitlab.com/Unbabel/OpenKiwi/badges/master/coverage.svg)](https://gitlab.com/Unbabel/OpenKiwi/commits/master)
 
+Toolkit for Machine Translation Quality Estimation.
 
-Toolkit for Quality Estimation.
+## Features
+
+• Framework for training QE models and using pre-trained models for evaluating MT
+• Easy to use API. Import it as a package in other projects or run from the command line
+• Implementation of state-of-the-art QE systems from 2016, 2017, and matching performance with 2018
+• Track your experiments with MLflow
+* Great for sandboxing with new models
+
+
+## Results
+
+http://www.statmt.org/wmt18/quality-estimation-task.html#task2_results
+
+| First Header  | Second Header |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
+
 
 ## Installing
 
