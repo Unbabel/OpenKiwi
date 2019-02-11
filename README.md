@@ -7,10 +7,10 @@ Toolkit for Machine Translation Quality Estimation.
 
 ## Features
 
-• Framework for training QE models and using pre-trained models for evaluating MT
-• Easy to use API. Import it as a package in other projects or run from the command line
-• Implementation of state-of-the-art QE systems from 2016, 2017, and matching performance with 2018
-• Track your experiments with MLflow
+* Framework for training QE models and using pre-trained models for evaluating MT
+* Easy to use API. Import it as a package in other projects or run from the command line
+* Implementation of state-of-the-art QE systems from 2016, 2017, and matching performance with 2018
+* Track your experiments with MLflow
 * Great for sandboxing with new models
 
 
