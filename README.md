@@ -18,10 +18,20 @@ Toolkit for Machine Translation Quality Estimation.
 
 http://www.statmt.org/wmt18/quality-estimation-task.html#task2_results
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+English-Latvian (SMT), words in MT, test set:
+
+| Model                   |   xF1   |
+| ----------------------- | ------- |
+| NuQE model 1            | 0.3746  |
+| SHEF-PT (Best in WMT18) | 0.3608  |
+
+
+English-Latvian (NMT), words in MT, test set:
+
+| Model                  |   xF1   |
+| ---------------------- | ------- |
+| NuQE model 1           | 0.4377  |
+| Conv64 (Best in WMT18) | 0.4293  |
 
 
 ## Installing
