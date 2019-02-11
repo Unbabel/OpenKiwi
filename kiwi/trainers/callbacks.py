@@ -113,8 +113,8 @@ class Checkpoint:
         if self.must_save(stats):
             self._last_saved = self._validation_epoch
             output_path = self.make_output_path(epoch=epoch, step=step)
-            event = trainer.save(output_path)
             path_to_remove = self.push_to_heap(stats, output_path)
+            event = trainer.save(output_path)
             if path_to_remove:
                 self.remove_snapshot(path_to_remove, event)
             return output_path
@@ -147,40 +147,28 @@ class Checkpoint:
     def remove_snapshot(self, path_to_remove, event=None):
         """Remove snapshot locally and in MLFlow."""
 
+        def _remove_snapshot(path, event, message):
+            if event:
+                event.wait()
+            logger.info(message)
+            shutil.rmtree(str(path))
+            if event:
+                event.clear()
+
         removal_message = (
             'Removing previous snapshot because it is worse: '
             '{}'.format(path_to_remove)
         )
 
-        if event is None:
-            try:
-                shutil.rmtree(str(path_to_remove))
-            except FileNotFoundError as e:
-                logger.exception(e)
-            logger.info(removal_message)
-        else:
-            def _remove_snapshot(path, e, message):
-                e.wait()
-                logger.info(message)
-                shutil.rmtree(str(path))
-                e.clear()
-
-            t = threading.Thread(
-                target=_remove_snapshot,
-                args=(path_to_remove, event, removal_message),
-                daemon=True,
-            )
-            try:
-                t.start()
-            except FileNotFoundError as e:
-                logger.exception(e)
-
-    @property
-    def worst_stat(self):
-        if self.best_stats_summary:
-            return self.best_stats_summary[0][0]
-        else:
-            return None
+        t = threading.Thread(
+            target=_remove_snapshot,
+            args=(path_to_remove, event, removal_message),
+            daemon=True,
+        )
+        try:
+            t.start()
+        except FileNotFoundError as e:
+            logger.exception(e)
 
     def best_stats_and_path(self):
         if self.best_stats_summary:

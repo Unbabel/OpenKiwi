@@ -6,7 +6,9 @@ import numpy as np
 import torch
 
 from kiwi import constants, load_model
+from kiwi.data import utils
 from kiwi.data.builders import build_test_dataset
+from kiwi.data.iterators import build_bucket_iterator
 from kiwi.data.utils import cross_split_dataset, save_predicted_probabilities
 from kiwi.lib import train
 from kiwi.lib.utils import merge_namespaces
@@ -96,6 +98,8 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
         # options.output_dir = str(options.output_dir)
 
         # Train
+        vocabs = utils.fields_to_vocabs(train_fold.fields)
+
         mlflow_run = mlflow_logger.start_nested_run(run_name=run_name)
         with mlflow_run:
             train.setup(
@@ -106,12 +110,30 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
                 quiet=pipeline_options.quiet,
             )
 
-            trainer = train.build_and_execute(ModelClass,
-                                              output_dir,
-                                              pipeline_options,
-                                              model_options,
-                                              [train_fold, dev_set],
-                                              device_id)
+            trainer = train.retrieve_trainer(
+                ModelClass,
+                pipeline_options,
+                model_options,
+                vocabs,
+                output_dir,
+                device_id
+            )
+
+            # Dataset iterators
+            train_iter = build_bucket_iterator(
+                train_fold,
+                batch_size=pipeline_options.train_batch_size,
+                is_train=True,
+                device=device_id,
+            )
+            valid_iter = build_bucket_iterator(
+                pred_fold,
+                batch_size=pipeline_options.valid_batch_size,
+                is_train=False,
+                device=device_id,
+            )
+
+            trainer.run(train_iter, valid_iter, epochs=pipeline_options.epochs)
 
         # Predict
         predictor = load_model(trainer.checkpointer.best_model_path())

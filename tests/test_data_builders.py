@@ -1,7 +1,7 @@
-import pytest
 import numpy as np
+import pytest
 
-from kiwi.data.builders import build_training_datasets, build_test_dataset
+from kiwi.data.builders import build_test_dataset, build_training_datasets
 from kiwi.data.fieldsets.quetch import build_fieldset
 from kiwi.data.qe_dataset import QEDataset
 

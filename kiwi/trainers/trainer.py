@@ -10,7 +10,7 @@ from kiwi.loggers import mlflow_logger
 from kiwi.metrics.stats import Stats
 from kiwi.models.model import Model
 from kiwi.trainers.callbacks import EarlyStopException
-from kiwi.trainers.utils import OptimizerClass
+from kiwi.trainers.utils import optimizer_class
 
 logger = logging.getLogger(__name__)
 
@@ -234,7 +234,7 @@ class Trainer:
         optimizer_dict = torch.load(
             str(optimizer_path), map_location=lambda storage, loc: storage
         )
-        optimizer = OptimizerClass(optimizer_dict['name'])(
+        optimizer = optimizer_class(optimizer_dict['name'])(
             model.parameters(), lr=0.0
         )
         optimizer.load_state_dict(optimizer_dict['state_dict'])

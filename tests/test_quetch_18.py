@@ -81,7 +81,7 @@ def test_jackknifing_target(temp_output_dir, train_opts, target_opts, atol):
         train_opts,
         target_opts,
         output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.393234,
+        expected_avg_probs=0.372357,
         atol=atol,
     )
 
@@ -105,7 +105,7 @@ def test_jackknifing_source(temp_output_dir, train_opts, source_opts, atol):
         train_opts,
         source_opts,
         output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.354669,
+        expected_avg_probs=0.378724,
         atol=atol,
     )
 
