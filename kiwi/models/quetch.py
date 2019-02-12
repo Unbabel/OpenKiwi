@@ -149,7 +149,7 @@ class QUETCH(Model):
                 num_embeddings=source_vectors.size(0),
                 embedding_dim=source_vectors.size(1),
                 padding_idx=self.config.source_padding_idx,
-                _weight=torch.tensor(source_vectors),
+                _weight=source_vectors,
             )
         else:
             self.source_emb = nn.Embedding(
@@ -162,7 +162,7 @@ class QUETCH(Model):
                 num_embeddings=target_vectors.size(0),
                 embedding_dim=target_vectors.size(1),
                 padding_idx=self.config.target_padding_idx,
-                _weight=torch.tensor(target_vectors),
+                _weight=target_vectors,
             )
         else:
             self.target_emb = nn.Embedding(
