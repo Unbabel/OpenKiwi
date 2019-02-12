@@ -14,7 +14,7 @@ embedding-sizes: 200
 # Source, Target, and Target Softmax Embedding
 source-embeddings-size: 200
 target-embeddings-size: 200
-embed-out: 200
+out-embeddings-size: 200
 # Dropout
 dropout-pred: 0.5
 # Set to true to predict from source to target

@@ -95,7 +95,7 @@ valid-batch-size: 64
 
 # load-model: path_to_estimator
 # load-pred-source: path_to_predictor_source_target
-#load-pred-target: runs/model.torch
+# load-pred-target: runs/model.torch
 
 
 ###  DATA ###
