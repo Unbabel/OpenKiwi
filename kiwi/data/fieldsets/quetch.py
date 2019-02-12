@@ -1,6 +1,6 @@
 from torchtext import data
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.data import utils
 from kiwi.data.fields.alignment_field import AlignmentField
 from kiwi.data.fields.qe_field import QEField
@@ -13,7 +13,7 @@ def build_fieldset(wmt18_format=False):
     fs = Fieldset()
 
     fs.add(
-        name=constants.SOURCE,
+        name=const.SOURCE,
         field=QEField(
             tokenize=tokenizer,
             init_token=None,
@@ -31,7 +31,7 @@ def build_fieldset(wmt18_format=False):
         vocab_vectors='source_embeddings',
     )
     fs.add(
-        name=constants.TARGET,
+        name=const.TARGET,
         field=QEField(
             tokenize=tokenizer,
             init_token=None,
@@ -50,7 +50,7 @@ def build_fieldset(wmt18_format=False):
     )
 
     fs.add(
-        name=constants.ALIGNMENTS,
+        name=const.ALIGNMENTS,
         field=AlignmentField(tokenize=align_tokenizer, use_vocab=False),
         file_option_suffix='_alignments',
         required=Fieldset.ALL,
@@ -61,14 +61,14 @@ def build_fieldset(wmt18_format=False):
         post_pipe_gaps = data.Pipeline(utils.wmt18_to_gaps)
         post_pipe_target = data.Pipeline(utils.wmt18_to_target)
         fs.add(
-            name=constants.GAP_TAGS,
+            name=const.GAP_TAGS,
             field=SequenceLabelsField(
-                classes=constants.LABELS,
+                classes=const.LABELS,
                 tokenize=tokenizer,
-                pad_token=constants.PAD,
+                pad_token=const.PAD,
                 unk_token=None,
                 batch_first=True,
-                # eos_token=constants.STOP,
+                # eos_token=const.STOP,
                 postprocessing=post_pipe_gaps,
             ),
             file_option_suffix='_target_tags',
@@ -76,11 +76,11 @@ def build_fieldset(wmt18_format=False):
         )
 
     fs.add(
-        name=constants.TARGET_TAGS,
+        name=const.TARGET_TAGS,
         field=SequenceLabelsField(
-            classes=constants.LABELS,
+            classes=const.LABELS,
             tokenize=tokenizer,
-            pad_token=constants.PAD,
+            pad_token=const.PAD,
             unk_token=None,
             batch_first=True,
             postprocessing=post_pipe_target,
@@ -89,11 +89,11 @@ def build_fieldset(wmt18_format=False):
         required=[Fieldset.TRAIN, Fieldset.VALID],
     )
     fs.add(
-        name=constants.SOURCE_TAGS,
+        name=const.SOURCE_TAGS,
         field=SequenceLabelsField(
-            classes=constants.LABELS,
+            classes=const.LABELS,
             tokenize=tokenizer,
-            pad_token=constants.PAD,
+            pad_token=const.PAD,
             unk_token=None,
             batch_first=True,
         ),

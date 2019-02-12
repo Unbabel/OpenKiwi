@@ -5,7 +5,7 @@ from pathlib import Path
 import torch
 from tqdm import tqdm
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.loggers import mlflow_logger
 from kiwi.metrics.stats import Stats
 from kiwi.models.model import Model
@@ -118,7 +118,7 @@ class Trainer:
         self.model.zero_grad()
         model_out = self.model(batch)
         loss_dict = self.model.loss(model_out, batch)
-        loss_dict[constants.LOSS].backward()
+        loss_dict[const.LOSS].backward()
         self.optimizer.step()
         return dict(loss=loss_dict, model_out=model_out)
 
@@ -161,10 +161,10 @@ class Trainer:
         output_directory.mkdir(exist_ok=True)
         logging.info('Saving training state to {}'.format(output_directory))
 
-        model_path = output_directory / constants.MODEL_FILE
+        model_path = output_directory / const.MODEL_FILE
         self.model.save(str(model_path))
 
-        optimizer_path = output_directory / constants.OPTIMIZER
+        optimizer_path = output_directory / const.OPTIMIZER
         scheduler_dict = None
         if self.scheduler:
             scheduler_dict = {
@@ -183,7 +183,7 @@ class Trainer:
             '_step': self._step,
             'checkpointer': self.checkpointer,
         }
-        state_path = output_directory / constants.TRAINER
+        state_path = output_directory / const.TRAINER
         torch.save(state, str(state_path))
 
         # Send to MLflow
@@ -198,10 +198,10 @@ class Trainer:
     def load(self, directory):
         logger.info('Loading training state from {}'.format(directory))
         root_path = Path(directory)
-        model_path = root_path / constants.MODEL_FILE
+        model_path = root_path / const.MODEL_FILE
         self.model = self.model.from_file(model_path)
 
-        optimizer_path = root_path / constants.OPTIMIZER
+        optimizer_path = root_path / const.OPTIMIZER
         optimizer_dict = torch.load(
             str(optimizer_path), map_location=lambda storage, loc: storage
         )
@@ -213,7 +213,7 @@ class Trainer:
         if scheduler_dict:
             self.scheduler.load_state_dict(scheduler_dict['state_dict'])
 
-        trainer_path = root_path / constants.TRAINER
+        trainer_path = root_path / const.TRAINER
         state = torch.load(
             str(trainer_path), map_location=lambda storage, loc: storage
         )
@@ -224,13 +224,13 @@ class Trainer:
         logger.info('Loading training state from {}'.format(directory))
         root_path = Path(directory)
 
-        model_path = root_path / constants.MODEL_FILE
+        model_path = root_path / const.MODEL_FILE
         model = Model.create_from_file(model_path)
 
         if device_id is not None:
             model.to(device_id)
 
-        optimizer_path = root_path / constants.OPTIMIZER
+        optimizer_path = root_path / const.OPTIMIZER
         optimizer_dict = torch.load(
             str(optimizer_path), map_location=lambda storage, loc: storage
         )
@@ -240,7 +240,7 @@ class Trainer:
         optimizer.load_state_dict(optimizer_dict['state_dict'])
 
         trainer = cls(model, optimizer, checkpointer=None)
-        trainer_path = root_path / constants.TRAINER
+        trainer_path = root_path / const.TRAINER
         state = torch.load(
             str(trainer_path), map_location=lambda storage, loc: storage
         )

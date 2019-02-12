@@ -1,6 +1,6 @@
 from distutils.util import strtobool
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.cli.better_argparse import ModelParser
 from kiwi.cli.opts import PathType
 from kiwi.models.predictor_estimator import Estimator
@@ -130,11 +130,11 @@ def _add_data_flags(parser):
     group.add_argument(
         '--predict-side',
         type=str,
-        default=constants.TARGET_TAGS,
+        default=const.TARGET_TAGS,
         choices=[
-            constants.TARGET_TAGS,
-            constants.SOURCE_TAGS,
-            constants.GAP_TAGS,
+            const.TARGET_TAGS,
+            const.SOURCE_TAGS,
+            const.GAP_TAGS,
         ],
         help='Tagset to predict. Leave unchanged for WMT17 format.',
     )

@@ -4,7 +4,7 @@ from pprint import pformat
 
 import torch
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.cli.pipelines.train import build_parser
 from kiwi.data import builders, utils
 from kiwi.data.iterators import build_bucket_iterator
@@ -230,7 +230,7 @@ def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
         load_vocab = None
 
         if pipeline_options.resume:
-            load_vocab = Path(output_dir, constants.VOCAB_FILE)
+            load_vocab = Path(output_dir, const.VOCAB_FILE)
         elif pipeline_options.load_model:
             load_vocab = pipeline_options.load_model
         elif model_options.__dict__.get('load_pred_source'):

@@ -4,7 +4,7 @@ import shutil
 import threading
 from pathlib import Path
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.data.utils import save_predicted_probabilities
 
 logger = logging.getLogger(__name__)
@@ -189,7 +189,7 @@ class Checkpoint:
             return None
 
     def best_model_path(self):
-        path = self.output_directory / constants.BEST_MODEL_FILE
+        path = self.output_directory / const.BEST_MODEL_FILE
         if path.exists():
             return path
         return self.best_iteration_path()
@@ -201,8 +201,8 @@ class Checkpoint:
 
     @staticmethod
     def copy_best_model(model_dir, output_dir):
-        model_path = model_dir / constants.MODEL_FILE
-        best_model_path = output_dir / constants.BEST_MODEL_FILE
+        model_path = model_dir / const.MODEL_FILE
+        best_model_path = output_dir / const.BEST_MODEL_FILE
         logging.info('Copying best model to {}'.format(best_model_path))
         shutil.copy(str(model_path), str(best_model_path))
         return best_model_path

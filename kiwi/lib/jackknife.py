@@ -5,7 +5,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from kiwi import constants, load_model
+from kiwi import constants as const, load_model
 from kiwi.data import utils
 from kiwi.data.builders import build_test_dataset
 from kiwi.data.iterators import build_bucket_iterator
@@ -167,14 +167,14 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
 
     save_predicted_probabilities(parent_dir,
                                  train_predictions,
-                                 prefix=constants.TRAIN)
+                                 prefix=const.TRAIN)
     save_predicted_probabilities(parent_dir,
                                  dev_predictions,
-                                 prefix=constants.DEV)
+                                 prefix=const.DEV)
     if test_set:
         save_predicted_probabilities(parent_dir,
                                      test_predictions,
-                                     prefix=constants.TEST)
+                                     prefix=const.TEST)
 
     teardown(pipeline_options)
 

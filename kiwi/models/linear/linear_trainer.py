@@ -5,7 +5,7 @@ from pathlib import Path
 
 import numpy as np
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.models.linear.sparse_vector import SparseVector
 
 from .utils import nearly_eq_tol
@@ -266,7 +266,7 @@ class LinearTrainer(object):
         output_directory.mkdir(exist_ok=True)
         logging.info('Saving training state to {}'.format(output_directory))
 
-        model_path = output_directory / constants.MODEL_FILE
+        model_path = output_directory / const.MODEL_FILE
 
         self.classifier.model.save(
             str(model_path), feature_indices=self.classifier.feature_indices

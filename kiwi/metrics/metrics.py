@@ -7,7 +7,7 @@ import torch
 from scipy.stats.stats import pearsonr, spearmanr
 from torch import nn
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.metrics.functions import fscore, precision_recall_fscore_support
 from kiwi.models.utils import replace_token
 
@@ -303,7 +303,7 @@ class RMSEMetric(Metric):
 
 class TokenMetric(Metric):
     def __init__(
-        self, target_token=constants.UNK_ID, token_name='UNK', **kwargs
+        self, target_token=const.UNK_ID, token_name='UNK', **kwargs
     ):
         self.target_token = target_token
         super().__init__(metric_name='UNKS', **kwargs)
@@ -330,7 +330,7 @@ class ThresholdCalibrationMetric(Metric):
 
     def update(self, model_out, batch, **kwargs):
         logits = self.get_predictions_flat(model_out, batch)
-        bad_probs = nn.functional.softmax(logits, -1)[:, constants.BAD_ID]
+        bad_probs = nn.functional.softmax(logits, -1)[:, const.BAD_ID]
         target = self.get_target_flat(batch)
         self.scores += bad_probs.tolist()
         self.Y += target.tolist()
@@ -347,7 +347,7 @@ class ThresholdCalibrationMetric(Metric):
                 m.eval(self.scores[:mid], self.Y[:mid])
             )
             predictions = [
-                constants.BAD_ID if score >= threshold else constants.OK_ID
+                const.BAD_ID if score >= threshold else const.OK_ID
                 for score in self.scores[mid:]
             ]
             _, _, f1, _ = precision_recall_fscore_support(

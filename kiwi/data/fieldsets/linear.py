@@ -2,7 +2,7 @@ from functools import partial
 
 from torchtext import data
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.data.corpus import Corpus
 from kiwi.data.fields.alignment_field import AlignmentField
 from kiwi.data.fields.qe_field import QEField
@@ -29,40 +29,40 @@ def build_fieldset():
     )
 
     fs.add(
-        name=constants.SOURCE,
+        name=const.SOURCE,
         field=source_field,
         file_option_suffix='_source',
         required=Fieldset.ALL,
         vocab_options=source_vocab_options,
     )
     fs.add(
-        name=constants.TARGET,
+        name=const.TARGET,
         field=target_field,
         file_option_suffix='_target',
         required=Fieldset.ALL,
         vocab_options=target_vocab_options,
     )
     fs.add(
-        name=constants.ALIGNMENTS,
+        name=const.ALIGNMENTS,
         field=AlignmentField(tokenize=align_tokenizer, use_vocab=False),
         file_option_suffix='_alignments',
         required=Fieldset.ALL,
     )
     fs.add(
-        name=constants.TARGET_TAGS,
+        name=const.TARGET_TAGS,
         field=target_tags_field,
         file_option_suffix='_target_tags',
         required=[Fieldset.TRAIN, Fieldset.VALID],
     )
 
     fs.add(
-        name=constants.SOURCE_POS,
+        name=const.SOURCE_POS,
         field=source_pos,
         file_option_suffix='_source_pos',
         required=None,
     )
     fs.add(
-        name=constants.TARGET_POS,
+        name=const.TARGET_POS,
         field=target_pos,
         file_option_suffix='_target_pos',
         required=None,
@@ -70,7 +70,7 @@ def build_fieldset():
 
     target_stacked = data.Field(tokenize=tokenizer)
     fs.add(
-        name=constants.TARGET_STACKED,
+        name=const.TARGET_STACKED,
         field=target_stacked,
         file_option_suffix='_target_stacked',
         file_reader=partial(Corpus.read_tabular_file, extract_column=1),
@@ -80,14 +80,14 @@ def build_fieldset():
     target_parse_heads = data.Field(tokenize=tokenizer, use_vocab=False)
     target_parse_relations = data.Field(tokenize=tokenizer)
     fs.add(
-        name=constants.TARGET_PARSE_HEADS,
+        name=const.TARGET_PARSE_HEADS,
         field=target_parse_heads,
         file_option_suffix='_target_parse',
         file_reader=partial(Corpus.read_tabular_file, extract_column=1),
         required=None,
     )
     fs.add(
-        name=constants.TARGET_PARSE_RELATIONS,
+        name=const.TARGET_PARSE_RELATIONS,
         field=target_parse_relations,
         file_option_suffix='_target_parse',
         file_reader=partial(Corpus.read_tabular_file, extract_column=2),
@@ -97,14 +97,14 @@ def build_fieldset():
     target_ngram_left = data.Field(tokenize=tokenizer)
     target_ngram_right = data.Field(tokenize=tokenizer)
     fs.add(
-        name=constants.TARGET_NGRAM_LEFT,
+        name=const.TARGET_NGRAM_LEFT,
         field=target_ngram_left,
         file_option_suffix='_target_ngram',
         file_reader=partial(Corpus.read_tabular_file, extract_column=1),
         required=None,
     )
     fs.add(
-        name=constants.TARGET_NGRAM_RIGHT,
+        name=const.TARGET_NGRAM_RIGHT,
         field=target_ngram_right,
         file_option_suffix='_target_ngram',
         file_reader=partial(Corpus.read_tabular_file, extract_column=2),
@@ -132,23 +132,23 @@ def build_fieldset():
 #     target_stacked = data.Field(tokenize=tokenizer)
 #
 #     fields = {
-#         constants.SOURCE: source_field,
-#         constants.TARGET: target_field,
-#         constants.ALIGNMENTS: alignments_field,
-#         constants.TARGET_TAGS: target_tags_field
+#         const.SOURCE: source_field,
+#         const.TARGET: target_field,
+#         const.ALIGNMENTS: alignments_field,
+#         const.TARGET_TAGS: target_tags_field
 #     }
 #
 #     test_files = {
-#         constants.SOURCE: options.test_source,
-#         constants.TARGET: options.test_target,
-#         constants.TARGET_TAGS: options.test_target_tags,
-#         constants.ALIGNMENTS: options.test_alignments,
+#         const.SOURCE: options.test_source,
+#         const.TARGET: options.test_target,
+#         const.TARGET_TAGS: options.test_target_tags,
+#         const.ALIGNMENTS: options.test_alignments,
 #     }
 #
 #     if options.test_target_parse:
 #         parse_fields = {
-#             constants.TARGET_PARSE_HEADS: target_parse_heads,
-#             constants.TARGET_PARSE_RELATIONS: target_parse_relations,
+#             const.TARGET_PARSE_HEADS: target_parse_heads,
+#             const.TARGET_PARSE_RELATIONS: target_parse_relations,
 #         }
 #         parse_file_fields = [
 #             '',
@@ -156,32 +156,32 @@ def build_fieldset():
 #             '',
 #             '',
 #             '',
-#             constants.TARGET_PARSE_HEADS,
-#             constants.TARGET_PARSE_RELATIONS,
+#             const.TARGET_PARSE_HEADS,
+#             const.TARGET_PARSE_RELATIONS,
 #         ]
 #
 #     if options.test_target_ngram:
 #         ngram_fields = {
-#             constants.TARGET_NGRAM_LEFT: target_ngram_left,
-#             constants.TARGET_NGRAM_RIGHT: target_ngram_right,
+#             const.TARGET_NGRAM_LEFT: target_ngram_left,
+#             const.TARGET_NGRAM_RIGHT: target_ngram_right,
 #         }
 #         ngram_file_fields = [
 #             '', '', '', '', '', '', '', '', '', '', '', '', '',
-#             constants.TARGET_NGRAM_LEFT,
-#             constants.TARGET_NGRAM_RIGHT,
+#             const.TARGET_NGRAM_LEFT,
+#             const.TARGET_NGRAM_RIGHT,
 #         ]
 #
 #     if options.test_target_stacked:
-#         stacked_fields = {constants.TARGET_STACKED: target_stacked}
-#         stacked_file_fields = [constants.TARGET_STACKED]
+#         stacked_fields = {const.TARGET_STACKED: target_stacked}
+#         stacked_file_fields = [const.TARGET_STACKED]
 #
 #     if options.test_source_pos:
-#         fields[constants.SOURCE_POS] = source_pos
-#         test_files[constants.SOURCE_POS] = options.test_source_pos
+#         fields[const.SOURCE_POS] = source_pos
+#         test_files[const.SOURCE_POS] = options.test_source_pos
 #
 #     if options.test_target_pos:
-#         fields[constants.TARGET_POS] = target_pos
-#         test_files[constants.TARGET_POS] = options.test_target_pos
+#         fields[const.TARGET_POS] = target_pos
+#         test_files[const.TARGET_POS] = options.test_target_pos
 #
 #     if options.test_target_parse:
 #         test_target_parse_file = options.test_target_parse

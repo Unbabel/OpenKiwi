@@ -6,7 +6,7 @@ from pathlib import Path
 
 import torch
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.data.fieldsets.fieldset import Fieldset
 
 logger = logging.getLogger(__name__)
@@ -33,7 +33,7 @@ def deserialize_vocabs(vocabs):
     vocabs = dict(vocabs)
     for name, vocab in vocabs.items():
         # Hack. Can't pickle defaultdict :(
-        vocab.stoi = defaultdict(lambda: constants.UNK_ID, vocab.stoi)
+        vocab.stoi = defaultdict(lambda: const.UNK_ID, vocab.stoi)
     return vocabs
 
 
@@ -93,8 +93,8 @@ def save_vocabularies_from_fields(directory, fields, include_vectors=False):
     From OpenNMT
     """
     vocabs = serialize_fields_to_vocabs(fields)
-    vocab_path = Path(directory, constants.VOCAB_FILE)
-    torch.save({constants.VOCAB: vocabs}, str(vocab_path))
+    vocab_path = Path(directory, const.VOCAB_FILE)
+    torch.save({const.VOCAB: vocabs}, str(vocab_path))
     return vocab_path
 
 
@@ -104,7 +104,7 @@ def load_vocabularies_to_fields(vocab_path, fields):
         vocabs_dict = torch.load(
             str(vocab_path), map_location=lambda storage, loc: storage
         )
-        vocabs = vocabs_dict[constants.VOCAB]
+        vocabs = vocabs_dict[const.VOCAB]
         fields = deserialize_fields_from_vocabs(fields, vocabs)
         logger.info('Loaded vocabularies from {}'.format(vocab_path))
         return all(
@@ -122,7 +122,7 @@ def load_vocabularies_to_datasets(vocab_path, *datasets):
 
 def vocab_loaded_if_needed(field):
     return not field.use_vocab or (
-        hasattr(field, constants.VOCAB) and field.vocab
+        hasattr(field, const.VOCAB) and field.vocab
     )
 
 
@@ -149,7 +149,7 @@ def build_vocabulary(fields_vocab_options, *datasets):
 
 
 def load_datasets(directory, *datasets_names):
-    dataset_path = Path(directory, constants.DATAFILE)
+    dataset_path = Path(directory, const.DATAFILE)
     dataset_dict = torch.load(
         str(dataset_path), map_location=lambda storage, loc: storage
     )
@@ -176,7 +176,7 @@ def save_datasets(directory, **named_datasets):
         dataset.fields = []
 
     logging.info('Saving preprocessed datasets...')
-    dataset_path = Path(directory, constants.DATAFILE)
+    dataset_path = Path(directory, const.DATAFILE)
     torch.save(named_datasets, str(dataset_path))
 
     # Reconstructing dataset.field from the temporary list
@@ -185,7 +185,7 @@ def save_datasets(directory, **named_datasets):
 
 
 def save_training_datasets(directory, train_dataset, valid_dataset):
-    ds_dict = {constants.TRAIN: train_dataset, constants.EVAL: valid_dataset}
+    ds_dict = {const.TRAIN: train_dataset, const.EVAL: valid_dataset}
     save_datasets(directory, **ds_dict)
 
 
@@ -193,7 +193,7 @@ def load_training_datasets(directory, fieldset):
     # FIXME: test if this works. Ideally, fields would be already contained
     # inside the loaded datasets.
     train_ds, valid_ds = load_datasets(
-        directory, constants.TRAIN, constants.EVAL
+        directory, const.TRAIN, const.EVAL
     )
 
     # Remove fields not actually loaded (checking if they're required).
@@ -212,7 +212,7 @@ def load_training_datasets(directory, fieldset):
     valid_ds.fields = fields
 
     load_vocabularies_to_fields(
-        Path(directory, constants.VOCAB_FILE), fieldset.fields
+        Path(directory, const.VOCAB_FILE), fieldset.fields
     )
 
     return train_ds, valid_ds

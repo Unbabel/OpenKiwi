@@ -1,6 +1,6 @@
 """A generic implementation of a basic tester."""
 
-from kiwi import constants
+from kiwi import constants as const
 
 
 class LinearTester(object):
@@ -11,4 +11,4 @@ class LinearTester(object):
         instances = self.classifier.create_instances(dataset)
         predictions = self.classifier.test(instances)
         self.classifier.evaluate(instances, predictions)
-        return {constants.TARGET_TAGS: predictions}
+        return {const.TARGET_TAGS: predictions}

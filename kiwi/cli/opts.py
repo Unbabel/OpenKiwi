@@ -2,7 +2,7 @@ import argparse
 from distutils.util import strtobool
 from pathlib import Path
 
-from kiwi import constants
+from kiwi import constants as const
 
 
 class PathType(object):
@@ -135,7 +135,7 @@ def save_load_opts(parser):
         '--load-model',
         type=PathType(exists=True),
         help='Directory containing a {} file to be loaded'.format(
-            constants.MODEL_FILE
+            const.MODEL_FILE
         ),
     )
     group.add_argument(
@@ -153,6 +153,6 @@ def save_load_opts(parser):
         '--load-vocab',
         type=PathType(exists=True),
         help='Directory containing a {} file to be loaded'.format(
-            constants.VOCAB_FILE
+            const.VOCAB_FILE
         ),
     )

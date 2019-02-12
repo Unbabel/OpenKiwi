@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.data.fieldsets.quetch import build_fieldset
 from kiwi.models.model import Model
 from kiwi.models.quetch import QUETCH
@@ -40,7 +40,7 @@ class NuQE(QUETCH):
         nb_classes = self.config.nb_classes
         # FIXME: Remove dependency on magic number
         weight = make_loss_weights(
-            nb_classes, constants.BAD_ID, self.config.bad_weight
+            nb_classes, const.BAD_ID, self.config.bad_weight
         )
 
         self._loss = nn.CrossEntropyLoss(
@@ -133,11 +133,11 @@ class NuQE(QUETCH):
 
         if self.config.predict_source:
             target_input, source_input, nb_alignments = self.make_input(
-                batch, constants.SOURCE_TAGS
+                batch, const.SOURCE_TAGS
             )
         else:
             target_input, source_input, nb_alignments = self.make_input(
-                batch, constants.TARGET_TAGS
+                batch, const.TARGET_TAGS
             )
 
         #
@@ -233,10 +233,10 @@ class NuQE(QUETCH):
         outputs = OrderedDict()
 
         if self.config.predict_target:
-            outputs[constants.TARGET_TAGS] = h
+            outputs[const.TARGET_TAGS] = h
         if self.config.predict_gaps:
-            outputs[constants.GAP_TAGS] = h
+            outputs[const.GAP_TAGS] = h
         if self.config.predict_source:
-            outputs[constants.SOURCE_TAGS] = h
+            outputs[const.SOURCE_TAGS] = h
 
         return outputs

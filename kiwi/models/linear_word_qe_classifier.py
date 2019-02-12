@@ -5,7 +5,7 @@ from pathlib import Path
 
 import numpy as np
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.data.fieldsets.linear import build_fieldset
 from kiwi.models.linear.label_dictionary import LabelDictionary
 from kiwi.models.linear.linear_word_qe_decoder import LinearWordQEDecoder
@@ -106,22 +106,22 @@ class LinearWordQEClassifier(StructuredClassifier):
                 source_words=example.source,
                 target_words=example.target,
                 alignments=example.alignments,
-                source_pos_tags=getattr(example, constants.SOURCE_POS, None),
-                target_pos_tags=getattr(example, constants.TARGET_POS, None),
+                source_pos_tags=getattr(example, const.SOURCE_POS, None),
+                target_pos_tags=getattr(example, const.TARGET_POS, None),
                 target_parse_heads=getattr(
-                    example, constants.TARGET_PARSE_HEADS, None
+                    example, const.TARGET_PARSE_HEADS, None
                 ),
                 target_parse_relations=getattr(
-                    example, constants.TARGET_PARSE_RELATIONS, None
+                    example, const.TARGET_PARSE_RELATIONS, None
                 ),
                 target_ngram_left=getattr(
-                    example, constants.TARGET_NGRAM_LEFT, None
+                    example, const.TARGET_NGRAM_LEFT, None
                 ),
                 target_ngram_right=getattr(
-                    example, constants.TARGET_NGRAM_RIGHT, None
+                    example, const.TARGET_NGRAM_RIGHT, None
                 ),
                 target_stacked_features=getattr(
-                    example, constants.TARGET_STACKED, None
+                    example, const.TARGET_STACKED, None
                 ),
                 labels=labels,
             )
@@ -252,7 +252,7 @@ class LinearWordQEClassifier(StructuredClassifier):
             if predicted_output[r] > 0.5:
                 predictions[part.index] = part.label
         predictions = [
-            int(constants.BAD == self.labels.get_label_name(pred))
+            int(const.BAD == self.labels.get_label_name(pred))
             for pred in predictions
         ]
         return predictions
@@ -268,7 +268,7 @@ class LinearWordQEClassifier(StructuredClassifier):
         all_predictions = []
         for word_predictions in predictions:
             labels = [
-                constants.BAD if prediction else constants.OK
+                const.BAD if prediction else const.OK
                 for prediction in word_predictions
             ]
             labels = [int(self.labels[label]) for label in labels]
