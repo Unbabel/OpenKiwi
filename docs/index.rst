@@ -9,12 +9,12 @@ Welcome to OpenKiwi's documentation!
 .. mdinclude:: ../README.md
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    testing.md
    contributing.md
-   CLI
+   configuration
    source/modules
 
 
