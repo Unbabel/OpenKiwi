@@ -128,17 +128,16 @@ class NuQE(QUETCH):
         return model
 
     def forward(self, batch):
-        if not self.is_built:
-            self.build()
+        assert self.is_built
 
         if self.config.predict_source:
-            target_input, source_input, nb_alignments = self.make_input(
-                batch, const.SOURCE_TAGS
-            )
+            align_side = const.SOURCE_TAGS
         else:
-            target_input, source_input, nb_alignments = self.make_input(
-                batch, const.TARGET_TAGS
-            )
+            align_side = const.TARGET_TAGS
+
+        target_input, source_input, nb_alignments = self.make_input(
+            batch, align_side
+        )
 
         #
         # Source Branch
@@ -147,29 +146,30 @@ class NuQE(QUETCH):
         h_source = self.source_emb(source_input)
         h_source = self.embeddings_dropout(h_source)
 
-        # (bs, ts, aligned, window, emb) -> (bs, ts, window, emb)
-        h_source = h_source.sum(2, keepdim=False) / nb_alignments.unsqueeze(
-            -1
-        ).unsqueeze(-1)
-        # TODO: replace nb_alignments by lengths
-        # h_source = self.masked_average(h_source, featured_sample.mask)
+        if len(h_source.shape) == 5:
+            # (bs, ts, aligned, window, emb) -> (bs, ts, window, emb)
+            h_source = h_source.sum(2, keepdim=False) / nb_alignments.unsqueeze(
+                -1
+            ).unsqueeze(-1)
 
         # (bs, ts, window, emb) -> (bs, ts, window * emb)
-        h_source = h_source.view(h_source.shape[0], h_source.shape[1], -1)
+        h_source = h_source.view(source_input.size(0), source_input.size(1), -1)
 
         #
         # Target Branch
         #
-        # (bs, ts, window) -> (bs, ts * window)
-        size = target_input.size()
-        # target_input = target_input.view(size[0], -1)
-
         # (bs, ts * window) -> (bs, ts * window, emb)
         h_target = self.target_emb(target_input)
         h_target = self.embeddings_dropout(h_target)
 
+        if len(h_target.shape) == 5:
+            # (bs, ts, aligned, window, emb) -> (bs, ts, window, emb)
+            h_target = h_target.sum(2, keepdim=False) / nb_alignments.unsqueeze(
+                -1
+            ).unsqueeze(-1)
+
         # (bs, ts * window, emb) -> (bs, ts, window * emb)
-        h_target = h_target.view(size[0], size[1], -1)
+        h_target = h_target.view(target_input.size(0), target_input.size(1), -1)
 
         #
         # POS tags branches

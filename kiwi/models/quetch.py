@@ -211,22 +211,10 @@ class QUETCH(Model):
         self.is_built = True
 
     def make_input(self, batch, side):
-        source_side = const.SOURCE
-        target_side = const.TARGET
+        target_input, target_lengths = getattr(batch, const.TARGET)
+        source_input, source_lengths = getattr(batch, const.SOURCE)
         alignments = batch.alignments
-        if side == const.SOURCE_TAGS:
-            source_side = const.TARGET
-            target_side = const.SOURCE
-            alignments = [
-                [alignment[::-1] for alignment in example_alignment]
-                for example_alignment in alignments
-            ]
 
-        target_input, target_lengths = getattr(batch, target_side)
-        source_input, source_lengths = getattr(batch, source_side)
-
-        # TODO: check if we need to append a STOP_ID in source and target
-        # when predicting gaps. This came from the old extract_features():
         if self.config.predict_gaps and not self.config.predict_target:
             target_input = F.pad(
                 target_input,
@@ -251,14 +239,28 @@ class QUETCH(Model):
             self.config.source_padding_idx,
         )
 
-        source_input, nb_alignments = align_tensor(
-            source_input,
-            alignments,
-            self.config.max_aligned,
-            self.config.unaligned_idx,
-            self.config.source_padding_idx,
-            pad_size=target_input.shape[1],
-        )
+        if side == const.SOURCE_TAGS:
+            alignments = [
+                [alignment[::-1] for alignment in example_alignment]
+                for example_alignment in alignments
+            ]
+            target_input, nb_alignments = align_tensor(
+                target_input,
+                alignments,
+                self.config.max_aligned,
+                self.config.unaligned_idx,
+                self.config.target_padding_idx,
+                pad_size=source_input.shape[1],
+            )
+        else:
+            source_input, nb_alignments = align_tensor(
+                source_input,
+                alignments,
+                self.config.max_aligned,
+                self.config.unaligned_idx,
+                self.config.source_padding_idx,
+                pad_size=target_input.shape[1],
+            )
 
         return target_input, source_input, nb_alignments
 
@@ -266,13 +268,13 @@ class QUETCH(Model):
         assert self.is_built
 
         if self.config.predict_source:
-            target_input, source_input, nb_alignments = self.make_input(
-                batch, const.SOURCE_TAGS
-            )
+            align_side = const.SOURCE_TAGS
         else:
-            target_input, source_input, nb_alignments = self.make_input(
-                batch, const.TARGET_TAGS
-            )
+            align_side = const.TARGET_TAGS
+
+        target_input, source_input, nb_alignments = self.make_input(
+            batch, align_side
+        )
 
         #
         # Source Branch
@@ -280,10 +282,11 @@ class QUETCH(Model):
         # (bs, ts, aligned, window) -> (bs, ts, aligned, window, emb)
         h_source = self.source_emb(source_input)
 
-        # (bs, ts, aligned, window, emb) -> (bs, ts, window, emb)
-        h_source = h_source.sum(2, keepdim=False) / nb_alignments.unsqueeze(
-            -1
-        ).unsqueeze(-1)
+        if len(h_source.shape) == 5:
+            # (bs, ts, aligned, window, emb) -> (bs, ts, window, emb)
+            h_source = h_source.sum(2, keepdim=False) / nb_alignments.unsqueeze(
+                -1
+            ).unsqueeze(-1)
 
         # (bs, ts, window, emb) -> (bs, ts, window * emb)
         h_source = h_source.view(h_source.shape[0], h_source.shape[1], -1)
@@ -291,15 +294,11 @@ class QUETCH(Model):
         #
         # Target Branch
         #
-        # (bs, ts, window) -> (bs, ts * window)
-        size = target_input.size()
-        # target_input = target_input.view(size[0], -1)
-
         # (bs, ts * window) -> (bs, ts * window, emb)
         h_target = self.target_emb(target_input)
 
         # (bs, ts * window, emb) -> (bs, ts, window * emb)
-        h_target = h_target.view(size[0], size[1], -1)
+        h_target = h_target.view(target_input.size(0), target_input.size(1), -1)
 
         #
         # POS tags branches
