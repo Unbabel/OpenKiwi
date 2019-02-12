@@ -226,14 +226,6 @@ def _add_data_options(data_parser):
         'creation. Path to additional Data' '(Predictor)',
     )
 
-
-def add_preprocessing_options(parser):
-    _add_training_data_file_opts(parser)
-    _add_data_flags(parser)
-    _add_vocabulary_opts(parser)
-    _add_data_options(parser)
-
-
 def add_pretraining_options(parser):
     _add_training_data_file_opts(parser)
     _add_data_flags(parser)

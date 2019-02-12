@@ -1,7 +1,7 @@
 import configargparse
 
 from kiwi import __version__
-from kiwi.cli.pipelines import jackknife, predict, preprocess, train
+from kiwi.cli.pipelines import jackknife, predict, train
 
 
 def build_parser():
@@ -59,17 +59,6 @@ def build_parser():
         add_help=False,
         help='Jackknife training data with model',
     )
-    subparsers.add_parser(
-        'preprocess',
-        # parents=[preprocess.parser],
-        add_help=False,
-        help='Preprocess and save a dataset',
-    )
-    # subparsers.add_parser(
-    #     'pretrain',
-    #     # parents=[pretrain.parser],
-    #     add_help=False,
-    #     help='Train part of a joint model')
 
     return parser
 
@@ -81,10 +70,6 @@ def cli():
         train.main(extra_args)
     if options.pipeline == 'predict':
         predict.main(extra_args)
-
-    if options.pipeline == 'preprocess':
-        preprocess.main(extra_args)
-
     # Meta pipelines
     # if options.pipeline == 'search':
     #     search.main(extra_args)
