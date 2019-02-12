@@ -71,13 +71,15 @@ def train_opts(parser):
         nargs='?',
         const=True,
         default=True,
-        help='Save a training snapshot when validation is run.',
+        help='Save a training snapshot when validation is run. If false '
+        'it will never save the model.',
     )
     group.add_argument(
         '--checkpoint-keep-only-best',
         type=int,
         default=1,
-        help='Keep only this number of saved snapshots; 0 will keep all.',
+        help='Keep only n best models according to main metric (F1Mult '
+        'by default); 0 will keep all.',
     )
     group.add_argument(
         '--checkpoint-early-stop-patience',

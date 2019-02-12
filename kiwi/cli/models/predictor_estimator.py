@@ -176,7 +176,11 @@ def _add_data_flags(parser):
 
 
 def _add_vocabulary_opts(parser):
-    group = parser.add_argument_group('vocabulary options')
+    group = parser.add_argument_group('vocabulary options', 
+            description='Options for loading vocabulary from a previous run. '
+            'This is used for e.g. training a source predictor via predict-'
+            'inverse: True ; If set, other vocab options are ignored'
+    )
     group.add_argument(
         '--source-vocab-size',
         type=int,
@@ -205,18 +209,21 @@ def _add_vocabulary_opts(parser):
 
 def _add_data_options(data_parser):
     group = data_parser.add_argument_group(
-        'PredEst data', description='Predictor Estimator (POSTECH)'
+        'PredEst data', description='Predictor Estimator specific data '
+        'options. (POSTECH)'
     )
 
     group.add(
         '--extend-source-vocab',
         type=PathType(exists=True),
-        help='Path to additional Data for vocabulary creation' '(Predictor)',
+        help='Optionally load more data which is used only for vocabulary '
+        'creation. Path to additional Data' '(Predictor)',
     )
     group.add(
         '--extend-target-vocab',
         type=PathType(exists=True),
-        help='Path to additional Data for vocabulary creation' '(Predictor)',
+        help='Optionally load more data which is used only for vocabulary '
+        'creation. Path to additional Data' '(Predictor)',
     )
 
 
@@ -309,7 +316,9 @@ def add_training_options(training_parser):
 
     group = training_parser.add_argument_group(
         'predictor-estimator training',
-        description='Predictor Estimator (POSTECH)',
+        description='Predictor Estimator (POSTECH). These settings are used '
+        ' to train the Predictor. They will be ignored if training a '
+        ' Predictor-Estimator and the `load-model` flag is set.',
     )
     group.add_argument(
         '--start-stop',
@@ -325,7 +334,8 @@ def add_training_options(training_parser):
         nargs='?',
         const=True,
         default=False,
-        help='Predict Gap Tags.',
+        help='Predict Gap Tags. Requires `train-gap-tags`, `valid-'
+        'gap-tags` to be set.',
     )
     group.add_argument(
         '--predict-target',
@@ -333,7 +343,8 @@ def add_training_options(training_parser):
         nargs='?',
         const=True,
         default=True,
-        help='Predict Target Tags.',
+        help='Predict Target Tags. Requires `train-target-tags`, `valid-'
+        'target-tags` to be set.',
     )
     group.add_argument(
         '--predict-source',
@@ -341,17 +352,20 @@ def add_training_options(training_parser):
         nargs='?',
         const=True,
         default=False,
-        help='Predict Source Tags.',
+        help='Predict Source Tags. Requires `train-source-tags`, `valid-'
+        'source-tags` to be set.',
     )
     group.add_argument(
         '--load-pred-source',
         type=PathType(exists=True),
-        help='Load pretrained predictor src->tgt.',
+        help='If set, model architecture and vocabulary parameters are '
+        'ignored. Load pretrained predictor src->tgt.',
     )
     group.add_argument(
         '--load-pred-target',
         type=PathType(exists=True),
-        help='Load pretrained predictor tgt->src.',
+        help='If set, model architecture and vocabulary parameters are '
+        'ignored. Load pretrained predictor tgt->src.',
     )
 
     group.add_argument(
