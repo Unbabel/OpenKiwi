@@ -1,18 +1,19 @@
 model: estimator
 experiment-name: Predictor Estimator WMT18
-
-epochs: 5
+gpu-id: 0
+epochs: 3
 warmup: 0
 log-interval: 100
-learning-rate: 1e-3
-learning-rate-decay: 0.6
-learning-rate-decay-start: 2
-train-batch-size: 32
+learning-rate: 3e-3
+learning-rate-decay: 0.3
+checkpoint-validation-steps: 100
+train-batch-size: 44
 valid-batch-size: 32
 
 mlflow-tracking-uri: mlruns/
 
 ## Architecture
+
 
 hidden-pred: 400
 hidden-est: 125
@@ -27,33 +28,38 @@ token-level: True
 sentence-level: True
 sentence-ll: True
 binary-level: True
-target-bad-weight: 2.0
-gaps-bad-weight: 8
+bad-weight: 3
 dropout-est: 0.0
-start-stop: True
+predict-target: true
 predict-gaps: true
+target-bad-weight: 2
+gaps-bad-weight: 6
 
-# Loading
-data/trained_models/predest/en_de/predictor/model_1.torch
 
-# Saving
+### Loading ###
 
-checkpoint-validation-samples: 1000
-checkpoint-validation-epochs: 1
+#load-pred-target: data/trained_models/predest/en_de/wmt18/smt/model.torch
+load-model: /mnt/data/datasets/kiwi/trained_models/predest/en_de/roundtrip/model_2.torch
+
+
+### Saving ###
+
+checkpoint-validation-steps: 100
 checkpoint-save: true
-checkpoint-keep-only-best: 2
+checkpoint-keep-only-best: 3
 #checkpoint-early-stop-patience: 5
 
 
-# Data Source
+### Data Source ###
 wmt18-format: true
 
-train-source: data/datasets/roundtrip/500K.tc.src
-train-source-tags: data/datasets/roundtrip/WMT18/source_tags.tc
-train-target: data/datasets/roundtrip/500K.tc.mt
-train-target-tags: data/datasets/roundtrip/WMT18/tags.tc
-train-pe: data/datasets/roundtrip/500K.tc.pe
-train-sentence-scores: data/datasets/roundtrip/500K.hter
+# SMT
+train-source: data/WMT18/word_level/en_de.smt/train.src
+train-source-tags: data/WMT18/word_level/en_de.smt/train.src_tags
+train-target: data/WMT18/word_level/en_de.smt/train.mt
+train-target-tags: data/WMT18/word_level/en_de.smt/train.tags
+train-pe: data/WMT18/word_level/en_de.smt/train.pe
+train-sentence-scores: data/WMT18/sentence_level/en_de.smt/train.hter
 
 valid-source: data/WMT18/word_level/en_de.smt/dev.src
 valid-source-tags: data/WMT18/word_level/en_de.smt/dev.src_tags

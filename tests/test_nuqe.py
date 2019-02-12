@@ -58,7 +58,7 @@ def test_jackknifing(temp_output_dir, train_opts, nuqe_opts, atol):
         train_opts,
         nuqe_opts,
         output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.528418,
+        expected_avg_probs=0.583079,
         atol=atol,
     )
 

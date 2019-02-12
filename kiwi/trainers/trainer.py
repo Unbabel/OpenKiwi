@@ -10,7 +10,7 @@ from kiwi.loggers import mlflow_logger
 from kiwi.metrics.stats import Stats
 from kiwi.models.model import Model
 from kiwi.trainers.callbacks import EarlyStopException
-from kiwi.trainers.utils import OptimizerClass
+from kiwi.trainers.utils import optimizer_class
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +37,8 @@ class Trainer:
         self.optimizer = optimizer
         self.checkpointer = checkpointer
         self.scheduler = scheduler
-        # self._starting_epoch = 1
+        self._step = 0
+        self._epoch = 0
 
     @property
     def stats_summary_history(self):
@@ -51,7 +52,7 @@ class Trainer:
             epochs: Number of epochs for training.
         """
         # log(self.eval_epoch(valid_dataset))
-        for epoch in range(self.checkpointer._last_saved_epoch + 1, epochs + 1):
+        for epoch in range(self._epoch + 1, epochs + 1):
             logger.info('Epoch {} of {}'.format(epoch, epochs))
             self.train_epoch(train_iterator, valid_iterator)
             self.stats.log()
@@ -65,21 +66,21 @@ class Trainer:
 
     def train_epoch(self, train_iterator, valid_iterator):
         self.model.train()
-        for step, batch in tqdm(
-            enumerate(train_iterator, 1),
-            total=len(train_iterator),
-            desc='Batches',
-            unit=' batches',
-            ncols=80,
-        ):
+        for batch in tqdm(train_iterator,
+                          total=len(train_iterator),
+                          desc='Batches',
+                          unit=' batches',
+                          ncols=80):
+            self._step += 1
             outputs = self.train_step(batch)
             self.stats.update(batch=batch, **outputs)
-            self.stats.log(step=step)
+            self.stats.log(step=self._step)
             try:
-                self.checkpointer(self, valid_iterator, step=step)
+                self.checkpointer(self, valid_iterator, step=self._step)
             except EarlyStopException as e:
                 logger.info(e)
                 break
+        self._epoch += 1
 
     def train_steps(self, train_iterator, valid_iterator, max_steps):
         train_iterator.repeat = True
@@ -92,11 +93,12 @@ class Trainer:
             unit=' batches',
             ncols=80,
         ):
+            self._step += 1
             outputs = self.train_step(batch)
             self.stats.update(batch=batch, **outputs)
-            self.stats.log(step=step)
+            self.stats.log(step=self._step)
             try:
-                self.checkpointer(self, valid_iterator, step=step)
+                self.checkpointer(self, valid_iterator, step=self._step)
             except EarlyStopException as e:
                 logger.info(e)
                 break
@@ -107,7 +109,7 @@ class Trainer:
         eval_stats_summary = self.eval_epoch(valid_iterator)
         eval_stats_summary.log()
 
-        sub_path = Path('step_{}'.format(step))
+        sub_path = Path('step_{}'.format(self._step))
         self.save(self.checkpointer.output_directory / sub_path)
 
         train_iterator.repeat = False
@@ -163,14 +165,22 @@ class Trainer:
         self.model.save(str(model_path))
 
         optimizer_path = output_directory / constants.OPTIMIZER
+        scheduler_dict = None
+        if self.scheduler:
+            scheduler_dict = {
+                'name': type(self.scheduler).__name__.lower(),
+                'state_dict': self.scheduler.state_dict()
+            }
         optimizer_dict = {
             'name': type(self.optimizer).__name__.lower(),
             'state_dict': self.optimizer.state_dict(),
+            'scheduler_dict': scheduler_dict
         }
         torch.save(optimizer_dict, str(optimizer_path))
 
         state = {
-            '_starting_epoch': self.checkpointer._last_saved_epoch + 1,
+            '_epoch': self._epoch,
+            '_step': self._step,
             'checkpointer': self.checkpointer,
         }
         state_path = output_directory / constants.TRAINER
@@ -199,6 +209,10 @@ class Trainer:
             logger.warning('Trying to load the wrong optimizer.')
         self.optimizer.load_state_dict(optimizer_dict['state_dict'])
 
+        scheduler_dict = optimizer_dict['scheduler_dict']
+        if scheduler_dict:
+            self.scheduler.load_state_dict(scheduler_dict['state_dict'])
+
         trainer_path = root_path / constants.TRAINER
         state = torch.load(
             str(trainer_path), map_location=lambda storage, loc: storage
@@ -220,7 +234,7 @@ class Trainer:
         optimizer_dict = torch.load(
             str(optimizer_path), map_location=lambda storage, loc: storage
         )
-        optimizer = OptimizerClass(optimizer_dict['name'])(
+        optimizer = optimizer_class(optimizer_dict['name'])(
             model.parameters(), lr=0.0
         )
         optimizer.load_state_dict(optimizer_dict['state_dict'])

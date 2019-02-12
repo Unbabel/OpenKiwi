@@ -1,5 +1,0 @@
-model: estimator
-train-config: experiments/predest/en_de/predictor_estimator_18_smt.yaml
-splits: 10
-output-dir: predictions/predest/WMT17/jackknife/
-experiment-name: PREDEST-WMT17-JACKKNIFE

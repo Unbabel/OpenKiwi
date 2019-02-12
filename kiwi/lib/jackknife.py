@@ -2,13 +2,15 @@ import logging
 from collections import defaultdict
 from pathlib import Path
 
+import numpy as np
 import torch
 
-from kiwi import load_model
+from kiwi import constants, load_model
 from kiwi.data import utils
+from kiwi.data.builders import build_test_dataset
 from kiwi.data.iterators import build_bucket_iterator
 from kiwi.data.utils import cross_split_dataset, save_predicted_probabilities
-from kiwi.lib.train import log, make_trainer, retrieve_datasets, setup
+from kiwi.lib import train
 from kiwi.lib.utils import merge_namespaces
 from kiwi.loggers import mlflow_logger
 
@@ -32,7 +34,7 @@ def run_from_options(options):
     )
 
     with mlflow_run:
-        output_dir = setup(
+        output_dir = train.setup(
             output_dir=pipeline_options.output_dir,
             debug=pipeline_options.debug,
             quiet=pipeline_options.quiet,
@@ -41,7 +43,7 @@ def run_from_options(options):
         all_options = merge_namespaces(
             meta_options, pipeline_options, model_options
         )
-        log(
+        train.log(
             output_dir,
             save_config=False,
             config_options=vars(all_options),
@@ -67,9 +69,17 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
     fieldset = ModelClass.fieldset(
         wmt18_format=model_options.__dict__.get('wmt18_format')
     )
-    train_dataset, _, *extra_datasets = retrieve_datasets(
+    train_set, dev_set = train.retrieve_datasets(
         fieldset, pipeline_options, model_options, output_dir
     )
+
+    test_set = None
+    try:
+        test_set = build_test_dataset(fieldset, **vars(pipeline_options))
+    except ValueError:
+        pass
+    except FileNotFoundError:
+        pass
 
     device_id = None
     if pipeline_options.gpu_id is not None and pipeline_options.gpu_id >= 0:
@@ -77,43 +87,22 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
 
     parent_dir = output_dir
     train_predictions = defaultdict(list)
-    for i, (train_fold, dev_fold) in enumerate(
-        cross_split_dataset(train_dataset, splits)
-    ):
+    dev_predictions = defaultdict(list)
+    test_predictions = defaultdict(list)
+    splitted_datasets = cross_split_dataset(train_set, splits)
+    for i, (train_fold, pred_fold) in enumerate(splitted_datasets):
+
         run_name = 'train_split_{}'.format(i)
         output_dir = Path(parent_dir, run_name)
-        output_dir.mkdir(parents=True, exist_ok=False)
+        output_dir.mkdir(parents=True, exist_ok=True)
         # options.output_dir = str(options.output_dir)
 
-        # Trainer step
-        vocabs = utils.fields_to_vocabs(train_fold.fields)
-        model = ModelClass.from_options(vocabs=vocabs, opts=model_options)
-
-        trainer = make_trainer(
-            model, pipeline_options, model_options, output_dir, device_id
-        )
-
-        logger.info(str(trainer.model))
-        logger.info('{} parameters'.format(trainer.model.num_parameters()))
-
-        # Dataset iterators
-        train_iter = build_bucket_iterator(
-            train_fold,
-            batch_size=pipeline_options.train_batch_size,
-            is_train=True,
-            device=device_id,
-        )
-        valid_iter = build_bucket_iterator(
-            dev_fold,
-            batch_size=pipeline_options.valid_batch_size,
-            is_train=False,
-            device=device_id,
-        )
-
         # Train
+        vocabs = utils.fields_to_vocabs(train_fold.fields)
+
         mlflow_run = mlflow_logger.start_nested_run(run_name=run_name)
         with mlflow_run:
-            setup(
+            train.setup(
                 output_dir=output_dir,
                 seed=pipeline_options.seed,
                 gpu_id=pipeline_options.gpu_id,
@@ -121,20 +110,71 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
                 quiet=pipeline_options.quiet,
             )
 
+            trainer = train.retrieve_trainer(
+                ModelClass,
+                pipeline_options,
+                model_options,
+                vocabs,
+                output_dir,
+                device_id
+            )
+
+            # Dataset iterators
+            train_iter = build_bucket_iterator(
+                train_fold,
+                batch_size=pipeline_options.train_batch_size,
+                is_train=True,
+                device=device_id,
+            )
+            valid_iter = build_bucket_iterator(
+                pred_fold,
+                batch_size=pipeline_options.valid_batch_size,
+                is_train=False,
+                device=device_id,
+            )
+
             trainer.run(train_iter, valid_iter, epochs=pipeline_options.epochs)
 
         # Predict
         predictor = load_model(trainer.checkpointer.best_model_path())
-        predictions = predictor.run(
-            dev_fold, batch_size=pipeline_options.valid_batch_size
+        train_predictions_i = predictor.run(
+            pred_fold, batch_size=pipeline_options.valid_batch_size
         )
+
+        dev_predictions_i = predictor.run(
+            dev_set, batch_size=pipeline_options.valid_batch_size
+        )
+
+        test_predictions_i = None
+        if test_set:
+            test_predictions_i = predictor.run(
+                test_set, batch_size=pipeline_options.valid_batch_size
+            )
 
         torch.cuda.empty_cache()
 
-        for output_name, output_values in predictions.items():
-            train_predictions[output_name] += output_values
+        for output_name in train_predictions_i:
+            train_predictions[output_name] += train_predictions_i[output_name]
+            dev_predictions[output_name].append(dev_predictions_i[output_name])
+            if test_set:
+                test_predictions[output_name].append(
+                    test_predictions_i[output_name]
+                )
 
-    save_predicted_probabilities(parent_dir, train_predictions)
+    dev_predictions = average_all(dev_predictions)
+    if test_set:
+        test_predictions = average_all(test_predictions)
+
+    save_predicted_probabilities(parent_dir,
+                                 train_predictions,
+                                 prefix=constants.TRAIN)
+    save_predicted_probabilities(parent_dir,
+                                 dev_predictions,
+                                 prefix=constants.DEV)
+    if test_set:
+        save_predicted_probabilities(parent_dir,
+                                     test_predictions,
+                                     prefix=constants.TEST)
 
     teardown(pipeline_options)
 
@@ -143,3 +183,38 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
 
 def teardown(options):
     pass
+
+
+def average_all(predictions):
+    for output_name in predictions:
+        predictions[output_name] = average_predictions(predictions[output_name])
+    return predictions
+
+
+def average_predictions(ensemble):
+    """Average an ensemble of predictions.
+    """
+    word_level = isinstance(ensemble[0][0], list)
+    if word_level:
+        sentence_lengths = [len(sentence) for sentence in ensemble[0]]
+        ensemble = [[word for sentence in predictions for word in sentence]
+                    for predictions in ensemble]
+
+    ensemble = np.array(ensemble, dtype='float32')
+    averaged_predictions = ensemble.mean(axis=0)
+
+    if word_level:
+        averaged_predictions = reshape_by_lengths(
+            averaged_predictions.tolist(), sentence_lengths
+        )
+
+    return averaged_predictions
+
+
+def reshape_by_lengths(sequence, lengths):
+    new_sequences = []
+    t = 0
+    for length in lengths:
+        new_sequences.append(sequence[t : t + length])
+        t += length
+    return new_sequences

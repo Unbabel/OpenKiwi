@@ -2,7 +2,7 @@ model: linear
 
 experiment-name: Linear WMT18 en-de NMT
 
-output-dir: runs/linear_experiments_wmt18_nmt/
+output-dir: runs/linear_experiments_wmt18_en_de.nmt/
 
 epochs: 1
 

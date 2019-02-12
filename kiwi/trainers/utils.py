@@ -1,17 +1,17 @@
 from torch import optim
 
 
-def OptimizerClass(name):
+def optimizer_class(name):
     if name == 'sgd':
-        optimizer = optim.SGD
+        OptimizerClass = optim.SGD
     elif name == 'adagrad':
-        optimizer = optim.Adagrad
+        OptimizerClass = optim.Adagrad
     elif name == 'adadelta':
-        optimizer = optim.Adadelta
+        OptimizerClass = optim.Adadelta
     elif name == 'adam':
-        optimizer = optim.Adam
+        OptimizerClass = optim.Adam
     elif name == 'sparseadam':
-        optimizer = optim.SparseAdam
+        OptimizerClass = optim.SparseAdam
     else:
         raise RuntimeError("Invalid optim method: " + name)
-    return optimizer
+    return OptimizerClass

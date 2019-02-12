@@ -25,7 +25,7 @@ from kiwi.models.model import Model
 from kiwi.trainers.callbacks import Checkpoint
 from kiwi.trainers.linear_word_qe_trainer import LinearWordQETrainer
 from kiwi.trainers.trainer import Trainer
-from kiwi.trainers.utils import OptimizerClass
+from kiwi.trainers.utils import optimizer_class
 
 logger = logging.getLogger(__name__)
 
@@ -88,18 +88,19 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
     """
 
     Args:
-        ModelClass:
+        ModelClass (type): Python Type of the Model to train
         output_dir: Directory to save models
-        pipeline_options:
+        pipeline_options (Namespace): Generic Train Options
             load_model: load pre-trained predictor model
             resume: load trainer state and resume training
             gpu_id: Set to non-negative integer to train on GPU
             train_batch_size: Batch Size for training
             valid_batch_size: Batch size for validation
 
-        model_options:
+        model_options(Namespace): Model Specific options
 
     Returns:
+        The trainer object
 
     """
     model_name = getattr(ModelClass, 'title', ModelClass.__name__)
@@ -125,20 +126,16 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
     if pipeline_options.gpu_id is not None and pipeline_options.gpu_id >= 0:
         device_id = pipeline_options.gpu_id
 
-    if pipeline_options.resume:
-        trainer = Trainer.resume(local_path=output_dir, device_id=device_id)
-        # TODO: check if we need to move the trainer model to cuda (here or
-        #   inside the trainer)
-    else:
-        if pipeline_options.load_model:
-            model = Model.create_from_file(pipeline_options.load_model)
-        else:
-            vocabs = utils.fields_to_vocabs(datasets[0].fields)
-            model = ModelClass.from_options(vocabs=vocabs, opts=model_options)
+    vocabs = utils.fields_to_vocabs(datasets[0].fields)
 
-        trainer = make_trainer(
-            model, pipeline_options, model_options, output_dir, device_id
-        )
+    trainer = retrieve_trainer(
+        ModelClass,
+        pipeline_options,
+        model_options,
+        vocabs,
+        output_dir,
+        device_id
+    )
 
     logger.info(str(trainer.model))
     logger.info('{} parameters'.format(trainer.model.num_parameters()))
@@ -162,7 +159,24 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
     return trainer
 
 
-def make_trainer(model, pipeline_options, model_options, output_dir, device_id):
+def retrieve_trainer(ModelClass,
+                     pipeline_options,
+                     model_options,
+                     vocabs,
+                     output_dir,
+                     device_id):
+    """Create Trainer object.
+       Method creates Trainer, Model and Checkpointer
+    """
+
+    if pipeline_options.resume:
+        return Trainer.resume(local_path=output_dir, device_id=device_id)
+
+    if pipeline_options.load_model:
+        model = Model.create_from_file(pipeline_options.load_model)
+    else:
+        model = ModelClass.from_options(vocabs=vocabs, opts=model_options)
+
     checkpointer = Checkpoint(
         output_dir,
         pipeline_options.checkpoint_save,
@@ -183,8 +197,8 @@ def make_trainer(model, pipeline_options, model_options, output_dir, device_id):
         model.to(device_id)
 
         # Optimizer
-        Optimizer = OptimizerClass(pipeline_options.optimizer)
-        optimizer = Optimizer(
+        OptimizerClass = optimizer_class(pipeline_options.optimizer)
+        optimizer = OptimizerClass(
             model.parameters(), lr=pipeline_options.learning_rate
         )
         scheduler = None
