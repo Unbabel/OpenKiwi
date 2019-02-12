@@ -46,7 +46,7 @@ def average(probabilities):
     probabilities = np.array(flat_probabilities, dtype='float32')
     averaged_probabilities = probabilities.mean(axis=0)
     averaged_probabilities = reshape_by_lengths(
-        averaged_probabilities, samples_lengths
+        averaged_probabilities.tolist(), samples_lengths
     )
 
     return averaged_probabilities

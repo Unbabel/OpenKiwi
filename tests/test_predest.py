@@ -122,7 +122,7 @@ def test_jackknifing_gaps(temp_output_dir, train_opts, gap_opts, atol):
         train_opts,
         gap_opts,
         output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.387553,
+        expected_avg_probs=0.42087,
         atol=atol,
     )
 

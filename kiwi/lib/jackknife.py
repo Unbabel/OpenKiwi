@@ -2,9 +2,11 @@ import logging
 from collections import defaultdict
 from pathlib import Path
 
+import numpy as np
 import torch
 
-from kiwi import load_model
+from kiwi import constants, load_model
+from kiwi.data.builders import build_test_dataset
 from kiwi.data.utils import cross_split_dataset, save_predicted_probabilities
 from kiwi.lib import train
 from kiwi.lib.utils import merge_namespaces
@@ -65,9 +67,17 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
     fieldset = ModelClass.fieldset(
         wmt18_format=model_options.__dict__.get('wmt18_format')
     )
-    train_set, dev_set, *_ = train.retrieve_datasets(
+    train_set, dev_set = train.retrieve_datasets(
         fieldset, pipeline_options, model_options, output_dir
     )
+
+    test_set = None
+    try:
+        test_set = build_test_dataset(fieldset, **vars(pipeline_options))
+    except ValueError:
+        pass
+    except FileNotFoundError:
+        pass
 
     device_id = None
     if pipeline_options.gpu_id is not None and pipeline_options.gpu_id >= 0:
@@ -75,6 +85,8 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
 
     parent_dir = output_dir
     train_predictions = defaultdict(list)
+    dev_predictions = defaultdict(list)
+    test_predictions = defaultdict(list)
     splitted_datasets = cross_split_dataset(train_set, splits)
     for i, (train_fold, pred_fold) in enumerate(splitted_datasets):
 
@@ -103,16 +115,44 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
 
         # Predict
         predictor = load_model(trainer.checkpointer.best_model_path())
-        predictions = predictor.run(
+        train_predictions_i = predictor.run(
             pred_fold, batch_size=pipeline_options.valid_batch_size
         )
 
+        dev_predictions_i = predictor.run(
+            dev_set, batch_size=pipeline_options.valid_batch_size
+        )
+
+        test_predictions_i = None
+        if test_set:
+            test_predictions_i = predictor.run(
+                test_set, batch_size=pipeline_options.valid_batch_size
+            )
+
         torch.cuda.empty_cache()
 
-        for output_name, output_values in predictions.items():
-            train_predictions[output_name] += output_values
+        for output_name in train_predictions_i:
+            train_predictions[output_name] += train_predictions_i[output_name]
+            dev_predictions[output_name].append(dev_predictions_i[output_name])
+            if test_set:
+                test_predictions[output_name].append(
+                    test_predictions_i[output_name]
+                )
 
-    save_predicted_probabilities(parent_dir, train_predictions)
+    dev_predictions = average_all(dev_predictions)
+    if test_set:
+        test_predictions = average_all(test_predictions)
+
+    save_predicted_probabilities(parent_dir,
+                                 train_predictions,
+                                 prefix=constants.TRAIN)
+    save_predicted_probabilities(parent_dir,
+                                 dev_predictions,
+                                 prefix=constants.DEV)
+    if test_set:
+        save_predicted_probabilities(parent_dir,
+                                     test_predictions,
+                                     prefix=constants.TEST)
 
     teardown(pipeline_options)
 
@@ -121,3 +161,38 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
 
 def teardown(options):
     pass
+
+
+def average_all(predictions):
+    for output_name in predictions:
+        predictions[output_name] = average_predictions(predictions[output_name])
+    return predictions
+
+
+def average_predictions(ensemble):
+    """Average an ensemble of predictions.
+    """
+    word_level = isinstance(ensemble[0][0], list)
+    if word_level:
+        sentence_lengths = [len(sentence) for sentence in ensemble[0]]
+        ensemble = [[word for sentence in predictions for word in sentence]
+                    for predictions in ensemble]
+
+    ensemble = np.array(ensemble, dtype='float32')
+    averaged_predictions = ensemble.mean(axis=0)
+
+    if word_level:
+        averaged_predictions = reshape_by_lengths(
+            averaged_predictions.tolist(), sentence_lengths
+        )
+
+    return averaged_predictions
+
+
+def reshape_by_lengths(sequence, lengths):
+    new_sequences = []
+    t = 0
+    for length in lengths:
+        new_sequences.append(sequence[t : t + length])
+        t += length
+    return new_sequences

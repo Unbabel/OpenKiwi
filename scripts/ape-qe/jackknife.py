@@ -1,10 +1,6 @@
-<<<<<<< Updated upstream
-=======
 from pathlib import Path
-import numpy as np
->>>>>>> Stashed changes
-import argparse
 
+import argparse
 import numpy as np
 
 
@@ -51,7 +47,7 @@ def get_folds(data, n_folds):
 
 
 def jackknife(folds):
-    jackknifed = [folds[:i] + folds[i+1:] for i in range(len(folds))]
+    jackknifed = [folds[:i] + folds[i + 1:] for i in range(len(folds))]
     jackknifed = [[x for fold in folds for x in fold] for folds in jackknifed]
     return jackknifed
 
@@ -66,7 +62,6 @@ def permute(src, pe):
 def main(args):
     src = readfile('{}.{}'.format(args.data, SRC))
     pe = readfile('{}.{}'.format(args.data, PE))
-    #src, pe = permute(src, pe)
     src_folds = get_folds(src, args.n_folds)
     pe_folds = get_folds(pe, args.n_folds)
     src_jk = jackknife(src_folds)

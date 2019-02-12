@@ -22,12 +22,12 @@ def build_dataset(fieldset, prefix='', filter_pred=None, **kwargs):
 
 
 def build_training_datasets(
-    fieldset,
-    split=0.0,
-    valid_source=None,
-    valid_target=None,
-    load_vocab=None,
-    **kwargs
+        fieldset,
+        split=0.0,
+        valid_source=None,
+        valid_target=None,
+        load_vocab=None,
+        **kwargs
 ):
     """Build a training and validation QE datasets.
 
@@ -112,12 +112,7 @@ def build_training_datasets(
     fields_vocab_options = fieldset.fields_vocab_options(**kwargs)
     build_vocabulary(fields_vocab_options, *datasets_for_vocab)
 
-    datasets = (train_dataset, valid_dataset)
-
-    # for dataset in datasets:
-    #     dataset.sort_key = QEDataset.sort_key
-
-    return datasets
+    return train_dataset, valid_dataset
 
 
 def build_test_dataset(fieldset, load_vocab=None, **kwargs):
@@ -132,7 +127,6 @@ def build_test_dataset(fieldset, load_vocab=None, **kwargs):
         A Dataset object.
     """
 
-    # We need only the estimator for testing.
     test_dataset = build_dataset(fieldset, prefix=Fieldset.TEST, **kwargs)
 
     fields_vocab_options = fieldset.fields_vocab_options(**kwargs)
@@ -141,7 +135,5 @@ def build_test_dataset(fieldset, load_vocab=None, **kwargs):
         load_vocabularies_to_datasets(vocab_path, test_dataset)
     else:
         build_vocabulary(fields_vocab_options, test_dataset)
-
-    # test_dataset.sort_key = QEDataset.sort_key
 
     return test_dataset

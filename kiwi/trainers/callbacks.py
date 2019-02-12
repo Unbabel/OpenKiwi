@@ -43,14 +43,8 @@ class Checkpoint:
         """
         self.output_directory = Path(output_dir)
         self.validation_steps = checkpoint_validation_steps
-        # self.validation_steps = (checkpoint_validation_samples
-        #                          // train_batch_size)
 
-        self.early_stop_epochs = checkpoint_early_stop_patience
-
-        self.early_stop_steps = (
-            checkpoint_early_stop_patience * self.validation_steps
-        )
+        self.early_stop_patience = checkpoint_early_stop_patience
 
         self.save = checkpoint_save
         self.keep_only_best = checkpoint_keep_only_best
@@ -67,32 +61,29 @@ class Checkpoint:
         # This should be kept as a heap
         self.best_stats_summary = []
         self.stats_summary_history = []
-        self._last_saved_valid_step = 0
-        self._valid_step = 0
+        self._last_saved = 0
+        self._validation_epoch = 0
 
     def must_eval(self, epoch=None, step=None):
         if epoch is not None:
             return True
         if step is not None:
             return (
-                self.validation_steps > 0 and step % self.validation_steps == 0
+                self.validation_steps and step % self.validation_steps == 0
             )
         return False
 
     def must_save(self, stats):
         if self.save:
-            if len(self.best_stats_summary) < self.keep_only_best:
+            if self._validation_epoch <= self.keep_only_best:
                 return True
-            elif stats > self.best_stats_summary[0][0]:
+            elif stats > self.worst_stats():
                 return True
         return False
 
-    def early_stopping(self, epoch=None, step=None):
-        if epoch is not None:
-            return 0 < self.early_stop_epochs <= epoch - self._last_saved_epoch
-        if step is not None:
-            return 0 < self.early_stop_steps <= step - self._last_saved_step
-        return False
+    def early_stopping(self):
+        no_improvement = self._validation_epoch - self._last_saved
+        return 0 < self.early_stop_patience <= no_improvement
 
     def __call__(self, trainer, valid_iterator, epoch=None, step=None):
         if self.must_eval(epoch=epoch, step=step):
@@ -108,86 +99,81 @@ class Checkpoint:
                 predictions = trainer.predict(valid_iterator)
                 if predictions is not None:
                     save_predicted_probabilities(saved_path, predictions)
-            elif self.early_stopping(epoch=epoch, step=step):
-                if epoch is not None:
-                    message = (self.early_stop_epochs, 'epochs')
-                else:
-                    message = (self.early_stop_steps, 'steps')
+            elif self.early_stopping():
                 raise EarlyStopException(
-                    'Early stopping training after {} {} '
+                    'Early stopping training after {} validations '
                     'without improvements on the validation set'.format(
-                        *message
+                        self.early_stop_patience
                     )
                 )
 
     def check_in(self, trainer, stats, epoch=None, step=None):
-        self._valid_step += 1
+        self._validation_epoch += 1
         self.stats_summary_history.append(stats)
-        heap_is_full = len(self.best_stats_summary) >= self.keep_only_best
-        stats_is_good_enough = stats.better_than(self.worst_stats())
-        if heap_is_full and not stats_is_good_enough:
-            return None
-        if self.save:
-            self._last_saved_valid_step = self._valid_step
+        if self.must_save(stats):
+            self._last_saved = self._validation_epoch
+            output_path = self.make_output_path(epoch=epoch, step=step)
+            event = trainer.save(output_path)
+            path_to_remove = self.push_to_heap(stats, output_path)
+            if path_to_remove:
+                self.remove_snapshot(path_to_remove, event)
+            return output_path
+        return None
 
-            if epoch is not None:
-                sub_dir = 'epoch_{}'.format(epoch)
-            elif step is not None:
-                sub_dir = 'step_{}'.format(step)
-            else:
-                sub_dir = 'epoch_unknown'
-
-            output_path = self.output_directory / sub_dir
+    def make_output_path(self, epoch=None, step=None):
+        if epoch is not None:
+            sub_dir = 'epoch_{}'.format(epoch)
+        elif step is not None:
+            sub_dir = 'step_{}'.format(step)
         else:
-            output_path = None
+            sub_dir = 'epoch_unknown'
+        return self.output_directory / sub_dir
 
-        # Keep a heap of best stats and output directory. The second element
-        #   (negative `_valid_step`) is used as a timestamp to ensure that we
-        #   in case of a tie, we get the earliest model with the best value.
-        if len(self.best_stats_summary) < self.keep_only_best:
-            heapq.heappush(
-                self.best_stats_summary,
-                (stats, -self._valid_step, output_path),
-            )
-            path_to_remove = None
+    def push_to_heap(self, stats, output_path):
+        """Push stats and output path to the heap."""
+
+        path_to_remove = None
+        # The second element (`-self._validation_epoch`) serves as a timestamp
+        # to ensure that in case of a tie, the earliest model is saved.
+        heap_element = (stats, -self._validation_epoch, output_path)
+        if self._validation_epoch <= self.keep_only_best:
+            heapq.heappush(self.best_stats_summary, heap_element)
         else:
             worst_stat = heapq.heapreplace(
-                self.best_stats_summary,
-                (stats, -self._valid_step, output_path),
-            )
+                self.best_stats_summary, heap_element)
             path_to_remove = str(worst_stat[2])  # Worst output path
+        return path_to_remove
 
-        if output_path:
-            event = trainer.save(output_path)
-            if path_to_remove:
-                if event is None:
-                    try:
-                        shutil.rmtree(str(path_to_remove))
-                    except FileNotFoundError as e:
-                        logger.exception(e)
-                else:
+    def remove_snapshot(self, path_to_remove, event=None):
+        """Remove snapshot locally and in MLFlow."""
 
-                    def remove_snapshot(path, e, message):
-                        e.wait()
-                        logger.info(message)
-                        shutil.rmtree(str(path))
-                        e.clear()
+        removal_message = (
+            'Removing previous snapshot because it is worse: '
+            '{}'.format(path_to_remove)
+        )
 
-                    removal_message = (
-                        'Removing previous snapshot because it is worse: '
-                        '{}'.format(path_to_remove)
-                    )
+        if event is None:
+            try:
+                shutil.rmtree(str(path_to_remove))
+            except FileNotFoundError as e:
+                logger.exception(e)
+            logger.info(removal_message)
+        else:
+            def _remove_snapshot(path, e, message):
+                e.wait()
+                logger.info(message)
+                shutil.rmtree(str(path))
+                e.clear()
 
-                    t = threading.Thread(
-                        target=remove_snapshot,
-                        args=(path_to_remove, event, removal_message),
-                        daemon=True,
-                    )
-                    try:
-                        t.start()
-                    except FileNotFoundError as e:
-                        logger.exception(e)
-        return output_path
+            t = threading.Thread(
+                target=_remove_snapshot,
+                args=(path_to_remove, event, removal_message),
+                daemon=True,
+            )
+            try:
+                t.start()
+            except FileNotFoundError as e:
+                logger.exception(e)
 
     @property
     def worst_stat(self):

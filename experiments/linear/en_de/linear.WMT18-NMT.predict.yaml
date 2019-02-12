@@ -1,6 +1,7 @@
 model: linear
 
-output-dir: runs/linear_experiments_wmt18_nmt_predict/
+
+output-dir: runs/linear_experiments_wmt18_en_de_nmt_predict/
 
 load-model: runs/linear_experiments_wmt18_nmt/best_model.torch
 

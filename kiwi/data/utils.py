@@ -242,10 +242,12 @@ def save_file(file_path, data, token_sep=' ', example_sep='\n'):
     Path(file_path).write_text(example_str)
 
 
-def save_predicted_probabilities(directory, predictions):
+def save_predicted_probabilities(directory, predictions, prefix=''):
     directory = Path(directory)
     directory.mkdir(parents=True, exist_ok=True)
     for key, preds in predictions.items():
+        if prefix:
+            key = '{}.{}'.format(prefix, key)
         output_path = Path(directory, key)
         logger.info('Saving {} predictions to {}'.format(key, output_path))
         save_file(output_path, preds, token_sep=' ', example_sep='\n')

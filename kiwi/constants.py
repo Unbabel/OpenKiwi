@@ -55,6 +55,8 @@ POSTQEFV = 'PostQEFV'
 
 # Standard Names for saving files
 TRAIN = 'train'
+DEV = 'dev'
+TEST = 'test'
 EVAL = 'eval'
 VOCAB = 'vocab'
 CONFIG = 'config'
