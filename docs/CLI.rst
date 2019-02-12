@@ -17,13 +17,13 @@ After calling one of these pipelines, the specific parameters can be configured 
 
 
    search
-         Deprecated.
+         Currently not supported.
 
    predict
-         For prediction configuration options see :doc:`predict/predict`
+         For prediction configuration options see :doc:`predict/predict`.
 
    jackknife
-         For jackknife configuration options see :doc:`jackknife/jackknife`
+         For jackknife configuration options see :doc:`jackknife/jackknife`.
 
    train
-         For train configuration options see :doc:`train/train`
+         For train configuration options see :doc:`train/train`.

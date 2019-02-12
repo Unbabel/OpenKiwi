@@ -278,6 +278,7 @@ output directory, source and target data, and run:
 python kiwi predict --config experiments/examples/predict_predest.yaml
 ```
 
+[//]: # (NOTE: please change docs/cli.rst after fixing Search)
 
 ### Search - CURRENTLY NOT SUPPORTED
 
