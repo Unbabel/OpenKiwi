@@ -5,7 +5,7 @@
 GPU=0
 MODEL="nuqe"
 
-LANGUAGE_PAIR="de_en.smt"
+LANGUAGE_PAIR="en_lv.smt"
 DATASET="WMT18/word_level/${LANGUAGE_PAIR}"
 DATASET_NAME="wmt18"
 FORMAT="wmt18"
@@ -40,26 +40,22 @@ do
         PREDICT_DIR="${OUTPUT_MODEL_DIR}/${PREDICT_RUN_DIR_NAME}"
 
         echo "================================================================="
-        if ${RUN_JACKKNIFE} && [[ ! -d "${JACKKNIFE_DIR:+$JACKKNIFE_DIR/}" ]]; then
-            python -m kiwi jackknife --train-config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
-                                     --experiment-name "Official run for OpenKiwi" \
-                                     --splits 10 \
-                                     --seed ${SEED} \
-                                     --gpu-id ${GPU} \
-                                     --output-dir ${JACKKNIFE_DIR}
-            cp ${JACKKNIFE_DIR}/train*tags ${OUTPUT_PREDICTIONS_DIR}
-        else
-            echo "Skipping jackknifing; found ${JACKKNIFE_DIR}"
-        fi
-
-        if [[ $SIDE = "target" ]]
+        if ${RUN_JACKKNIFE}
         then
-            TAGS_FILE="tags"
-        elif [[ ${SIDE} = "gaps" ]]
-        then
-            TAGS_FILE="gap_tags"
+            if [[ ! -d "${JACKKNIFE_DIR:+$JACKKNIFE_DIR/}" ]]
+            then
+                python -m kiwi jackknife --train-config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
+                                         --experiment-name "Official run for OpenKiwi" \
+                                         --splits 10 \
+                                         --seed ${SEED} \
+                                         --gpu-id ${GPU} \
+                                         --output-dir ${JACKKNIFE_DIR}
+                cp ${JACKKNIFE_DIR}/train*tags ${OUTPUT_PREDICTIONS_DIR}
+            else
+                echo "Skipping jackknifing; found ${JACKKNIFE_DIR}"
+            fi
         else
-            TAGS_FILE="source_tags"
+            echo "RUN_JACKKNIFE is false"
         fi
 
         # Train
@@ -75,9 +71,9 @@ do
             echo "Skipping training; found ${TRAIN_DIR}"
         fi
 #            cp ${TRAIN_DIR}/epoch_*/${TAGS_FILE} ${OUTPUT_PREDICTIONS_DIR}/dev.${TAGS_FILE}
-        if [[ -f "${TRAIN_DIR}/epoch_*/tags" ]]; then cp ${TRAIN_DIR}/epoch_*/tags ${OUTPUT_PREDICTIONS_DIR}/dev.tags; fi
-        if [[ -f "${TRAIN_DIR}/epoch_*/gap_tags" ]]; then cp ${TRAIN_DIR}/epoch_*/gap_tags ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags; fi
-        if [[ -f "${TRAIN_DIR}/epoch_*/source_tags" ]]; then cp ${TRAIN_DIR}/epoch_*/source_tags ${OUTPUT_PREDICTIONS_DIR}/dev.source_tags; fi
+        cp ${TRAIN_DIR}/epoch_*/tags ${OUTPUT_PREDICTIONS_DIR}/dev.tags 1> /dev/null 2>&1
+        cp ${TRAIN_DIR}/epoch_*/gap_tags ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags 1> /dev/null 2>&1
+        cp ${TRAIN_DIR}/epoch_*/source_tags ${OUTPUT_PREDICTIONS_DIR}/dev.source_tags 1> /dev/null 2>&1
 
         # Predict
         echo "================================================================="
@@ -85,25 +81,11 @@ do
                                --experiment-name "Official run for OpenKiwi" \
                                --load-model ${TRAIN_DIR}/best_model.torch \
                                --output-dir ${PREDICT_DIR}
-        if [[ -f "${PREDICT_DIR}/epoch_*/tags" ]]; then cp ${PREDICT_DIR}/epoch_*/tags ${OUTPUT_PREDICTIONS_DIR}/test.tags; fi
-        if [[ -f "${PREDICT_DIR}/epoch_*/gap_tags" ]]; then cp ${PREDICT_DIR}/epoch_*/gap_tags ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags; fi
-        if [[ -f "${PREDICT_DIR}/epoch_*/source_tags" ]]; then cp ${PREDICT_DIR}/epoch_*/source_tags ${OUTPUT_PREDICTIONS_DIR}/test.source_tags; fi
+        cp ${PREDICT_DIR}/tags ${OUTPUT_PREDICTIONS_DIR}/test.tags 1> /dev/null 2>&1
+        cp ${PREDICT_DIR}/gap_tags ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags 1> /dev/null 2>&1
+        cp ${PREDICT_DIR}/source_tags ${OUTPUT_PREDICTIONS_DIR}/test.source_tags 1> /dev/null 2>&1
 
     done
-
-
-    # Merge gaps and target tags in a single file (as expected by evaluate.py)
-#    python scripts/merge_target_and_gaps_preds.py --target-pred ${OUTPUT_DIR_PREFIX}.target/${JACKKNIFE_RUN_DIR_NAME}/tags \
-#                                                  --gaps-pred ${OUTPUT_DIR_PREFIX}.gaps/${JACKKNIFE_RUN_DIR_NAME}/gap_tags \
-#                                                  --output ${OUTPUT_DIR_PREFIX}.targetgaps/${JACKKNIFE_RUN_DIR_NAME}/tags
-#
-#    python scripts/merge_target_and_gaps_preds.py --target-pred ${OUTPUT_DIR_PREFIX}.target/${TRAIN_RUN_DIR_NAME}/epoch_*/tags \
-#                                                  --gaps-pred ${OUTPUT_DIR_PREFIX}.gaps/${TRAIN_RUN_DIR_NAME}/epoch_*/gap_tags \
-#                                                  --output ${OUTPUT_DIR_PREFIX}.targetgaps/${TRAIN_RUN_DIR_NAME}/tags
-#
-#    python scripts/merge_target_and_gaps_preds.py --target-pred ${OUTPUT_DIR_PREFIX}.target/${PREDICT_RUN_DIR_NAME}/tags \
-#                                                  --gaps-pred ${OUTPUT_DIR_PREFIX}.gaps/${PREDICT_RUN_DIR_NAME}/gap_tags \
-#                                                  --output ${OUTPUT_DIR_PREFIX}.targetgaps/${PREDICT_RUN_DIR_NAME}/tags
 
 
     # Evaluate on dev set
