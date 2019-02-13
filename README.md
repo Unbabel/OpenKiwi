@@ -162,8 +162,10 @@ Path to a trained model. Default: `None`
 
 Unsurprisingly, it is used to `train` a model.
 
-* API:  
+* API:
+
 ```python
+
 import kiwi
 
 train_predest_config = 'experiments/examples/train_predest.yaml'
@@ -174,6 +176,7 @@ kiwi.train(train_nuqe_config)
 ```
 
 * CLI:  
+
 ```bash
 python kiwi train --config {model_config_file} [OPTS]
 ```
