@@ -2,39 +2,36 @@
 
 #SBATCH --gres=gpu:1
 
+GPU=0
 MODEL="nuqe"
 
-LANGUAGE_PAIR="en_lv.nmt"
+LANGUAGE_PAIR="de_en.smt"
 DATASET="WMT18/word_level/${LANGUAGE_PAIR}"
 DATASET_NAME="wmt18"
 FORMAT="wmt18"
 
-CONFIGURATION_PATH=""
+# e.g.: data/predictions/WMT18/word_level/en_de.smt/nuqe/1/
+OUTPUT_PREDICTIONS_ROOT_DIR="data/predictions/${DATASET}/${MODEL}"
 
-#OUTPUT_DIR_ROOT="data/predictions/${DATASET}"
+# e.g.: data/trained_models/release/wmt18.en_de.smt/nuqe/1/
+OUTPUT_MODELS_ROOT_DIR="data/trained_models/release/${DATASET_NAME}.${LANGUAGE_PAIR}/${MODEL}"
 
 JACKKNIFE_RUN_DIR_NAME="train"
 TRAIN_RUN_DIR_NAME="dev"
 PREDICT_RUN_DIR_NAME="test"
 
-#data/predictions/WMT18/word_level/en_de.smt/nuqe/1/
-#data/trained_models/release/wmt18.en_de.smt/nuqe/1/
-
-OUTPUT_PREDICTIONS_ROOT_DIR="data/predictions/${DATASET}/${MODEL}"
-OUTPUT_MODELS_ROOT_DIR="data/trained_models/release/${DATASET_NAME}.${LANGUAGE_PAIR}/${MODEL}"
+RUN_JACKKNIFE=false
 
 COUNT=0
-for SEED in 200 201 202 203 204
+for SEED in 200 #201 202 203 204
 do
     COUNT=$((COUNT + 1))
     OUTPUT_PREDICTIONS_DIR="${OUTPUT_PREDICTIONS_ROOT_DIR}/${COUNT}"
     mkdir -p ${OUTPUT_PREDICTIONS_DIR}
 
-#    OUTPUT_DIR_PREFIX="${OUTPUT_DIR_ROOT}/${MODEL}.seed${SEED}"
-
     echo "*****************************************************************"
 
-    for SIDE in "target" "gaps" "source"
+    for SIDE in "target" "source" "gaps"
     do
         OUTPUT_MODEL_DIR="${OUTPUT_MODELS_ROOT_DIR}/${SIDE}/${COUNT}"
 
@@ -43,16 +40,26 @@ do
         PREDICT_DIR="${OUTPUT_MODEL_DIR}/${PREDICT_RUN_DIR_NAME}"
 
         echo "================================================================="
-        if [[ ! -d "${JACKKNIFE_DIR:+$JACKKNIFE_DIR/}" ]]; then
+        if ${RUN_JACKKNIFE} && [[ ! -d "${JACKKNIFE_DIR:+$JACKKNIFE_DIR/}" ]]; then
             python -m kiwi jackknife --train-config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
                                      --experiment-name "Official run for OpenKiwi" \
                                      --splits 10 \
                                      --seed ${SEED} \
-                                     --gpu-id 0 \
+                                     --gpu-id ${GPU} \
                                      --output-dir ${JACKKNIFE_DIR}
             cp ${JACKKNIFE_DIR}/train*tags ${OUTPUT_PREDICTIONS_DIR}
         else
             echo "Skipping jackknifing; found ${JACKKNIFE_DIR}"
+        fi
+
+        if [[ $SIDE = "target" ]]
+        then
+            TAGS_FILE="tags"
+        elif [[ ${SIDE} = "gaps" ]]
+        then
+            TAGS_FILE="gap_tags"
+        else
+            TAGS_FILE="source_tags"
         fi
 
         # Train
@@ -61,14 +68,16 @@ do
             python -m kiwi train --config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
                                  --experiment-name "Official run for OpenKiwi" \
                                  --seed ${SEED} \
-                                 --gpu-id 0 \
+                                 --gpu-id ${GPU} \
+                                 --checkpoint-keep-only-best 1 \
                                  --output-dir ${TRAIN_DIR}
-            cp ${TRAIN_DIR}/epoch_*/tags ${OUTPUT_PREDICTIONS_DIR}/dev.tags
-            cp ${TRAIN_DIR}/epoch_*/gap_tags ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags
-            cp ${TRAIN_DIR}/epoch_*/src_tags ${OUTPUT_PREDICTIONS_DIR}/dev.src_tags
         else
             echo "Skipping training; found ${TRAIN_DIR}"
         fi
+#            cp ${TRAIN_DIR}/epoch_*/${TAGS_FILE} ${OUTPUT_PREDICTIONS_DIR}/dev.${TAGS_FILE}
+        if [[ -f "${TRAIN_DIR}/epoch_*/tags" ]]; then cp ${TRAIN_DIR}/epoch_*/tags ${OUTPUT_PREDICTIONS_DIR}/dev.tags; fi
+        if [[ -f "${TRAIN_DIR}/epoch_*/gap_tags" ]]; then cp ${TRAIN_DIR}/epoch_*/gap_tags ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags; fi
+        if [[ -f "${TRAIN_DIR}/epoch_*/source_tags" ]]; then cp ${TRAIN_DIR}/epoch_*/source_tags ${OUTPUT_PREDICTIONS_DIR}/dev.source_tags; fi
 
         # Predict
         echo "================================================================="
@@ -76,9 +85,9 @@ do
                                --experiment-name "Official run for OpenKiwi" \
                                --load-model ${TRAIN_DIR}/best_model.torch \
                                --output-dir ${PREDICT_DIR}
-        cp ${PREDICT_DIR}/tags ${OUTPUT_PREDICTIONS_DIR}/test.tags
-        cp ${PREDICT_DIR}/gap_tags ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags
-        cp ${PREDICT_DIR}/src_tags ${OUTPUT_PREDICTIONS_DIR}/test.src_tags
+        if [[ -f "${PREDICT_DIR}/epoch_*/tags" ]]; then cp ${PREDICT_DIR}/epoch_*/tags ${OUTPUT_PREDICTIONS_DIR}/test.tags; fi
+        if [[ -f "${PREDICT_DIR}/epoch_*/gap_tags" ]]; then cp ${PREDICT_DIR}/epoch_*/gap_tags ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags; fi
+        if [[ -f "${PREDICT_DIR}/epoch_*/source_tags" ]]; then cp ${PREDICT_DIR}/epoch_*/source_tags ${OUTPUT_PREDICTIONS_DIR}/test.source_tags; fi
 
     done
 
@@ -102,7 +111,8 @@ do
                                --format ${FORMAT} \
                                --gold-source data/${DATASET}/dev.src_tags \
                                --gold-target data/${DATASET}/dev.tags \
-                               --pred-source ${OUTPUT_PREDICTIONS_DIR}/dev.src_tags \
+                               --pred-format wmt17 \
+                               --pred-source ${OUTPUT_PREDICTIONS_DIR}/dev.source_tags \
                                --pred-gaps ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags \
                                --pred-target ${OUTPUT_PREDICTIONS_DIR}/dev.tags
     # Evaluate on test set
@@ -110,29 +120,42 @@ do
                                --format ${FORMAT} \
                                --gold-source data/${DATASET}/test.src_tags \
                                --gold-target data/${DATASET}/test.tags \
-                               --pred-source ${OUTPUT_PREDICTIONS_DIR}/test.src_tags \
+                               --pred-format wmt17 \
+                               --pred-source ${OUTPUT_PREDICTIONS_DIR}/test.source_tags \
                                --pred-gaps ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags \
                                --pred-target ${OUTPUT_PREDICTIONS_DIR}/test.tags
 
 done
 
-# Evaluate all predictions at once
-python scripts/evaluate.py --type probs --format ${FORMAT} \
-                           --gold-source data/${DATASET}/dev.src_tags \
-                           --gold-target data/${DATASET}/dev.tags \
-                           --pred-source ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.src_tags \
-                           --pred-gaps ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.gap_tags \
-                           --pred-target ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.tags
-python scripts/evaluate.py --type probs --format ${FORMAT} \
-                           --gold-source data/${DATASET}/test.src_tags \
-                           --gold-target data/${DATASET}/test.tags \
-                           --pred-source ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.src_tags \
-                           --pred-gaps ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.gap_tags \
-                           --pred-target ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.tags
+if [[ ${COUNT} -gt 1 ]]
+then
+    # Evaluate all predictions at once
+    python scripts/evaluate.py --type probs --format ${FORMAT} \
+                               --gold-source data/${DATASET}/dev.src_tags \
+                               --gold-target data/${DATASET}/dev.tags \
+                               --pred-format wmt17 \
+                               --pred-source ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.source_tags \
+                               --pred-gaps ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.gap_tags \
+                               --pred-target ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.tags
+    python scripts/evaluate.py --type probs --format ${FORMAT} \
+                               --gold-source data/${DATASET}/test.src_tags \
+                               --gold-target data/${DATASET}/test.tags \
+                               --pred-format wmt17 \
+                               --pred-source ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.source_tags \
+                               --pred-gaps ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.gap_tags \
+                               --pred-target ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.tags
+fi
+
+ALL_RUNS=${COUNT}
+if [[ ${COUNT} -gt 1 ]]
+then
+    ALL_RUNS="[1-${COUNT}]"
+fi
 
 # Prepare data for Linear
-python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/train.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/train.tags
-
-python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/dev.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.tags
-
-python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/test.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.tags
+if ${RUN_JACKKNIFE}
+then
+    python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/train.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/${ALL_RUNS}/train.tags
+fi
+python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/dev.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/${ALL_RUNS}/dev.tags
+python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/test.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/${ALL_RUNS}/test.tags

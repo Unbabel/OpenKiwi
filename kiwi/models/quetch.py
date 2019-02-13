@@ -48,12 +48,6 @@ class QUETCHConfig(ModelConfig):
         self.predict_target = predict_target
         self.predict_gaps = predict_gaps
         self.predict_source = predict_source
-        # Swap Directions
-        if self.predict_source and not self.predict_target:
-            self.target_vocab_size, self.source_vocab_size = (
-                self.source_vocab_size,
-                self.target_vocab_size,
-            )
 
         self.window_size = window_size
         self.max_aligned = max_aligned
@@ -289,13 +283,19 @@ class QUETCH(Model):
             ).unsqueeze(-1)
 
         # (bs, ts, window, emb) -> (bs, ts, window * emb)
-        h_source = h_source.view(h_source.shape[0], h_source.shape[1], -1)
+        h_source = h_source.view(source_input.size(0), source_input.size(1), -1)
 
         #
         # Target Branch
         #
         # (bs, ts * window) -> (bs, ts * window, emb)
         h_target = self.target_emb(target_input)
+
+        if len(h_target.shape) == 5:
+            # (bs, ts, aligned, window, emb) -> (bs, ts, window, emb)
+            h_target = h_target.sum(2, keepdim=False) / nb_alignments.unsqueeze(
+                -1
+            ).unsqueeze(-1)
 
         # (bs, ts * window, emb) -> (bs, ts, window * emb)
         h_target = h_target.view(target_input.size(0), target_input.size(1), -1)
