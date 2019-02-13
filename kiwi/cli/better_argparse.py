@@ -147,12 +147,13 @@ class PipelineParser:
 
         # Check if there are model parsers
         if self._models is None:
-            models_exist = True
-        else:
             models_exist = False
+        else:
+            models_exist = True
 
         # Parse train pipeline options
         pipeline_options, extra_args = self._parser.parse_known_args(args)
+
         # Parse specific model options if there are model parsers
         if models_exist:
             if pipeline_options.model not in self._models:
@@ -170,7 +171,6 @@ class PipelineParser:
             )
         else:
             remaining_args = extra_args
-
 
         options = Namespace()
         options.pipeline = pipeline_options
