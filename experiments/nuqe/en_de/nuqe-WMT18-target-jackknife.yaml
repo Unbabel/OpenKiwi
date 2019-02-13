@@ -1,6 +1,0 @@
-experiment-name: NuQE WMT18 en-de NMT JACKKNIFE
-
-output-dir: data/predictions/WMT18/word_level/en_de.nmt/nuqe.target/jackknife.tmp/
-
-train-config: experiments/nuqe/en_de/nuqe-WMT18-target.yaml
-splits: 5

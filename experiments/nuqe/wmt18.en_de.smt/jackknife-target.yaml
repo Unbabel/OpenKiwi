@@ -1,0 +1,5 @@
+experiment-name: NuQE WMT18 en-de SMT target JACKKNIFE
+
+train-config: experiments/nuqe/wmt18.en_de.smt/train-target.yaml
+
+splits: 5

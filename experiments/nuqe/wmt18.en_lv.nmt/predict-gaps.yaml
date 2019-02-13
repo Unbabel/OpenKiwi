@@ -1,0 +1,45 @@
+model: nuqe
+
+# 
+# WMT2018-NUQE OPTION
+# 
+predict-target: false
+predict-gaps: true
+predict-source: false
+
+wmt18-format: true
+
+#
+# MAIN OPTIONS (running args)
+#
+experiment-name: NuQE WMT18 Gaps en_de.nmt
+# run-uuid: null
+
+output-dir: data/predictions/WMT18/word_level/en_lv.nmt/nuqe/
+
+#
+# GENERAL OPTIONS
+#
+# random
+seed: 42
+
+# logging
+debug: false
+# output-dir: null  # mlflow will create one if this is null
+mlflow-tracking-uri: mlruns/
+
+# save and load
+load-model: runs/7/6f905c4e4f7c4159a9625adb53046ca5/best_model.torch
+
+
+#
+# DATA OPTIONS
+#
+# corpus
+test-source: data/WMT18/word_level/en_lv.nmt/test.src
+# test-source-pos: data/WMT18/word_level/en_lv.nmt/test.src.pos
+# test-source-tags: null
+test-target: data/WMT18/word_level/en_lv.nmt/test.mt
+# test-target-pos: data/WMT18/word_level/en_lv.nmt/test.mt.pos
+# test-target-tags: data/WMT18/word_level/en_lv.nmt/test_words.tags
+test-alignments: data/WMT18/word_level/en_lv.nmt/test.src-mt.alignments
