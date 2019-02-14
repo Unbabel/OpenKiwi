@@ -5,7 +5,7 @@
 GPU=0
 MODEL="nuqe"
 
-LANGUAGE_PAIR="en_lv.smt"
+LANGUAGE_PAIR="en_de.nmt"
 DATASET="WMT18/word_level/${LANGUAGE_PAIR}"
 DATASET_NAME="wmt18"
 FORMAT="wmt18"
@@ -20,10 +20,12 @@ JACKKNIFE_RUN_DIR_NAME="train"
 TRAIN_RUN_DIR_NAME="dev"
 PREDICT_RUN_DIR_NAME="test"
 
-RUN_JACKKNIFE=false
+RUN_JACKKNIFE=true
+RUN_TRAIN=true
+RUN_PREDICT=true
 
 COUNT=0
-for SEED in 200 #201 202 203 204
+for SEED in 200 201 202 203 204
 do
     COUNT=$((COUNT + 1))
     OUTPUT_PREDICTIONS_DIR="${OUTPUT_PREDICTIONS_ROOT_DIR}/${COUNT}"
@@ -60,30 +62,40 @@ do
 
         # Train
         echo "================================================================="
-        if [[ ! -d "${TRAIN_DIR:+$TRAIN_DIR/}" ]]; then
-            python -m kiwi train --config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
-                                 --experiment-name "Official run for OpenKiwi" \
-                                 --seed ${SEED} \
-                                 --gpu-id ${GPU} \
-                                 --checkpoint-keep-only-best 1 \
-                                 --output-dir ${TRAIN_DIR}
+        if ${RUN_TRAIN}
+	then
+            if [[ ! -d "${TRAIN_DIR:+$TRAIN_DIR/}" ]]; then
+                python -m kiwi train --config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
+                                     --experiment-name "Official run for OpenKiwi" \
+                                     --seed ${SEED} \
+                                     --gpu-id ${GPU} \
+                                     --checkpoint-keep-only-best 1 \
+                                     --output-dir ${TRAIN_DIR}
+            else
+                echo "Skipping training; found ${TRAIN_DIR}"
+            fi
+#   #            cp ${TRAIN_DIR}/epoch_*/${TAGS_FILE} ${OUTPUT_PREDICTIONS_DIR}/dev.${TAGS_FILE}
+            cp ${TRAIN_DIR}/epoch_*/tags ${OUTPUT_PREDICTIONS_DIR}/dev.tags 1> /dev/null 2>&1
+            cp ${TRAIN_DIR}/epoch_*/gap_tags ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags 1> /dev/null 2>&1
+            cp ${TRAIN_DIR}/epoch_*/source_tags ${OUTPUT_PREDICTIONS_DIR}/dev.source_tags 1> /dev/null 2>&1
         else
-            echo "Skipping training; found ${TRAIN_DIR}"
+            echo "RUN_TRAIN is false"
         fi
-#            cp ${TRAIN_DIR}/epoch_*/${TAGS_FILE} ${OUTPUT_PREDICTIONS_DIR}/dev.${TAGS_FILE}
-        cp ${TRAIN_DIR}/epoch_*/tags ${OUTPUT_PREDICTIONS_DIR}/dev.tags 1> /dev/null 2>&1
-        cp ${TRAIN_DIR}/epoch_*/gap_tags ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags 1> /dev/null 2>&1
-        cp ${TRAIN_DIR}/epoch_*/source_tags ${OUTPUT_PREDICTIONS_DIR}/dev.source_tags 1> /dev/null 2>&1
 
         # Predict
         echo "================================================================="
-        python -m kiwi predict --config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/predict-${SIDE}.yaml \
-                               --experiment-name "Official run for OpenKiwi" \
-                               --load-model ${TRAIN_DIR}/best_model.torch \
-                               --output-dir ${PREDICT_DIR}
-        cp ${PREDICT_DIR}/tags ${OUTPUT_PREDICTIONS_DIR}/test.tags 1> /dev/null 2>&1
-        cp ${PREDICT_DIR}/gap_tags ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags 1> /dev/null 2>&1
-        cp ${PREDICT_DIR}/source_tags ${OUTPUT_PREDICTIONS_DIR}/test.source_tags 1> /dev/null 2>&1
+	if ${RUN_PREDICT}
+	then
+            python -m kiwi predict --config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/predict-${SIDE}.yaml \
+                                   --experiment-name "Official run for OpenKiwi" \
+                                   --load-model ${TRAIN_DIR}/best_model.torch \
+                                   --output-dir ${PREDICT_DIR}
+            cp ${PREDICT_DIR}/tags ${OUTPUT_PREDICTIONS_DIR}/test.tags 1> /dev/null 2>&1
+            cp ${PREDICT_DIR}/gap_tags ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags 1> /dev/null 2>&1
+            cp ${PREDICT_DIR}/source_tags ${OUTPUT_PREDICTIONS_DIR}/test.source_tags 1> /dev/null 2>&1
+        else
+	    echo "RUN_PREDICT is false"
+	fi
 
     done
 
@@ -93,6 +105,7 @@ do
                                --format ${FORMAT} \
                                --gold-source data/${DATASET}/dev.src_tags \
                                --gold-target data/${DATASET}/dev.tags \
+                               --gold-sents data/${DATASET/word/sentence}/dev.hter \
                                --pred-format wmt17 \
                                --pred-source ${OUTPUT_PREDICTIONS_DIR}/dev.source_tags \
                                --pred-gaps ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags \
@@ -102,6 +115,7 @@ do
                                --format ${FORMAT} \
                                --gold-source data/${DATASET}/test.src_tags \
                                --gold-target data/${DATASET}/test.tags \
+                               --gold-sents data/${DATASET/word/sentence}/test.hter \
                                --pred-format wmt17 \
                                --pred-source ${OUTPUT_PREDICTIONS_DIR}/test.source_tags \
                                --pred-gaps ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags \
@@ -141,3 +155,4 @@ then
 fi
 python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/dev.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/${ALL_RUNS}/dev.tags
 python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/test.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/${ALL_RUNS}/test.tags
+
