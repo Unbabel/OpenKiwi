@@ -27,3 +27,6 @@ After calling one of these pipelines, the specific parameters can be configured 
 
    train
          For train configuration options see :doc:`train/train`.
+
+   evaluate
+         For evaluation configuration options see :doc:`evaluate/evaluate`.

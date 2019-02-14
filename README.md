@@ -345,6 +345,15 @@ output directory, source and target data, and run:
 python kiwi predict --config experiments/examples/predict_predest.yaml
 ```
 
+### Evaluate
+
+The evaluate pipeline takes predictions of a trained model and a reference (gold) file and evaluates the performance of the model based on the comparison between the predictions and the reference.
+
+To generate evaluate one of your models via the CLI, create a `YAML` file specifying the format of predictions, format of reference and the location of these files, and run:
+```bash
+python kiwi evaluate --config experiments/examples/evaluate_predest.yaml
+```
+
 [//]: # (NOTE: please change docs/cli.rst after fixing Search)
 
 ### Search - CURRENTLY NOT SUPPORTED
