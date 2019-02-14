@@ -1,5 +1,5 @@
-jackknife Interface
-===================
+Evaluate Interface
+==================
 
 **Note**:Args that start with '-\\-' (eg. -\\-save-config) can also be set in a config file
 (specified via -\\-config). The config file uses YAML syntax and must represent
@@ -9,8 +9,8 @@ config file values which override defaults.
 
 
 .. argparse::
-   :module: kiwi.cli.pipelines.jackknife
+   :module: kiwi.cli.pipelines.evaluate
    :passparser:
-   :func: jackknife_opts
-   :prog: kiwi jackknife
+   :func: evaluate_opts
+   :prog: kiwi evaluate
 

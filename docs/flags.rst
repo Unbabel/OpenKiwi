@@ -22,6 +22,7 @@ For pipeline specific options see:
    train/train
    predict/predict
    jackknife/jackknife
+   evaluate/evaluate
 
 
 .. _generic-flags:

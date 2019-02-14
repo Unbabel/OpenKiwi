@@ -143,3 +143,6 @@ run_pipeline*.sh
 
 # Runners Directory Containing slurm output
 runners/
+
+#vim files
+*.swp
