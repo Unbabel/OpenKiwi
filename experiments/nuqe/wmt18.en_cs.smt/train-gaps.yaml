@@ -82,7 +82,7 @@ hidden-sizes: [400, 200, 100, 50]
 dropout: 0.0
 embeddings-dropout: 0.5
 freeze-embeddings: false
-bad-weight: 20.0
+bad-weight: 3.0
 
 
 # 
