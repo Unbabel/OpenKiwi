@@ -18,20 +18,84 @@ Toolkit for Machine Translation Quality Estimation.
 
 http://www.statmt.org/wmt18/quality-estimation-task.html#task2_results
 
-English-Latvian (SMT), words in MT, test set:
+All results are over the respective test set.
 
-| Model                   |   xF1   |
-| ----------------------- | ------- |
-| NuQE model 1            | 0.3746  |
-| SHEF-PT (Best in WMT18) | 0.3608  |
+### English-Czech (SMT)
+
+Words in MT
+
+Model                  | xF1    | F1_OK  | F1_BAD
+-----------------------|--------|--------|-------
+NuQE                   | 0.4909 | 0.8208 | 0.5980
+Conv64 (Best in WMT18) | 0.4502 | 0.8000 | 0.5628
 
 
-English-Latvian (NMT), words in MT, test set:
+Gaps in MT
 
-| Model                  |   xF1   |
-| ---------------------- | ------- |
-| NuQE model 1           | 0.4377  |
-| Conv64 (Best in WMT18) | 0.4293  |
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.1890 | 0.9419 | 0.2007
+SHEF-bRNN (Best in WMT18) | 0.1740 | 0.9719 | 0.1790
+
+
+Words in source
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.4315 | 0.8250 | 0.5231
+SHEF-bRNN (Best in WMT18) | 0.3975 | 0.8114 | 0.4900
+
+
+### English-Latvian (SMT)
+
+Words in MT
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.3830 | 0.8685 | 0.4409
+SHEF-PT (Best in WMT18)   | 0.3608 | 0.8685 | 0.4155
+
+
+Gaps in MT
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+SHEF-PT (Best in WMT18)   | 0.1364 | 0.9679 | 0.1409
+NuQE                      | 0.1058 | 0.8918 | 0.1186
+
+
+Source in MT
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.3082 | 0.8637 | 0.3569
+SHEF-bRNN (Best in WMT18) | 0.3057 | 0.8566 | 0.3569
+
+
+### English-Latvian (NMT)
+
+Words in MT
+
+Model                    | xF1    | F1_OK  | F1_BAD
+-------------------------|--------|--------|-------
+NuQE                     | 0.4519 | 0.8391 | 0.5386
+Conv64 (Best in WMT18)   | 0.4293 | 0.8268 | 0.5192
+
+
+Gaps in MT
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+SHEF-PT (Best in WMT18)   | 0.1258 | 0.9653 | 0.1303
+NuQE                      | 0.1205 | 0.9459 | 0.1274
+
+
+Source in MT
+
+Model                   | xF1    | F1_OK  | F1_BAD
+------------------------|--------|--------|-------
+NuQE                    | 0.3888 | 0.8354 | 0.4654
+SHEF-PT (Best in WMT18) | 0.3614 | 0.8137 | 0.4442
 
 
 ## Installing
