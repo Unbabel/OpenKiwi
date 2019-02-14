@@ -80,7 +80,11 @@ class PipelineParser:
     ):
         self.name = name
 
-        self._models = {model.name: model for model in model_parsers}
+        # Give the option to create pipelines with no models
+        if model_parsers is not None:
+            self._models = {model.name: model for model in model_parsers}
+        else:
+            self._models = None
 
         self._parser = self.get_parser(
             self.name,
@@ -104,14 +108,15 @@ class PipelineParser:
         if options_fn is not None:
             options_fn(self._parser)
 
-        group = self._parser.add_argument_group('models')
-        group.add_argument(
-            '--model',
-            required=True,
-            choices=self._models.keys(),
-            help="Use 'kiwi {} --model <model> --help' for specific "
-            "model options.".format(self.name),
-        )
+        if model_parsers is not None:
+            group = self._parser.add_argument_group('models')
+            group.add_argument(
+                '--model',
+                required=True,
+                choices=self._models.keys(),
+                help="Use 'kiwi {} --model <model> --help' for specific "
+                "model options.".format(self.name),
+            )
 
     @classmethod
     def get_parser(cls, name, add_help=False, **kwargs):
@@ -140,30 +145,46 @@ class PipelineParser:
             self._parser.print_help()
             return None
 
+        # Check if there are model parsers
+        if self._models is None:
+            models_exist = True
+        else:
+            models_exist = False
+
         # Parse train pipeline options
         pipeline_options, extra_args = self._parser.parse_known_args(args)
-        # Parse specific model options
-        if pipeline_options.model not in self._models:
-            raise KeyError('Invalid model: {}'.format(pipeline_options.model))
+        # Parse specific model options if there are model parsers
+        if models_exist:
+            if pipeline_options.model not in self._models:
+                raise KeyError('Invalid model: {}'.format(pipeline_options.model))
 
         config_option, _ = self._config_option_parser.parse_known_args(args)
-        if config_option:
+        if config_option and models_exist:
             extra_args = ['--config', config_option.config] + extra_args
 
-        model_parser = self._models[pipeline_options.model]
-        model_options, remaining_args = model_parser.parse_known_args(
-            extra_args
-        )
+        # Check if there are model parsers
+        if models_exist:
+            model_parser = self._models[pipeline_options.model]
+            model_options, remaining_args = model_parser.parse_known_args(
+                extra_args
+            )
+        else:
+            remaining_args = extra_args
 
-        if remaining_args:
-            raise KeyError('Unrecognized options: {}'.format(remaining_args))
 
         options = Namespace()
         options.pipeline = pipeline_options
-        options.model = model_options
-        options.all_options = merge_namespaces(pipeline_options, model_options)
-        # Retrieve the respective API for the selected model
-        options.model_api = model_parser.api_module
+
+        if models_exist:
+            options.model = model_options
+            options.all_options = merge_namespaces(pipeline_options, model_options)
+            # Retrieve the respective API for the selected model
+            options.model_api = model_parser.api_module
+        else:
+            options.all_options = merge_namespaces(pipeline_options)
+
+        if remaining_args:
+            raise KeyError('Unrecognized options: {}'.format(remaining_args))
 
         return options
 
