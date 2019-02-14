@@ -121,9 +121,7 @@ def load_vocabularies_to_datasets(vocab_path, *datasets):
 
 
 def vocab_loaded_if_needed(field):
-    return not field.use_vocab or (
-        hasattr(field, const.VOCAB) and field.vocab
-    )
+    return not field.use_vocab or (hasattr(field, const.VOCAB) and field.vocab)
 
 
 def save_vocabularies_from_datasets(directory, *datasets):
@@ -192,9 +190,7 @@ def save_training_datasets(directory, train_dataset, valid_dataset):
 def load_training_datasets(directory, fieldset):
     # FIXME: test if this works. Ideally, fields would be already contained
     # inside the loaded datasets.
-    train_ds, valid_ds = load_datasets(
-        directory, const.TRAIN, const.EVAL
-    )
+    train_ds, valid_ds = load_datasets(directory, const.TRAIN, const.EVAL)
 
     # Remove fields not actually loaded (checking if they're required).
     fields = fieldset.fields

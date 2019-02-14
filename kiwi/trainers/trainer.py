@@ -66,11 +66,13 @@ class Trainer:
 
     def train_epoch(self, train_iterator, valid_iterator):
         self.model.train()
-        for batch in tqdm(train_iterator,
-                          total=len(train_iterator),
-                          desc='Batches',
-                          unit=' batches',
-                          ncols=80):
+        for batch in tqdm(
+            train_iterator,
+            total=len(train_iterator),
+            desc='Batches',
+            unit=' batches',
+            ncols=80,
+        ):
             self._step += 1
             outputs = self.train_step(batch)
             self.stats.update(batch=batch, **outputs)
@@ -169,12 +171,12 @@ class Trainer:
         if self.scheduler:
             scheduler_dict = {
                 'name': type(self.scheduler).__name__.lower(),
-                'state_dict': self.scheduler.state_dict()
+                'state_dict': self.scheduler.state_dict(),
             }
         optimizer_dict = {
             'name': type(self.optimizer).__name__.lower(),
             'state_dict': self.optimizer.state_dict(),
-            'scheduler_dict': scheduler_dict
+            'scheduler_dict': scheduler_dict,
         }
         torch.save(optimizer_dict, str(optimizer_path))
 

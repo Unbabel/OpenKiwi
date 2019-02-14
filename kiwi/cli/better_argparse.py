@@ -157,7 +157,9 @@ class PipelineParser:
         # Parse specific model options if there are model parsers
         if models_exist:
             if pipeline_options.model not in self._models:
-                raise KeyError('Invalid model: {}'.format(pipeline_options.model))
+                raise KeyError(
+                    'Invalid model: {}'.format(pipeline_options.model)
+                )
 
         config_option, _ = self._config_option_parser.parse_known_args(args)
         if config_option and models_exist:
@@ -177,7 +179,9 @@ class PipelineParser:
 
         if models_exist:
             options.model = model_options
-            options.all_options = merge_namespaces(pipeline_options, model_options)
+            options.all_options = merge_namespaces(
+                pipeline_options, model_options
+            )
             # Retrieve the respective API for the selected model
             options.model_api = model_parser.api_module
         else:
@@ -213,7 +217,7 @@ class ModelParser:
             prog='... {}'.format(name),
             config_file_parser_class=configargparse.YAMLConfigFileParser,
             ignore_unknown_config_file_keys=True,
-            **kwargs
+            **kwargs,
         )
         cls._parsers[name] = parser
         return parser

@@ -302,9 +302,7 @@ class RMSEMetric(Metric):
 
 
 class TokenMetric(Metric):
-    def __init__(
-        self, target_token=const.UNK_ID, token_name='UNK', **kwargs
-    ):
+    def __init__(self, target_token=const.UNK_ID, token_name='UNK', **kwargs):
         self.target_token = target_token
         super().__init__(metric_name='UNKS', **kwargs)
 

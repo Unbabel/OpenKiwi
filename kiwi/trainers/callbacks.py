@@ -68,9 +68,7 @@ class Checkpoint:
         if epoch is not None:
             return True
         if step is not None:
-            return (
-                self.validation_steps and step % self.validation_steps == 0
-            )
+            return self.validation_steps and step % self.validation_steps == 0
         return False
 
     def must_save(self, stats):
@@ -140,7 +138,8 @@ class Checkpoint:
             heapq.heappush(self.best_stats_summary, heap_element)
         else:
             worst_stat = heapq.heapreplace(
-                self.best_stats_summary, heap_element)
+                self.best_stats_summary, heap_element
+            )
             path_to_remove = str(worst_stat[2])  # Worst output path
         return path_to_remove
 

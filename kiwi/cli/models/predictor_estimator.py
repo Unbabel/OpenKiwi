@@ -131,11 +131,7 @@ def _add_data_flags(parser):
         '--predict-side',
         type=str,
         default=const.TARGET_TAGS,
-        choices=[
-            const.TARGET_TAGS,
-            const.SOURCE_TAGS,
-            const.GAP_TAGS,
-        ],
+        choices=[const.TARGET_TAGS, const.SOURCE_TAGS, const.GAP_TAGS],
         help='Tagset to predict. Leave unchanged for WMT17 format.',
     )
     group.add_argument(
@@ -176,10 +172,11 @@ def _add_data_flags(parser):
 
 
 def _add_vocabulary_opts(parser):
-    group = parser.add_argument_group('vocabulary options', 
-            description='Options for loading vocabulary from a previous run. '
-            'This is used for e.g. training a source predictor via predict-'
-            'inverse: True ; If set, other vocab options are ignored'
+    group = parser.add_argument_group(
+        'vocabulary options',
+        description='Options for loading vocabulary from a previous run. '
+        'This is used for e.g. training a source predictor via predict-'
+        'inverse: True ; If set, other vocab options are ignored',
     )
     group.add_argument(
         '--source-vocab-size',
@@ -209,22 +206,25 @@ def _add_vocabulary_opts(parser):
 
 def _add_data_options(data_parser):
     group = data_parser.add_argument_group(
-        'PredEst data', description='Predictor Estimator specific data '
-        'options. (POSTECH)'
+        'PredEst data',
+        description='Predictor Estimator specific data ' 'options. (POSTECH)',
     )
 
     group.add(
         '--extend-source-vocab',
         type=PathType(exists=True),
         help='Optionally load more data which is used only for vocabulary '
-        'creation. Path to additional Data' '(Predictor)',
+        'creation. Path to additional Data'
+        '(Predictor)',
     )
     group.add(
         '--extend-target-vocab',
         type=PathType(exists=True),
         help='Optionally load more data which is used only for vocabulary '
-        'creation. Path to additional Data' '(Predictor)',
+        'creation. Path to additional Data'
+        '(Predictor)',
     )
+
 
 def add_pretraining_options(parser):
     _add_training_data_file_opts(parser)

@@ -15,7 +15,7 @@ class QEField(data.Field):
         pad_token=PAD,
         init_token=START,
         eos_token=STOP,
-        **kwargs
+        **kwargs,
     ):
         kwargs.setdefault('batch_first', True)
         super().__init__(**kwargs)

@@ -75,7 +75,7 @@ def run(ModelClass, output_dir, pipeline_opts, model_opts):
             wmt18_format=model_opts.__dict__.get('wmt18_format')
         ),
         load_vocab=load_vocab,
-        **vars(model_opts)
+        **vars(model_opts),
     )
     predictions = predicter.run(
         test_dataset, batch_size=pipeline_opts.batch_size

@@ -133,5 +133,5 @@ def merge_vocabularies(vocab_a, vocab_b, max_size=None, vectors=None, **kwargs):
         specials=[UNK, PAD, START, STOP, UNALIGNED],
         max_size=max_size,
         vectors=vectors,
-        **kwargs
+        **kwargs,
     )

@@ -29,14 +29,16 @@ def evaluate_opts(parser):
     )
     group.add_argument(
         "--pred-format",
-        help="Input format for predicted files. Defaults to the same as " "--format.",
+        help="Input format for predicted files. Defaults to the same as "
+        "--format.",
         choices=["wmt17", "wmt18"],
         type=str,
         default="wmt18",
     )
     group.add_argument(
         "--sents-avg",
-        help="Obtain scores for sentences by averaging over tags or " "probabilities.",
+        help="Obtain scores for sentences by averaging over tags or "
+        "probabilities.",
         choices=["probs", "tags"],
         type=str,
         # default=None
@@ -51,7 +53,8 @@ def evaluate_opts(parser):
     )
     group.add_argument(
         "--gold-target",
-        help="Target tags gold standard, or target and gaps " 'if format == "wmt18".',
+        help="Target tags gold standard, or target and gaps "
+        'if format == "wmt18".',
         type=PathType(exists=True),
         required=False,
     )
@@ -119,7 +122,9 @@ def evaluate_opts(parser):
 
 
 def build_parser():
-    return PipelineParser(name="evaluate", model_parsers=None, options_fn=evaluate_opts)
+    return PipelineParser(
+        name="evaluate", model_parsers=None, options_fn=evaluate_opts
+    )
 
 
 def main(argv=None):

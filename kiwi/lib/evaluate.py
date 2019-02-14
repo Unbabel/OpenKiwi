@@ -75,7 +75,9 @@ def evaluate_from_options(options):
     if pipeline_options.pred_sents:
         for pred_file in pipeline_options.pred_sents:
             pred_sents = _read_sentence_scores(pred_file)
-            pred_files[const.SENTENCE_SCORES].append((str(pred_file), pred_sents))
+            pred_files[const.SENTENCE_SCORES].append(
+                (str(pred_file), pred_sents)
+            )
 
     if pipeline_options.input_dir:
         for input_dir in pipeline_options.input_dir:
@@ -204,7 +206,8 @@ def _check_lengths(gold, prediction):
     for i, (g, p) in enumerate(zip(gold, prediction)):
         if len(g) != len(p):
             warnings.warn(
-                "Mismatch length for {}th sample " "{} x {}".format(i, len(g), len(p))
+                "Mismatch length for {}th sample "
+                "{} x {}".format(i, len(g), len(p))
             )
 
 
@@ -222,7 +225,9 @@ def _extract_path_prefix(file_names):
     )
     if len(prefix_path) > 0:
         file_names = [
-            os.path.relpath(path, prefix_path) if not path.startswith("*") else path
+            os.path.relpath(path, prefix_path)
+            if not path.startswith("*")
+            else path
             for path in file_names
         ]
     return prefix_path, file_names
@@ -241,13 +246,17 @@ def eval_word_level(golds, pred_files, tag_name, threshold=None):
     for pred_file, pred in pred_files[tag_name]:
         _check_lengths(golds[tag_name], pred)
 
-        scores = score_word_level(list(flatten(golds[tag_name])), list(flatten(pred)))
+        scores = score_word_level(
+            list(flatten(golds[tag_name])), list(flatten(pred))
+        )
 
         scores_table.append((pred_file, *scores))
 
         if threshold is not None:
             scores_cal = score_word_level(
-                list(flatten(golds[tag_name])), list(flatten(pred)), threshold=threshold
+                list(flatten(golds[tag_name])),
+                list(flatten(pred)),
+                threshold=threshold,
             )
             scores_table.append(("CAL" + pred_file, *scores_cal))
     # If more than one system is provided, compute ensemble score
@@ -255,7 +264,9 @@ def eval_word_level(golds, pred_files, tag_name, threshold=None):
         ensemble_pred = _average(
             [list(flatten(pred)) for _, pred in pred_files[tag_name]]
         )
-        ensemble_score = score_word_level(list(flatten(golds[tag_name])), ensemble_pred)
+        ensemble_score = score_word_level(
+            list(flatten(golds[tag_name])), ensemble_pred
+        )
         scores_table.append(("*ensemble*", *ensemble_score))
 
     print_scores_table(scores_table, tag_name)
@@ -270,7 +281,9 @@ def eval_sentence_level(sent_gold, sent_preds):
         sentence_ranking.append((file_name, *ranking))
 
     ensemble_pred = _average([pred for _, pred in sent_preds])
-    ensemble_score, ensemble_ranking = score_sentence_level(sent_gold, ensemble_pred)
+    ensemble_score, ensemble_ranking = score_sentence_level(
+        sent_gold, ensemble_pred
+    )
     sentence_scores.append(("*ensemble*", *ensemble_score))
     sentence_ranking.append(("*ensemble*", *ensemble_ranking))
 
@@ -341,7 +354,9 @@ def print_graphs(graphs, output_dir):
         df_dict["source"] += len(skips) * [name]
     sns.set()
     df = pd.DataFrame(df_dict)
-    plot = sns.lineplot(x="skips", y="ter", hue="source", style="source", data=df)
+    plot = sns.lineplot(
+        x="skips", y="ter", hue="source", style="source", data=df
+    )
     plot.figure.savefig(str(Path(output_dir) / "SkipsAtQ.png"))
 
 
@@ -424,7 +439,8 @@ def print_sentences_scoring_table(scores):
 
 def print_sentences_ranking_table(scores):
     scoring = np.array(
-        scores, dtype=[("File", "object"), ("Spearman r", float), ("DeltaAvg", float)]
+        scores,
+        dtype=[("File", "object"), ("Spearman r", float), ("DeltaAvg", float)],
     )
     prefix_path, scoring["File"] = _extract_path_prefix(scoring["File"])
     path_str = " ({})".format(prefix_path) if prefix_path else ""
@@ -434,7 +450,10 @@ def print_sentences_ranking_table(scores):
     print("Sentence-level ranking:")
     print(
         "{:{width}}    {:10}    {:9}".format(
-            "File{}".format(path_str), "Spearman r", "DeltaAvg", width=max_method_length
+            "File{}".format(path_str),
+            "Spearman r",
+            "DeltaAvg",
+            width=max_method_length,
         )
     )  # noqa
     for score in np.sort(scoring, order=["Spearman r", "File"])[::-1]:

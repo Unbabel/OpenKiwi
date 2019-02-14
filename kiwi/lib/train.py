@@ -134,7 +134,7 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
         model_options,
         vocabs,
         output_dir,
-        device_id
+        device_id,
     )
 
     logger.info(str(trainer.model))
@@ -159,12 +159,9 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
     return trainer
 
 
-def retrieve_trainer(ModelClass,
-                     pipeline_options,
-                     model_options,
-                     vocabs,
-                     output_dir,
-                     device_id):
+def retrieve_trainer(
+    ModelClass, pipeline_options, model_options, vocabs, output_dir, device_id
+):
     """Create Trainer object.
        Method creates Trainer, Model and Checkpointer
     """
