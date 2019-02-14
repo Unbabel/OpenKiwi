@@ -182,7 +182,7 @@ class QUETCH(Model):
             nb_classes, const.BAD_ID, self.config.bad_weight
         )
 
-        self._loss = nn.NLLLoss(weight=weight, ignore_index=const.PAD_TAGS_ID)
+        self._loss = nn.CrossEntropyLoss(weight=weight, ignore_index=const.PAD_TAGS_ID)
 
         # Embeddings layers:
         self._build_embeddings(source_vectors, target_vectors)
@@ -316,7 +316,7 @@ class QUETCH(Model):
         h = self.dropout(h)
 
         # (bs, ts, hs) -> (bs, ts, 2)
-        h = F.log_softmax(self.linear_out(h), dim=-1)
+        h = self.linear_out(h)
 
         outputs = OrderedDict()
 
