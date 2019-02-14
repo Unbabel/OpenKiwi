@@ -69,7 +69,7 @@ def test_computation_source(temp_output_dir, train_opts, source_opts, atol):
         train_opts,
         source_opts,
         output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.390333,
+        expected_avg_probs=0.355306,
         atol=atol,
     )
 
@@ -105,7 +105,7 @@ def test_jackknifing_source(temp_output_dir, train_opts, source_opts, atol):
         train_opts,
         source_opts,
         output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.378724,
+        expected_avg_probs=0.394607,
         atol=atol,
     )
 

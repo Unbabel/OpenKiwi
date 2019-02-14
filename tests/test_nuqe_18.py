@@ -105,7 +105,7 @@ def test_jackknifing_source(temp_output_dir, train_opts, source_opts, atol):
         train_opts,
         source_opts,
         output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.50663,
+        expected_avg_probs=0.466141,
         atol=atol,
     )
 
