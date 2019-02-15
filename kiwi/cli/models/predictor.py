@@ -1,7 +1,5 @@
 from kiwi.cli.better_argparse import ModelParser
-from kiwi.cli.models.predictor_estimator import (
-    add_pretraining_options
-)
+from kiwi.cli.models.predictor_estimator import add_pretraining_options
 from kiwi.models.predictor import Predictor
 
 

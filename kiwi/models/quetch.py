@@ -181,7 +181,7 @@ class QUETCH(Model):
             self.config.bad_weight
         )
 
-        self._loss = nn.NLLLoss(
+        self._loss = nn.CrossEntropyLoss(
             weight=weight,
             ignore_index=self.config.pad_idx[self.config.target_tags]
         )
@@ -280,7 +280,7 @@ class QUETCH(Model):
             ).unsqueeze(-1)
 
         # (bs, ts, window, emb) -> (bs, ts, window * emb)
-        h_source = h_source.view(h_source.shape[0], h_source.shape[1], -1)
+        h_source = h_source.view(source_input.size(0), source_input.size(1), -1)
 
         #
         # Target Branch
@@ -313,7 +313,7 @@ class QUETCH(Model):
         h = self.dropout(h)
 
         # (bs, ts, hs) -> (bs, ts, 2)
-        h = F.log_softmax(self.linear_out(h), dim=-1)
+        h = self.linear_out(h)
 
         outputs = OrderedDict()
         outputs[self.config.target_tags] = h

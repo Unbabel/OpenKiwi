@@ -70,7 +70,7 @@ class Vocabulary(torchtext.vocab.Vocab):
             add_vectors_vocab: by default, the vocabulary is built using only
                 words from the provided datasets. If this flag is true, the
                 vocabulary will add words that are not in the datasets but are
-                in the vectors vobaulary (e.g. words from polyglot vectors).
+                in the vectors vocabulary (e.g. words from polyglot vectors).
                 Default: False.
             unk: Unknown Token
         """

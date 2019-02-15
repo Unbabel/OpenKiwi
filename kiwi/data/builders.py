@@ -22,12 +22,12 @@ def build_dataset(fieldset, prefix='', filter_pred=None, **kwargs):
 
 
 def build_training_datasets(
-        fieldset,
-        split=0.0,
-        valid_source=None,
-        valid_target=None,
-        load_vocab=None,
-        **kwargs
+    fieldset,
+    split=0.0,
+    valid_source=None,
+    valid_target=None,
+    load_vocab=None,
+    **kwargs,
 ):
     """Build a training and validation QE datasets.
 
@@ -85,7 +85,7 @@ def build_training_datasets(
             filter_pred=filter_pred,
             valid_source=valid_source,
             valid_target=valid_target,
-            **kwargs
+            **kwargs,
         )
     elif split:
         if not 0.0 < split < 1.0:

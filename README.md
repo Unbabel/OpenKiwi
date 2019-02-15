@@ -3,6 +3,9 @@
 [![pipeline status](https://gitlab.com/Unbabel/OpenKiwi/badges/master/pipeline.svg)](https://gitlab.com/Unbabel/OpenKiwi/commits/master)
 [![coverage report](https://gitlab.com/Unbabel/OpenKiwi/badges/master/coverage.svg)](https://gitlab.com/Unbabel/OpenKiwi/commits/master)
 
+[![pipeline status](https://gitlab.com/Unbabel/OpenKiwi/badges/master/pipeline.svg)](https://gitlab.com/Unbabel/OpenKiwi/commits/master)
+[![coverage report](https://gitlab.com/Unbabel/OpenKiwi/badges/master/coverage.svg)](https://gitlab.com/Unbabel/OpenKiwi/commits/master)
+
 Toolkit for Machine Translation Quality Estimation.
 
 ## Features
@@ -18,20 +21,84 @@ Toolkit for Machine Translation Quality Estimation.
 
 http://www.statmt.org/wmt18/quality-estimation-task.html#task2_results
 
-English-Latvian (SMT), words in MT, test set:
+All results are over the respective test set.
 
-| Model                   |   xF1   |
-| ----------------------- | ------- |
-| NuQE model 1            | 0.3746  |
-| SHEF-PT (Best in WMT18) | 0.3608  |
+### English-Czech (SMT)
+
+Words in MT
+
+Model                  | xF1    | F1_OK  | F1_BAD
+-----------------------|--------|--------|-------
+NuQE                   | 0.4909 | 0.8208 | 0.5980
+Conv64 (Best in WMT18) | 0.4502 | 0.8000 | 0.5628
 
 
-English-Latvian (NMT), words in MT, test set:
+Gaps in MT
 
-| Model                  |   xF1   |
-| ---------------------- | ------- |
-| NuQE model 1           | 0.4377  |
-| Conv64 (Best in WMT18) | 0.4293  |
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.2076 | 0.9766 | 0.2126
+SHEF-bRNN (Best in WMT18) | 0.1740 | 0.9719 | 0.1790
+
+
+Words in source
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.4315 | 0.8250 | 0.5231
+SHEF-bRNN (Best in WMT18) | 0.3975 | 0.8114 | 0.4900
+
+
+### English-Latvian (SMT)
+
+Words in MT
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.3830 | 0.8685 | 0.4409
+SHEF-PT (Best in WMT18)   | 0.3608 | 0.8685 | 0.4155
+
+
+Gaps in MT
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.1693 | 0.9738 | 0.1739
+SHEF-PT (Best in WMT18)   | 0.1364 | 0.9679 | 0.1409
+
+
+Source in MT
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.3082 | 0.8637 | 0.3569
+SHEF-bRNN (Best in WMT18) | 0.3057 | 0.8566 | 0.3569
+
+
+### English-Latvian (NMT)
+
+Words in MT
+
+Model                    | xF1    | F1_OK  | F1_BAD
+-------------------------|--------|--------|-------
+NuQE                     | 0.4519 | 0.8391 | 0.5386
+Conv64 (Best in WMT18)   | 0.4293 | 0.8268 | 0.5192
+
+
+Gaps in MT
+
+Model                     | xF1    | F1_OK  | F1_BAD
+--------------------------|--------|--------|-------
+NuQE                      | 0.1289 | 0.9613 | 0.1341
+SHEF-PT (Best in WMT18)   | 0.1258 | 0.9653 | 0.1303
+
+
+Source in MT
+
+Model                   | xF1    | F1_OK  | F1_BAD
+------------------------|--------|--------|-------
+NuQE                    | 0.3888 | 0.8354 | 0.4654
+SHEF-PT (Best in WMT18) | 0.3614 | 0.8137 | 0.4442
 
 
 ## Installing
@@ -279,6 +346,15 @@ To generate predictions for a dataset via the CLI, create a `YAML` file specifyi
 output directory, source and target data, and run:
 ```bash
 python kiwi predict --config experiments/examples/predict_predest.yaml
+```
+
+### Evaluate
+
+The evaluate pipeline takes predictions of a trained model and a reference (gold) file and evaluates the performance of the model based on the comparison between the predictions and the reference.
+
+To generate evaluate one of your models via the CLI, create a `YAML` file specifying the format of predictions, format of reference and the location of these files, and run:
+```bash
+python kiwi evaluate --config experiments/examples/evaluate_predest.yaml
 ```
 
 [//]: # (NOTE: please change docs/cli.rst after fixing Search)

@@ -8,10 +8,7 @@ from kiwi import constants as const
 from kiwi.cli.pipelines.train import build_parser
 from kiwi.data import builders, utils
 from kiwi.data.iterators import build_bucket_iterator
-from kiwi.data.utils import (
-    save_training_datasets,
-    save_vocabularies_from_datasets,
-)
+from kiwi.data.utils import save_training_datasets, save_vocabularies_from_datasets
 from kiwi.lib.utils import (
     configure_logging,
     configure_seed,
@@ -31,6 +28,15 @@ logger = logging.getLogger(__name__)
 
 
 class TrainRunInfo:
+    """
+    Class used to encapsulate relevant information on training runs.
+
+    Attributes:
+        stats: Stats of the best model so far
+        model_path: Path of the best model so far
+        run_uuid: Unique identifier of the current run
+    """
+
     def __init__(self, trainer):
         # FIXME: linear trainer not yet supported here
         #   (no full support to checkpointer)
@@ -40,12 +46,28 @@ class TrainRunInfo:
 
 
 def train_from_file(filename):
+    """
+    Imports and parses a config file and calls `train_from_options`.
+
+    Args:
+        filename (str): filename of the configuration file
+    """
     parser = build_parser()
     options = parser.parse_config_file(filename)
     return train_from_options(options)
 
 
 def train_from_options(options):
+    """
+    Runs the entire training pipeline using the configuration options
+    received. These options include the pipeline and model options
+    plus the model's API.
+
+    Args:
+        options (Namespace): All the configuration options retrieved
+            from either a config file or input flags and the model
+            being used.
+    """
     if options is None:
         return
 
@@ -103,20 +125,18 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
         The trainer object
 
     """
-    model_name = getattr(ModelClass, 'title', ModelClass.__name__)
-    logger.info('Training the {} model'.format(model_name))
+    model_name = getattr(ModelClass, "title", ModelClass.__name__)
+    logger.info("Training the {} model".format(model_name))
     # FIXME: make sure all places use output_dir
     # del pipeline_options.output_dir
     pipeline_options.output_dir = None
 
     # Data step
     fieldset = ModelClass.fieldset(
-        wmt18_format=model_options.__dict__.get('wmt18_format')
+        wmt18_format=model_options.__dict__.get("wmt18_format")
     )
 
-    datasets = retrieve_datasets(
-        fieldset, pipeline_options, model_options, output_dir
-    )
+    datasets = retrieve_datasets(fieldset, pipeline_options, model_options, output_dir)
     save_vocabularies_from_datasets(output_dir, *datasets)
     if pipeline_options.save_data:
         save_training_datasets(pipeline_options.save_data, *datasets)
@@ -129,16 +149,11 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
     vocabs = utils.fields_to_vocabs(datasets[0].fields)
 
     trainer = retrieve_trainer(
-        ModelClass,
-        pipeline_options,
-        model_options,
-        vocabs,
-        output_dir,
-        device_id
+        ModelClass, pipeline_options, model_options, vocabs, output_dir, device_id
     )
 
     logger.info(str(trainer.model))
-    logger.info('{} parameters'.format(trainer.model.num_parameters()))
+    logger.info("{} parameters".format(trainer.model.num_parameters()))
 
     # Dataset iterators
     train_iter = build_bucket_iterator(
@@ -159,12 +174,9 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
     return trainer
 
 
-def retrieve_trainer(ModelClass,
-                     pipeline_options,
-                     model_options,
-                     vocabs,
-                     output_dir,
-                     device_id):
+def retrieve_trainer(
+    ModelClass, pipeline_options, model_options, vocabs, output_dir, device_id
+):
     """Create Trainer object.
        Method creates Trainer, Model and Checkpointer
     """
@@ -208,7 +220,7 @@ def retrieve_trainer(ModelClass,
                 factor=pipeline_options.learning_rate_decay,
                 patience=pipeline_options.learning_rate_decay_start,
                 verbose=True,
-                mode='max',
+                mode="max",
             )
 
         trainer = Trainer(
@@ -222,10 +234,10 @@ def retrieve_trainer(ModelClass,
 
 
 def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
+    """
+    """
     if pipeline_options.load_data:
-        datasets = utils.load_training_datasets(
-            pipeline_options.load_data, fieldset
-        )
+        datasets = utils.load_training_datasets(pipeline_options.load_data, fieldset)
     else:
         load_vocab = None
 
@@ -233,9 +245,9 @@ def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
             load_vocab = Path(output_dir, const.VOCAB_FILE)
         elif pipeline_options.load_model:
             load_vocab = pipeline_options.load_model
-        elif model_options.__dict__.get('load_pred_source'):
+        elif model_options.__dict__.get("load_pred_source"):
             load_vocab = model_options.load_pred_source
-        elif model_options.__dict__.get('load_pred_target'):
+        elif model_options.__dict__.get("load_pred_target"):
             load_vocab = model_options.load_pred_target
         elif pipeline_options.load_vocab:
             load_vocab = pipeline_options.load_vocab
@@ -247,48 +259,57 @@ def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
 
 
 def setup(output_dir, seed=42, gpu_id=None, debug=False, quiet=False):
+    """
+    Analyze pipeline options and set up requirements to running
+    the training pipeline. This includes setting up the output
+    directory, random seeds and the device(s) where training is run.
+
+    Args:
+        options(Namespace): Pipeline specific options
+
+    Returns:
+        output_dir(str): Path to output directory
+    """
     output_dir = setup_output_directory(
-        output_dir,
-        mlflow_logger.run_uuid,
-        mlflow_logger.experiment_id,
-        create=True,
+        output_dir, mlflow_logger.run_uuid, mlflow_logger.experiment_id, create=True
     )
     configure_logging(output_dir=output_dir, debug=debug, quiet=quiet)
     configure_seed(seed)
 
-    logging.info('This is run ID: {}'.format(mlflow_logger.run_uuid))
+    logging.info("This is run ID: {}".format(mlflow_logger.run_uuid))
     logging.info(
-        'Inside experiment ID: {} ({})'.format(
+        "Inside experiment ID: {} ({})".format(
             mlflow_logger.experiment_id, mlflow_logger.experiment_name
         )
     )
-    logging.info('Local output directory is: {}'.format(output_dir))
+    logging.info("Local output directory is: {}".format(output_dir))
     logging.info(
-        'Logging execution to MLflow at: {}'.format(
-            mlflow_logger.get_tracking_uri()
-        )
+        "Logging execution to MLflow at: {}".format(mlflow_logger.get_tracking_uri())
     )
 
     if gpu_id is not None and gpu_id >= 0:
         torch.cuda.set_device(gpu_id)
-        logging.info('Using GPU: {}'.format(gpu_id))
+        logging.info("Using GPU: {}".format(gpu_id))
     else:
-        logging.info('Using CPU')
+        logging.info("Using CPU")
 
-    logging.info(
-        'Artifacts location: {}'.format(mlflow_logger.get_artifact_uri())
-    )
+    logging.info("Artifacts location: {}".format(mlflow_logger.get_artifact_uri()))
 
     return output_dir
 
 
 def teardown(options):
+    """
+    Tears down after executing prediction pipeline.
+
+    Args:
+        options(Namespace): Pipeline specific options
+    """
+    pass
     pass
 
 
-def log(
-    output_dir, save_config, config_options, config_file_name='train_config.yml'
-):
+def log(output_dir, save_config, config_options, config_file_name="train_config.yml"):
     logging.debug(pformat(config_options))
     config_file_copy = Path(output_dir, config_file_name)
     save_args_to_file(config_file_copy, **config_options)
@@ -299,7 +320,7 @@ def log(
         save_args_to_file(save_config, output_dir=output_dir, **config_options)
 
     # Log parameters
-    mlflow_logger.log_param('output_dir', output_dir)
-    mlflow_logger.log_param('save_config', save_config)
+    mlflow_logger.log_param("output_dir", output_dir)
+    mlflow_logger.log_param("save_config", save_config)
     for param, value in config_options.items():
         mlflow_logger.log_param(param, value)

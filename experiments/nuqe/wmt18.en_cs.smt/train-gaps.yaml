@@ -62,7 +62,7 @@ add-embeddings-vocab: false
 # embeddings
 embeddings-format: polyglot
 source-embeddings: data/embeddings2/en/embeddings_pkl.tar.bz2
-target-embeddings: data/embeddings2/de/embeddings_pkl.tar.bz2
+target-embeddings: data/embeddings2/cs/embeddings_pkl.tar.bz2
 
 # load and save data (preprocessed datasets and built vocabs)
 # save-data: null
@@ -82,7 +82,7 @@ hidden-sizes: [400, 200, 100, 50]
 dropout: 0.0
 embeddings-dropout: 0.5
 freeze-embeddings: false
-bad-weight: 20.0
+bad-weight: 3.0
 
 
 # 

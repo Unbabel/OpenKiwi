@@ -37,21 +37,6 @@ def add_training_data_file_opts(parser):
         type=PathType(exists=True),
         help='Path to training label file for target',
     )
-    # group.add_argument(
-    #     '--train-sentence-scores',
-    #     type=PathType(exists=True),
-    #     help='Path to file containing sentence level scores.')
-
-    group.add_argument(
-        '--train-source-pos',
-        type=PathType(exists=True),
-        help='Path to training PoS tags file for source',
-    )
-    group.add_argument(
-        '--train-target-pos',
-        type=PathType(exists=True),
-        help='Path to training PoS tags file for target',
-    )
 
     group.add_argument(
         '--valid-source',

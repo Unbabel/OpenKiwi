@@ -39,7 +39,7 @@ class EstimatorConfig(PredictorConfig, QEModelConfig):
         sentence_level=True,
         sentence_ll=True,
         binary_level=True,
-        **kwargs
+        **kwargs,
     ):
         """Predictor Estimator Hyperparams.
         """

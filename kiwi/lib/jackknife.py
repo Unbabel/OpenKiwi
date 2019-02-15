@@ -116,7 +116,7 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
                 model_options,
                 vocabs,
                 output_dir,
-                device_id
+                device_id,
             )
 
             # Dataset iterators
@@ -165,16 +165,14 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
     if test_set:
         test_predictions = average_all(test_predictions)
 
-    save_predicted_probabilities(parent_dir,
-                                 train_predictions,
-                                 prefix=const.TRAIN)
-    save_predicted_probabilities(parent_dir,
-                                 dev_predictions,
-                                 prefix=const.DEV)
+    save_predicted_probabilities(
+        parent_dir, train_predictions, prefix=const.TRAIN
+    )
+    save_predicted_probabilities(parent_dir, dev_predictions, prefix=const.DEV)
     if test_set:
-        save_predicted_probabilities(parent_dir,
-                                     test_predictions,
-                                     prefix=const.TEST)
+        save_predicted_probabilities(
+            parent_dir, test_predictions, prefix=const.TEST
+        )
 
     teardown(pipeline_options)
 
@@ -197,8 +195,10 @@ def average_predictions(ensemble):
     word_level = isinstance(ensemble[0][0], list)
     if word_level:
         sentence_lengths = [len(sentence) for sentence in ensemble[0]]
-        ensemble = [[word for sentence in predictions for word in sentence]
-                    for predictions in ensemble]
+        ensemble = [
+            [word for sentence in predictions for word in sentence]
+            for predictions in ensemble
+        ]
 
     ensemble = np.array(ensemble, dtype='float32')
     averaged_predictions = ensemble.mean(axis=0)

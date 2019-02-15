@@ -1,7 +1,7 @@
 import configargparse
 
 from kiwi import __version__
-from kiwi.cli.pipelines import jackknife, predict, train
+from kiwi.cli.pipelines import jackknife, predict, train, evaluate
 
 
 def build_parser():
@@ -59,7 +59,11 @@ def build_parser():
         add_help=False,
         help='Jackknife training data with model',
     )
-
+    subparsers.add_parser(
+        'evaluate',
+        add_help=False,
+        help='Evaluate a model\'s predictions using popular metrics',
+    )
     return parser
 
 
@@ -75,6 +79,8 @@ def cli():
     #     search.main(extra_args)
     if options.pipeline == 'jackknife':
         jackknife.main(extra_args)
+    if options.pipeline == 'evaluate':
+        evaluate.main(extra_args)
 
 
 if __name__ == '__main__':  # pragma: no cover
