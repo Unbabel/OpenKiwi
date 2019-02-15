@@ -8,5 +8,4 @@ CorrectMetric = metrics.CorrectMetric
 RMSEMetric = metrics.RMSEMetric
 PearsonMetric = metrics.PearsonMetric
 SpearmanMetric = metrics.SpearmanMetric
-TokenMetric = metrics.TokenMetric
 ThresholdCalibrationMetric = metrics.ThresholdCalibrationMetric

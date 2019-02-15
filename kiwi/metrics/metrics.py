@@ -7,7 +7,6 @@ import torch
 from scipy.stats.stats import pearsonr, spearmanr
 from torch import nn
 
-from kiwi import constants as const
 from kiwi.metrics.functions import fscore, precision_recall_fscore_support
 from kiwi.models.utils import replace_token
 
@@ -301,38 +300,16 @@ class RMSEMetric(Metric):
         self.tokens = 0
 
 
-class TokenMetric(Metric):
-    def __init__(
-        self, target_token=const.UNK_ID, token_name='UNK', **kwargs
-    ):
-        self.target_token = target_token
-        super().__init__(metric_name='UNKS', **kwargs)
-
-    def update(self, batch, **kwargs):
-        target = self.get_target_flat(batch)
-        self.targets += (target == self.target_token).sum().item()
-        self.tokens += self.get_tokens(batch)
-
-    def summarize(self):
-        summary = {}
-        if self.tokens:
-            summary = {self.metric_name: self.targets / self.tokens}
-        return self._prefix_keys(summary)
-
-    def reset(self):
-        self.tokens = 0
-        self.targets = 0
-
-
 class ThresholdCalibrationMetric(Metric):
-    def __init__(self, **kwargs):
+    def __init__(self, target_id=0, **kwargs):
+        self.target_id = target_id
         super().__init__(metric_name='F1_CAL', **kwargs)
 
     def update(self, model_out, batch, **kwargs):
         logits = self.get_predictions_flat(model_out, batch)
-        bad_probs = nn.functional.softmax(logits, -1)[:, const.BAD_ID]
+        probs = nn.functional.softmax(logits, -1)[:, self.target_id]
         target = self.get_target_flat(batch)
-        self.scores += bad_probs.tolist()
+        self.probs += probs.tolist()
         self.Y += target.tolist()
 
     def summarize(self):
@@ -341,15 +318,18 @@ class ThresholdCalibrationMetric(Metric):
         if mid:
             perm = np.random.permutation(len(self.Y))
             self.Y = [self.Y[idx] for idx in perm]
-            self.scores = [self.scores[idx] for idx in perm]
+            self.probs = [self.probs[idx] for idx in perm]
             m = MovingF1()
             fscore, threshold = m.choose(
-                m.eval(self.scores[:mid], self.Y[:mid])
+                m.eval(self.probs[:mid], self.Y[:mid])
             )
-            predictions = [
-                const.BAD_ID if score >= threshold else const.OK_ID
-                for score in self.scores[mid:]
-            ]
+
+            predictions = []
+            for prob in self.probs[mid:]:
+                if prob >= threshold:
+                    predictions.append(self.target_id)
+                else:
+                    predictions.append(max(0, 1 - self.target_id))
             _, _, f1, _ = precision_recall_fscore_support(
                 predictions, self.Y[mid:]
             )
@@ -358,7 +338,7 @@ class ThresholdCalibrationMetric(Metric):
         return self._prefix_keys(summary)
 
     def reset(self):
-        self.scores = []
+        self.probs = []
         self.Y = []
 
 

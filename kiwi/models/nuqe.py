@@ -4,7 +4,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-from kiwi import constants as const
 from kiwi.data.fieldsets.quetch import build_fieldset
 from kiwi.models.model import Model
 from kiwi.models.quetch import QUETCH
@@ -37,14 +36,17 @@ class NuQE(QUETCH):
         super().__init__(vocabs, **kwargs)
 
     def build(self, source_vectors=None, target_vectors=None):
-        nb_classes = self.config.nb_classes
-        # FIXME: Remove dependency on magic number
+        nb_classes = self.config.nb_classes[self.config.target_tags]
         weight = make_loss_weights(
-            nb_classes, const.BAD_ID, self.config.bad_weight
+            nb_classes,
+            self.config.bad_idx[self.config.target_tags],
+            self.config.bad_weight
         )
 
         self._loss = nn.CrossEntropyLoss(
-            weight=weight, ignore_index=self.config.tags_pad_id, reduction='sum'
+            weight=weight,
+            ignore_index=self.config.pad_idx[self.config.target_tags],
+            reduction='sum'
         )
 
         # Embeddings layers:
@@ -60,7 +62,6 @@ class NuQE(QUETCH):
         l3_dim = self.config.hidden_sizes[2]
         l4_dim = self.config.hidden_sizes[3]
 
-        nb_classes = self.config.nb_classes
         dropout = self.config.dropout
 
         # Linear layers
@@ -130,13 +131,8 @@ class NuQE(QUETCH):
     def forward(self, batch):
         assert self.is_built
 
-        if self.config.predict_source:
-            align_side = const.SOURCE_TAGS
-        else:
-            align_side = const.TARGET_TAGS
-
         target_input, source_input, nb_alignments = self.make_input(
-            batch, align_side
+            batch, self.config.target_tags
         )
 
         #
@@ -231,12 +227,5 @@ class NuQE(QUETCH):
         # h = F.log_softmax(h, dim=-1)
 
         outputs = OrderedDict()
-
-        if self.config.predict_target:
-            outputs[const.TARGET_TAGS] = h
-        if self.config.predict_gaps:
-            outputs[const.GAP_TAGS] = h
-        if self.config.predict_source:
-            outputs[const.SOURCE_TAGS] = h
-
+        outputs[self.config.target_tags] = h
         return outputs

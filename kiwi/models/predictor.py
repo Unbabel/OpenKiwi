@@ -14,7 +14,6 @@ from kiwi.models.utils import apply_packed_sequence, replace_token
 class PredictorConfig(ModelConfig):
     def __init__(
         self,
-        vocabs,
         hidden_pred=400,
         rnn_layers_pred=3,
         dropout_pred=0.0,
@@ -24,10 +23,11 @@ class PredictorConfig(ModelConfig):
         source_embeddings_size=200,
         out_embeddings_size=200,
         predict_inverse=False,
+        **kwargs
     ):
         """Predictor Hyperparams.
         """
-        super().__init__(vocabs)
+        super().__init__(**kwargs)
 
         # Vocabulary
         self.target_side = const.TARGET
@@ -37,10 +37,6 @@ class PredictorConfig(ModelConfig):
             self.source_side, self.target_side = (
                 self.target_side,
                 self.source_side,
-            )
-            self.target_vocab_size, self.source_vocab_size = (
-                self.source_vocab_size,
-                self.target_vocab_size,
             )
 
         # Architecture
@@ -94,14 +90,14 @@ class Predictor(Model):
 
         self.attention = Attention(scorer)
         self.embedding_source = nn.Embedding(
-            self.config.source_vocab_size,
+            self.config.vocab_sizes[self.config.source_side],
             self.config.source_embeddings_size,
-            const.PAD_ID,
+            self.config.pad_idx[self.config.source_side],
         )
         self.embedding_target = nn.Embedding(
-            self.config.target_vocab_size,
+            self.config.vocab_sizes[self.config.target_side],
             self.config.target_embeddings_size,
-            const.PAD_ID,
+            self.config.pad_idx[self.config.target_side],
         )
         self.lstm_source = nn.LSTM(
             input_size=self.config.source_embeddings_size,
@@ -131,9 +127,9 @@ class Predictor(Model):
         self.W1 = self.embedding_target
         if not self.config.share_embeddings:
             self.W1 = nn.Embedding(
-                self.config.target_vocab_size,
+                self.config.vocab_sizes[self.config.target_side],
                 self.config.out_embeddings_size,
-                const.PAD_ID,
+                self.config.pad_idx[self.config.target_side],
             )
         self.W2 = nn.Parameter(
             torch.zeros(
@@ -161,7 +157,8 @@ class Predictor(Model):
                 nn.init.xavier_uniform_(p)
 
         self._loss = nn.CrossEntropyLoss(
-            reduction='sum', ignore_index=const.PAD_ID
+            reduction='sum',
+            ignore_index=(self.config.pad_idx[self.config.target_side]),
         )
 
     @staticmethod
@@ -200,7 +197,11 @@ class Predictor(Model):
             target_side = self.config.target_side
         target = getattr(batch, target_side)
         # There are no predictions for first/last element
-        target = replace_token(target[:, 1:-1], const.STOP_ID, const.PAD_ID)
+        target = replace_token(
+            target[:, 1:-1],
+            self.config.stop_idx[self.config.target_side],
+            self.config.pad_idx[self.config.target_side]
+        )
         # Predicted Class must be in dim 1 for xentropyloss
         logits = model_out[target_side]
         logits = logits.transpose(1, 2)
@@ -318,8 +319,8 @@ class Predictor(Model):
         main_metric = PerplexityMetric(
             prefix=self.config.target_side,
             target_name=self.config.target_side,
-            PAD=const.PAD_ID,
-            STOP=const.STOP_ID,
+            PAD=self.config.pad_idx[self.config.target_side],
+            STOP=self.config.stop_idx[self.config.target_side],
         )
         metrics.append(main_metric)
 
@@ -327,16 +328,16 @@ class Predictor(Model):
             CorrectMetric(
                 prefix=self.config.target_side,
                 target_name=self.config.target_side,
-                PAD=const.PAD_ID,
-                STOP=const.STOP_ID,
+                PAD=self.config.pad_idx[self.config.target_side],
+                STOP=self.config.stop_idx[self.config.target_side],
             )
         )
         metrics.append(
             ExpectedErrorMetric(
                 prefix=self.config.target_side,
                 target_name=self.config.target_side,
-                PAD=const.PAD_ID,
-                STOP=const.STOP_ID,
+                PAD=self.config.pad_idx[self.config.target_side],
+                STOP=self.config.stop_idx[self.config.target_side],
             )
         )
         return metrics

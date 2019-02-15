@@ -7,11 +7,11 @@ import torch.nn.functional as F
 from kiwi import constants as const
 from kiwi.data.fieldsets.quetch import build_fieldset
 from kiwi.metrics import CorrectMetric, F1Metric, LogMetric
-from kiwi.models.model import Model, ModelConfig
+from kiwi.models.model import Model, QEModelConfig
 from kiwi.models.utils import align_tensor, convolve_tensor, make_loss_weights
 
 
-class QUETCHConfig(ModelConfig):
+class QUETCHConfig(QEModelConfig):
     def __init__(
         self,
         vocabs,
@@ -28,7 +28,17 @@ class QUETCHConfig(ModelConfig):
         embeddings_dropout=0.4,
         freeze_embeddings=False,
     ):
-        super().__init__(vocabs)
+        super().__init__(vocabs, predict_target, predict_source, predict_gaps)
+
+        assert(sum((predict_target, predict_gaps, predict_source)) == 1)
+        self.target_tags = self.output_tags[0]
+        # Swap Directions
+
+        self.target_side, self.source_side = const.TARGET, const.SOURCE
+        if predict_source:
+            self.target_side, self.source_side = (
+                self.source_side, self.target_side,
+            )
 
         source_vectors = vocabs[const.SOURCE].vectors
         target_vectors = vocabs[const.TARGET].vectors
@@ -44,34 +54,20 @@ class QUETCHConfig(ModelConfig):
         self.dropout = dropout
         self.embeddings_dropout = embeddings_dropout
         self.freeze_embeddings = freeze_embeddings
-        # self.predict_side = predict_side
         self.predict_target = predict_target
         self.predict_gaps = predict_gaps
         self.predict_source = predict_source
-        # Swap Directions
-        if self.predict_source and not self.predict_target:
-            self.target_vocab_size, self.source_vocab_size = (
-                self.source_vocab_size,
-                self.target_vocab_size,
-            )
 
         self.window_size = window_size
         self.max_aligned = max_aligned
         self.hidden_sizes = hidden_sizes
 
-        if const.SOURCE_TAGS in vocabs:
-            self.tags_pad_id = vocabs[const.SOURCE_TAGS].stoi[const.PAD]
-        elif const.GAP_TAGS in vocabs:
-            self.tags_pad_id = vocabs[const.GAP_TAGS].stoi[const.PAD]
-        else:
-            self.tags_pad_id = vocabs[const.TARGET_TAGS].stoi[const.PAD]
-        # FIXME: this might not correspond to reality (in vocabs)!
-        self.nb_classes = len(const.LABELS)
-        self.tag_bad_index = const.BAD_ID
-        self.pad_token = const.PAD
-        self.unaligned_idx = const.UNALIGNED_ID
-        self.source_padding_idx = const.PAD_ID
-        self.target_padding_idx = const.PAD_ID
+        self.source_unaligned_idx = (
+            vocabs[const.SOURCE].token_to_id(const.UNALIGNED)
+        )
+        self.target_unaligned_idx = (
+            vocabs[const.TARGET].token_to_id(const.UNALIGNED)
+        )
 
 
 @Model.register_subclass
@@ -123,19 +119,14 @@ class QUETCH(Model):
         return model
 
     def loss(self, model_out, target):
-        if self.config.predict_source:
-            output_name = const.SOURCE_TAGS
-        elif self.config.predict_gaps:
-            output_name = const.GAP_TAGS
-        else:
-            output_name = const.TARGET_TAGS
-
         # (bs*ts, nb_classes)
-        probs = model_out[output_name]
+        probs = model_out[self.config.target_tags]
         # (bs*ts, )
-        y = getattr(target, output_name)
+        y = getattr(target, self.config.target_tags)
 
-        predicted = probs.view(-1, self.config.nb_classes)
+        predicted = probs.view(
+            -1, self.config.nb_classes[self.config.target_tags]
+        )
         y = y.view(-1)
 
         loss = self._loss(predicted, y)
@@ -148,27 +139,27 @@ class QUETCH(Model):
             self.source_emb = nn.Embedding(
                 num_embeddings=source_vectors.size(0),
                 embedding_dim=source_vectors.size(1),
-                padding_idx=self.config.source_padding_idx,
+                padding_idx=self.config.pad_idx[const.SOURCE],
                 _weight=source_vectors,
             )
         else:
             self.source_emb = nn.Embedding(
-                num_embeddings=self.config.source_vocab_size,
+                num_embeddings=self.config.vocab_sizes[const.SOURCE],
                 embedding_dim=self.config.source_embeddings_size,
-                padding_idx=self.config.source_padding_idx,
+                padding_idx=self.config.pad_idx[const.SOURCE],
             )
         if target_vectors is not None:
             self.target_emb = nn.Embedding(
                 num_embeddings=target_vectors.size(0),
                 embedding_dim=target_vectors.size(1),
-                padding_idx=self.config.target_padding_idx,
+                padding_idx=self.config.pad_idx[const.TARGET],
                 _weight=target_vectors,
             )
         else:
             self.target_emb = nn.Embedding(
-                num_embeddings=self.config.target_vocab_size,
+                num_embeddings=self.config.vocab_sizes[const.TARGET],
                 embedding_dim=self.config.target_embeddings_size,
-                padding_idx=self.config.target_padding_idx,
+                padding_idx=self.config.pad_idx[const.TARGET],
             )
         if self.config.freeze_embeddings:
             self.source_emb.weight.requires_grad = False
@@ -181,14 +172,19 @@ class QUETCH(Model):
     def build(self, source_vectors=None, target_vectors=None):
 
         hidden_size = self.config.hidden_sizes[0]
-        nb_classes = self.config.nb_classes
+        nb_classes = self.config.nb_classes[self.config.target_tags]
         dropout = self.config.dropout
 
         weight = make_loss_weights(
-            nb_classes, const.BAD_ID, self.config.bad_weight
+            nb_classes,
+            self.config.bad_idx[self.config.target_tags],
+            self.config.bad_weight
         )
 
-        self._loss = nn.NLLLoss(weight=weight, ignore_index=const.PAD_TAGS_ID)
+        self._loss = nn.NLLLoss(
+            weight=weight,
+            ignore_index=self.config.pad_idx[self.config.target_tags]
+        )
 
         # Embeddings layers:
         self._build_embeddings(source_vectors, target_vectors)
@@ -215,28 +211,28 @@ class QUETCH(Model):
         source_input, source_lengths = getattr(batch, const.SOURCE)
         alignments = batch.alignments
 
-        if self.config.predict_gaps and not self.config.predict_target:
+        if self.config.predict_gaps:
             target_input = F.pad(
                 target_input,
                 pad=(0, 1),
-                value=self.vocabs[const.TARGET].stoi[const.UNALIGNED],
+                value=self.config.target_unaligned_idx,
             )
             source_input = F.pad(
                 source_input,
                 pad=(0, 1),
-                value=self.vocabs[const.SOURCE].stoi[const.UNALIGNED],
+                value=self.config.source_unaligned_idx,
             )
 
         target_input = convolve_tensor(
             target_input,
             self.config.window_size,
-            self.config.target_padding_idx,
+            self.config.pad_idx[const.TARGET],
         )
 
         source_input = convolve_tensor(
             source_input,
             self.config.window_size,
-            self.config.source_padding_idx,
+            self.config.pad_idx[const.SOURCE],
         )
 
         if side == const.SOURCE_TAGS:
@@ -248,8 +244,8 @@ class QUETCH(Model):
                 target_input,
                 alignments,
                 self.config.max_aligned,
-                self.config.unaligned_idx,
-                self.config.target_padding_idx,
+                self.config.target_unaligned_idx,
+                self.config.pad_idx[const.TARGET],
                 pad_size=source_input.shape[1],
             )
         else:
@@ -257,8 +253,8 @@ class QUETCH(Model):
                 source_input,
                 alignments,
                 self.config.max_aligned,
-                self.config.unaligned_idx,
-                self.config.source_padding_idx,
+                self.config.source_unaligned_idx,
+                self.config.pad_idx[const.SOURCE],
                 pad_size=target_input.shape[1],
             )
 
@@ -267,13 +263,8 @@ class QUETCH(Model):
     def forward(self, batch):
         assert self.is_built
 
-        if self.config.predict_source:
-            align_side = const.SOURCE_TAGS
-        else:
-            align_side = const.TARGET_TAGS
-
         target_input, source_input, nb_alignments = self.make_input(
-            batch, align_side
+            batch, self.config.target_tags
         )
 
         #
@@ -297,6 +288,12 @@ class QUETCH(Model):
         # (bs, ts * window) -> (bs, ts * window, emb)
         h_target = self.target_emb(target_input)
 
+        if len(h_target.shape) == 5:
+            # (bs, ts, aligned, window, emb) -> (bs, ts, window, emb)
+            h_target = h_target.sum(2, keepdim=False) / nb_alignments.unsqueeze(
+                -1
+            ).unsqueeze(-1)
+
         # (bs, ts * window, emb) -> (bs, ts, window * emb)
         h_target = h_target.view(target_input.size(0), target_input.size(1), -1)
 
@@ -319,14 +316,7 @@ class QUETCH(Model):
         h = F.log_softmax(self.linear_out(h), dim=-1)
 
         outputs = OrderedDict()
-
-        if self.config.predict_target:
-            outputs[const.TARGET_TAGS] = h
-        if self.config.predict_gaps:
-            outputs[const.GAP_TAGS] = h
-        if self.config.predict_source:
-            outputs[const.SOURCE_TAGS] = h
-
+        outputs[self.config.target_tags] = h
         return outputs
 
     @staticmethod
@@ -342,7 +332,7 @@ class QUETCH(Model):
                 F1Metric(
                     prefix=const.TARGET_TAGS,
                     target_name=const.TARGET_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[self.config.target_tags],
                     labels=const.LABELS,
                 )
             )
@@ -350,7 +340,7 @@ class QUETCH(Model):
                 CorrectMetric(
                     prefix=const.TARGET_TAGS,
                     target_name=const.TARGET_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[self.config.target_tags],
                 )
             )
         if self.config.predict_source:
@@ -358,7 +348,7 @@ class QUETCH(Model):
                 F1Metric(
                     prefix=const.SOURCE_TAGS,
                     target_name=const.SOURCE_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[self.config.target_tags],
                     labels=const.LABELS,
                 )
             )
@@ -366,7 +356,7 @@ class QUETCH(Model):
                 CorrectMetric(
                     prefix=const.SOURCE_TAGS,
                     target_name=const.SOURCE_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[self.config.target_tags],
                 )
             )
         if self.config.predict_gaps:
@@ -374,7 +364,7 @@ class QUETCH(Model):
                 F1Metric(
                     prefix=const.GAP_TAGS,
                     target_name=const.GAP_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[self.config.target_tags],
                     labels=const.LABELS,
                 )
             )
@@ -382,7 +372,7 @@ class QUETCH(Model):
                 CorrectMetric(
                     prefix=const.GAP_TAGS,
                     target_name=const.GAP_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[self.config.target_tags],
                 )
             )
 

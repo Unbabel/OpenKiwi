@@ -76,7 +76,7 @@ def test_computation_gaps(temp_output_dir, train_opts, gap_opts, atol):
         train_opts,
         gap_opts,
         output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.293252,
+        expected_avg_probs=0.452956,
         atol=atol,
     )
     gap_opts.predict_target = True
@@ -86,7 +86,7 @@ def test_computation_gaps(temp_output_dir, train_opts, gap_opts, atol):
         train_opts,
         gap_opts,
         output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.293695,
+        expected_avg_probs=0.310366,
         atol=atol,
     )
 
@@ -98,7 +98,7 @@ def test_computation_source(temp_output_dir, train_opts, source_opts, atol):
         train_opts,
         source_opts,
         output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.432427,
+        expected_avg_probs=0.463652,
         atol=atol,
     )
 
@@ -110,7 +110,7 @@ def test_jackknifing_target(temp_output_dir, train_opts, target_opts, atol):
         train_opts,
         target_opts,
         output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.48883,
+        expected_avg_probs=0.47876,
         atol=atol,
     )
 
@@ -122,7 +122,7 @@ def test_jackknifing_gaps(temp_output_dir, train_opts, gap_opts, atol):
         train_opts,
         gap_opts,
         output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.42087,
+        expected_avg_probs=0.440309,
         atol=atol,
     )
 
@@ -134,7 +134,7 @@ def test_jackknifing_source(temp_output_dir, train_opts, source_opts, atol):
         train_opts,
         source_opts,
         output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.467527,
+        expected_avg_probs=0.484402,
         atol=atol,
     )
 

@@ -55,7 +55,7 @@ def test_train_predictor(temp_output_dir, predictor_opts, train_opts, atol):
 
     trainer = train.run(Predictor, temp_output_dir, train_opts, predictor_opts)
     stats = trainer.stats_summary_history[-1]
-    np.testing.assert_allclose(stats['target_PERP'], 420.706878, atol=atol)
+    np.testing.assert_allclose(stats['target_PERP'], 410.781112, atol=atol)
 
 
 if __name__ == '__main__':  # pragma: no cover
