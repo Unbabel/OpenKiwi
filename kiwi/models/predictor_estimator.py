@@ -39,7 +39,7 @@ class EstimatorConfig(PredictorConfig, QEModelConfig):
         sentence_level=True,
         sentence_ll=True,
         binary_level=True,
-        **kwargs,
+        **kwargs
     ):
         """Predictor Estimator Hyperparams.
         """
@@ -293,8 +293,8 @@ class Estimator(Model):
                 contexts[side], hs[side] = apply_packed_sequence(
                     self.lstm, input_seq, target_lengths
                 )
-                logits = self.predict_tags(contexts[side], tag=tag)
-                outputs[tag] = logits
+            logits = self.predict_tags(contexts[side], tag=tag)
+            outputs[tag] = logits
 
         # Sentence/Binary/Token Level prediction
         sentence_input = self.make_sentence_input(hs)
@@ -422,11 +422,10 @@ class Estimator(Model):
     def word_loss(self, model_out, batch):
         """Compute Sequence Tagging Loss"""
         word_loss = OrderedDict()
-        for tag in const.TAGS:
-            if tag in model_out:
-                logits = model_out[tag]
-                logits = logits.transpose(1, 2)
-                word_loss[tag] = self.xents[tag](logits, getattr(batch, tag))
+        for tag in self.config.output_tags:
+            logits = model_out[tag]
+            logits = logits.transpose(1, 2)
+            word_loss[tag] = self.xents[tag](logits, getattr(batch, tag))
         return word_loss
 
     def binary_loss(self, model_out, batch):

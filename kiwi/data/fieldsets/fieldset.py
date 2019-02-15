@@ -107,7 +107,7 @@ class Fieldset:
         name,
         embeddings_format='polyglot',
         embeddings_binary=False,
-        **kwargs,
+        **kwargs
     ):
         if name not in self._vocab_vectors:
             raise KeyError(
