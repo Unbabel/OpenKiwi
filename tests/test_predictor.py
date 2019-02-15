@@ -3,7 +3,7 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.data.builders import build_training_datasets
 from kiwi.data.fieldsets import extend_vocabs_fieldset
 from kiwi.lib import train
@@ -29,15 +29,15 @@ def test_extend_vocabs(extend_vocab):
     dataset, _ = build_training_datasets(
         fieldset, extend_vocabs_fieldset=vocabs_fieldset, **vars(options)
     )
-    assert OOV_SRC in dataset.fields[constants.SOURCE].vocab.stoi
-    assert OOV_TGT in dataset.fields[constants.TARGET].vocab.stoi
+    assert OOV_SRC in dataset.fields[const.SOURCE].vocab.stoi
+    assert OOV_TGT in dataset.fields[const.TARGET].vocab.stoi
 
     fieldset = Predictor.fieldset(wmt18_format=options.wmt18_format)
     options.extend_source_vocab = None
     options.extend_target_vocab = None
     dataset, _ = build_training_datasets(fieldset, **vars(options))
-    assert OOV_SRC not in dataset.fields[constants.SOURCE].vocab.stoi
-    assert OOV_TGT not in dataset.fields[constants.TARGET].vocab.stoi
+    assert OOV_SRC not in dataset.fields[const.SOURCE].vocab.stoi
+    assert OOV_TGT not in dataset.fields[const.TARGET].vocab.stoi
 
 
 def test_train_predictor(temp_output_dir, predictor_opts, train_opts, atol):
@@ -47,7 +47,7 @@ def test_train_predictor(temp_output_dir, predictor_opts, train_opts, atol):
 
     trainer = train.run(Predictor, temp_output_dir, train_opts, predictor_opts)
     stats = trainer.stats_summary_history[-1]
-    np.testing.assert_allclose(stats['target_PERP'], 440.262493, atol=atol)
+    np.testing.assert_allclose(stats['target_PERP'], 410.781112, atol=atol)
 
     # Testing predictor with pickled data
     epoch_dir = 'epoch_{}'.format(train_opts.epochs)
@@ -55,7 +55,7 @@ def test_train_predictor(temp_output_dir, predictor_opts, train_opts, atol):
 
     trainer = train.run(Predictor, temp_output_dir, train_opts, predictor_opts)
     stats = trainer.stats_summary_history[-1]
-    np.testing.assert_allclose(stats['target_PERP'], 410.781112, atol=atol)
+    np.testing.assert_allclose(stats['target_PERP'], 376.099405, atol=atol)
 
 
 if __name__ == '__main__':  # pragma: no cover

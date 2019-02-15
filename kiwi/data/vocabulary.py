@@ -3,20 +3,7 @@ import warnings
 import torchtext
 
 from kiwi.constants import PAD, START, STOP, UNALIGNED
-
-
-class ForgetfulDefaultdict(dict):
-    """Defaultdict that does not cache values.
-    """
-    def __init__(self, default, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.default = default
-
-    def __getitem__(self, key):
-        if key in self:
-            return super().__getitem__(key)
-        else:
-            return self.default
+from kiwi.data.forgetful_defaultdict import ForgetfulDefaultdict
 
 
 class Vocabulary(torchtext.vocab.Vocab):
@@ -133,7 +120,7 @@ class Vocabulary(torchtext.vocab.Vocab):
         # stoi is simply a reverse dict for itos
         self.stoi.update({tok: i for i, tok in enumerate(self.itos)})
 
-        if self.unk:
+        if self.unk:  # defaultdict that does not insert keys upon lookup
             self.stoi = ForgetfulDefaultdict(self.stoi[self.unk], self.stoi)
         self.vectors = None
         if vectors is not None:
