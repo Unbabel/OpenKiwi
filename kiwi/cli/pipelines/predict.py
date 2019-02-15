@@ -8,35 +8,33 @@ logger = logging.getLogger(__name__)
 
 
 def predict_opts(parser):
-    group = parser.add_argument_group('predicting')
+    group = parser.add_argument_group("predicting")
     group.add_argument(
-        '--batch-size',
-        type=int,
-        default=64,
-        help='Maximum batch size for predicting.',
+        "--batch-size", type=int, default=64, help="Maximum batch size for predicting."
+    )
+
+
+def build_parser():
+    return PipelineParser(
+        name="predict",
+        model_parsers=[
+            nuqe.parser_for_pipeline("predict"),
+            predictor_estimator.parser_for_pipeline("predict"),
+            quetch.parser_for_pipeline("predict"),
+            linear.parser_for_pipeline("predict"),
+        ],
+        options_fn=predict_opts,
     )
 
 
 def main(argv=None):
-    parser = PipelineParser(
-        name='predict',
-        model_parsers=[
-            nuqe.parser_for_pipeline('predict'),
-            predictor_estimator.parser_for_pipeline('predict'),
-            quetch.parser_for_pipeline('predict'),
-            linear.parser_for_pipeline('predict'),
-        ],
-        options_fn=predict_opts,
-    )
+    parser = build_parser()
     options = parser.parse(args=argv)
+    # is this needed?
     if options is None:
         return
-
-    output_dir = predict.setup(options.pipeline)
-
-    predict.run(options.model_api, output_dir, options.pipeline, options.model)
-    predict.teardown(options.pipeline)
+    predict.predict_from_options(options)
 
 
-if __name__ == '__main__':  # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     main()  # pragma: no cover
