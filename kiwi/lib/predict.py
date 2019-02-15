@@ -23,8 +23,9 @@ def predict_from_options(options):
     """
     Uses the configuration options to run the prediction pipeline.
     Iteratively calls `setup`, `run` and `teardown`.
+
     Args:
-        options(Namespace): Namespace containing all parsed options.
+        options (Namespace): Namespace containing all parsed options.
     """
     logger.debug("Setting up predict..")
     output_dir = setup(options.pipeline)
@@ -66,18 +67,14 @@ def run(ModelClass, output_dir, pipeline_opts, model_opts):
 
     Args:
         ModelClass (type): Python Type of the Model to train
-        output_dir: Directory to save models
-        pipeline_options (Namespace): Generic Train Options
-            load_model: load pre-trained predictor model
-            resume: load trainer state and resume training
-            gpu_id: Set to non-negative integer to train on GPU
-            train_batch_size: Batch Size for training
-            valid_batch_size: Batch size for validation
+        output_dir: Directory to save predictions
+        pipeline_options (Namespace): Generic predict Options
+            batch_size: Max batch size for predicting
 
-        model_options(Namespace): Model Specific options
+        model_options (Namespace): Model Specific options
 
     Returns:
-        Predictions(dict): Dictionary with {'target':predictions}
+        Predictions (dict): Dictionary with format {'target':predictions}
     """
     model_name = getattr(ModelClass, "title", ModelClass.__name__)
     logger.info("Predict with the {} model".format(model_name))

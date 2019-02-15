@@ -11,6 +11,13 @@ import torch
 
 
 def configure_seed(seed):
+    """
+    Configure the random seed for all relevant packages.
+    These include: random, numpy, torch and torch.cuda
+    
+    Args:
+        seed (int): the random seed to be set
+    """
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
@@ -18,11 +25,27 @@ def configure_seed(seed):
 
 
 def configure_device(gpu_id):
+    """
+    Configure gpu to be used in computation.
+    
+    Args:
+        gpu_id (int): The id of the gpu to be used
+    """
     if gpu_id is not None:
         torch.cuda.set_device(gpu_id)
 
 
 def configure_logging(output_dir=None, debug=False, quiet=False):
+    """
+    Configure the logger. Sets up the log format, logging level
+    and output directory of logging.
+
+    Args:
+        output_dir: The directory where log output will be stored.
+            Defaults to None.
+        debug (bool): Change logging level to debug.
+        quiet (bool): Change logging level to warning to supress info logs.
+    """
     logging.Formatter.converter = gmtime
     logging.Formatter.default_msec_format = '%s.%03d'
     log_format = '%(asctime)s [%(name)s %(funcName)s:%(lineno)s] %(message)s'
@@ -47,6 +70,14 @@ def configure_logging(output_dir=None, debug=False, quiet=False):
 
 
 def save_args_to_file(file_name, **kwargs):
+    """
+    Saves `**kwargs` to a file.
+
+    Args:
+        file_name (str): The name of the file where the args should
+            be saved in.
+
+    """
     options_to_save = {
         k.replace('_', '-'): v for k, v in kwargs.items() if v is not None
     }
@@ -57,6 +88,15 @@ def save_args_to_file(file_name, **kwargs):
 
 
 def save_config_file(options, file_name):
+    """
+    Saves a configuration file with OpenKiwi configuration options.
+    Calls `save_args_to_file`.
+
+    Args:
+        options (Namespace): Namespace with all configuration options
+            that should be saved.
+        file_name (str): Name of the output configuration file.
+    """
     # parser.write_config_file(options, [file_name], exit_after=False)
     save_args_to_file(file_name, **vars(options))
 
@@ -64,6 +104,17 @@ def save_config_file(options, file_name):
 def setup_output_directory(
     output_dir, run_uuid=None, experiment_id=None, create=True
 ):
+    """
+    Sets up the output directory. This means either creating one, or
+    verifying that the provided directory exists. Output directories
+    are created using the run and experiment ids.
+
+    Args:
+        output_dir (str): The target output directory
+        run_uuid : The current hash of the current run.
+        experiment_id: The id of the current experiment
+        create (bool): Boolean indicating whether to create a new folder.
+    """
     if not output_dir:
         if experiment_id is None or run_uuid is None:
             raise argparse.ArgumentError(
@@ -84,6 +135,13 @@ def setup_output_directory(
 
 
 def merge_namespaces(*args):
+    """
+    Utility function used to merge Namespaces. Useful for merging 
+    Argparse options.
+    
+    Args:
+        *args: Variable length list of Namespaces
+    """
     if not args:
         return None
     options = {}
