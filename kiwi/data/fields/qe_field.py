@@ -52,7 +52,6 @@ class QEField(data.Field):
             OrderedDict.fromkeys(
                 tok
                 for tok in [
-                    self.unk_token,
                     self.pad_token,
                     self.init_token,
                     self.eos_token,
@@ -61,4 +60,6 @@ class QEField(data.Field):
                 if tok is not None
             )
         )
-        self.vocab = self.vocab_cls(counter, specials=specials, **kwargs)
+        self.vocab = self.vocab_cls(
+            counter, specials=specials, unk=UNK, **kwargs
+        )

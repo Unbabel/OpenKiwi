@@ -5,18 +5,8 @@ from kiwi import constants as const
 from kiwi.data import utils
 from kiwi.data.fields.sequence_labels_field import SequenceLabelsField
 from kiwi.data.fieldsets.fieldset import Fieldset
+from kiwi.data.fieldsets.predictor import build_text_field
 from kiwi.data.tokenizers import tokenizer
-
-
-def build_text_field():
-    return data.Field(
-        tokenize=tokenizer,
-        init_token=const.START,
-        batch_first=True,
-        eos_token=const.STOP,
-        pad_token=const.PAD,
-        unk_token=const.UNK,
-    )
 
 
 def build_label_field(postprocessing=None):

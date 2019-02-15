@@ -7,6 +7,7 @@ from kiwi.data.corpus import Corpus
 from kiwi.data.fields.alignment_field import AlignmentField
 from kiwi.data.fields.qe_field import QEField
 from kiwi.data.fieldsets.fieldset import Fieldset
+from kiwi.data.fields.sequence_labels_field import SequenceLabelsField
 from kiwi.data.tokenizers import align_tokenizer, tokenizer
 
 
@@ -24,9 +25,7 @@ def build_fieldset():
     target_field = QEField(tokenize=tokenizer)
     source_pos = QEField(tokenize=tokenizer)
     target_pos = QEField(tokenize=tokenizer)
-    target_tags_field = data.Field(
-        tokenize=tokenizer, pad_token=None, unk_token=None
-    )
+    target_tags_field = SequenceLabelsField(tokenize=tokenizer, pad_token=None)
 
     fs.add(
         name=const.SOURCE,

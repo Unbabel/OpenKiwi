@@ -1,6 +1,5 @@
 import copy
 import logging
-from collections import defaultdict
 from math import ceil
 from pathlib import Path
 
@@ -19,22 +18,16 @@ def serialize_vocabs(vocabs, include_vectors=False):
 
     for name, vocab in vocabs.items():
         vocab = copy.copy(vocab)
-        vocab.stoi = dict(vocab.stoi)
         if not include_vectors:
             vocab.vectors = None
         serialized_vocabs.append((name, vocab))
-
     return serialized_vocabs
 
 
 def deserialize_vocabs(vocabs):
     """Restore defaultdict lost in serialization.
     """
-    vocabs = dict(vocabs)
-    for name, vocab in vocabs.items():
-        # Hack. Can't pickle defaultdict :(
-        vocab.stoi = defaultdict(lambda: const.UNK_ID, vocab.stoi)
-    return vocabs
+    return dict(vocabs)
 
 
 def serialize_fields_to_vocabs(fields):
@@ -51,8 +44,7 @@ def deserialize_fields_from_vocabs(fields, vocabs):
     """
     Load serialized vocabularies into their fields.
     """
-    # TODO redundant deserialization
-    vocabs = deserialize_vocabs(vocabs)
+    # TODO redundant method
     return fields_from_vocabs(fields, vocabs)
 
 
@@ -61,7 +53,7 @@ def fields_from_vocabs(fields, vocabs):
     Load Field objects from vocabs dict.
     From OpenNMT
     """
-    vocabs = deserialize_vocabs(vocabs)
+    vocabs = dict(vocabs)
     for name, vocab in vocabs.items():
         if name not in fields:
             logger.warning(
@@ -137,7 +129,6 @@ def build_vocabulary(fields_vocab_options, *datasets):
     fields = {}
     for dataset in datasets:
         fields.update(dataset.fields)
-
     for name, field in fields.items():
         if not vocab_loaded_if_needed(field):
             kwargs_vocab = fields_vocab_options[name]

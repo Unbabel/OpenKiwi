@@ -5,21 +5,9 @@ START = '<bos>'
 STOP = '<eos>'
 UNALIGNED = '<unaligned>'
 
-# special tokens id (don't edit this order)
-# FIXME: avoid using these IDs since we don't really make sure they correspond
-# to the above tokens
-UNK_ID = 0
-PAD_ID = 1
-START_ID = 2
-STOP_ID = 3
-UNALIGNED_ID = 4
-
-PAD_TAGS_ID = 2
 # binary labels
 OK = 'OK'
 BAD = 'BAD'
-OK_ID = 0
-BAD_ID = 1
 LABELS = [OK, BAD]
 
 # this should be removed in the future
