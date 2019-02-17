@@ -3,6 +3,7 @@ from distutils.util import strtobool
 from kiwi import constants as const
 from kiwi.cli.better_argparse import ModelParser
 from kiwi.cli.opts import PathType
+from kiwi.lib.utils import parse_integer_with_positive_infinity
 from kiwi.models.predictor_estimator import Estimator
 
 title = 'Estimator (Predictor-Estimator)'
@@ -145,7 +146,7 @@ def _add_data_flags(parser):
 
     group.add_argument(
         '--source-max-length',
-        type=int,
+        type=parse_integer_with_positive_infinity,
         default=float("inf"),
         help='Maximum source sequence length',
     )
@@ -157,7 +158,7 @@ def _add_data_flags(parser):
     )
     group.add_argument(
         '--target-max-length',
-        type=int,
+        type=parse_integer_with_positive_infinity,
         default=float("inf"),
         help='Maximum target sequence length to keep.',
     )
