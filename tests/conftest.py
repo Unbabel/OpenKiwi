@@ -8,7 +8,7 @@ import pytest
 
 from kiwi.lib import jackknife, predict, train
 from kiwi.lib.utils import configure_seed
-from kiwi.loggers import mlflow_logger
+from kiwi.loggers import tracking_logger
 
 
 @pytest.fixture(scope='function')
@@ -325,12 +325,12 @@ def check_computation(
     pipeline_opts.save_model = output_dir
     pipeline_opts.load_model = None
 
-    mlflow_run = mlflow_logger.configure(
+    tracking_run = tracking_logger.configure(
         run_uuid=None,
         experiment_name='Tests',
         tracking_uri=str(Path(output_dir, 'mlruns')),
     )
-    with mlflow_run:
+    with tracking_run:
         trainer = train.run(model_api, output_dir, pipeline_opts, model_opts)
 
     # Testing prediction
@@ -357,12 +357,12 @@ def check_jackknife(
     train_opts.save_model = output_dir
     train_opts.load_model = None
 
-    mlflow_run = mlflow_logger.configure(
+    tracking_run = tracking_logger.configure(
         run_uuid=None,
         experiment_name='Tests',
         tracking_uri=str(Path(output_dir, 'mlruns')),
     )
-    with mlflow_run:
+    with tracking_run:
         train_predictions = jackknife.run(
             model_api, output_dir, pipeline_opts, model_opts, splits=2
         )

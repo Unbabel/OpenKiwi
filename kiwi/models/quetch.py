@@ -182,7 +182,9 @@ class QUETCH(Model):
             nb_classes, const.BAD_ID, self.config.bad_weight
         )
 
-        self._loss = nn.CrossEntropyLoss(weight=weight, ignore_index=const.PAD_TAGS_ID)
+        self._loss = nn.CrossEntropyLoss(
+            weight=weight, ignore_index=const.PAD_TAGS_ID
+        )
 
         # Embeddings layers:
         self._build_embeddings(source_vectors, target_vectors)

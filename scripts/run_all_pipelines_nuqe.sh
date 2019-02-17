@@ -52,10 +52,10 @@ do
                                          --seed ${SEED} \
                                          --gpu-id ${GPU} \
                                          --output-dir ${JACKKNIFE_DIR}
-                cp ${JACKKNIFE_DIR}/train*tags ${OUTPUT_PREDICTIONS_DIR}
             else
                 echo "Skipping jackknifing; found ${JACKKNIFE_DIR}"
             fi
+            cp ${JACKKNIFE_DIR}/train*tags ${OUTPUT_PREDICTIONS_DIR}
         else
             echo "RUN_JACKKNIFE is false"
         fi

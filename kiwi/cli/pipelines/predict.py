@@ -10,7 +10,10 @@ logger = logging.getLogger(__name__)
 def predict_opts(parser):
     group = parser.add_argument_group("predicting")
     group.add_argument(
-        "--batch-size", type=int, default=64, help="Maximum batch size for predicting."
+        "--batch-size",
+        type=int,
+        default=64,
+        help="Maximum batch size for predicting.",
     )
 
 

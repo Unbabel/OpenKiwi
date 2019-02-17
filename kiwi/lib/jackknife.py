@@ -12,7 +12,7 @@ from kiwi.data.iterators import build_bucket_iterator
 from kiwi.data.utils import cross_split_dataset, save_predicted_probabilities
 from kiwi.lib import train
 from kiwi.lib.utils import merge_namespaces
-from kiwi.loggers import mlflow_logger
+from kiwi.loggers import tracking_logger
 
 logger = logging.getLogger(__name__)
 
@@ -26,14 +26,14 @@ def run_from_options(options):
     model_options = options.pipeline.model
     ModelClass = options.pipeline.model_api
 
-    mlflow_run = mlflow_logger.configure(
+    tracking_run = tracking_logger.configure(
         run_uuid=pipeline_options.run_uuid,
         experiment_name=pipeline_options.experiment_name,
         tracking_uri=pipeline_options.mlflow_tracking_uri,
         always_log_artifacts=pipeline_options.mlflow_always_log_artifacts,
     )
 
-    with mlflow_run:
+    with tracking_run:
         output_dir = train.setup(
             output_dir=pipeline_options.output_dir,
             debug=pipeline_options.debug,
@@ -100,8 +100,8 @@ def run(ModelClass, output_dir, pipeline_options, model_options, splits):
         # Train
         vocabs = utils.fields_to_vocabs(train_fold.fields)
 
-        mlflow_run = mlflow_logger.start_nested_run(run_name=run_name)
-        with mlflow_run:
+        tracking_run = tracking_logger.start_nested_run(run_name=run_name)
+        with tracking_run:
             train.setup(
                 output_dir=output_dir,
                 seed=pipeline_options.seed,

@@ -6,7 +6,7 @@ import torch
 from tqdm import tqdm
 
 from kiwi import constants as const
-from kiwi.loggers import mlflow_logger
+from kiwi.loggers import tracking_logger
 from kiwi.metrics.stats import Stats
 from kiwi.models.model import Model
 from kiwi.trainers.callbacks import EarlyStopException
@@ -190,9 +190,9 @@ class Trainer:
 
         # Send to MLflow
         event = None
-        if mlflow_logger.should_log_artifacts():
+        if tracking_logger.should_log_artifacts():
             logger.info('Logging artifacts to {}'.format(output_directory))
-            event = mlflow_logger.log_artifacts(
+            event = tracking_logger.log_artifacts(
                 str(output_directory), artifact_path=str(output_directory.name)
             )
         return event
@@ -254,7 +254,7 @@ class Trainer:
         if local_path:
             artifacts_uri = Path(local_path)
         else:
-            artifacts_uri = Path(mlflow_logger.get_artifact_uri())
+            artifacts_uri = Path(tracking_logger.get_artifact_uri())
         saved_checkpoints = [
             int(str(path.name).replace(prefix, ''))
             for path in artifacts_uri.glob('{}*'.format(prefix))

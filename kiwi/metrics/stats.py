@@ -2,7 +2,7 @@ import functools
 import logging
 from collections import OrderedDict
 
-from kiwi.loggers import mlflow_logger
+from kiwi.loggers import tracking_logger
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +35,7 @@ class StatsSummary(OrderedDict):
         return ', '.join(['{}: {:0.4f}'.format(k, v) for k, v in self.items()])
 
     def log(self):
-        """Log statistics to output and also to mlflow.
+        """Log statistics to output and also to tracking logger.
 
         :param stats_summary: StatsSummary object
         """
@@ -43,7 +43,7 @@ class StatsSummary(OrderedDict):
         logger.info(self)
 
         for k, v in self.items():
-            mlflow_logger.log_metric(k, v)
+            tracking_logger.log_metric(k, v)
 
     def __setitem__(self, key, value):
         key = self._make_key(key)
