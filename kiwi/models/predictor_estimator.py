@@ -374,7 +374,7 @@ class Estimator(Model):
             mean = outputs['SENT_MU'].clone().detach()
             # Compute log-likelihood of x given mu, sigma
             normal = Normal(mean, sigma)
-            # Renormalize on [0,1] for truncated Gaussian
+            # Predict the mean of truncated Gaussian with shape sigma, mu
             partition_function = (normal.cdf(1) - normal.cdf(0)).detach()
             outputs[const.SENTENCE_SCORES] = mean + (
                 (
@@ -443,17 +443,17 @@ class Estimator(Model):
         if self.config.binary_level:
             loss_bin = self.binary_loss(model_out, batch)
             loss_dict[const.BINARY] = loss_bin
-        if self.config.token_level:
-            if const.TARGET in self.predictors:
-                loss_token = self.predictors[const.TARGET].loss(
-                    model_out, batch, target_side=const.PE
-                )
+
+        if const.PE in model_out:
+            loss_token = self.predictors[const.TARGET].loss(
+                model_out, batch, target_side=const.PE
+            )
             loss_dict[const.PE] = loss_token[const.PE]
-            if const.SOURCE in self.predictors:
-                loss_token = self.predictors[const.SOURCE].loss(
-                    model_out, batch, source_side=const.PE
-                )
-                loss_dict[const.SOURCE] = loss_token[const.SOURCE]
+        if const.SOURCE in model_out:
+            loss_token = self.predictors[const.SOURCE].loss(
+                model_out, batch
+            )
+            loss_dict[const.SOURCE] = loss_token[const.SOURCE]
 
         loss_dict[const.LOSS] = sum(loss.sum() for _, loss in loss_dict.items())
         return loss_dict
@@ -530,7 +530,8 @@ class Estimator(Model):
             metrics.append(
                 CorrectMetric(prefix=const.BINARY, target_name=const.BINARY)
             )
-        if self.config.token_level:
+
+        if self.config.token_level and const.TARGET in self.predictors:
             metrics.append(
                 CorrectMetric(
                     prefix=const.PE,
@@ -541,7 +542,7 @@ class Estimator(Model):
             )
             metrics.append(
                 ExpectedErrorMetric(
-                    prefix=const.TARGET,
+                    prefix=const.PE,
                     target_name=const.PE,
                     PAD=self.config.pad_idx[const.PE],
                     STOP=self.config.stop_idx[const.PE],
@@ -549,12 +550,38 @@ class Estimator(Model):
             )
             metrics.append(
                 PerplexityMetric(
-                    prefix=const.TARGET,
+                    prefix=const.PE,
                     target_name=const.PE,
                     PAD=self.config.pad_idx[const.PE],
                     STOP=self.config.stop_idx[const.PE],
                 )
             )
+        if self.config.token_level and const.SOURCE in self.predictors:
+            metrics.append(
+                CorrectMetric(
+                    prefix=const.SOURCE,
+                    target_name=const.SOURCE,
+                    PAD=self.config.pad_idx[const.SOURCE],
+                    STOP=self.config.stop_idx[const.SOURCE],
+                )
+            )
+            metrics.append(
+                ExpectedErrorMetric(
+                    prefix=const.SOURCE,
+                    target_name=const.SOURCE,
+                    PAD=self.config.pad_idx[const.SOURCE],
+                    STOP=self.config.stop_idx[const.SOURCE],
+                )
+            )
+            metrics.append(
+                PerplexityMetric(
+                    prefix=const.SOURCE,
+                    target_name=const.SOURCE,
+                    PAD=self.config.pad_idx[const.SOURCE],
+                    STOP=self.config.stop_idx[const.SOURCE],
+                )
+            )
+
         return metrics
 
     def metrics_ordering(self):

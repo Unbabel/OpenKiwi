@@ -175,13 +175,7 @@ class Model(nn.Module):
             elif key == const.BINARY:
                 logits = model_out[key]
                 probs = torch.softmax(logits, dim=-1)
-                class_index = torch.LongTensor(
-                    [self.vocabs[key].token_to_id(class_name)],
-                    device=probs.device,
-                )
-                class_probs = probs.index_select(
-                    -1, class_index
-                )
+                class_probs = probs[..., 0]
                 predictions[key] = class_probs.tolist()
 
         return predictions

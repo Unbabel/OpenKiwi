@@ -63,7 +63,8 @@ def train_opts(parser):
         '--checkpoint-validation-steps',
         type=int,
         default=0,
-        help='Perform validation every X training batches.',
+        help='Perform validation every X training batches. Saves model'
+        ' if `checkpoint-save` is true.',
     )
     group.add_argument(
         '--checkpoint-save',

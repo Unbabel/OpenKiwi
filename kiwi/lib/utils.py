@@ -14,7 +14,7 @@ def configure_seed(seed):
     """
     Configure the random seed for all relevant packages.
     These include: random, numpy, torch and torch.cuda
-    
+
     Args:
         seed (int): the random seed to be set
     """
@@ -27,7 +27,7 @@ def configure_seed(seed):
 def configure_device(gpu_id):
     """
     Configure gpu to be used in computation.
-    
+
     Args:
         gpu_id (int): The id of the gpu to be used
     """
@@ -136,9 +136,9 @@ def setup_output_directory(
 
 def merge_namespaces(*args):
     """
-    Utility function used to merge Namespaces. Useful for merging 
+    Utility function used to merge Namespaces. Useful for merging
     Argparse options.
-    
+
     Args:
         *args: Variable length list of Namespaces
     """
@@ -148,3 +148,25 @@ def merge_namespaces(*args):
     for arg in filter(None, args):
         options.update(dict(vars(arg)))
     return Namespace(**options)
+
+
+def parse_integer_with_positive_infinity(string):
+    """
+    Workaround to be able to pass both integers and infinity as CLAs.
+
+    Args:
+        string: A string representation of an integer, or infinity
+
+    """
+    try:
+        integer = int(string)
+        return integer
+    except ValueError:
+        infinity = float(string)
+        if infinity == float('inf'):
+            return infinity
+
+    raise ValueError(
+        'Could not parse argument "{}" as integer'
+        ' with positive infinity'.format(string)
+    )
