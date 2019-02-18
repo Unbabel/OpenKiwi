@@ -44,12 +44,12 @@ tqdm = "^4.29"
 configargparse = "^0.14.0"
 numpy = "^1.16"
 more-itertools = "^5.0"
+scipy = "^1.2"
+pyyaml = "^3.13"
 pathlib2 = {version = "^2.3",python = "3.5"}
 mlflow = {version = "~0.8",optional = true}
 seaborn = {version = "^0.9.0",optional = true}
 polyglot = {version = "^16.7",optional = true}
-scipy = "^1.2"
-pyyaml = "^3.13"
 
 
 [tool.poetry.dev-dependencies]
@@ -64,7 +64,7 @@ sphinx-argparse = "^0.2.5"
 m2r = "^0.2.1"
 sphinx_rtd_theme = "^0.4.3"
 yapf = {version = "^0.25.0",allows-prereleases = true,python = "~3.5"}
-black = {version = "^18.3-alpha.3",allows-prereleases = true,python = "^3.6"}
+black = {version = "^18.9-beta.0",allows-prereleases = true,python = "^3.6"}
 
 
 [tool.poetry.extras]
