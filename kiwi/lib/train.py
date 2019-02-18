@@ -203,13 +203,15 @@ def retrieve_trainer(
             resume (bool): Set to true if resuming an existing run.
             load_model (str): Directory containing model.torch for loading
                 pre-created model.
-            checkpoint_save (bool): Boolean indicating if snapshots should be saved
-                after validation runs. warning: if false, will never save the model.
-            checkpoint_keep_only_best (int): Indicates kiwi to keep the best `n` models.
-            checkpoint_early_stop_patience (int): Stops training if metrics don't
-                improve after `n` validation runs.
-            checkpoint_validation_steps (int): Perform validation every `n` training
-                steps.
+            checkpoint_save (bool): Boolean indicating if snapshots should be
+                saved after validation runs. warning: if false, will never save
+                the model.
+            checkpoint_keep_only_best (int): Indicates kiwi to keep the best
+                `n` models.
+            checkpoint_early_stop_patience (int): Stops training if metrics
+                don't improve after `n` validation runs.
+            checkpoint_validation_steps (int): Perform validation every `n`
+                training steps.
             optimizer (string): The optimizer to be used in training.
             learning_rate (float): Starting learning rate.
             learning_rate_decay (float): Factor of learning rate decay.
@@ -217,9 +219,10 @@ def retrieve_trainer(
             log_interval (int): Log after `k` batches.
         model_options (Namespace): Model specific options.
         vocabs (dict): Vocab dictionary.
-        output_dir (str): Output directory for models and stats concerning training.
-        device_id (int): The gpu id to be used in training. Set to negative to use
-            cpu.
+        output_dir (str): Output directory for models and stats concerning
+            training.
+        device_id (int): The gpu id to be used in training. Set to negative
+            to use cpu.
     Returns:
         Trainer
 
@@ -283,14 +286,17 @@ def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
     Args:
         fieldset
         pipeline_options (Namespace): Generic training options
-            load_data (str): Input directory for loading preprocessed data files.
+            load_data (str): Input directory for loading preprocessed data
+                files.
             load_model (str): Directory containing model.torch for loading
                 pre-created model.
-            resume (boolean): Indicates if you should resume training from a previous
-                run.
-            load_vocab (str): Directory containing vocab.torch file to be loaded.
+            resume (boolean): Indicates if you should resume training from a
+                previous run.
+            load_vocab (str): Directory containing vocab.torch file to be
+                loaded.
         model_options (Namespace): Model specific options.
-        output_dir (str): Path to directory where experiment files should be saved.
+        output_dir (str): Path to directory where experiment files should be
+            saved.
 
     Returns:
         datasets (Dataset): Training and validation datasets
@@ -383,9 +389,12 @@ def log(
     """
     Logs configuration options for the current training run.
     Args:
-        output_dir (str): Path to directory where experiment files should be saved.
-        save_config (bool): Boolean stating if you should save a configuration file.
-        config_options (Namespace): Namespace representing all configuration options.
+        output_dir (str): Path to directory where experiment files should be
+            saved.
+        save_config (bool): Boolean stating if you should save a
+            configuration file.
+        config_options (Namespace): Namespace representing all configuration
+            options.
         config_file_name (str): Filename of the config file
     """
     logging.debug(pformat(config_options))

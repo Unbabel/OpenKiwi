@@ -1,7 +1,7 @@
 import configargparse
 
 from kiwi import __version__
-from kiwi.cli.pipelines import jackknife, predict, train, evaluate
+from kiwi.cli.pipelines import evaluate, jackknife, predict, train
 
 
 def build_parser():

@@ -5,7 +5,8 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from kiwi import constants as const, load_model
+from kiwi import constants as const
+from kiwi import load_model
 from kiwi.data import utils
 from kiwi.data.builders import build_test_dataset
 from kiwi.data.iterators import build_bucket_iterator

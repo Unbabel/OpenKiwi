@@ -1,5 +1,4 @@
 import logging
-from distutils.util import strtobool
 
 from kiwi.cli.better_argparse import PipelineParser
 from kiwi.cli.opts import PathType
