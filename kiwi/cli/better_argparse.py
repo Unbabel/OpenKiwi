@@ -145,47 +145,38 @@ class PipelineParser:
             self._parser.print_help()
             return None
 
-        # Check if there are model parsers
-        if self._models is None:
-            models_exist = False
-        else:
-            models_exist = True
-
         # Parse train pipeline options
         pipeline_options, extra_args = self._parser.parse_known_args(args)
+        config_option, _ = self._config_option_parser.parse_known_args(args)
+
+        options = Namespace()
+        options.pipeline = pipeline_options
+        options.model = None
+        options.model_api = None
 
         # Parse specific model options if there are model parsers
-        if models_exist:
+        if self._models is not None:
             if pipeline_options.model not in self._models:
                 raise KeyError(
                     'Invalid model: {}'.format(pipeline_options.model)
                 )
 
-        config_option, _ = self._config_option_parser.parse_known_args(args)
-        if config_option and models_exist:
-            extra_args = ['--config', config_option.config] + extra_args
+            if config_option:
+                extra_args = ['--config', config_option.config] + extra_args
 
-        # Check if there are model parsers
-        if models_exist:
+            # Check if there are model parsers
             model_parser = self._models[pipeline_options.model]
             model_options, remaining_args = model_parser.parse_known_args(
                 extra_args
             )
-        else:
-            remaining_args = extra_args
 
-        options = Namespace()
-        options.pipeline = pipeline_options
-
-        if models_exist:
             options.model = model_options
-            options.all_options = merge_namespaces(
-                pipeline_options, model_options
-            )
             # Retrieve the respective API for the selected model
             options.model_api = model_parser.api_module
         else:
-            options.all_options = merge_namespaces(pipeline_options)
+            remaining_args = extra_args
+
+        options.all_options = merge_namespaces(options.pipeline, options.model)
 
         if remaining_args:
             raise KeyError('Unrecognized options: {}'.format(remaining_args))
