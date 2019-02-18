@@ -30,6 +30,7 @@ logger = logging.getLogger(__name__)
 class TrainRunInfo:
     """
     Class used to encapsulate relevant information on training runs.
+    Can be instantiated with a trainer object.
 
     Attributes:
         stats: Stats of the best model so far
@@ -108,6 +109,10 @@ def train_from_options(options):
 
 def run(ModelClass, output_dir, pipeline_options, model_options):
     """
+    Implements the main logic of the training module. Instantiates the 
+    dataset, model class and sets their attributes according to the 
+    pipeline options received. Calls `retrieve_trainer` and runs the
+    returned trainer.
 
     Args:
         ModelClass (type): Python Type of the Model to train
@@ -177,8 +182,37 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
 def retrieve_trainer(
     ModelClass, pipeline_options, model_options, vocabs, output_dir, device_id
 ):
-    """Create Trainer object.
-       Method creates Trainer, Model and Checkpointer
+    """Creates a Trainer object. This object encapsulates the logic behind
+    training the model and checkpointing. This method uses the received pipeline
+    options to instantiate a Trainer object with the the requested model and 
+    hyperparameters.
+
+    Args:
+        ModelClass
+        pipeline_options (Namespace): Generic training options
+            resume (bool): Set to true if resuming an existing run. 
+            load_model (str): Directory containing model.torch for loading
+                pre-created model.
+            checkpoint_save (bool): Boolean indicating if snapshots should be saved
+                after validation runs. warning: if false, will never save the model.
+            checkpoint_keep_only_best (int): Indicates kiwi to keep the best `n` models.
+            checkpoint_early_stop_patience (int): Stops training if metrics don't 
+                improve after `n` validation runs.
+            checkpoint_validation_steps (int): Perform validation every `n` training 
+                steps.
+            optimizer (string): The optimizer to be used in training.
+            learning_rate (float): Starting learning rate.
+            learning_rate_decay (float): Factor of learning rate decay.
+            learning_rate_decay_start (int): Start decay after epoch `x`.
+            log_interval (int): Log after `k` batches.
+        model_options (Namespace): Model specific options.
+        vocabs (dict): Vocab dictionary.
+        output_dir (str): Output directory for models and stats concerning training.
+        device_id (int): The gpu id to be used in training. Set to negative to use
+            cpu.
+    Returns:
+        Trainer
+
     """
 
     if pipeline_options.resume:
@@ -235,6 +269,21 @@ def retrieve_trainer(
 
 def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
     """
+
+    Args: 
+        fieldset
+        pipeline_options (Namespace): Generic training options
+            load_data (str): Input directory for loading preprocessed data files.
+            load_model (str): Directory containing model.torch for loading 
+                pre-created model.
+            resume (boolean): Indicates if you should resume training from a previous
+                run.
+            load_vocab (str): Directory containing vocab.torch file to be loaded.
+        model_options (Namespace): Model specific options.
+        output_dir (str): Path to directory where experiment files should be saved.
+        
+    Returns:
+        datasets (Dataset): Training and validation datasets 
     """
     if pipeline_options.load_data:
         datasets = utils.load_training_datasets(pipeline_options.load_data, fieldset)
@@ -310,6 +359,14 @@ def teardown(options):
 
 
 def log(output_dir, save_config, config_options, config_file_name="train_config.yml"):
+    """
+    Logs configuration options for the current training run.
+    Args:
+        output_dir (str): Path to directory where experiment files should be saved.
+        save_config (bool): Boolean stating if you should save a configuration file.
+        config_options (Namespace): Namespace representing all configuration options.
+        config_file_name (str): Filename of the config file
+    """
     logging.debug(pformat(config_options))
     config_file_copy = Path(output_dir, config_file_name)
     save_args_to_file(config_file_copy, **config_options)
