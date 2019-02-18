@@ -12,7 +12,6 @@ OpenKiwi is an Open Source Quality Estimation toolkit aimed at implementing stat
 * Filenames must be in lowercase.
 * Tests are running with [pytest](https://docs.pytest.org/en/latest/) which is commonly referred to the best unittesting framework out there. Pytest implements a standard test discovery which means that it will only search for `test_*.py` or `*_test.py` files. We do not enforce a minimum code coverage but it is preferrable to have even very basic tests running for critical pieces of code. Always test functions that takes/returns tensor argument to document the sizes.
 * The `kiwi` folder contains core features. Any script calling these features must be placed into the `scripts` folder.
-* Scripts should use [Click](http://click.pocoo.org/5/) instead of `argparse`.
 
 ## Contributing
 
