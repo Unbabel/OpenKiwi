@@ -316,13 +316,12 @@ class Estimator(Model):
                     contexts_gaps, out_embed=self.embedding_out_gaps
                 )
                 outputs[const.GAP_TAGS] = logits
-
         if self.config.predict_source:
             model_out_src = self.predictor_src(batch)
             input_seq, target_lengths = self.make_input(
                 model_out_src, batch, const.SOURCE_TAGS
             )
-            contexts_src, (h_src, c_src) = apply_packed_sequence(
+            contexts_src, h_src = apply_packed_sequence(
                 self.lstm, input_seq, target_lengths
             )
 
@@ -482,17 +481,17 @@ class Estimator(Model):
         if self.config.binary_level:
             loss_bin = self.binary_loss(model_out, batch)
             loss_dict[const.BINARY] = loss_bin
-        if self.config.token_level:
-            if self.predictor_tgt:
-                loss_token = self.predictor_tgt.loss(
-                    model_out, batch, target_side=const.PE
-                )
+
+        if const.PE in model_out:
+            loss_token = self.predictor_tgt.loss(
+                model_out, batch, target_side=const.PE
+            )
             loss_dict[const.PE] = loss_token[const.PE]
-            if self.predictor_src:
-                loss_token = self.predictor_src.loss(
-                    model_out, batch, source_side=const.PE
-                )
-                loss_dict[const.SOURCE] = loss_token[const.SOURCE]
+        if const.SOURCE in model_out:
+            loss_token = self.predictor_src.loss(
+                model_out, batch
+            )
+            loss_dict[const.SOURCE] = loss_token[const.SOURCE]
 
         loss_dict[const.LOSS] = sum(loss.sum() for _, loss in loss_dict.items())
         return loss_dict
@@ -569,7 +568,7 @@ class Estimator(Model):
             metrics.append(
                 CorrectMetric(prefix=const.BINARY, target_name=const.BINARY)
             )
-        if self.config.token_level:
+        if self.config.token_level and self.predictor_tgt is not None:
             metrics.append(
                 CorrectMetric(
                     prefix=const.PE,
@@ -580,7 +579,7 @@ class Estimator(Model):
             )
             metrics.append(
                 ExpectedErrorMetric(
-                    prefix=const.TARGET,
+                    prefix=const.PE,
                     target_name=const.PE,
                     PAD=const.PAD_ID,
                     STOP=const.STOP_ID,
@@ -588,8 +587,33 @@ class Estimator(Model):
             )
             metrics.append(
                 PerplexityMetric(
-                    prefix=const.TARGET,
+                    prefix=const.PE,
                     target_name=const.PE,
+                    PAD=const.PAD_ID,
+                    STOP=const.STOP_ID,
+                )
+            )
+        if self.config.token_level and self.predictor_src is not None:
+            metrics.append(
+                CorrectMetric(
+                    prefix=const.SOURCE,
+                    target_name=const.SOURCE,
+                    PAD=const.PAD_ID,
+                    STOP=const.STOP_ID,
+                )
+            )
+            metrics.append(
+                ExpectedErrorMetric(
+                    prefix=const.SOURCE,
+                    target_name=const.SOURCE,
+                    PAD=const.PAD_ID,
+                    STOP=const.STOP_ID,
+                )
+            )
+            metrics.append(
+                PerplexityMetric(
+                    prefix=const.SOURCE,
+                    target_name=const.SOURCE,
                     PAD=const.PAD_ID,
                     STOP=const.STOP_ID,
                 )

@@ -8,14 +8,32 @@ from kiwi.models.predictor_estimator import Estimator
 
 
 @pytest.fixture
-def wmt18_opts(predest_opts, data_opts_18):
+def predest_opts_no_multitask(predest_opts, data_opts_18):
     predest_opts.__dict__.update(data_opts_18.__dict__)
     return predest_opts
 
 
 @pytest.fixture
-def target_opts(wmt18_opts):
-    options = wmt18_opts
+def predest_opts_multitask(predest_opts_no_multitask, dir_18):
+    multitask_opts = predest_opts_no_multitask
+
+    multitask_opts.train_pe = str(dir_18.joinpath('train.pe'))
+    multitask_opts.valid_pe = str(dir_18.joinpath('dev.pe'))
+    multitask_opts.test_pe = str(dir_18.joinpath('dev.pe'))
+    multitask_opts.train_sentence_scores = str(dir_18.joinpath('train.hter'))
+    multitask_opts.valid_sentence_scores = str(dir_18.joinpath('dev.hter'))
+    multitask_opts.test_sentence_scores = str(dir_18.joinpath('dev.hter'))
+
+    multitask_opts.token_level = True
+    multitask_opts.binary_level = True
+    multitask_opts.sentence_level = True
+
+    return multitask_opts
+
+
+@pytest.fixture
+def target_opts(predest_opts_multitask):
+    options = predest_opts_multitask
     options.predict_target = True
     options.predict_gaps = False
     options.predict_source = False
@@ -23,8 +41,8 @@ def target_opts(wmt18_opts):
 
 
 @pytest.fixture
-def gap_opts(wmt18_opts):
-    options = wmt18_opts
+def gap_opts(predest_opts_multitask):
+    options = predest_opts_multitask
     options.predict_target = False
     options.predict_gaps = True
     options.predict_source = False
@@ -32,8 +50,8 @@ def gap_opts(wmt18_opts):
 
 
 @pytest.fixture
-def source_opts(wmt18_opts):
-    options = wmt18_opts
+def source_opts(predest_opts_multitask):
+    options = predest_opts_multitask
     options.predict_target = False
     options.predict_gaps = False
     options.predict_source = True
@@ -47,7 +65,7 @@ def test_computation_target(temp_output_dir, train_opts, target_opts, atol):
         train_opts,
         target_opts,
         output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.438163,
+        expected_avg_probs=0.426000,
         atol=atol,
     )
 
@@ -63,7 +81,7 @@ def test_computation_target(temp_output_dir, train_opts, target_opts, atol):
         resume_opts,
         target_opts,
         output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.438163,
+        expected_avg_probs=0.426000,
         atol=atol,
     )
 
@@ -76,7 +94,7 @@ def test_computation_gaps(temp_output_dir, train_opts, gap_opts, atol):
         train_opts,
         gap_opts,
         output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.293252,
+        expected_avg_probs=0.322811,
         atol=atol,
     )
     gap_opts.predict_target = True
@@ -86,7 +104,7 @@ def test_computation_gaps(temp_output_dir, train_opts, gap_opts, atol):
         train_opts,
         gap_opts,
         output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.293695,
+        expected_avg_probs=0.328905,
         atol=atol,
     )
 
@@ -98,7 +116,7 @@ def test_computation_source(temp_output_dir, train_opts, source_opts, atol):
         train_opts,
         source_opts,
         output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.432427,
+        expected_avg_probs=0.456631,
         atol=atol,
     )
 
@@ -110,7 +128,7 @@ def test_jackknifing_target(temp_output_dir, train_opts, target_opts, atol):
         train_opts,
         target_opts,
         output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.48883,
+        expected_avg_probs=0.461057,
         atol=atol,
     )
 
@@ -122,7 +140,7 @@ def test_jackknifing_gaps(temp_output_dir, train_opts, gap_opts, atol):
         train_opts,
         gap_opts,
         output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.42087,
+        expected_avg_probs=0.433703,
         atol=atol,
     )
 
@@ -134,7 +152,7 @@ def test_jackknifing_source(temp_output_dir, train_opts, source_opts, atol):
         train_opts,
         source_opts,
         output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.467527,
+        expected_avg_probs=0.496570,
         atol=atol,
     )
 

@@ -201,11 +201,11 @@ def average_predictions(ensemble):
         ]
 
     ensemble = np.array(ensemble, dtype='float32')
-    averaged_predictions = ensemble.mean(axis=0)
+    averaged_predictions = ensemble.mean(axis=0).tolist()
 
     if word_level:
         averaged_predictions = reshape_by_lengths(
-            averaged_predictions.tolist(), sentence_lengths
+            averaged_predictions, sentence_lengths
         )
 
     return averaged_predictions
