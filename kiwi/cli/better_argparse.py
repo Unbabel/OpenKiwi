@@ -86,47 +86,48 @@ class PipelineParser:
         else:
             self._models = None
 
-        self._parser = self.get_parser(
-            self.name,
-            prog='kiwi {}'.format(self.name),
-            config_file_parser_class=configargparse.YAMLConfigFileParser,
-            ignore_unknown_config_file_keys=True,
-        )
-
-        self._config_option_parser = self.get_parser(name='config')
-
-        self.add_config_option(self._parser)
-        self.add_config_option(self._config_option_parser, read_file=False)
-
-        if add_io_options:
-            opts.io_opts(self._parser)
-        if add_general_options:
-            opts.general_opts(self._parser)
-        if add_save_load_options:
-            opts.save_load_opts(self._parser)
-
-        if options_fn is not None:
-            options_fn(self._parser)
-
-        if model_parsers is not None:
-            group = self._parser.add_argument_group('models')
-            group.add_argument(
-                '--model',
-                required=True,
-                choices=self._models.keys(),
-                help="Use 'kiwi {} --model <model> --help' for specific "
-                "model options.".format(self.name),
+        if name in self._parsers:
+            self._parser = self._parsers[name]
+        else:
+            self._parser = configargparse.get_argument_parser(
+                self.name,
+                add_help=False,
+                prog='kiwi {}'.format(self.name),
+                config_file_parser_class=configargparse.YAMLConfigFileParser,
+                ignore_unknown_config_file_keys=True,
             )
+            self._parsers[name] = self._parser
+            self.add_config_option(self._parser)
 
-    @classmethod
-    def get_parser(cls, name, add_help=False, **kwargs):
-        if name in cls._parsers:
-            return cls._parsers[name]
-        parser = configargparse.get_argument_parser(
-            name, add_help=add_help, **kwargs
-        )
-        cls._parsers[name] = parser
-        return parser
+            if add_io_options:
+                opts.io_opts(self._parser)
+            if add_general_options:
+                opts.general_opts(self._parser)
+            if add_save_load_options:
+                opts.save_load_opts(self._parser)
+
+            if options_fn is not None:
+                options_fn(self._parser)
+
+            if model_parsers is not None:
+                group = self._parser.add_argument_group('models')
+                group.add_argument(
+                    '--model',
+                    required=True,
+                    choices=self._models.keys(),
+                    help="Use 'kiwi {} --model <model> --help' for specific "
+                    "model options.".format(self.name),
+                )
+
+        if 'config' in self._parsers:
+            self._config_option_parser = self._parsers['config']
+        else:
+            self._config_option_parser = configargparse.get_argument_parser(
+                'config',
+                add_help=False,
+            )
+            self._parsers['config'] = self._config_option_parser
+            self.add_config_option(self._config_option_parser, read_file=False)
 
     @staticmethod
     def add_config_option(parser, read_file=True):
@@ -145,47 +146,38 @@ class PipelineParser:
             self._parser.print_help()
             return None
 
-        # Check if there are model parsers
-        if self._models is None:
-            models_exist = False
-        else:
-            models_exist = True
-
         # Parse train pipeline options
         pipeline_options, extra_args = self._parser.parse_known_args(args)
+        config_option, _ = self._config_option_parser.parse_known_args(args)
+
+        options = Namespace()
+        options.pipeline = pipeline_options
+        options.model = None
+        options.model_api = None
 
         # Parse specific model options if there are model parsers
-        if models_exist:
+        if self._models is not None:
             if pipeline_options.model not in self._models:
                 raise KeyError(
                     'Invalid model: {}'.format(pipeline_options.model)
                 )
 
-        config_option, _ = self._config_option_parser.parse_known_args(args)
-        if config_option and models_exist:
-            extra_args = ['--config', config_option.config] + extra_args
+            if config_option:
+                extra_args = ['--config', config_option.config] + extra_args
 
-        # Check if there are model parsers
-        if models_exist:
+            # Check if there are model parsers
             model_parser = self._models[pipeline_options.model]
             model_options, remaining_args = model_parser.parse_known_args(
                 extra_args
             )
-        else:
-            remaining_args = extra_args
 
-        options = Namespace()
-        options.pipeline = pipeline_options
-
-        if models_exist:
             options.model = model_options
-            options.all_options = merge_namespaces(
-                pipeline_options, model_options
-            )
             # Retrieve the respective API for the selected model
             options.model_api = model_parser.api_module
         else:
-            options.all_options = merge_namespaces(pipeline_options)
+            remaining_args = extra_args
+
+        options.all_options = merge_namespaces(options.pipeline, options.model)
 
         if remaining_args:
             raise KeyError('Unrecognized options: {}'.format(remaining_args))
