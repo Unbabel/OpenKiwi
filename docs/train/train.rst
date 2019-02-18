@@ -21,6 +21,8 @@ Model specific options can be seen here:
    train_quetch
    train_linear
 
+.. _train-flags:
+
 .. argparse::
    :module: kiwi.cli.pipelines.train
    :passparser:

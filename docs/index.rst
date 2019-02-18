@@ -9,14 +9,28 @@ Welcome to OpenKiwi's documentation!
 .. mdinclude:: ../README.md
 
 .. toctree::
-   :maxdepth: 3
-   :caption: Contents:
+   :maxdepth: 2
+   :caption: Getting Started
+   
+   usage.md
 
-   testing.md
-   contributing.md
+.. toctree::
+   :maxdepth: 2
+   :caption: Contributing to OpenKiwi
+
+   contributing/contributing
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Configuration Options
+
    configuration
-   source/modules
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Library Reference
+
+   source/modules
 
 Indices and tables
 ==================

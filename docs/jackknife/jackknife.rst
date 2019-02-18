@@ -7,6 +7,10 @@ a YAML 'mapping' (for details, see http://learn.getgrav.org/advanced/yaml). If
 an arg is specified in more than one place, then command line values override
 config file values which override defaults.
 
+For generic options see: :ref:`here <generic-flags>`
+
+
+.. _jackknife-flags:
 
 .. argparse::
    :module: kiwi.cli.pipelines.jackknife

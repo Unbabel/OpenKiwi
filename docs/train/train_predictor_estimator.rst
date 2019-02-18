@@ -1,8 +1,8 @@
 Predictor-Estimator training
 ============================
 
-.. toctree::
-   train_predictor_estimator
+.. contents:: Contents
+   :local:
    
 .. argparse::
    :module: kiwi.cli.models.predictor_estimator

@@ -1,8 +1,8 @@
 NuQE predicting
 =============
 
-.. toctree::
-   predict_nuqe
+.. contents:: Contents
+   :local:
 
 .. argparse::
    :module: kiwi.cli.models.nuqe

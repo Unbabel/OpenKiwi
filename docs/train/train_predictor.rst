@@ -3,8 +3,8 @@ Predictor training
 
 This is used to pre-train the predictor side of the predictor-estimator model.
 
-.. toctree::
-   train_predictor
+.. contents:: Contents
+   :local:
 
 .. argparse::
    :module: kiwi.cli.models.predictor_estimator

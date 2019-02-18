@@ -1,8 +1,8 @@
 Predictor-Estimator predicting
 ==============================
 
-.. toctree::
-   predict_predictor_estimator
+.. contents:: Contents
+   :local:
 
 .. argparse::
    :module: kiwi.cli.models.predictor_estimator
