@@ -35,7 +35,7 @@ def dir_17(base_dir):
 
 @pytest.fixture(scope='session')
 def dir_18(base_dir):
-    return base_dir.joinpath('WMT18/word_level/en_de.nmt/')
+    return base_dir.joinpath('WMT18/')
 
 
 @pytest.fixture(scope='session')
