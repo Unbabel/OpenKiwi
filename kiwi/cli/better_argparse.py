@@ -86,47 +86,48 @@ class PipelineParser:
         else:
             self._models = None
 
-        self._parser = self.get_parser(
-            self.name,
-            prog='kiwi {}'.format(self.name),
-            config_file_parser_class=configargparse.YAMLConfigFileParser,
-            ignore_unknown_config_file_keys=True,
-        )
-
-        self._config_option_parser = self.get_parser(name='config')
-
-        self.add_config_option(self._parser)
-        self.add_config_option(self._config_option_parser, read_file=False)
-
-        if add_io_options:
-            opts.io_opts(self._parser)
-        if add_general_options:
-            opts.general_opts(self._parser)
-        if add_save_load_options:
-            opts.save_load_opts(self._parser)
-
-        if options_fn is not None:
-            options_fn(self._parser)
-
-        if model_parsers is not None:
-            group = self._parser.add_argument_group('models')
-            group.add_argument(
-                '--model',
-                required=True,
-                choices=self._models.keys(),
-                help="Use 'kiwi {} --model <model> --help' for specific "
-                "model options.".format(self.name),
+        if name in self._parsers:
+            self._parser = self._parsers[name]
+        else:
+            self._parser = configargparse.get_argument_parser(
+                self.name,
+                add_help=False,
+                prog='kiwi {}'.format(self.name),
+                config_file_parser_class=configargparse.YAMLConfigFileParser,
+                ignore_unknown_config_file_keys=True,
             )
+            self._parsers[name] = self._parser
+            self.add_config_option(self._parser)
 
-    @classmethod
-    def get_parser(cls, name, add_help=False, **kwargs):
-        if name in cls._parsers:
-            return cls._parsers[name]
-        parser = configargparse.get_argument_parser(
-            name, add_help=add_help, **kwargs
-        )
-        cls._parsers[name] = parser
-        return parser
+            if add_io_options:
+                opts.io_opts(self._parser)
+            if add_general_options:
+                opts.general_opts(self._parser)
+            if add_save_load_options:
+                opts.save_load_opts(self._parser)
+
+            if options_fn is not None:
+                options_fn(self._parser)
+
+            if model_parsers is not None:
+                group = self._parser.add_argument_group('models')
+                group.add_argument(
+                    '--model',
+                    required=True,
+                    choices=self._models.keys(),
+                    help="Use 'kiwi {} --model <model> --help' for specific "
+                    "model options.".format(self.name),
+                )
+
+        if 'config' in self._parsers:
+            self._config_option_parser = self._parsers['config']
+        else:
+            self._config_option_parser = configargparse.get_argument_parser(
+                'config',
+                add_help=False,
+            )
+            self._parsers['config'] = self._config_option_parser
+            self.add_config_option(self._config_option_parser, read_file=False)
 
     @staticmethod
     def add_config_option(parser, read_file=True):
