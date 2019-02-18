@@ -32,7 +32,7 @@ class TrackingLogger:
                     "start_nested_run(), or configure() with nest_run=True"
                 )
             )
-        if not nest_run:
+        if not self._active_run_uuids:
             self._experiment_name = experiment_name
             self._experiment_id = 0
         if run_uuid is None:

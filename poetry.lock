@@ -629,7 +629,7 @@ version = "2018.9"
 category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
-optional = true
+optional = false
 python-versions = "*"
 version = "3.13"
 
@@ -685,7 +685,7 @@ scipy = ">=0.13.3"
 category = "main"
 description = "SciPy: Scientific Library for Python"
 name = "scipy"
-optional = true
+optional = false
 python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
 version = "1.2.1"
 
@@ -893,7 +893,7 @@ mlflow = ["mlflow"]
 plots = ["seaborn"]
 
 [metadata]
-content-hash = "f9ddf78a96690c5b376415e4bf20611a05e3941dfd3e9cd988a39b7260689d1a"
+content-hash = "05f79300500bea7b8b45661825df1f40440dd3c94f43e15d8c756a1b33c42c1c"
 python-versions = "^3.5"
 
 [metadata.hashes]

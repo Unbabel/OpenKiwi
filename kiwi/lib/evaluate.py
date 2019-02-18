@@ -3,10 +3,10 @@ import warnings
 from pathlib import Path
 
 import numpy as np
-import pandas as pd
 from more_itertools import flatten
 from scipy.stats.stats import pearsonr, rankdata, spearmanr
 
+import pandas as pd
 from kiwi import constants as const
 from kiwi.data.utils import read_file
 from kiwi.metrics.functions import (
