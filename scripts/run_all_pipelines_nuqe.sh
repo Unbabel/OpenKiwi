@@ -101,45 +101,45 @@ do
 
 
     # Evaluate on dev set
-    python scripts/evaluate.py --type probs  \
-                               --format ${FORMAT} \
-                               --gold-source data/${DATASET}/dev.src_tags \
-                               --gold-target data/${DATASET}/dev.tags \
-                               --gold-sents data/${DATASET/word/sentence}/dev.hter \
-                               --pred-format wmt17 \
-                               --pred-source ${OUTPUT_PREDICTIONS_DIR}/dev.source_tags \
-                               --pred-gaps ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags \
-                               --pred-target ${OUTPUT_PREDICTIONS_DIR}/dev.tags
+    kiwi evaluate --type probs  \
+                  --format ${FORMAT} \
+                  --gold-source data/${DATASET}/dev.src_tags \
+                  --gold-target data/${DATASET}/dev.tags \
+                  --gold-sents data/${DATASET/word/sentence}/dev.hter \
+                  --pred-format wmt17 \
+                  --pred-source ${OUTPUT_PREDICTIONS_DIR}/dev.source_tags \
+                  --pred-gaps ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags \
+                  --pred-target ${OUTPUT_PREDICTIONS_DIR}/dev.tags
     # Evaluate on test set
-    python scripts/evaluate.py --type probs  \
-                               --format ${FORMAT} \
-                               --gold-source data/${DATASET}/test.src_tags \
-                               --gold-target data/${DATASET}/test.tags \
-                               --gold-sents data/${DATASET/word/sentence}/test.hter \
-                               --pred-format wmt17 \
-                               --pred-source ${OUTPUT_PREDICTIONS_DIR}/test.source_tags \
-                               --pred-gaps ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags \
-                               --pred-target ${OUTPUT_PREDICTIONS_DIR}/test.tags
+    kiwi evaluate --type probs  \
+                  --format ${FORMAT} \
+                  --gold-source data/${DATASET}/test.src_tags \
+                  --gold-target data/${DATASET}/test.tags \
+                  --gold-sents data/${DATASET/word/sentence}/test.hter \
+                  --pred-format wmt17 \
+                  --pred-source ${OUTPUT_PREDICTIONS_DIR}/test.source_tags \
+                  --pred-gaps ${OUTPUT_PREDICTIONS_DIR}/test.gap_tags \
+                  --pred-target ${OUTPUT_PREDICTIONS_DIR}/test.tags
 
 done
 
 if [[ ${COUNT} -gt 1 ]]
 then
     # Evaluate all predictions at once
-    python scripts/evaluate.py --type probs --format ${FORMAT} \
-                               --gold-source data/${DATASET}/dev.src_tags \
-                               --gold-target data/${DATASET}/dev.tags \
-                               --pred-format wmt17 \
-                               --pred-source ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.source_tags \
-                               --pred-gaps ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.gap_tags \
-                               --pred-target ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.tags
-    python scripts/evaluate.py --type probs --format ${FORMAT} \
-                               --gold-source data/${DATASET}/test.src_tags \
-                               --gold-target data/${DATASET}/test.tags \
-                               --pred-format wmt17 \
-                               --pred-source ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.source_tags \
-                               --pred-gaps ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.gap_tags \
-                               --pred-target ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.tags
+    kiwi evaluate --type probs --format ${FORMAT} \
+                  --gold-source data/${DATASET}/dev.src_tags \
+                  --gold-target data/${DATASET}/dev.tags \
+                  --pred-format wmt17 \
+                  --pred-source ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.source_tags \
+                  --pred-gaps ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.gap_tags \
+                  --pred-target ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.tags
+    kiwi evaluate --type probs --format ${FORMAT} \
+                  --gold-source data/${DATASET}/test.src_tags \
+                  --gold-target data/${DATASET}/test.tags \
+                  --pred-format wmt17 \
+                  --pred-source ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.source_tags \
+                  --pred-gaps ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.gap_tags \
+                  --pred-target ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/test.tags
 fi
 
 ALL_RUNS=${COUNT}
