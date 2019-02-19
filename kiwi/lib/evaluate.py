@@ -22,13 +22,17 @@ from kiwi.metrics.metrics import MovingSkipsAtQuality as SkipsAtQ
 def evaluate_from_options(options):
     """
     Evaluates a model's predictions based on the flags received from
-    the configuration files.
+     the configuration files. Refer to configuration for a list of
+    available configuration flags for the evaluate pipeline.
+
+    Args:
+        options (Namespace): Namespace containing all pipeline options
     """
-    setup()
 
     if options is None:
         return
 
+    setup()
     pipeline_options = options.pipeline
 
     # flag denoting format so there's no need to always check

@@ -128,6 +128,15 @@ inside your project or run in the command line
 kiwi
 ```
 
+Optionally, after installation if you'd like to take advantage of our Mlflow integration simply install it in the same virtualenv as OpenKiwi.
+
+Running for example:
+
+```bash
+pip install mlflow
+```
+
+
 ## Getting Started
 
 Detailed usage examples and instructions can be seen in the full documentation. 
@@ -140,7 +149,7 @@ files. These can be seen in TODO: INSERT link to location
 
 ## Contribution
 
-We welcome contributions to improve OpenKiwi. Please refer to [contributing](CONTRIBUTIN.md) for quick instructions or to TODO: Insert link to documentation for more detailed instructions on how to set up your development environment.
+We welcome contributions to improve OpenKiwi. Please refer to [contributing](CONTRIBUTING.md) for quick instructions or to TODO: Insert link to documentation for more detailed instructions on how to set up your development environment.
 
 ## License
 
