@@ -282,6 +282,9 @@ def retrieve_trainer(
 
 def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
     """
+    Helper function used to retrieve data and create `Dataset` objects for
+     the training and validation sets. Parses files according to pipeline
+     and model options.
 
     Args:
         fieldset
