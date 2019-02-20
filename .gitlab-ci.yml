@@ -7,7 +7,7 @@ variables:
 stages:
     - lint
     - test
-    - docs
+    - pages
     - pypi
 
 before_script:
@@ -34,11 +34,18 @@ test:
     script:
         - tox -e py
 
-docs:
+pages:
     extends: .test
-    stage: docs
+    stage: pages
     script:
-        - tox -e docs
+        - git clone --branch gh-pages . gh-pages
+        - tox -e gh-pages
+        - cd gh-pages
+        - msg=`git log master -1 --pretty=short --abbrev-commit`; cd gh-pages; git add .; git commit -m "$msg"
+        - git push origin gh-pages
+    only:
+        - master
+    when: manual
 
 pypi:
     # Upload to internal PyPI index
