@@ -488,9 +488,7 @@ class Estimator(Model):
             )
             loss_dict[const.PE] = loss_token[const.PE]
         if const.SOURCE in model_out:
-            loss_token = self.predictor_src.loss(
-                model_out, batch
-            )
+            loss_token = self.predictor_src.loss(model_out, batch)
             loss_dict[const.SOURCE] = loss_token[const.SOURCE]
 
         loss_dict[const.LOSS] = sum(loss.sum() for _, loss in loss_dict.items())

@@ -51,9 +51,10 @@ def io_opts(parser):
     group.add_argument(
         '--save-config',
         required=False,
+        type=PathType(exists=False),
         is_write_out_config_file_arg=False,
         # Setting it to true makes it save and exit
-        help='Save parsed configuration and arguments to file',
+        help='Save parsed configuration and arguments to the specified file',
     )
     group.add_argument(
         '-d', '--debug', action='store_true', help='Output additional messages.'

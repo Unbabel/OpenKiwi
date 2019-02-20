@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 class EarlyStopException(StopIteration):
-    def __init__(self, *args: object, **kwargs: object) -> None:
+    def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 
@@ -176,10 +176,12 @@ class Checkpoint:
         return None, None
 
     def best_iteration_path(self):
-        return self.best_stats_and_path()[1]
+        _, path = self.best_stats_and_path()
+        return path
 
     def best_stats(self):
-        return self.best_stats_and_path()[0]
+        stats, _ = self.best_stats_and_path()
+        return stats
 
     def worst_stats(self):
         if self.best_stats_summary:

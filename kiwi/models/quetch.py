@@ -20,7 +20,7 @@ class QUETCHConfig(ModelConfig):
         predict_source=False,
         source_embeddings_size=50,
         target_embeddings_size=50,
-        hidden_sizes=[100],
+        hidden_sizes=None,
         bad_weight=3.0,
         window_size=10,
         max_aligned=5,
@@ -29,6 +29,9 @@ class QUETCHConfig(ModelConfig):
         freeze_embeddings=False,
     ):
         super().__init__(vocabs)
+
+        if hidden_sizes is None:
+            hidden_sizes = [100]
 
         source_vectors = vocabs[const.SOURCE].vectors
         target_vectors = vocabs[const.TARGET].vectors

@@ -46,7 +46,6 @@ def run_from_options(options):
         )
         train.log(
             output_dir,
-            save_config=False,
             config_options=vars(all_options),
             config_file_name='jackknife_config.yml',
         )

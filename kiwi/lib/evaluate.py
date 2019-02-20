@@ -40,9 +40,7 @@ def evaluate_from_options(options):
     golds = retrieve_gold_standard(pipeline_options, is_wmt18_format)
 
     # handling of prediction files
-    pred_files = retrieve_predictions(
-        pipeline_options, is_wmt18_pred_format
-    )
+    pred_files = retrieve_predictions(pipeline_options, is_wmt18_pred_format)
 
     if not any(pred_files.values()):
         print(

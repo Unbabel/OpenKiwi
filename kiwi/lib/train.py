@@ -32,7 +32,8 @@ logger = logging.getLogger(__name__)
 
 class TrainRunInfo:
     """
-    Class used to encapsulate relevant information on training runs.
+    Encapsulates relevant information on training runs.
+
     Can be instantiated with a trainer object.
 
     Attributes:
@@ -51,7 +52,7 @@ class TrainRunInfo:
 
 def train_from_file(filename):
     """
-    Imports and parses a config file and calls `train_from_options`.
+    Loads options from a config file and calls the training procedure.
 
     Args:
         filename (str): filename of the configuration file
@@ -63,9 +64,9 @@ def train_from_file(filename):
 
 def train_from_options(options):
     """
-    Runs the entire training pipeline using the configuration options
-    received. These options include the pipeline and model options
-    plus the model's API.
+    Runs the entire training pipeline using the configuration options received.
+
+    These options include the pipeline and model options plus the model's API.
 
     Args:
         options (Namespace): All the configuration options retrieved
@@ -98,8 +99,8 @@ def train_from_options(options):
         all_options = merge_namespaces(pipeline_options, model_options)
         log(
             output_dir,
-            save_config=pipeline_options.save_config,
             config_options=vars(all_options),
+            save_config=pipeline_options.save_config,
         )
 
         trainer = run(ModelClass, output_dir, pipeline_options, model_options)
@@ -112,13 +113,13 @@ def train_from_options(options):
 
 def run(ModelClass, output_dir, pipeline_options, model_options):
     """
-    Implements the main logic of the training module. Instantiates the
-    dataset, model class and sets their attributes according to the
-    pipeline options received. Calls `retrieve_trainer` and runs the
-    returned trainer.
+    Implements the main logic of the training module.
+
+    Instantiates the dataset, model class and sets their attributes according
+    to the pipeline options received. Loads or creates a trainer and runs it.
 
     Args:
-        ModelClass (type): Python Type of the Model to train
+        ModelClass (Model): Python Type of the Model to train
         output_dir: Directory to save models
         pipeline_options (Namespace): Generic Train Options
             load_model: load pre-trained predictor model
@@ -131,7 +132,6 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
 
     Returns:
         The trainer object
-
     """
     model_name = getattr(ModelClass, "title", ModelClass.__name__)
     logger.info("Training the {} model".format(model_name))
@@ -192,9 +192,12 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
 def retrieve_trainer(
     ModelClass, pipeline_options, model_options, vocabs, output_dir, device_id
 ):
-    """Creates a Trainer object. This object encapsulates the logic behind
-    training the model and checkpointing. This method uses the received pipeline
-    options to instantiate a Trainer object with the the requested model and
+    """
+    Creates a Trainer object with an associated model.
+
+    This object encapsulates the logic behind training the model and
+    checkpointing. This method uses the received pipeline options to
+    instantiate a Trainer object with the the requested model and
     hyperparameters.
 
     Args:
@@ -219,7 +222,7 @@ def retrieve_trainer(
             log_interval (int): Log after `k` batches.
         model_options (Namespace): Model specific options.
         vocabs (dict): Vocab dictionary.
-        output_dir (str): Output directory for models and stats concerning
+        output_dir (str or Path): Output directory for models and stats concerning
             training.
         device_id (int): The gpu id to be used in training. Set to negative
             to use cpu.
@@ -282,9 +285,9 @@ def retrieve_trainer(
 
 def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
     """
-    Helper function used to retrieve data and create `Dataset` objects for
-     the training and validation sets. Parses files according to pipeline
-     and model options.
+    Creates `Dataset` objects for the training and validation sets.
+
+    Parses files according to pipeline and model options.
 
     Args:
         fieldset
@@ -330,12 +333,20 @@ def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
 
 def setup(output_dir, seed=42, gpu_id=None, debug=False, quiet=False):
     """
-    Analyze pipeline options and set up requirements to running
-    the training pipeline. This includes setting up the output
-    directory, random seeds and the device(s) where training is run.
+    Analyzes pipeline options and sets up requirements for running the training
+    pipeline.
+
+    This includes setting up the output directory, random seeds and the
+    device(s) where training is run.
 
     Args:
-        options(Namespace): Pipeline specific options
+        output_dir: Path to directory to use or None, in which case one is
+            created automatically.
+        seed (int): Random seed for all random engines (Python, PyTorch, NumPy).
+        gpu_id (int): GPU number to use or `None` to use the CPU.
+        debug (bool): Whether to increase the verbosity of output messages.
+        quiet (bool): Whether to decrease the verbosity of output messages.
+            Takes precedence over `debug`.
 
     Returns:
         output_dir(str): Path to output directory
@@ -383,22 +394,26 @@ def teardown(options):
         options(Namespace): Pipeline specific options
     """
     pass
-    pass
 
 
 def log(
-    output_dir, save_config, config_options, config_file_name="train_config.yml"
+    output_dir,
+    config_options,
+    config_file_name="train_config.yml",
+    save_config=None,
 ):
     """
     Logs configuration options for the current training run.
+
     Args:
         output_dir (str): Path to directory where experiment files should be
             saved.
-        save_config (bool): Boolean stating if you should save a
-            configuration file.
         config_options (Namespace): Namespace representing all configuration
             options.
         config_file_name (str): Filename of the config file
+        save_config (str or Path): Boolean stating if you should save a
+            configuration file.
+
     """
     logging.debug(pformat(config_options))
     config_file_copy = Path(output_dir, config_file_name)
