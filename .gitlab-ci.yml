@@ -41,7 +41,7 @@ pages:
         - git fetch
         - git clone --branch gh-pages ${CI_REPOSITORY_URL} gh-pages
         - tox -e gh-pages
-        - cd gh-pages
+
         - cd gh-pages; git add .; git commit -m "Update docs"
         - git push origin gh-pages
     only:
