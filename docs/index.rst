@@ -10,9 +10,9 @@ Welcome to OpenKiwi's documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Getting Started
-   
-   usage.md
+   :caption: Quickstart
+
+   quickstart.md
 
 .. toctree::
    :maxdepth: 2
