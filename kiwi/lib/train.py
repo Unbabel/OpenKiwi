@@ -222,8 +222,8 @@ def retrieve_trainer(
             log_interval (int): Log after `k` batches.
         model_options (Namespace): Model specific options.
         vocabs (dict): Vocab dictionary.
-        output_dir (str or Path): Output directory for models and stats concerning
-            training.
+        output_dir (str or Path): Output directory for models and stats
+            concerning training.
         device_id (int): The gpu id to be used in training. Set to negative
             to use cpu.
     Returns:
