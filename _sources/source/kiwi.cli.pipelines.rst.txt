@@ -1,0 +1,46 @@
+kiwi.cli.pipelines package
+==========================
+
+Submodules
+----------
+
+kiwi.cli.pipelines.evaluate module
+----------------------------------
+
+.. automodule:: kiwi.cli.pipelines.evaluate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.cli.pipelines.jackknife module
+-----------------------------------
+
+.. automodule:: kiwi.cli.pipelines.jackknife
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.cli.pipelines.predict module
+---------------------------------
+
+.. automodule:: kiwi.cli.pipelines.predict
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.cli.pipelines.train module
+-------------------------------
+
+.. automodule:: kiwi.cli.pipelines.train
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.cli.pipelines
+    :members:
+    :undoc-members:
+    :show-inheritance:

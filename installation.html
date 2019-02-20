@@ -1,0 +1,392 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quickstart" href="quickstart.html" />
+    <link rel="prev" title="Welcome to OpenKiwi’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>Installation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>Please note that since Python&gt;=3.5 is required, all the below commands, especially <cite>pip</cite>,
+also have to be the Python 3 version. This might require that you run <cite>pip3</cite> instead.</p>
+<div class="section" id="with-pip">
+<h2>With pip<a class="headerlink" href="#with-pip" title="Permalink to this headline">¶</a></h2>
+<p>To install OpenKiwi as a package, simply run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">openkiwi</span>
+</pre></div>
+</div>
+<p>You can now:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">kiwi</span>
+</pre></div>
+</div>
+<p>inside your project or run in the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="as-local-package">
+<h2>As local package<a class="headerlink" href="#as-local-package" title="Permalink to this headline">¶</a></h2>
+<p>This project uses a newer configuration format defined by PEP-518, namely, a <cite>pyproject.toml</cite> file.
+In order to support it, we use <a class="reference external" href="https://github.com/sdispater/poetry">Poetry</a> as the build system
+and the dependency manager.</p>
+<p>Since we want to allow OpenKiwi to be used both as an application and as a library,
+this has the added benefit of allowing us to specify dependencies in a single location
+and simplifying the packaging process.
+Consequently, you’ll notice there’s no <cite>requirements.txt</cite> and no <cite>setup.py</cite> files.
+The alternative routes are explained below.</p>
+<p>Before installing OpenKiwi and its development dependencies, we recommend the usual practice of
+creating a separate virtual environment to work on OpenKiwi.</p>
+<p>If you don’t have Python 3.5, 3.6, or 3.7, or need help creating a virtualenv, check online guides
+like <a class="reference external" href="https://realpython.com/python-virtual-environments-a-primer/">this</a>.</p>
+<p><strong>Note</strong>: There’s currently an issue with poetry not detecting conda virtual environments. As such
+we suggest using virtualenv.</p>
+<p>Install Poetry via the recommended way:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">sSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sdispater</span><span class="o">/</span><span class="n">poetry</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">get</span><span class="o">-</span><span class="n">poetry</span><span class="o">.</span><span class="n">py</span> <span class="o">|</span> <span class="n">python</span>
+</pre></div>
+</div>
+<p>It’s also possible to use pip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">poetry</span>
+</pre></div>
+</div>
+<p>Then, after cloning this repository and once <em>inside</em> your virtualenv, instead of the traditional
+<cite>pip install -r requirements.txt</cite>, just run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>to install all dependencies.</p>
+<p>That’s it! Now, running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">kiwi</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="o">-</span><span class="n">h</span>
+</pre></div>
+</div>
+<p>should show you a help message.</p>
+</div>
+<div class="section" id="mlflow-integration">
+<h2>MLflow integration<a class="headerlink" href="#mlflow-integration" title="Permalink to this headline">¶</a></h2>
+<p><strong>Optionally</strong>, if you’d like to take advantage of our <a class="reference external" href="https://mlflow.org/">MLflow</a> integration, simply install it in the same virtualenv as OpenKiwi:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">mlflow</span>
+</pre></div>
+</div>
+<p><strong>Or</strong> in case you have installed OpenKiwi as a local package, you should add mlflow to your env with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="n">mlflow</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quickstart" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to OpenKiwi’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

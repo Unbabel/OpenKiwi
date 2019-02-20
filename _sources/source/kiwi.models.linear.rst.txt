@@ -1,0 +1,110 @@
+kiwi.models.linear package
+==========================
+
+Submodules
+----------
+
+kiwi.models.linear.label\_dictionary module
+-------------------------------------------
+
+.. automodule:: kiwi.models.linear.label_dictionary
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.linear\_model module
+---------------------------------------
+
+.. automodule:: kiwi.models.linear.linear_model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.linear\_trainer module
+-----------------------------------------
+
+.. automodule:: kiwi.models.linear.linear_trainer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.linear\_word\_qe\_decoder module
+---------------------------------------------------
+
+.. automodule:: kiwi.models.linear.linear_word_qe_decoder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.linear\_word\_qe\_features module
+----------------------------------------------------
+
+.. automodule:: kiwi.models.linear.linear_word_qe_features
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.linear\_word\_qe\_sentence module
+----------------------------------------------------
+
+.. automodule:: kiwi.models.linear.linear_word_qe_sentence
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.sequence\_parts module
+-----------------------------------------
+
+.. automodule:: kiwi.models.linear.sequence_parts
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.sparse\_feature\_vector module
+-------------------------------------------------
+
+.. automodule:: kiwi.models.linear.sparse_feature_vector
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.sparse\_vector module
+----------------------------------------
+
+.. automodule:: kiwi.models.linear.sparse_vector
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.structured\_classifier module
+------------------------------------------------
+
+.. automodule:: kiwi.models.linear.structured_classifier
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.structured\_decoder module
+---------------------------------------------
+
+.. automodule:: kiwi.models.linear.structured_decoder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.linear.utils module
+-------------------------------
+
+.. automodule:: kiwi.models.linear.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.models.linear
+    :members:
+    :undoc-members:
+    :show-inheritance:

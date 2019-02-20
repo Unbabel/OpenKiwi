@@ -1,0 +1,632 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi package &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="kiwi.cli package" href="kiwi.cli.html" />
+    <link rel="prev" title="kiwi" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">kiwi</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">kiwi</a> &raquo;</li>
+        
+      <li>kiwi package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/kiwi.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kiwi-package">
+<h1>kiwi package<a class="headerlink" href="#kiwi-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.cli.html">kiwi.cli package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.cli.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.cli.models.html">kiwi.cli.models package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.models.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.models.html#module-kiwi.cli.models.linear">kiwi.cli.models.linear module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.models.html#module-kiwi.cli.models.nuqe">kiwi.cli.models.nuqe module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.models.html#module-kiwi.cli.models.predictor">kiwi.cli.models.predictor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.models.html#module-kiwi.cli.models.predictor_estimator">kiwi.cli.models.predictor_estimator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.models.html#module-kiwi.cli.models.quetch">kiwi.cli.models.quetch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.models.html#module-kiwi.cli.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.cli.pipelines.html">kiwi.cli.pipelines package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.pipelines.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.pipelines.html#module-kiwi.cli.pipelines.evaluate">kiwi.cli.pipelines.evaluate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.pipelines.html#module-kiwi.cli.pipelines.jackknife">kiwi.cli.pipelines.jackknife module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.pipelines.html#module-kiwi.cli.pipelines.predict">kiwi.cli.pipelines.predict module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.pipelines.html#module-kiwi.cli.pipelines.train">kiwi.cli.pipelines.train module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.pipelines.html#module-kiwi.cli.pipelines">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.cli.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.cli.html#module-kiwi.cli.better_argparse">kiwi.cli.better_argparse module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.cli.html#module-kiwi.cli.main">kiwi.cli.main module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.cli.html#module-kiwi.cli.opts">kiwi.cli.opts module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.cli.html#module-kiwi.cli">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.data.html">kiwi.data package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.data.fields.html">kiwi.data.fields package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fields.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fields.html#module-kiwi.data.fields.alignment_field">kiwi.data.fields.alignment_field module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fields.html#module-kiwi.data.fields.qe_field">kiwi.data.fields.qe_field module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fields.html#module-kiwi.data.fields.sequence_labels_field">kiwi.data.fields.sequence_labels_field module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fields.html#module-kiwi.data.fields">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.data.fieldsets.html">kiwi.data.fieldsets package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fieldsets.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.extend_vocabs_fieldset">kiwi.data.fieldsets.extend_vocabs_fieldset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.fieldset">kiwi.data.fieldsets.fieldset module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.linear">kiwi.data.fieldsets.linear module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.predictor">kiwi.data.fieldsets.predictor module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.predictor_estimator">kiwi.data.fieldsets.predictor_estimator module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.quetch">kiwi.data.fieldsets.quetch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#module-kiwi.data.builders">kiwi.data.builders module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#module-kiwi.data.corpus">kiwi.data.corpus module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#module-kiwi.data.iterators">kiwi.data.iterators module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#module-kiwi.data.qe_dataset">kiwi.data.qe_dataset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#module-kiwi.data.tokenizers">kiwi.data.tokenizers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#module-kiwi.data.utils">kiwi.data.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#module-kiwi.data.vectors">kiwi.data.vectors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#module-kiwi.data.vocabulary">kiwi.data.vocabulary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.html#module-kiwi.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.lib.html">kiwi.lib package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.lib.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.lib.html#module-kiwi.lib.evaluate">kiwi.lib.evaluate module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.lib.html#module-kiwi.lib.jackknife">kiwi.lib.jackknife module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.lib.html#module-kiwi.lib.predict">kiwi.lib.predict module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.lib.html#module-kiwi.lib.search">kiwi.lib.search module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.lib.html#module-kiwi.lib.train">kiwi.lib.train module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.lib.html#module-kiwi.lib.utils">kiwi.lib.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.lib.html#module-kiwi.lib">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.metrics.html">kiwi.metrics package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.metrics.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.metrics.html#module-kiwi.metrics.functions">kiwi.metrics.functions module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.metrics.html#module-kiwi.metrics.metrics">kiwi.metrics.metrics module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.metrics.html#module-kiwi.metrics.stats">kiwi.metrics.stats module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.metrics.html#module-kiwi.metrics">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.models.html">kiwi.models package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.models.linear.html">kiwi.models.linear package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.label_dictionary">kiwi.models.linear.label_dictionary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_model">kiwi.models.linear.linear_model module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_trainer">kiwi.models.linear.linear_trainer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_word_qe_decoder">kiwi.models.linear.linear_word_qe_decoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_word_qe_features">kiwi.models.linear.linear_word_qe_features module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_word_qe_sentence">kiwi.models.linear.linear_word_qe_sentence module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.sequence_parts">kiwi.models.linear.sequence_parts module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.sparse_feature_vector">kiwi.models.linear.sparse_feature_vector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.sparse_vector">kiwi.models.linear.sparse_vector module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.structured_classifier">kiwi.models.linear.structured_classifier module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.structured_decoder">kiwi.models.linear.structured_decoder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.utils">kiwi.models.linear.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.models.modules.html">kiwi.models.modules package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.modules.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.modules.html#module-kiwi.models.modules.attention">kiwi.models.modules.attention module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.modules.html#module-kiwi.models.modules.scorer">kiwi.models.modules.scorer module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.modules.html#module-kiwi.models.modules">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#module-kiwi.models.linear_word_qe_classifier">kiwi.models.linear_word_qe_classifier module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#module-kiwi.models.model">kiwi.models.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#module-kiwi.models.nuqe">kiwi.models.nuqe module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#module-kiwi.models.predictor">kiwi.models.predictor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#module-kiwi.models.predictor_estimator">kiwi.models.predictor_estimator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#module-kiwi.models.quetch">kiwi.models.quetch module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#module-kiwi.models.utils">kiwi.models.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.html#module-kiwi.models">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.predictors.html">kiwi.predictors package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.predictors.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.predictors.html#module-kiwi.predictors.linear_tester">kiwi.predictors.linear_tester module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.predictors.html#module-kiwi.predictors.predictor">kiwi.predictors.predictor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.predictors.html#module-kiwi.predictors">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.trainers.html">kiwi.trainers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.trainers.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.trainers.html#module-kiwi.trainers.callbacks">kiwi.trainers.callbacks module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.trainers.html#module-kiwi.trainers.linear_word_qe_trainer">kiwi.trainers.linear_word_qe_trainer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.trainers.html#module-kiwi.trainers.trainer">kiwi.trainers.trainer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.trainers.html#module-kiwi.trainers.utils">kiwi.trainers.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.trainers.html#module-kiwi.trainers">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kiwi.constants">
+<span id="kiwi-constants-module"></span><h2>kiwi.constants module<a class="headerlink" href="#module-kiwi.constants" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kiwi.loggers">
+<span id="kiwi-loggers-module"></span><h2>kiwi.loggers module<a class="headerlink" href="#module-kiwi.loggers" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.loggers.MLflowLogger">
+<em class="property">class </em><code class="descclassname">kiwi.loggers.</code><code class="descname">MLflowLogger</code><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.loggers.MLflowLogger.configure">
+<code class="descname">configure</code><span class="sig-paren">(</span><em>run_uuid</em>, <em>experiment_name</em>, <em>tracking_uri</em>, <em>always_log_artifacts=False</em>, <em>create_run=True</em>, <em>create_experiment=True</em>, <em>nest_run=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.configure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.MLflowLogger.end_run">
+<em class="property">static </em><code class="descname">end_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.end_run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.end_run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.loggers.MLflowLogger.experiment_id">
+<code class="descname">experiment_id</code><a class="headerlink" href="#kiwi.loggers.MLflowLogger.experiment_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.loggers.MLflowLogger.experiment_name">
+<code class="descname">experiment_name</code><a class="headerlink" href="#kiwi.loggers.MLflowLogger.experiment_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.MLflowLogger.get_artifact_uri">
+<em class="property">static </em><code class="descname">get_artifact_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.get_artifact_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.get_artifact_uri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.MLflowLogger.get_tracking_uri">
+<em class="property">static </em><code class="descname">get_tracking_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.get_tracking_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.get_tracking_uri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.MLflowLogger.log_artifact">
+<em class="property">static </em><code class="descname">log_artifact</code><span class="sig-paren">(</span><em>local_path</em>, <em>artifact_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.log_artifact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.log_artifact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.MLflowLogger.log_artifacts">
+<em class="property">static </em><code class="descname">log_artifacts</code><span class="sig-paren">(</span><em>local_dir</em>, <em>artifact_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.log_artifacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.log_artifacts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.MLflowLogger.log_metric">
+<em class="property">static </em><code class="descname">log_metric</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.log_metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.log_metric" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.MLflowLogger.log_param">
+<em class="property">static </em><code class="descname">log_param</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.log_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.log_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.loggers.MLflowLogger.run_uuid">
+<code class="descname">run_uuid</code><a class="headerlink" href="#kiwi.loggers.MLflowLogger.run_uuid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.loggers.MLflowLogger.should_log_artifacts">
+<code class="descname">should_log_artifacts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.should_log_artifacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.should_log_artifacts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.loggers.MLflowLogger.start_nested_run">
+<code class="descname">start_nested_run</code><span class="sig-paren">(</span><em>run_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.start_nested_run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.start_nested_run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.loggers.TrackingLogger">
+<em class="property">class </em><code class="descclassname">kiwi.loggers.</code><code class="descname">TrackingLogger</code><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="class">
+<dt id="kiwi.loggers.TrackingLogger.ActiveRun">
+<em class="property">class </em><code class="descname">ActiveRun</code><span class="sig-paren">(</span><em>run_uuid</em>, <em>experiment_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.ActiveRun"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.ActiveRun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.loggers.TrackingLogger.configure">
+<code class="descname">configure</code><span class="sig-paren">(</span><em>run_uuid</em>, <em>experiment_name</em>, <em>nest_run=True</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.configure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.TrackingLogger.end_run">
+<em class="property">static </em><code class="descname">end_run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.end_run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.end_run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.loggers.TrackingLogger.experiment_id">
+<code class="descname">experiment_id</code><a class="headerlink" href="#kiwi.loggers.TrackingLogger.experiment_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.loggers.TrackingLogger.experiment_name">
+<code class="descname">experiment_name</code><a class="headerlink" href="#kiwi.loggers.TrackingLogger.experiment_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.TrackingLogger.get_artifact_uri">
+<em class="property">static </em><code class="descname">get_artifact_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.get_artifact_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.get_artifact_uri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.loggers.TrackingLogger.get_tracking_uri">
+<code class="descname">get_tracking_uri</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.get_tracking_uri"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.get_tracking_uri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.TrackingLogger.log_artifact">
+<em class="property">static </em><code class="descname">log_artifact</code><span class="sig-paren">(</span><em>local_path</em>, <em>artifact_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.log_artifact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.log_artifact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.TrackingLogger.log_artifacts">
+<em class="property">static </em><code class="descname">log_artifacts</code><span class="sig-paren">(</span><em>local_dir</em>, <em>artifact_path=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.log_artifacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.log_artifacts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.TrackingLogger.log_metric">
+<em class="property">static </em><code class="descname">log_metric</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.log_metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.log_metric" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.loggers.TrackingLogger.log_param">
+<em class="property">static </em><code class="descname">log_param</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.log_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.log_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.loggers.TrackingLogger.run_uuid">
+<code class="descname">run_uuid</code><a class="headerlink" href="#kiwi.loggers.TrackingLogger.run_uuid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.loggers.TrackingLogger.should_log_artifacts">
+<code class="descname">should_log_artifacts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.should_log_artifacts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.should_log_artifacts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.loggers.TrackingLogger.start_nested_run">
+<code class="descname">start_nested_run</code><span class="sig-paren">(</span><em>run_name=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.start_nested_run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.start_nested_run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kiwi" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kiwi.cli.html" class="btn btn-neutral float-right" title="kiwi.cli package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral float-left" title="kiwi" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

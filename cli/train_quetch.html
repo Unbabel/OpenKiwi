@@ -1,0 +1,617 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>QUETCH training &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Linear training" href="train_linear.html" />
+    <link rel="prev" title="Predictor-Estimator training" href="train_predictor_estimator.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../flags.html">Configuration Options</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="train.html">Train Interface</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../configuration.html">OpenKiwi Configuration</a> &raquo;</li>
+        
+          <li><a href="../flags.html">Configuration Options</a> &raquo;</li>
+        
+          <li><a href="train.html">Train Interface</a> &raquo;</li>
+        
+      <li>QUETCH training</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/cli/train_quetch.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quetch-training">
+<h1>QUETCH training<a class="headerlink" href="#quetch-training" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#data" id="id1">data</a></li>
+<li><a class="reference internal" href="#data processing options" id="id2">data processing options</a></li>
+<li><a class="reference internal" href="#vocabulary options" id="id3">vocabulary options</a></li>
+<li><a class="reference internal" href="#hyper-parameters" id="id4">hyper-parameters</a></li>
+</ul>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">kiwi</span> <span class="n">train</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="o">--</span><span class="n">train</span><span class="o">-</span><span class="n">source</span> <span class="n">TRAIN_SOURCE</span> <span class="o">--</span><span class="n">train</span><span class="o">-</span><span class="n">target</span> <span class="n">TRAIN_TARGET</span>
+                  <span class="o">--</span><span class="n">train</span><span class="o">-</span><span class="n">alignments</span> <span class="n">TRAIN_ALIGNMENTS</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">train</span><span class="o">-</span><span class="n">source</span><span class="o">-</span><span class="n">tags</span> <span class="n">TRAIN_SOURCE_TAGS</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">train</span><span class="o">-</span><span class="n">target</span><span class="o">-</span><span class="n">tags</span> <span class="n">TRAIN_TARGET_TAGS</span><span class="p">]</span> <span class="o">--</span><span class="n">valid</span><span class="o">-</span><span class="n">source</span>
+                  <span class="n">VALID_SOURCE</span> <span class="o">--</span><span class="n">valid</span><span class="o">-</span><span class="n">target</span> <span class="n">VALID_TARGET</span> <span class="o">--</span><span class="n">valid</span><span class="o">-</span><span class="n">alignments</span>
+                  <span class="n">VALID_ALIGNMENTS</span> <span class="p">[</span><span class="o">--</span><span class="n">valid</span><span class="o">-</span><span class="n">source</span><span class="o">-</span><span class="n">tags</span> <span class="n">VALID_SOURCE_TAGS</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">valid</span><span class="o">-</span><span class="n">target</span><span class="o">-</span><span class="n">tags</span> <span class="n">VALID_TARGET_TAGS</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">valid</span><span class="o">-</span><span class="n">source</span><span class="o">-</span><span class="n">pos</span> <span class="n">VALID_SOURCE_POS</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">valid</span><span class="o">-</span><span class="n">target</span><span class="o">-</span><span class="n">pos</span> <span class="n">VALID_TARGET_POS</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">predict</span><span class="o">-</span><span class="n">target</span> <span class="p">[</span><span class="n">PREDICT_TARGET</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">predict</span><span class="o">-</span><span class="n">gaps</span> <span class="p">[</span><span class="n">PREDICT_GAPS</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">predict</span><span class="o">-</span><span class="n">source</span> <span class="p">[</span><span class="n">PREDICT_SOURCE</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">wmt18</span><span class="o">-</span><span class="nb">format</span> <span class="p">[</span><span class="n">WMT18_FORMAT</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">source</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">length</span> <span class="n">SOURCE_MAX_LENGTH</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">source</span><span class="o">-</span><span class="nb">min</span><span class="o">-</span><span class="n">length</span> <span class="n">SOURCE_MIN_LENGTH</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="nb">max</span><span class="o">-</span><span class="n">length</span> <span class="n">TARGET_MAX_LENGTH</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="nb">min</span><span class="o">-</span><span class="n">length</span> <span class="n">TARGET_MIN_LENGTH</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">source</span><span class="o">-</span><span class="n">vocab</span><span class="o">-</span><span class="n">size</span> <span class="n">SOURCE_VOCAB_SIZE</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">vocab</span><span class="o">-</span><span class="n">size</span> <span class="n">TARGET_VOCAB_SIZE</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">source</span><span class="o">-</span><span class="n">vocab</span><span class="o">-</span><span class="nb">min</span><span class="o">-</span><span class="n">frequency</span> <span class="n">SOURCE_VOCAB_MIN_FREQUENCY</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">vocab</span><span class="o">-</span><span class="nb">min</span><span class="o">-</span><span class="n">frequency</span> <span class="n">TARGET_VOCAB_MIN_FREQUENCY</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">keep</span><span class="o">-</span><span class="n">rare</span><span class="o">-</span><span class="n">words</span><span class="o">-</span><span class="k">with</span><span class="o">-</span><span class="n">embeddings</span> <span class="p">[</span><span class="n">KEEP_RARE_WORDS_WITH_EMBEDDINGS</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">embeddings</span><span class="o">-</span><span class="n">vocab</span> <span class="p">[</span><span class="n">ADD_EMBEDDINGS_VOCAB</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">embeddings</span><span class="o">-</span><span class="nb">format</span> <span class="p">{</span><span class="n">polyglot</span><span class="p">,</span><span class="n">word2vec</span><span class="p">,</span><span class="n">fasttext</span><span class="p">,</span><span class="n">glove</span><span class="p">,</span><span class="n">text</span><span class="p">}]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">embeddings</span><span class="o">-</span><span class="n">binary</span> <span class="p">[</span><span class="n">EMBEDDINGS_BINARY</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">source</span><span class="o">-</span><span class="n">embeddings</span> <span class="n">SOURCE_EMBEDDINGS</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">embeddings</span> <span class="n">TARGET_EMBEDDINGS</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">bad</span><span class="o">-</span><span class="n">weight</span> <span class="n">BAD_WEIGHT</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">window</span><span class="o">-</span><span class="n">size</span> <span class="n">WINDOW_SIZE</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">aligned</span> <span class="n">MAX_ALIGNED</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">source</span><span class="o">-</span><span class="n">embeddings</span><span class="o">-</span><span class="n">size</span> <span class="n">SOURCE_EMBEDDINGS_SIZE</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">target</span><span class="o">-</span><span class="n">embeddings</span><span class="o">-</span><span class="n">size</span> <span class="n">TARGET_EMBEDDINGS_SIZE</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">freeze</span><span class="o">-</span><span class="n">embeddings</span> <span class="p">[</span><span class="n">FREEZE_EMBEDDINGS</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">embeddings</span><span class="o">-</span><span class="n">dropout</span> <span class="n">EMBEDDINGS_DROPOUT</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">hidden</span><span class="o">-</span><span class="n">sizes</span> <span class="n">HIDDEN_SIZES</span> <span class="p">[</span><span class="n">HIDDEN_SIZES</span> <span class="o">...</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">dropout</span> <span class="n">DROPOUT</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">init</span><span class="o">-</span><span class="nb">type</span> <span class="p">{</span><span class="n">uniform</span><span class="p">,</span><span class="n">normal</span><span class="p">,</span><span class="n">constant</span><span class="p">,</span><span class="n">glorot_uniform</span><span class="p">,</span><span class="n">glorot_normal</span><span class="p">}]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">init</span><span class="o">-</span><span class="n">support</span> <span class="n">INIT_SUPPORT</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="data">
+<h2><a class="toc-backref" href="#id1">data</a><a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd>--train-source</kbd></td>
+<td>Path to training source file</td></tr>
+<tr><td class="option-group">
+<kbd>--train-target</kbd></td>
+<td>Path to training target file</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--train-alignments</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to train alignments between source and target.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--train-source-tags</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to training label file for source (WMT18 format)</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--train-target-tags</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to training label file for target</td></tr>
+<tr><td class="option-group">
+<kbd>--valid-source</kbd></td>
+<td>Path to validation source file</td></tr>
+<tr><td class="option-group">
+<kbd>--valid-target</kbd></td>
+<td>Path to validation target file</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--valid-alignments</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to valid alignments between source and target.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--valid-source-tags</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to validation label file for source (WMT18 format)</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--valid-target-tags</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to validation label file for target</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--valid-source-pos</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to training PoS tags file for source</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--valid-target-pos</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to training PoS tags file for target</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="data processing options">
+<h2><a class="toc-backref" href="#id2">data processing options</a><a class="headerlink" href="#data processing options" title="Permalink to this headline">¶</a></h2>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd>--predict-target</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Predict Target Tags. Leave unchanged for WMT17 format</p>
+<p class="last">Default: True</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>--predict-gaps</kbd></td>
+<td><p class="first">Predict Gap Tags.</p>
+<p class="last">Default: False</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--predict-source</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Predict Source Tags.</p>
+<p class="last">Default: False</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>--wmt18-format</kbd></td>
+<td><p class="first">Read target tags in WMT18 format.</p>
+<p class="last">Default: False</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--source-max-length</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Maximum source sequence length</p>
+<p class="last">Default: inf</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--source-min-length</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Truncate source sequence length.</p>
+<p class="last">Default: 1</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--target-max-length</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Maximum target sequence length to keep.</p>
+<p class="last">Default: inf</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--target-min-length</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Truncate target sequence length.</p>
+<p class="last">Default: 1</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="vocabulary options">
+<h2><a class="toc-backref" href="#id3">vocabulary options</a><a class="headerlink" href="#vocabulary options" title="Permalink to this headline">¶</a></h2>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd>--source-vocab-size</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Size of the source vocabulary.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--target-vocab-size</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Size of the target vocabulary.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--source-vocab-min-frequency</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Min word frequency for source vocabulary.</p>
+<p class="last">Default: 1</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--target-vocab-min-frequency</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Min word frequency for target vocabulary.</p>
+<p class="last">Default: 1</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--keep-rare-words-with-embeddings</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Keep words that occur less then min-frequency but are in embeddings vocabulary.</p>
+<p class="last">Default: False</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--add-embeddings-vocab</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Add words from embeddings vocabulary to source/target vocabulary.</p>
+<p class="last">Default: False</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--embeddings-format</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Possible choices: polyglot, word2vec, fasttext, glove, text</p>
+<p>Word embeddings format. See README for specific formatting instructions.</p>
+<p class="last">Default: “polyglot”</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--embeddings-binary</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Load embeddings stored in binary.</p>
+<p class="last">Default: False</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--source-embeddings</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to word embeddings file for source.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--target-embeddings</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>Path to word embeddings file for target.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="hyper-parameters">
+<h2><a class="toc-backref" href="#id4">hyper-parameters</a><a class="headerlink" href="#hyper-parameters" title="Permalink to this headline">¶</a></h2>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd>--bad-weight</kbd></td>
+<td><p class="first">Relative weight for bad labels.</p>
+<p class="last">Default: 3.0</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>--window-size</kbd></td>
+<td><p class="first">Sliding window size.</p>
+<p class="last">Default: 3</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>--max-aligned</kbd></td>
+<td><p class="first">Max number of alignments between source and target.</p>
+<p class="last">Default: 5</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--source-embeddings-size</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Word embedding size for source.</p>
+<p class="last">Default: 50</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--target-embeddings-size</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Word embedding size for target.</p>
+<p class="last">Default: 50</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--freeze-embeddings</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Freeze embedding weights during training.</p>
+<p class="last">Default: False</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--embeddings-dropout</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Dropout rate for embedding layers.</p>
+<p class="last">Default: 0.0</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>--hidden-sizes</kbd></td>
+<td><p class="first">List of hidden sizes.</p>
+<p class="last">Default: [50]</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>--dropout</kbd></td>
+<td><p class="first">Dropout rate for linear layers.</p>
+<p class="last">Default: 0.0</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>--init-type</kbd></td>
+<td><p class="first">Possible choices: uniform, normal, constant, glorot_uniform, glorot_normal</p>
+<p>Distribution type for parameters initialization.</p>
+<p class="last">Default: “uniform”</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>--init-support</kbd></td>
+<td><p class="first">Parameters are initialized over uniform distribution with support (-param_init, param_init). Use 0 to not use initialization.</p>
+<p class="last">Default: 0.1</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="train_linear.html" class="btn btn-neutral float-right" title="Linear training" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="train_predictor_estimator.html" class="btn btn-neutral float-left" title="Predictor-Estimator training" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

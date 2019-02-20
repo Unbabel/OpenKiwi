@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.cli.opts &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../../../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>kiwi.cli.opts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kiwi.cli.opts</h1><div class="highlight"><pre>
+<span></span><span class="c1">#  OpenKiwi: Open-Source Machine Translation Quality Estimation</span>
+<span class="c1">#  Copyright (C) 2019 Unbabel &lt;openkiwi@unbabel.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#  it under the terms of the GNU Affero General Public License as published</span>
+<span class="c1">#  by the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#  (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1">#  along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+<span class="kn">from</span> <span class="nn">distutils.util</span> <span class="k">import</span> <span class="n">strtobool</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">kiwi</span> <span class="k">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">const</span>
+
+
+<div class="viewcode-block" id="PathType"><a class="viewcode-back" href="../../../source/kiwi.cli.html#kiwi.cli.opts.PathType">[docs]</a><span class="k">class</span> <span class="nc">PathType</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Factory for creating pathlib.Path objects</span>
+
+<span class="sd">    Instances of PathType should passed as type= arguments to the</span>
+<span class="sd">    ArgumentParser add_argument() method.</span>
+
+<span class="sd">    Strongly based on argparse.FileType.</span>
+
+<span class="sd">    Keyword Arguments:</span>
+<span class="sd">        - exists -- Whether the file must exists or not.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exists</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_must_exist</span> <span class="o">=</span> <span class="n">exists</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">string</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">string</span>
+
+        <span class="c1"># The special argument &quot;-&quot; means sys.std{in,out} in argparse.FileType</span>
+        <span class="k">if</span> <span class="n">string</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="s2">&quot;argument type PathType does not support &#39;-&#39; for referring &quot;</span>
+                <span class="s2">&quot;to sys.std{in,out}&quot;</span>
+            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># all other arguments are used as file names</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_must_exist</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;path must exist: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentTypeError</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">arg_str</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_must_exist</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">arg_str</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="io_opts"><a class="viewcode-back" href="../../../source/kiwi.cli.html#kiwi.cli.opts.io_opts">[docs]</a><span class="k">def</span> <span class="nf">io_opts</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+    <span class="c1"># Logging</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;I/O&#39;</span><span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--save-config&#39;</span><span class="p">,</span>
+        <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">PathType</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+        <span class="n">is_write_out_config_file_arg</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="c1"># Setting it to true makes it save and exit</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Save parsed configuration and arguments to the specified file&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;-d&#39;</span><span class="p">,</span> <span class="s1">&#39;--debug&#39;</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Output additional messages.&#39;</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;-q&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;--quiet&#39;</span><span class="p">,</span>
+        <span class="n">action</span><span class="o">=</span><span class="s1">&#39;store_true&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Only output warning and error messages.&#39;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="logging_opts"><a class="viewcode-back" href="../../../source/kiwi.cli.html#kiwi.cli.opts.logging_opts">[docs]</a><span class="k">def</span> <span class="nf">logging_opts</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+    <span class="c1"># Logging options</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;Logging&#39;</span><span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--log-interval&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Log every k batches.&#39;</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--mlflow-tracking-uri&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;mlruns/&#39;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;If using MLflow, logs model parameters, training metrics, and &#39;</span>
+        <span class="s1">&#39;artifacts (files) to this MLflow server. Uses the localhost by &#39;</span>
+        <span class="s1">&#39;default.&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--experiment-name&#39;</span><span class="p">,</span>
+        <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;If using MLflow, it will log this run under this experiment &#39;</span>
+        <span class="s1">&#39;name, which appears as a separate section&#39;</span>
+        <span class="s1">&#39;in the UI. It will also be used in some messages and files.&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--run-uuid&#39;</span><span class="p">,</span>
+        <span class="n">required</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;If specified, MLflow/Default Logger will log metrics and params &#39;</span>
+        <span class="s1">&#39;under this ID. If it exists, the run status will &#39;</span>
+        <span class="s1">&#39;change to running. This ID is also used for creating &#39;</span>
+        <span class="s1">&#39;this run</span><span class="se">\&#39;</span><span class="s1">s output directory. &#39;</span>
+        <span class="s1">&#39;(Run ID must be a 32-character hex string)&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--output-dir&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Output several files for this run under this directory. &#39;</span>
+        <span class="s1">&#39;If not specified, a directory under &quot;runs&quot; is created &#39;</span>
+        <span class="s1">&#39;or reused based on the Run UUID. &#39;</span>
+        <span class="s1">&#39;Files might also be sent to MLflow depending on the &#39;</span>
+        <span class="s1">&#39;--mlflow-always-log-artifacts option.&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--mlflow-always-log-artifacts&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">strtobool</span><span class="p">(</span><span class="n">x</span><span class="p">)),</span>
+        <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;?&#39;</span><span class="p">,</span>
+        <span class="n">const</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;If using MLFlow, always log (send) artifacts (files) to MLflow &#39;</span>
+        <span class="s1">&#39;artifacts URI. By default (false), artifacts are only logged if&#39;</span>
+        <span class="s1">&#39;MLflow is a remote server (as specified by --mlflow-tracking-uri &#39;</span>
+        <span class="s1">&#39;option). All generated files are always saved in --output-dir, so it &#39;</span>
+        <span class="s1">&#39;might be considered redundant to copy them to a local MLflow &#39;</span>
+        <span class="s1">&#39;server. If this is not the case, set this option to true.&#39;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="general_opts"><a class="viewcode-back" href="../../../source/kiwi.cli.html#kiwi.cli.opts.general_opts">[docs]</a><span class="k">def</span> <span class="nf">general_opts</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+    <span class="c1"># Data processing options</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;random&#39;</span><span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--seed&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Random seed&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Cuda</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;gpu&#39;</span><span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--gpu-id&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Use CUDA on the listed devices&#39;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="save_load_opts"><a class="viewcode-back" href="../../../source/kiwi.cli.html#kiwi.cli.opts.save_load_opts">[docs]</a><span class="k">def</span> <span class="nf">save_load_opts</span><span class="p">(</span><span class="n">parser</span><span class="p">):</span>
+    <span class="n">group</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">add_argument_group</span><span class="p">(</span><span class="s1">&#39;save-load&#39;</span><span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--load-model&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">PathType</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Directory containing a </span><span class="si">{}</span><span class="s1"> file to be loaded&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">const</span><span class="o">.</span><span class="n">MODEL_FILE</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--save-data&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Output dir for saving the preprocessed data files.&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--load-data&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">PathType</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Input dir for loading the preprocessed data files.&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">group</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+        <span class="s1">&#39;--load-vocab&#39;</span><span class="p">,</span>
+        <span class="nb">type</span><span class="o">=</span><span class="n">PathType</span><span class="p">(</span><span class="n">exists</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Directory containing a </span><span class="si">{}</span><span class="s1"> file to be loaded&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">const</span><span class="o">.</span><span class="n">VOCAB_FILE</span>
+        <span class="p">),</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

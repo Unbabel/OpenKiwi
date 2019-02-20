@@ -1,0 +1,953 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.metrics package &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="kiwi.models package" href="kiwi.models.html" />
+    <link rel="prev" title="kiwi.lib package" href="kiwi.lib.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">kiwi</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kiwi.html">kiwi package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="kiwi.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">kiwi</a> &raquo;</li>
+        
+          <li><a href="kiwi.html">kiwi package</a> &raquo;</li>
+        
+      <li>kiwi.metrics package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/kiwi.metrics.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kiwi-metrics-package">
+<h1>kiwi.metrics package<a class="headerlink" href="#kiwi-metrics-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kiwi.metrics.functions">
+<span id="kiwi-metrics-functions-module"></span><h2>kiwi.metrics.functions module<a class="headerlink" href="#module-kiwi.metrics.functions" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.metrics.functions.confusion_matrix">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">confusion_matrix</code><span class="sig-paren">(</span><em>hat_y</em>, <em>y</em>, <em>n_classes=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#confusion_matrix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.confusion_matrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.delta_average">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">delta_average</code><span class="sig-paren">(</span><em>y_true</em>, <em>y_rank</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#delta_average"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.delta_average" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the DeltaAvg score</p>
+<p>This is a much faster version than the Perl one provided in the
+WMT QE task 1.</p>
+<p>References: could not find any.</p>
+<p>Author: Fabio Kepler (contributed to MARMOT)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>y_true</strong> – array of reference score (not rank) of each segment.</li>
+<li><strong>y_rank</strong> – array of rank of each segment.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: the absolute delta average score.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.f1_product">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">f1_product</code><span class="sig-paren">(</span><em>hat_y</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#f1_product"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.f1_product" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.f1_scores">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">f1_scores</code><span class="sig-paren">(</span><em>hat_y</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#f1_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.f1_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return f1_bad, f1_ok and f1_product</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.fscore">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">fscore</code><span class="sig-paren">(</span><em>tp</em>, <em>fp</em>, <em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#fscore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.fscore" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.mean_absolute_error">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">mean_absolute_error</code><span class="sig-paren">(</span><em>y</em>, <em>y_hat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#mean_absolute_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.mean_absolute_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.mean_squared_error">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">mean_squared_error</code><span class="sig-paren">(</span><em>y</em>, <em>y_hat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#mean_squared_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.mean_squared_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.precision">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">precision</code><span class="sig-paren">(</span><em>tp</em>, <em>fp</em>, <em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#precision"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.precision" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.precision_recall_fscore_support">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">precision_recall_fscore_support</code><span class="sig-paren">(</span><em>hat_y</em>, <em>y</em>, <em>labels=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#precision_recall_fscore_support"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.precision_recall_fscore_support" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.recall">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">recall</code><span class="sig-paren">(</span><em>tp</em>, <em>fp</em>, <em>fn</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#recall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.recall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.metrics.functions.scores_for_class">
+<code class="descclassname">kiwi.metrics.functions.</code><code class="descname">scores_for_class</code><span class="sig-paren">(</span><em>class_index</em>, <em>cnfm</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/functions.html#scores_for_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.functions.scores_for_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.metrics.metrics">
+<span id="kiwi-metrics-metrics-module"></span><h2>kiwi.metrics.metrics module<a class="headerlink" href="#module-kiwi.metrics.metrics" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.metrics.metrics.CorrectMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">CorrectMetric</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#CorrectMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.CorrectMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.CorrectMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#CorrectMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.CorrectMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.CorrectMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#CorrectMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.CorrectMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.CorrectMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#CorrectMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.CorrectMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.ExpectedErrorMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">ExpectedErrorMetric</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#ExpectedErrorMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.ExpectedErrorMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.ExpectedErrorMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#ExpectedErrorMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.ExpectedErrorMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.ExpectedErrorMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#ExpectedErrorMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.ExpectedErrorMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.ExpectedErrorMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#ExpectedErrorMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.ExpectedErrorMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.F1Metric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">F1Metric</code><span class="sig-paren">(</span><em>labels</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#F1Metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.F1Metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.F1Metric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#F1Metric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.F1Metric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.F1Metric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#F1Metric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.F1Metric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.F1Metric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#F1Metric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.F1Metric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.LogMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">LogMetric</code><span class="sig-paren">(</span><em>targets</em>, <em>metric_name=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#LogMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.LogMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<p>Logs averages of values in loss, model or batch.</p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.LogMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#LogMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.LogMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.LogMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#LogMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.LogMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.LogMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#LogMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.LogMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.Metric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">Metric</code><span class="sig-paren">(</span><em>target_name=None</em>, <em>metric_name=None</em>, <em>PAD=None</em>, <em>STOP=None</em>, <em>prefix=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.get_name">
+<code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.get_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.get_predictions">
+<code class="descname">get_predictions</code><span class="sig-paren">(</span><em>model_out</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.get_predictions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.get_predictions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.get_predictions_flat">
+<code class="descname">get_predictions_flat</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.get_predictions_flat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.get_predictions_flat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.get_target">
+<code class="descname">get_target</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.get_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.get_target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.get_target_flat">
+<code class="descname">get_target_flat</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.get_target_flat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.get_target_flat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.get_token_indices">
+<code class="descname">get_token_indices</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.get_token_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.get_token_indices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.get_tokens">
+<code class="descname">get_tokens</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.get_tokens"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.get_tokens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.token_mask">
+<code class="descname">token_mask</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.token_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.token_mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.Metric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.MovingF1">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">MovingF1</code><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingF1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.MovingMetric" title="kiwi.metrics.metrics.MovingMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.MovingMetric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingF1.choose">
+<code class="descname">choose</code><span class="sig-paren">(</span><em>thresholds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingF1.choose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1.choose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose the best (threshold, metric) tuple from an iterable.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingF1.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingF1.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the current Value of the metric</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingF1.init">
+<code class="descname">init</code><span class="sig-paren">(</span><em>scores</em>, <em>labels</em>, <em>class_idx=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingF1.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute F1 Mult for all decision thresholds over (scores, labels)
+Initialize the threshold s.t. all examples are classified as
+<cite>class_idx</cite>.
+:param scores: Likelihood scores for class index
+:param Labels: Gold Truth classes in {0,1}
+:param class_index: ID of class</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingF1.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>score</em>, <em>label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingF1.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the decision threshold.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.MovingMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">MovingMetric</code><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class to compute the changes in one metric as a function of a second metric.
+Example: F1 score vs. Classification Threshold, Quality vs Skips</p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingMetric.choose">
+<code class="descname">choose</code><span class="sig-paren">(</span><em>thresholds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingMetric.choose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.choose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose the best (threshold, metric) tuple from an iterable.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingMetric.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingMetric.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the current Value of the metric</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingMetric.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>scores</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingMetric.eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the graph metric1 vs metric2
+:param Scores: Model Outputs
+:param Labels: Corresponding Labels</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingMetric.init">
+<code class="descname">init</code><span class="sig-paren">(</span><em>scores</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingMetric.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the Metric for threshold &lt; min(scores)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingMetric.sort">
+<code class="descname">sort</code><span class="sig-paren">(</span><em>scores</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingMetric.sort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort List of labels and scores.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>score</em>, <em>label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the threshold past score</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">MovingSkipsAtQuality</code><span class="sig-paren">(</span><em>scores_higher_is_better=False</em>, <em>labels_higher_is_better=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingSkipsAtQuality"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.MovingMetric" title="kiwi.metrics.metrics.MovingMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.MovingMetric</span></code></a></p>
+<p>Computes Quality of skipped examples vs fraction of skips.</p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.choose">
+<code class="descname">choose</code><span class="sig-paren">(</span><em>thresholds</em>, <em>target_qual</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingSkipsAtQuality.choose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.choose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chooses the smallest threshold such that
+avg. quality  is greater than or equal to target_qual</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingSkipsAtQuality.compute"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the current Value of the metric</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.eval">
+<code class="descname">eval</code><span class="sig-paren">(</span><em>scores</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingSkipsAtQuality.eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.eval" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scores</strong> – Model output quality or error scores. If quality scores
+are provided, pass scores_higher_is_better=True.</li>
+<li><strong>labels</strong> – Ground truth quality or error scores. If quality scores
+are provided, pass labels_higher_is_better=True.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.init">
+<code class="descname">init</code><span class="sig-paren">(</span><em>scores</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingSkipsAtQuality.init"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.init" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>scores</strong> – Model output quality or error scores. If quality scores
+are provided, pass scores_higher_is_better=True.</li>
+<li><strong>labels</strong> – Ground truth quality or error scores. If quality scores
+are provided, pass labels_higher_is_better=True.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.sort">
+<code class="descname">sort</code><span class="sig-paren">(</span><em>scores</em>, <em>labels</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingSkipsAtQuality.sort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort List of labels and scores.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>score</em>, <em>label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingSkipsAtQuality.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the threshold past score</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.NLLMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">NLLMetric</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#NLLMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.NLLMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.NLLMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#NLLMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.NLLMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.NLLMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#NLLMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.NLLMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.NLLMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>loss</em>, <em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#NLLMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.NLLMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.PearsonMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">PearsonMetric</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#PearsonMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.PearsonMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.PearsonMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#PearsonMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.PearsonMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.PearsonMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#PearsonMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.PearsonMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.PearsonMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#PearsonMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.PearsonMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.PerplexityMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">PerplexityMetric</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#PerplexityMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.PerplexityMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.PerplexityMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#PerplexityMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.PerplexityMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.PerplexityMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#PerplexityMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.PerplexityMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.PerplexityMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>loss</em>, <em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#PerplexityMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.PerplexityMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.RMSEMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">RMSEMetric</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#RMSEMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.RMSEMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.RMSEMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#RMSEMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.RMSEMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.RMSEMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#RMSEMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.RMSEMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.RMSEMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>batch</em>, <em>model_out</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#RMSEMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.RMSEMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.SpearmanMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">SpearmanMetric</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#SpearmanMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.SpearmanMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.SpearmanMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#SpearmanMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.SpearmanMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.SpearmanMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#SpearmanMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.SpearmanMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.SpearmanMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#SpearmanMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.SpearmanMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.ThresholdCalibrationMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">ThresholdCalibrationMetric</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#ThresholdCalibrationMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.ThresholdCalibrationMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.ThresholdCalibrationMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#ThresholdCalibrationMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.ThresholdCalibrationMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.ThresholdCalibrationMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#ThresholdCalibrationMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.ThresholdCalibrationMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.ThresholdCalibrationMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#ThresholdCalibrationMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.ThresholdCalibrationMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.TokPerSecMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">TokPerSecMetric</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#TokPerSecMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.TokPerSecMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.TokPerSecMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#TokPerSecMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.TokPerSecMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.TokPerSecMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#TokPerSecMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.TokPerSecMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.TokPerSecMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#TokPerSecMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.TokPerSecMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.metrics.TokenMetric">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">TokenMetric</code><span class="sig-paren">(</span><em>target_token=0</em>, <em>token_name='UNK'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#TokenMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.TokenMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.metrics.TokenMetric.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#TokenMetric.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.TokenMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.TokenMetric.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#TokenMetric.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.TokenMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.metrics.TokenMetric.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>batch</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#TokenMetric.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.TokenMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.metrics.stats">
+<span id="kiwi-metrics-stats-module"></span><h2>kiwi.metrics.stats module<a class="headerlink" href="#module-kiwi.metrics.stats" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.metrics.stats.Stats">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.stats.</code><code class="descname">Stats</code><span class="sig-paren">(</span><em>metrics</em>, <em>main_metric=None</em>, <em>main_metric_ordering=&lt;built-in function max&gt;</em>, <em>log_interval=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#Stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.Stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.stats.Stats.log">
+<code class="descname">log</code><span class="sig-paren">(</span><em>step=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#Stats.log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.Stats.log" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.stats.Stats.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#Stats.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.Stats.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.stats.Stats.summarize">
+<code class="descname">summarize</code><span class="sig-paren">(</span><em>prefix=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#Stats.summarize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.Stats.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.stats.Stats.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#Stats.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.Stats.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.stats.Stats.wrap_up">
+<code class="descname">wrap_up</code><span class="sig-paren">(</span><em>prefix=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#Stats.wrap_up"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.Stats.wrap_up" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.metrics.stats.StatsSummary">
+<em class="property">class </em><code class="descclassname">kiwi.metrics.stats.</code><code class="descname">StatsSummary</code><span class="sig-paren">(</span><em>prefix=None</em>, <em>main_metric=None</em>, <em>ordering=&lt;built-in function max&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#StatsSummary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.StatsSummary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.metrics.stats.StatsSummary.better_than">
+<code class="descname">better_than</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#StatsSummary.better_than"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.StatsSummary.better_than" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.stats.StatsSummary.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><span class="sig-paren">)</span> &#x2192; D[k] if k in D, else d.  d defaults to None.<a class="reference internal" href="../_modules/kiwi/metrics/stats.html#StatsSummary.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.StatsSummary.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.stats.StatsSummary.log">
+<code class="descname">log</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#StatsSummary.log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.StatsSummary.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log statistics to output and also to tracking logger.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>stats_summary</strong> – StatsSummary object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.metrics.stats.StatsSummary.main_metric">
+<code class="descname">main_metric</code><a class="headerlink" href="#kiwi.metrics.stats.StatsSummary.main_metric" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.metrics.stats.StatsSummary.main_metric_value">
+<code class="descname">main_metric_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#StatsSummary.main_metric_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.StatsSummary.main_metric_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.metrics">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kiwi.metrics" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kiwi.models.html" class="btn btn-neutral float-right" title="kiwi.models package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kiwi.lib.html" class="btn btn-neutral float-left" title="kiwi.lib package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

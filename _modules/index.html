@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Overview: module code &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Overview: module code</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>All modules for which code is available</h1>
+<ul><li><a href="kiwi/cli/better_argparse.html">kiwi.cli.better_argparse</a></li>
+<li><a href="kiwi/cli/main.html">kiwi.cli.main</a></li>
+<li><a href="kiwi/cli/models/linear.html">kiwi.cli.models.linear</a></li>
+<li><a href="kiwi/cli/models/nuqe.html">kiwi.cli.models.nuqe</a></li>
+<li><a href="kiwi/cli/models/predictor.html">kiwi.cli.models.predictor</a></li>
+<li><a href="kiwi/cli/models/predictor_estimator.html">kiwi.cli.models.predictor_estimator</a></li>
+<li><a href="kiwi/cli/models/quetch.html">kiwi.cli.models.quetch</a></li>
+<li><a href="kiwi/cli/opts.html">kiwi.cli.opts</a></li>
+<li><a href="kiwi/cli/pipelines/evaluate.html">kiwi.cli.pipelines.evaluate</a></li>
+<li><a href="kiwi/cli/pipelines/jackknife.html">kiwi.cli.pipelines.jackknife</a></li>
+<li><a href="kiwi/cli/pipelines/predict.html">kiwi.cli.pipelines.predict</a></li>
+<li><a href="kiwi/cli/pipelines/train.html">kiwi.cli.pipelines.train</a></li>
+<li><a href="kiwi/data/builders.html">kiwi.data.builders</a></li>
+<li><a href="kiwi/data/corpus.html">kiwi.data.corpus</a></li>
+<li><a href="kiwi/data/fields/alignment_field.html">kiwi.data.fields.alignment_field</a></li>
+<li><a href="kiwi/data/fields/qe_field.html">kiwi.data.fields.qe_field</a></li>
+<li><a href="kiwi/data/fields/sequence_labels_field.html">kiwi.data.fields.sequence_labels_field</a></li>
+<li><a href="kiwi/data/fieldsets/extend_vocabs_fieldset.html">kiwi.data.fieldsets.extend_vocabs_fieldset</a></li>
+<li><a href="kiwi/data/fieldsets/fieldset.html">kiwi.data.fieldsets.fieldset</a></li>
+<li><a href="kiwi/data/fieldsets/linear.html">kiwi.data.fieldsets.linear</a></li>
+<li><a href="kiwi/data/fieldsets/predictor.html">kiwi.data.fieldsets.predictor</a></li>
+<li><a href="kiwi/data/fieldsets/predictor_estimator.html">kiwi.data.fieldsets.predictor_estimator</a></li>
+<li><a href="kiwi/data/fieldsets/quetch.html">kiwi.data.fieldsets.quetch</a></li>
+<li><a href="kiwi/data/iterators.html">kiwi.data.iterators</a></li>
+<li><a href="kiwi/data/qe_dataset.html">kiwi.data.qe_dataset</a></li>
+<li><a href="kiwi/data/tokenizers.html">kiwi.data.tokenizers</a></li>
+<li><a href="kiwi/data/utils.html">kiwi.data.utils</a></li>
+<li><a href="kiwi/data/vectors.html">kiwi.data.vectors</a></li>
+<li><a href="kiwi/data/vocabulary.html">kiwi.data.vocabulary</a></li>
+<li><a href="kiwi/lib/evaluate.html">kiwi.lib.evaluate</a></li>
+<li><a href="kiwi/lib/jackknife.html">kiwi.lib.jackknife</a></li>
+<li><a href="kiwi/lib/predict.html">kiwi.lib.predict</a></li>
+<li><a href="kiwi/lib/search.html">kiwi.lib.search</a></li>
+<li><a href="kiwi/lib/train.html">kiwi.lib.train</a></li>
+<li><a href="kiwi/lib/utils.html">kiwi.lib.utils</a></li>
+<li><a href="kiwi/loggers.html">kiwi.loggers</a></li>
+<li><a href="kiwi/metrics/functions.html">kiwi.metrics.functions</a></li>
+<li><a href="kiwi/metrics/metrics.html">kiwi.metrics.metrics</a></li>
+<li><a href="kiwi/metrics/stats.html">kiwi.metrics.stats</a></li>
+<li><a href="kiwi/models/linear/label_dictionary.html">kiwi.models.linear.label_dictionary</a></li>
+<li><a href="kiwi/models/linear/linear_model.html">kiwi.models.linear.linear_model</a></li>
+<li><a href="kiwi/models/linear/linear_trainer.html">kiwi.models.linear.linear_trainer</a></li>
+<li><a href="kiwi/models/linear/linear_word_qe_decoder.html">kiwi.models.linear.linear_word_qe_decoder</a></li>
+<li><a href="kiwi/models/linear/linear_word_qe_features.html">kiwi.models.linear.linear_word_qe_features</a></li>
+<li><a href="kiwi/models/linear/linear_word_qe_sentence.html">kiwi.models.linear.linear_word_qe_sentence</a></li>
+<li><a href="kiwi/models/linear/sequence_parts.html">kiwi.models.linear.sequence_parts</a></li>
+<li><a href="kiwi/models/linear/sparse_feature_vector.html">kiwi.models.linear.sparse_feature_vector</a></li>
+<li><a href="kiwi/models/linear/sparse_vector.html">kiwi.models.linear.sparse_vector</a></li>
+<li><a href="kiwi/models/linear/structured_classifier.html">kiwi.models.linear.structured_classifier</a></li>
+<li><a href="kiwi/models/linear/structured_decoder.html">kiwi.models.linear.structured_decoder</a></li>
+<li><a href="kiwi/models/linear/utils.html">kiwi.models.linear.utils</a></li>
+<li><a href="kiwi/models/linear_word_qe_classifier.html">kiwi.models.linear_word_qe_classifier</a></li>
+<li><a href="kiwi/models/model.html">kiwi.models.model</a></li>
+<li><a href="kiwi/models/modules/attention.html">kiwi.models.modules.attention</a></li>
+<li><a href="kiwi/models/modules/scorer.html">kiwi.models.modules.scorer</a></li>
+<li><a href="kiwi/models/nuqe.html">kiwi.models.nuqe</a></li>
+<li><a href="kiwi/models/predictor.html">kiwi.models.predictor</a></li>
+<li><a href="kiwi/models/predictor_estimator.html">kiwi.models.predictor_estimator</a></li>
+<li><a href="kiwi/models/quetch.html">kiwi.models.quetch</a></li>
+<li><a href="kiwi/models/utils.html">kiwi.models.utils</a></li>
+<li><a href="kiwi/predictors/linear_tester.html">kiwi.predictors.linear_tester</a></li>
+<li><a href="kiwi/predictors/predictor.html">kiwi.predictors.predictor</a></li>
+<li><a href="kiwi/trainers/callbacks.html">kiwi.trainers.callbacks</a></li>
+<li><a href="kiwi/trainers/linear_word_qe_trainer.html">kiwi.trainers.linear_word_qe_trainer</a></li>
+<li><a href="kiwi/trainers/trainer.html">kiwi.trainers.trainer</a></li>
+<li><a href="kiwi/trainers/utils.html">kiwi.trainers.utils</a></li>
+</ul>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

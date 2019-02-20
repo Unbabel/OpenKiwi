@@ -1,0 +1,527 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.trainers package &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="kiwi.predictors package" href="kiwi.predictors.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">kiwi</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kiwi.html">kiwi package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="kiwi.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">kiwi</a> &raquo;</li>
+        
+          <li><a href="kiwi.html">kiwi package</a> &raquo;</li>
+        
+      <li>kiwi.trainers package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/kiwi.trainers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kiwi-trainers-package">
+<h1>kiwi.trainers package<a class="headerlink" href="#kiwi-trainers-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kiwi.trainers.callbacks">
+<span id="kiwi-trainers-callbacks-module"></span><h2>kiwi.trainers.callbacks module<a class="headerlink" href="#module-kiwi.trainers.callbacks" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.trainers.callbacks.Checkpoint">
+<em class="property">class </em><code class="descclassname">kiwi.trainers.callbacks.</code><code class="descname">Checkpoint</code><span class="sig-paren">(</span><em>output_dir</em>, <em>checkpoint_save=False</em>, <em>checkpoint_keep_only_best=0</em>, <em>checkpoint_early_stop_patience=0</em>, <em>checkpoint_validation_steps=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for determining whether to evaluate / save the model.</p>
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.best_iteration_path">
+<code class="descname">best_iteration_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.best_iteration_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.best_iteration_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.best_model_path">
+<code class="descname">best_model_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.best_model_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.best_model_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.best_stats">
+<code class="descname">best_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.best_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.best_stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.best_stats_and_path">
+<code class="descname">best_stats_and_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.best_stats_and_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.best_stats_and_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.check_in">
+<code class="descname">check_in</code><span class="sig-paren">(</span><em>trainer</em>, <em>stats</em>, <em>epoch=None</em>, <em>step=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.check_in"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.check_in" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.check_out">
+<code class="descname">check_out</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.check_out"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.check_out" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.trainers.callbacks.Checkpoint.copy_best_model">
+<em class="property">static </em><code class="descname">copy_best_model</code><span class="sig-paren">(</span><em>model_dir</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.copy_best_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.copy_best_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.early_stopping">
+<code class="descname">early_stopping</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.early_stopping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.early_stopping" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.make_output_path">
+<code class="descname">make_output_path</code><span class="sig-paren">(</span><em>epoch=None</em>, <em>step=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.make_output_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.make_output_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.must_eval">
+<code class="descname">must_eval</code><span class="sig-paren">(</span><em>epoch=None</em>, <em>step=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.must_eval"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.must_eval" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.must_save">
+<code class="descname">must_save</code><span class="sig-paren">(</span><em>stats</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.must_save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.must_save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.push_to_heap">
+<code class="descname">push_to_heap</code><span class="sig-paren">(</span><em>stats</em>, <em>output_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.push_to_heap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.push_to_heap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Push stats and output path to the heap.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.remove_snapshot">
+<code class="descname">remove_snapshot</code><span class="sig-paren">(</span><em>path_to_remove</em>, <em>event=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.remove_snapshot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.remove_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove snapshot locally and in MLFlow.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.callbacks.Checkpoint.worst_stats">
+<code class="descname">worst_stats</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#Checkpoint.worst_stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.Checkpoint.worst_stats" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="kiwi.trainers.callbacks.EarlyStopException">
+<em class="property">exception </em><code class="descclassname">kiwi.trainers.callbacks.</code><code class="descname">EarlyStopException</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/callbacks.html#EarlyStopException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.callbacks.EarlyStopException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#StopIteration" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">StopIteration</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.trainers.linear_word_qe_trainer">
+<span id="kiwi-trainers-linear-word-qe-trainer-module"></span><h2>kiwi.trainers.linear_word_qe_trainer module<a class="headerlink" href="#module-kiwi.trainers.linear_word_qe_trainer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.trainers.linear_word_qe_trainer.LinearWordQETrainer">
+<em class="property">class </em><code class="descclassname">kiwi.trainers.linear_word_qe_trainer.</code><code class="descname">LinearWordQETrainer</code><span class="sig-paren">(</span><em>model</em>, <em>optimizer_name</em>, <em>regularization_constant</em>, <em>checkpointer</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/linear_word_qe_trainer.html#LinearWordQETrainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.linear_word_qe_trainer.LinearWordQETrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="kiwi.models.linear.html#kiwi.models.linear.linear_trainer.LinearTrainer" title="kiwi.models.linear.linear_trainer.LinearTrainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.linear.linear_trainer.LinearTrainer</span></code></a></p>
+<dl class="attribute">
+<dt id="kiwi.trainers.linear_word_qe_trainer.LinearWordQETrainer.model">
+<code class="descname">model</code><a class="headerlink" href="#kiwi.trainers.linear_word_qe_trainer.LinearWordQETrainer.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.trainers.trainer">
+<span id="kiwi-trainers-trainer-module"></span><h2>kiwi.trainers.trainer module<a class="headerlink" href="#module-kiwi.trainers.trainer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.trainers.trainer.Trainer">
+<em class="property">class </em><code class="descclassname">kiwi.trainers.trainer.</code><code class="descname">Trainer</code><span class="sig-paren">(</span><em>model</em>, <em>optimizer</em>, <em>checkpointer</em>, <em>log_interval=100</em>, <em>scheduler=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.eval_epoch">
+<code class="descname">eval_epoch</code><span class="sig-paren">(</span><em>valid_iterator</em>, <em>prefix='EVAL'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.eval_epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.eval_epoch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.eval_step">
+<code class="descname">eval_step</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.eval_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.eval_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="kiwi.trainers.trainer.Trainer.from_directory">
+<em class="property">classmethod </em><code class="descname">from_directory</code><span class="sig-paren">(</span><em>directory</em>, <em>device_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.from_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.from_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>directory</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.make_sub_directory">
+<code class="descname">make_sub_directory</code><span class="sig-paren">(</span><em>root_directory</em>, <em>current_epoch</em>, <em>prefix='epoch'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.make_sub_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.make_sub_directory" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>valid_iterator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="kiwi.trainers.trainer.Trainer.resume">
+<em class="property">classmethod </em><code class="descname">resume</code><span class="sig-paren">(</span><em>local_path=None</em>, <em>prefix='epoch_'</em>, <em>device_id=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.resume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.resume" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>train_iterator</em>, <em>valid_iterator</em>, <em>epochs=50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.run" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>train_iterator</strong> – </li>
+<li><strong>epochs</strong> – Number of epochs for training.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>output_directory</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.trainers.trainer.Trainer.stats_summary_history">
+<code class="descname">stats_summary_history</code><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.stats_summary_history" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.train_epoch">
+<code class="descname">train_epoch</code><span class="sig-paren">(</span><em>train_iterator</em>, <em>valid_iterator</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.train_epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.train_epoch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.train_step">
+<code class="descname">train_step</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.train_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.train_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.trainers.trainer.Trainer.train_steps">
+<code class="descname">train_steps</code><span class="sig-paren">(</span><em>train_iterator</em>, <em>valid_iterator</em>, <em>max_steps</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/trainer.html#Trainer.train_steps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.trainer.Trainer.train_steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.trainers.utils">
+<span id="kiwi-trainers-utils-module"></span><h2>kiwi.trainers.utils module<a class="headerlink" href="#module-kiwi.trainers.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.trainers.utils.optimizer_class">
+<code class="descclassname">kiwi.trainers.utils.</code><code class="descname">optimizer_class</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/trainers/utils.html#optimizer_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.trainers.utils.optimizer_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.trainers">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kiwi.trainers" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="kiwi.predictors.html" class="btn btn-neutral float-left" title="kiwi.predictors package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

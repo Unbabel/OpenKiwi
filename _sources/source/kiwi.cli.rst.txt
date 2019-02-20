@@ -1,0 +1,46 @@
+kiwi.cli package
+================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    kiwi.cli.models
+    kiwi.cli.pipelines
+
+Submodules
+----------
+
+kiwi.cli.better\_argparse module
+--------------------------------
+
+.. automodule:: kiwi.cli.better_argparse
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.cli.main module
+--------------------
+
+.. automodule:: kiwi.cli.main
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.cli.opts module
+--------------------
+
+.. automodule:: kiwi.cli.opts
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.cli
+    :members:
+    :undoc-members:
+    :show-inheritance:

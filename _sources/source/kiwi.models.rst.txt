@@ -1,0 +1,78 @@
+kiwi.models package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    kiwi.models.linear
+    kiwi.models.modules
+
+Submodules
+----------
+
+kiwi.models.linear\_word\_qe\_classifier module
+-----------------------------------------------
+
+.. automodule:: kiwi.models.linear_word_qe_classifier
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.model module
+------------------------
+
+.. automodule:: kiwi.models.model
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.nuqe module
+-----------------------
+
+.. automodule:: kiwi.models.nuqe
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.predictor module
+----------------------------
+
+.. automodule:: kiwi.models.predictor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.predictor\_estimator module
+---------------------------------------
+
+.. automodule:: kiwi.models.predictor_estimator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.quetch module
+-------------------------
+
+.. automodule:: kiwi.models.quetch
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.utils module
+------------------------
+
+.. automodule:: kiwi.models.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.models
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python Module Index &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+ 
+
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Python Module Index</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+
+   <h1>Python Module Index</h1>
+
+   <div class="modindex-jumpbox">
+   <a href="#cap-k"><strong>k</strong></a>
+   </div>
+
+   <table class="indextable modindextable">
+     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
+     <tr class="cap" id="cap-k"><td></td><td>
+       <strong>k</strong></td><td></td></tr>
+     <tr>
+       <td><img src="_static/minus.png" class="toggler"
+              id="toggle-1" style="display: none" alt="-" /></td>
+       <td>
+       <a href="source/kiwi.html#module-kiwi"><code class="xref">kiwi</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.html#module-kiwi.cli"><code class="xref">kiwi.cli</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.html#module-kiwi.cli.better_argparse"><code class="xref">kiwi.cli.better_argparse</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.html#module-kiwi.cli.main"><code class="xref">kiwi.cli.main</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.models.html#module-kiwi.cli.models"><code class="xref">kiwi.cli.models</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.models.html#module-kiwi.cli.models.linear"><code class="xref">kiwi.cli.models.linear</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.models.html#module-kiwi.cli.models.nuqe"><code class="xref">kiwi.cli.models.nuqe</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.models.html#module-kiwi.cli.models.predictor"><code class="xref">kiwi.cli.models.predictor</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.models.html#module-kiwi.cli.models.predictor_estimator"><code class="xref">kiwi.cli.models.predictor_estimator</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.models.html#module-kiwi.cli.models.quetch"><code class="xref">kiwi.cli.models.quetch</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.html#module-kiwi.cli.opts"><code class="xref">kiwi.cli.opts</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.pipelines.html#module-kiwi.cli.pipelines"><code class="xref">kiwi.cli.pipelines</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.pipelines.html#module-kiwi.cli.pipelines.evaluate"><code class="xref">kiwi.cli.pipelines.evaluate</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.pipelines.html#module-kiwi.cli.pipelines.jackknife"><code class="xref">kiwi.cli.pipelines.jackknife</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.pipelines.html#module-kiwi.cli.pipelines.predict"><code class="xref">kiwi.cli.pipelines.predict</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.cli.pipelines.html#module-kiwi.cli.pipelines.train"><code class="xref">kiwi.cli.pipelines.train</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.html#module-kiwi.constants"><code class="xref">kiwi.constants</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.html#module-kiwi.data"><code class="xref">kiwi.data</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.html#module-kiwi.data.builders"><code class="xref">kiwi.data.builders</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.html#module-kiwi.data.corpus"><code class="xref">kiwi.data.corpus</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fields.html#module-kiwi.data.fields"><code class="xref">kiwi.data.fields</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fields.html#module-kiwi.data.fields.alignment_field"><code class="xref">kiwi.data.fields.alignment_field</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fields.html#module-kiwi.data.fields.qe_field"><code class="xref">kiwi.data.fields.qe_field</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fields.html#module-kiwi.data.fields.sequence_labels_field"><code class="xref">kiwi.data.fields.sequence_labels_field</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fieldsets.html#module-kiwi.data.fieldsets"><code class="xref">kiwi.data.fieldsets</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.extend_vocabs_fieldset"><code class="xref">kiwi.data.fieldsets.extend_vocabs_fieldset</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.fieldset"><code class="xref">kiwi.data.fieldsets.fieldset</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.linear"><code class="xref">kiwi.data.fieldsets.linear</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.predictor"><code class="xref">kiwi.data.fieldsets.predictor</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.predictor_estimator"><code class="xref">kiwi.data.fieldsets.predictor_estimator</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.quetch"><code class="xref">kiwi.data.fieldsets.quetch</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.html#module-kiwi.data.iterators"><code class="xref">kiwi.data.iterators</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.html#module-kiwi.data.qe_dataset"><code class="xref">kiwi.data.qe_dataset</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.html#module-kiwi.data.tokenizers"><code class="xref">kiwi.data.tokenizers</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.html#module-kiwi.data.utils"><code class="xref">kiwi.data.utils</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.html#module-kiwi.data.vectors"><code class="xref">kiwi.data.vectors</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.data.html#module-kiwi.data.vocabulary"><code class="xref">kiwi.data.vocabulary</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.lib.html#module-kiwi.lib"><code class="xref">kiwi.lib</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.lib.html#module-kiwi.lib.evaluate"><code class="xref">kiwi.lib.evaluate</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.lib.html#module-kiwi.lib.jackknife"><code class="xref">kiwi.lib.jackknife</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.lib.html#module-kiwi.lib.predict"><code class="xref">kiwi.lib.predict</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.lib.html#module-kiwi.lib.search"><code class="xref">kiwi.lib.search</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.lib.html#module-kiwi.lib.train"><code class="xref">kiwi.lib.train</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.lib.html#module-kiwi.lib.utils"><code class="xref">kiwi.lib.utils</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.html#module-kiwi.loggers"><code class="xref">kiwi.loggers</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.metrics.html#module-kiwi.metrics"><code class="xref">kiwi.metrics</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.metrics.html#module-kiwi.metrics.functions"><code class="xref">kiwi.metrics.functions</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.metrics.html#module-kiwi.metrics.metrics"><code class="xref">kiwi.metrics.metrics</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.metrics.html#module-kiwi.metrics.stats"><code class="xref">kiwi.metrics.stats</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.html#module-kiwi.models"><code class="xref">kiwi.models</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear"><code class="xref">kiwi.models.linear</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.label_dictionary"><code class="xref">kiwi.models.linear.label_dictionary</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.linear_model"><code class="xref">kiwi.models.linear.linear_model</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.linear_trainer"><code class="xref">kiwi.models.linear.linear_trainer</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.linear_word_qe_decoder"><code class="xref">kiwi.models.linear.linear_word_qe_decoder</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.linear_word_qe_features"><code class="xref">kiwi.models.linear.linear_word_qe_features</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.linear_word_qe_sentence"><code class="xref">kiwi.models.linear.linear_word_qe_sentence</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.sequence_parts"><code class="xref">kiwi.models.linear.sequence_parts</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.sparse_feature_vector"><code class="xref">kiwi.models.linear.sparse_feature_vector</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.sparse_vector"><code class="xref">kiwi.models.linear.sparse_vector</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.structured_classifier"><code class="xref">kiwi.models.linear.structured_classifier</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.structured_decoder"><code class="xref">kiwi.models.linear.structured_decoder</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.linear.html#module-kiwi.models.linear.utils"><code class="xref">kiwi.models.linear.utils</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.html#module-kiwi.models.linear_word_qe_classifier"><code class="xref">kiwi.models.linear_word_qe_classifier</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.html#module-kiwi.models.model"><code class="xref">kiwi.models.model</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.modules.html#module-kiwi.models.modules"><code class="xref">kiwi.models.modules</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.modules.html#module-kiwi.models.modules.attention"><code class="xref">kiwi.models.modules.attention</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.modules.html#module-kiwi.models.modules.scorer"><code class="xref">kiwi.models.modules.scorer</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.html#module-kiwi.models.nuqe"><code class="xref">kiwi.models.nuqe</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.html#module-kiwi.models.predictor"><code class="xref">kiwi.models.predictor</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.html#module-kiwi.models.predictor_estimator"><code class="xref">kiwi.models.predictor_estimator</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.html#module-kiwi.models.quetch"><code class="xref">kiwi.models.quetch</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.models.html#module-kiwi.models.utils"><code class="xref">kiwi.models.utils</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.predictors.html#module-kiwi.predictors"><code class="xref">kiwi.predictors</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.predictors.html#module-kiwi.predictors.linear_tester"><code class="xref">kiwi.predictors.linear_tester</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.predictors.html#module-kiwi.predictors.predictor"><code class="xref">kiwi.predictors.predictor</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.trainers.html#module-kiwi.trainers"><code class="xref">kiwi.trainers</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.trainers.html#module-kiwi.trainers.callbacks"><code class="xref">kiwi.trainers.callbacks</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.trainers.html#module-kiwi.trainers.linear_word_qe_trainer"><code class="xref">kiwi.trainers.linear_word_qe_trainer</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.trainers.html#module-kiwi.trainers.trainer"><code class="xref">kiwi.trainers.trainer</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="source/kiwi.trainers.html#module-kiwi.trainers.utils"><code class="xref">kiwi.trainers.utils</code></a></td><td>
+       <em></em></td></tr>
+   </table>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

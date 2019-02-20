@@ -1,0 +1,38 @@
+kiwi.data.fields package
+========================
+
+Submodules
+----------
+
+kiwi.data.fields.alignment\_field module
+----------------------------------------
+
+.. automodule:: kiwi.data.fields.alignment_field
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.fields.qe\_field module
+---------------------------------
+
+.. automodule:: kiwi.data.fields.qe_field
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.fields.sequence\_labels\_field module
+-----------------------------------------------
+
+.. automodule:: kiwi.data.fields.sequence_labels_field
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.data.fields
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,30 @@
+kiwi.predictors package
+=======================
+
+Submodules
+----------
+
+kiwi.predictors.linear\_tester module
+-------------------------------------
+
+.. automodule:: kiwi.predictors.linear_tester
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.predictors.predictor module
+--------------------------------
+
+.. automodule:: kiwi.predictors.predictor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.predictors
+    :members:
+    :undoc-members:
+    :show-inheritance:

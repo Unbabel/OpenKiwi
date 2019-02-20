@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Quickstart &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Using pre-trained models" href="reproduce.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Quickstart</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/quickstart.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="quickstart">
+<h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
+<p>This document gives a quick overview of how to use OpenKiwi with the provided example configuration file.</p>
+<p>To be able to run the examples, download the <a class="reference external" href="https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11372/LRT-1974/task2_en-de_training-dev.tar.gz">WMT17 En-DE Word Level Quality Estimation data</a> (you will need to provide your email address to receive a download link) and extract its contents into <code class="docutils literal notranslate"><span class="pre">data/WMT17</span></code>. To be able to pretrain the <code class="docutils literal notranslate"><span class="pre">predictor</span></code> model, additionally download the <a class="reference external" href="https://www.quest.dcs.shef.ac.uk/wmt18_files_qe/corpus_en-de.tar.gz">English-German in-domain Corpus</a> provided by WMT and extract its contents into <code class="docutils literal notranslate"><span class="pre">data/parallel</span></code>.</p>
+<p>OpenKiwi can be used as a package from within Python or from the command line.</p>
+<p>Its functionality is split in <code class="docutils literal notranslate"><span class="pre">pipelines</span></code>.
+Currently supported are:</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>train, predict, jackknife, evaluate
+</pre></div>
+</div>
+<p>The models supported are:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">predictor</span></code> and <code class="docutils literal notranslate"><span class="pre">estimator</span></code> (<a class="reference external" href="http://www.aclweb.org/anthology/W17-4763">http://www.aclweb.org/anthology/W17-4763</a>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">nuqe</span></code> (<a class="reference external" href="http://www.aclweb.org/anthology/Q17-1015">http://www.aclweb.org/anthology/Q17-1015</a>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">quetch</span></code> (<a class="reference external" href="http://aclweb.org/anthology/W15-3037">http://aclweb.org/anthology/W15-3037</a>)</li>
+<li><code class="docutils literal notranslate"><span class="pre">linear</span></code> (<a class="reference external" href="http://www.aclweb.org/anthology/Q17-1015">http://www.aclweb.org/anthology/Q17-1015</a>)</li>
+</ul>
+<p>The Estimator model relies on pre-training of its component model <code class="docutils literal notranslate"><span class="pre">predictor</span></code>.</p>
+<p>Options are handled via <code class="docutils literal notranslate"><span class="pre">yaml</span></code> configuration files.
+On the command line, you can alternatively pass parameters as arguments,
+or mix the two modes to override parameters in a config file.</p>
+<div class="section" id="train-pipeline">
+<h2>Train Pipeline<a class="headerlink" href="#train-pipeline" title="Permalink to this headline">¶</a></h2>
+<p>You can check all the configuration options in <a class="reference internal" href="cli/train.html#train-flags"><span class="std std-ref">here</span></a></p>
+<div class="section" id="estimator-model">
+<h3>Estimator Model<a class="headerlink" href="#estimator-model" title="Permalink to this headline">¶</a></h3>
+<p>Example Configuration files with detailed hyperparameter documentation:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/Unbabel/OpenKiwi/tree/master/experiments/train_predictor.yaml">experiments/train_predictor.yaml</a></li>
+<li><a class="reference external" href="https://github.com/Unbabel/OpenKiwi/tree/master/experiments/train_estimator.yaml">experiments/train_estimator.yaml</a></li>
+</ul>
+<p>The Estimator Model performs best if initialized with a <code class="docutils literal notranslate"><span class="pre">predictor</span></code> model that is pretrained on parallel data.
+The example configuration file requires ca. 24hrs to train 3 epochs on a GPU with 12GB RAM.
+To train with less memory, change the <code class="docutils literal notranslate"><span class="pre">train-batch-size</span></code> and <code class="docutils literal notranslate"><span class="pre">valid-batch-size</span></code> parameters.
+To train on CPU, comment out the line</p>
+<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>gpu-id: 0
+</pre></div>
+</div>
+<p>Train the <code class="docutils literal notranslate"><span class="pre">predictor</span></code> like so:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">kiwi</span>
+
+<span class="n">predictor_config</span> <span class="o">=</span> <span class="n">experiments</span><span class="o">/</span><span class="n">train_predictor</span><span class="o">.</span><span class="n">yaml</span><span class="s1">&#39;</span>
+<span class="n">kiwi</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">predictor_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or via CLI:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi train --config experiments/train_predictor.yaml
+</pre></div>
+</div>
+<p>After the run has finished, the best model is saved at (<code class="docutils literal notranslate"><span class="pre">--output-dir</span></code> option) <code class="docutils literal notranslate"><span class="pre">runs/predictor/best_model.torch</span></code>.
+Now we can train the <code class="docutils literal notranslate"><span class="pre">estimator</span></code> model using the configuration <code class="docutils literal notranslate"><span class="pre">experiments/train_estimator.yaml</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">kiwi</span>
+
+<span class="n">estimator_config</span> <span class="o">=</span> <span class="s1">&#39;experiments/train_estimator.yaml&#39;</span>
+<span class="n">kiwi</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">estimator_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi train --config experiments/train_estimator.yaml
+</pre></div>
+</div>
+<p>When a pretrained <code class="docutils literal notranslate"><span class="pre">predictor</span></code> is provided in this way, the hyperparameters relating
+to the <code class="docutils literal notranslate"><span class="pre">predictor</span></code> architecture as well as the vocabulary mapping are retrieved from the model.
+Setting them to different values in the <code class="docutils literal notranslate"><span class="pre">estimator</span></code> config has no effect.</p>
+</div>
+<div class="section" id="nuqe-model">
+<h3>NuQE Model<a class="headerlink" href="#nuqe-model" title="Permalink to this headline">¶</a></h3>
+<p>Example Configuration file with detailed hyperparameter documentation:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/Unbabel/OpenKiwi/tree/master/experiments/train_nuqe.yaml">experiments/train_nuqe.yaml</a></li>
+</ul>
+<p>Run via API:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">kiwi</span>
+
+<span class="n">nuqe_config</span> <span class="o">=</span> <span class="s1">&#39;experiments/train_nuqe.yaml&#39;</span>
+<span class="n">kiwi</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">nuqe_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or via CLI:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi train --config experiments/train_nuqe.yaml
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="predict">
+<h2>Predict<a class="headerlink" href="#predict" title="Permalink to this headline">¶</a></h2>
+<p>The predict pipeline takes a trained  QE model as input and uses it to evaluate the quality of machine translations.
+The API provides the function <a class="reference external" href="source/kiwi.lib.html#kiwi.lib.predict.load_model">load_model</a> which returns a
+<a class="reference external" href="source/kiwi.predictors.html#module-kiwi.predictors.predictor">Predictor</a>  object that can be used to generate predictions.</p>
+<p>To predict the quality of a set of machine translation dataset via the CLI,  use a <code class="docutils literal notranslate"><span class="pre">yaml</span></code> file specifying model path,
+output directory, source and target data, and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi predict --config experiments/predict_predest.yaml
+
+kiwi predict --config experiments/predict_nuqe.yaml
+</pre></div>
+</div>
+<p>which will generate predictions for the word and sentence level quality of the WMT18 en-de dev set in the folder <code class="docutils literal notranslate"><span class="pre">predictions/predest</span></code>.</p>
+</div>
+<div class="section" id="evaluate">
+<h2>Evaluate<a class="headerlink" href="#evaluate" title="Permalink to this headline">¶</a></h2>
+<p>The evaluate pipeline takes predictions of a trained model and a reference (gold) file and evaluates the performance of the model based on the comparison between the predictions and the reference.</p>
+<p>To evaluate one of your models via the CLI, create a <code class="docutils literal notranslate"><span class="pre">yaml</span></code> file specifying the format of predictions, format of reference and the location of these files, and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi evaluate --config experiments/estimator_evaluate.yaml
+
+kiwi evaluate --config experiments/nuqe_evaluate.yaml
+</pre></div>
+</div>
+<p>You can check all the configuration options in <a class="reference internal" href="cli/evaluate.html#evaluate-flags"><span class="std std-ref">here</span></a></p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="reproduce.html" class="btn btn-neutral float-right" title="Using pre-trained models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

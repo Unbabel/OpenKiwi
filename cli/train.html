@@ -1,0 +1,470 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Train Interface &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="NuQE training" href="train_nuqe.html" />
+    <link rel="prev" title="Configuration Options" href="../flags.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="../flags.html">Configuration Options</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../configuration.html">OpenKiwi Configuration</a> &raquo;</li>
+        
+          <li><a href="../flags.html">Configuration Options</a> &raquo;</li>
+        
+      <li>Train Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/cli/train.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="train-interface">
+<h1>Train Interface<a class="headerlink" href="#train-interface" title="Permalink to this headline">¶</a></h1>
+<p><strong>Note</strong>: Args that start with ‘--’ (eg. --save-config) can also be set in a config file
+(specified via --config). The config file uses YAML syntax and must represent
+a YAML ‘mapping’ (for details, see <a class="reference external" href="http://learn.getgrav.org/advanced/yaml">http://learn.getgrav.org/advanced/yaml</a>). If
+an arg is specified in more than one place, then command line values override
+config file values which override defaults.</p>
+<p>For generic options see: <a class="reference internal" href="../flags.html#generic-flags"><span class="std std-ref">here</span></a></p>
+<p>Model specific options can be seen here:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_predictor.html">Predictor training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="train_linear.html">Linear training</a></li>
+</ul>
+</div>
+<p>Usage examples of the python api.</p>
+<p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">kiwi</span>
+
+<span class="n">train_predest_config</span> <span class="o">=</span> <span class="s1">&#39;experiments/examples/train_predest.yaml&#39;</span>
+<span class="n">kiwi</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_predest_config</span><span class="p">)</span>
+
+<span class="n">train_nuqe_config</span> <span class="o">=</span> <span class="s1">&#39;experiments/examples/train_nuqe.yaml&#39;</span>
+<span class="n">kiwi</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">train_nuqe_config</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Usage example of the cli api.</p>
+<p>Run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="n">train</span> <span class="o">--</span><span class="n">config</span> <span class="p">{</span><span class="n">model_config_file</span><span class="p">}</span> <span class="p">[</span><span class="n">OPTS</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate" id="train-flags"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">kiwi</span> <span class="n">train</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">epochs</span> <span class="n">EPOCHS</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">train</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">size</span> <span class="n">TRAIN_BATCH_SIZE</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">valid</span><span class="o">-</span><span class="n">batch</span><span class="o">-</span><span class="n">size</span> <span class="n">VALID_BATCH_SIZE</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">optimizer</span> <span class="p">{</span><span class="n">sgd</span><span class="p">,</span><span class="n">adagrad</span><span class="p">,</span><span class="n">adadelta</span><span class="p">,</span><span class="n">adam</span><span class="p">,</span><span class="n">sparseadam</span><span class="p">}]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">learning</span><span class="o">-</span><span class="n">rate</span> <span class="n">LEARNING_RATE</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">learning</span><span class="o">-</span><span class="n">rate</span><span class="o">-</span><span class="n">decay</span> <span class="n">LEARNING_RATE_DECAY</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">learning</span><span class="o">-</span><span class="n">rate</span><span class="o">-</span><span class="n">decay</span><span class="o">-</span><span class="n">start</span> <span class="n">LEARNING_RATE_DECAY_START</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">checkpoint</span><span class="o">-</span><span class="n">validation</span><span class="o">-</span><span class="n">steps</span> <span class="n">CHECKPOINT_VALIDATION_STEPS</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">checkpoint</span><span class="o">-</span><span class="n">save</span> <span class="p">[</span><span class="n">CHECKPOINT_SAVE</span><span class="p">]]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">checkpoint</span><span class="o">-</span><span class="n">keep</span><span class="o">-</span><span class="n">only</span><span class="o">-</span><span class="n">best</span> <span class="n">CHECKPOINT_KEEP_ONLY_BEST</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">checkpoint</span><span class="o">-</span><span class="n">early</span><span class="o">-</span><span class="n">stop</span><span class="o">-</span><span class="n">patience</span> <span class="n">CHECKPOINT_EARLY_STOP_PATIENCE</span><span class="p">]</span>
+                  <span class="p">[</span><span class="o">--</span><span class="n">resume</span> <span class="p">[</span><span class="n">RESUME</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="section" id="training">
+<h2>training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd>--epochs</kbd></td>
+<td><p class="first">Number of epochs for training.</p>
+<p class="last">Default: 50</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--train-batch-size</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Maximum batch size for training.</p>
+<p class="last">Default: 64</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--valid-batch-size</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Maximum batch size for evaluating.</p>
+<p class="last">Default: 64</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="training-optimization">
+<h2>training-optimization<a class="headerlink" href="#training-optimization" title="Permalink to this headline">¶</a></h2>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd>--optimizer</kbd></td>
+<td><p class="first">Possible choices: sgd, adagrad, adadelta, adam, sparseadam</p>
+<p>Optimization method.</p>
+<p class="last">Default: “adam”</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--learning-rate</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Starting learning rate. Recommended settings: sgd = 1, adagrad = 0.1, adadelta = 1, adam = 0.001</p>
+<p class="last">Default: 1.0</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--learning-rate-decay</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Decay learning rate by this factor.</p>
+<p class="last">Default: 1.0</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--learning-rate-decay-start</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Start decay after this epoch.</p>
+<p class="last">Default: 0</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="training-save-load">
+<h2>training-save-load<a class="headerlink" href="#training-save-load" title="Permalink to this headline">¶</a></h2>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group" colspan="2">
+<kbd>--checkpoint-validation-steps</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Perform validation every X training batches. Saves model if <cite>checkpoint-save</cite> is true.</p>
+<p class="last">Default: 0</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--checkpoint-save</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Save a training snapshot when validation is run. If false it will never save the model.</p>
+<p class="last">Default: True</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--checkpoint-keep-only-best</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Keep only n best models according to main metric (F1Mult by default); 0 will keep all.</p>
+<p class="last">Default: 1</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--checkpoint-early-stop-patience</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">Stop training if evaluation metrics do not improve after X validations; 0 disables this.</p>
+<p class="last">Default: 0</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>--resume</kbd></td>
+<td><p class="first">Resume training a previous run. The –run-uuid (and possibly –experiment-name) option must be specified. Files are then searched under the “runs” directory. If not found, they are downloaded from the MLflow server (check the –mlflow-tracking-uri option).</p>
+<p class="last">Default: False</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="train_nuqe.html" class="btn btn-neutral float-right" title="NuQE training" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../flags.html" class="btn btn-neutral float-left" title="Configuration Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

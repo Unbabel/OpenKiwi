@@ -1,0 +1,30 @@
+kiwi.models.modules package
+===========================
+
+Submodules
+----------
+
+kiwi.models.modules.attention module
+------------------------------------
+
+.. automodule:: kiwi.models.modules.attention
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.models.modules.scorer module
+---------------------------------
+
+.. automodule:: kiwi.models.modules.scorer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.models.modules
+    :members:
+    :undoc-members:
+    :show-inheritance:

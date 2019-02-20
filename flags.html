@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuration Options &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Train Interface" href="cli/train.html" />
+    <link rel="prev" title="Command Line Interface" href="CLI.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="configuration.html">OpenKiwi Configuration</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="configuration.html">OpenKiwi Configuration</a> &raquo;</li>
+        
+      <li>Configuration Options</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/flags.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuration-options">
+<span id="configs"></span><h1>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline">¶</a></h1>
+<p>OpenKiwi supports an extensive range of options through its command line interface. (or see <a class="reference internal" href="#note"><span class="std std-ref">note</span></a> below). All commands are prepended by a <code class="docutils literal notranslate"><span class="pre">`&lt;pipeline&gt;`</span></code> command. For the available pipelines see: <a class="reference internal" href="CLI.html#command-line"><span class="std std-ref">CLI</span></a></p>
+<p id="note"><strong>Note</strong>: Args that start with ‘--’ (eg. --save-config) can also be set in a config file
+(specified via --config). The config file uses YAML syntax and must represent
+a YAML ‘mapping’ (for details, see <a class="reference external" href="http://learn.getgrav.org/advanced/yaml">http://learn.getgrav.org/advanced/yaml</a>). If
+an arg is specified in more than one place, then command line values override
+config file values which override defaults.</p>
+<p>For pipeline specific options see:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cli/train.html">Train Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli/predict.html">Predict Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli/jackknife.html">jackknife Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli/evaluate.html">Evaluate Interface</a></li>
+</ul>
+</div>
+<div class="section" id="general-options">
+<span id="generic-flags"></span><h2>General Options<a class="headerlink" href="#general-options" title="Permalink to this headline">¶</a></h2>
+<p>These options are pipeline independent and are available in all different pipelines.
+They are divided into three different categories, general, IO and save/load.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">kiwi</span> <span class="o">&lt;</span><span class="n">pipeline</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">seed</span> <span class="n">SEED</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">gpu</span><span class="o">-</span><span class="nb">id</span> <span class="n">GPU_ID</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="random">
+<h3>random<a class="headerlink" href="#random" title="Permalink to this headline">¶</a></h3>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd>--seed</kbd></td>
+<td><p class="first">Random seed</p>
+<p class="last">Default: 42</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="gpu">
+<h3>gpu<a class="headerlink" href="#gpu" title="Permalink to this headline">¶</a></h3>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd>--gpu-id</kbd></td>
+<td>Use CUDA on the listed devices</td></tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">kiwi</span> <span class="o">&lt;</span><span class="n">pipeline</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">config</span> <span class="n">SAVE_CONFIG</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">d</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">q</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="I/O">
+<h3>I/O<a class="headerlink" href="#I/O" title="Permalink to this headline">¶</a></h3>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd>--save-config</kbd></td>
+<td>Save parsed configuration and arguments to the specified file</td></tr>
+<tr><td class="option-group">
+<kbd>-d, --debug</kbd></td>
+<td><p class="first">Output additional messages.</p>
+<p class="last">Default: False</p>
+</td></tr>
+<tr><td class="option-group">
+<kbd>-q, --quiet</kbd></td>
+<td><p class="first">Only output warning and error messages.</p>
+<p class="last">Default: False</p>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">kiwi</span> <span class="o">&lt;</span><span class="n">pipeline</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">load</span><span class="o">-</span><span class="n">model</span> <span class="n">LOAD_MODEL</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">save</span><span class="o">-</span><span class="n">data</span> <span class="n">SAVE_DATA</span><span class="p">]</span>
+                       <span class="p">[</span><span class="o">--</span><span class="n">load</span><span class="o">-</span><span class="n">data</span> <span class="n">LOAD_DATA</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">load</span><span class="o">-</span><span class="n">vocab</span> <span class="n">LOAD_VOCAB</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="save-load">
+<h3>save-load<a class="headerlink" href="#save-load" title="Permalink to this headline">¶</a></h3>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd>--load-model</kbd></td>
+<td>Directory containing a model.torch file to be loaded</td></tr>
+<tr><td class="option-group">
+<kbd>--save-data</kbd></td>
+<td>Output dir for saving the preprocessed data files.</td></tr>
+<tr><td class="option-group">
+<kbd>--load-data</kbd></td>
+<td>Input dir for loading the preprocessed data files.</td></tr>
+<tr><td class="option-group">
+<kbd>--load-vocab</kbd></td>
+<td>Directory containing a vocab.torch file to be loaded</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cli/train.html" class="btn btn-neutral float-right" title="Train Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="CLI.html" class="btn btn-neutral float-left" title="Command Line Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

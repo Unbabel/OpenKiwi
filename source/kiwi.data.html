@@ -1,0 +1,808 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.data package &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="kiwi.data.fields package" href="kiwi.data.fields.html" />
+    <link rel="prev" title="kiwi.cli.pipelines package" href="kiwi.cli.pipelines.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">kiwi</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kiwi.html">kiwi package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="kiwi.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">kiwi</a> &raquo;</li>
+        
+          <li><a href="kiwi.html">kiwi package</a> &raquo;</li>
+        
+      <li>kiwi.data package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/kiwi.data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kiwi-data-package">
+<h1>kiwi.data package<a class="headerlink" href="#kiwi-data-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.data.fields.html">kiwi.data.fields package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fields.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fields.html#module-kiwi.data.fields.alignment_field">kiwi.data.fields.alignment_field module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fields.html#module-kiwi.data.fields.qe_field">kiwi.data.fields.qe_field module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fields.html#module-kiwi.data.fields.sequence_labels_field">kiwi.data.fields.sequence_labels_field module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fields.html#module-kiwi.data.fields">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.data.fieldsets.html">kiwi.data.fieldsets package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fieldsets.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.extend_vocabs_fieldset">kiwi.data.fieldsets.extend_vocabs_fieldset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.fieldset">kiwi.data.fieldsets.fieldset module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.linear">kiwi.data.fieldsets.linear module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.predictor">kiwi.data.fieldsets.predictor module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.predictor_estimator">kiwi.data.fieldsets.predictor_estimator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets.quetch">kiwi.data.fieldsets.quetch module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.data.fieldsets.html#module-kiwi.data.fieldsets">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kiwi.data.builders">
+<span id="kiwi-data-builders-module"></span><h2>kiwi.data.builders module<a class="headerlink" href="#module-kiwi.data.builders" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.data.builders.build_dataset">
+<code class="descclassname">kiwi.data.builders.</code><code class="descname">build_dataset</code><span class="sig-paren">(</span><em>fieldset</em>, <em>prefix=''</em>, <em>filter_pred=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/builders.html#build_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.builders.build_dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.builders.build_test_dataset">
+<code class="descclassname">kiwi.data.builders.</code><code class="descname">build_test_dataset</code><span class="sig-paren">(</span><em>fieldset</em>, <em>load_vocab=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/builders.html#build_test_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.builders.build_test_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a test QE dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fieldset</strong> (<a class="reference internal" href="kiwi.data.fieldsets.html#kiwi.data.fieldsets.fieldset.Fieldset" title="kiwi.data.fieldsets.fieldset.Fieldset"><em>Fieldset</em></a>) – specific set of fields to be used (depends on
+the model to be used.)</li>
+<li><strong>load_vocab</strong> – A path to a saved vocabulary.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Dataset object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.builders.build_training_datasets">
+<code class="descclassname">kiwi.data.builders.</code><code class="descname">build_training_datasets</code><span class="sig-paren">(</span><em>fieldset</em>, <em>split=0.0</em>, <em>valid_source=None</em>, <em>valid_target=None</em>, <em>load_vocab=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/builders.html#build_training_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.builders.build_training_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build a training and validation QE datasets.</p>
+<dl class="docutils">
+<dt>Required Args:</dt>
+<dd><dl class="first docutils">
+<dt>fieldset (Fieldset): specific set of fields to be used (depends on</dt>
+<dd>the model to be used).</dd>
+</dl>
+<p class="last">train_source: Train Source
+train_target: Train Target (MT)</p>
+</dd>
+<dt>Optional Args (depends on the model):</dt>
+<dd><p class="first">train_pe: Train Post-edited
+train_target_tags: Train Target Tags
+train_source_tags: Train Source Tags
+train_sentence_scores: Train HTER scores</p>
+<p>valid_source: Valid Source
+valid_target: Valid Target (MT)
+valid_pe: Valid Post-edited
+valid_target_tags: Valid Target Tags
+valid_source_tags: Valid Source Tags
+valid_sentence_scores: Valid HTER scores</p>
+<dl class="docutils">
+<dt>split (float): If no validation sets are provided, randomly sample</dt>
+<dd>1 - split of training examples as validation set.</dd>
+</dl>
+<p class="last">target_vocab_size: Maximum Size of target vocabulary
+source_vocab_size: Maximum Size of source vocabulary
+target_max_length: Maximum length for target field
+target_min_length: Minimum length for target field
+source_max_length: Maximum length for source field
+source_min_length: Minimum length for source field
+target_vocab_min_freq: Minimum word frequency target field
+source_vocab_min_freq: Minimum word frequency source field
+load_vocab: Path to existing vocab file</p>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">A training and a validation Dataset.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.data.corpus">
+<span id="kiwi-data-corpus-module"></span><h2>kiwi.data.corpus module<a class="headerlink" href="#module-kiwi.data.corpus" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.data.corpus.Corpus">
+<em class="property">class </em><code class="descclassname">kiwi.data.corpus.</code><code class="descname">Corpus</code><span class="sig-paren">(</span><em>fields_examples=None</em>, <em>dataset_fields=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/corpus.html#Corpus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.corpus.Corpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.data.corpus.Corpus.examples_per_field">
+<code class="descname">examples_per_field</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/corpus.html#Corpus.examples_per_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.corpus.Corpus.examples_per_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="kiwi.data.corpus.Corpus.from_files">
+<em class="property">classmethod </em><code class="descname">from_files</code><span class="sig-paren">(</span><em>fields</em>, <em>files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/corpus.html#Corpus.from_files"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.corpus.Corpus.from_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a QualityEstimationDataset given paths and fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fields</strong> – A dict between field name and field object.</li>
+<li><strong>files</strong> – A dict between field name and file dict (with ‘name’ and
+‘format’ keys).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="kiwi.data.corpus.Corpus.from_tabular_file">
+<em class="property">classmethod </em><code class="descname">from_tabular_file</code><span class="sig-paren">(</span><em>fields</em>, <em>file_fields</em>, <em>file_path</em>, <em>sep='\t'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/corpus.html#Corpus.from_tabular_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.corpus.Corpus.from_tabular_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a QualityEstimationDataset given paths and fields.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fields</strong> – A dict between field name and field object.</li>
+<li><strong>file_fields</strong> – A list of field names for each column of the file
+(by order). File fields not in fields will be ignored, but
+every field in fields should correspond to some column.</li>
+<li><strong>file_path</strong> – Path to the tabular file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.data.corpus.Corpus.paste_fields">
+<code class="descname">paste_fields</code><span class="sig-paren">(</span><em>corpus</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/corpus.html#Corpus.paste_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.corpus.Corpus.paste_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pastes (appends) fields from another corpus.
+:param corpus: A corpus object. Must have the same number of examples as</p>
+<blockquote>
+<div>the current corpus.</div></blockquote>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.data.corpus.Corpus.read_tabular_file">
+<em class="property">static </em><code class="descname">read_tabular_file</code><span class="sig-paren">(</span><em>file_path</em>, <em>sep='\t'</em>, <em>extract_column=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/corpus.html#Corpus.read_tabular_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.corpus.Corpus.read_tabular_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.data.iterators">
+<span id="kiwi-data-iterators-module"></span><h2>kiwi.data.iterators module<a class="headerlink" href="#module-kiwi.data.iterators" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.data.iterators.build_bucket_iterator">
+<code class="descclassname">kiwi.data.iterators.</code><code class="descname">build_bucket_iterator</code><span class="sig-paren">(</span><em>dataset</em>, <em>device</em>, <em>batch_size</em>, <em>is_train</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/iterators.html#build_bucket_iterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.iterators.build_bucket_iterator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.data.qe_dataset">
+<span id="kiwi-data-qe-dataset-module"></span><h2>kiwi.data.qe_dataset module<a class="headerlink" href="#module-kiwi.data.qe_dataset" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.data.qe_dataset.QEDataset">
+<em class="property">class </em><code class="descclassname">kiwi.data.qe_dataset.</code><code class="descname">QEDataset</code><span class="sig-paren">(</span><em>examples</em>, <em>fields</em>, <em>filter_pred=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/qe_dataset.html#QEDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.qe_dataset.QEDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtext.data.dataset.Dataset</span></code></p>
+<p>Defines a dataset for quality estimation. Based on the WMT 201X.</p>
+<dl class="staticmethod">
+<dt id="kiwi.data.qe_dataset.QEDataset.sort_key">
+<em class="property">static </em><code class="descname">sort_key</code><span class="sig-paren">(</span><em>ex</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/qe_dataset.html#QEDataset.sort_key"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.qe_dataset.QEDataset.sort_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.data.qe_dataset.QEDataset.split">
+<code class="descname">split</code><span class="sig-paren">(</span><em>split_ratio=0.7</em>, <em>stratified=False</em>, <em>strata_field='label'</em>, <em>random_state=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/qe_dataset.html#QEDataset.split"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.qe_dataset.QEDataset.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create train-test(-valid?) splits from the instance’s examples.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>split_ratio</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>List of floats</em>) – a number [0, 1] denoting the amount
+of data to be used for the training split (rest is used for validation),
+or a list of numbers denoting the relative sizes of train, test and valid
+splits respectively. If the relative size for valid is missing, only the
+train-test split is returned. Default is 0.7 (for the train set).</li>
+<li><strong>stratified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – whether the sampling should be stratified.
+Default is False.</li>
+<li><strong>strata_field</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of the examples Field stratified over.
+Default is ‘label’ for the conventional label field.</li>
+<li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a>) – the random seed used for shuffling.
+A return value of <cite>random.getstate()</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Datasets for train, validation, and
+test splits in that order, if the splits are provided.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Tuple[Dataset]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.data.tokenizers">
+<span id="kiwi-data-tokenizers-module"></span><h2>kiwi.data.tokenizers module<a class="headerlink" href="#module-kiwi.data.tokenizers" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.data.tokenizers.align_reversed_tokenizer">
+<code class="descclassname">kiwi.data.tokenizers.</code><code class="descname">align_reversed_tokenizer</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/tokenizers.html#align_reversed_tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.tokenizers.align_reversed_tokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of pair of integers for each sentence.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.tokenizers.align_tokenizer">
+<code class="descclassname">kiwi.data.tokenizers.</code><code class="descname">align_tokenizer</code><span class="sig-paren">(</span><em>s</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/tokenizers.html#align_tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.tokenizers.align_tokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of pair of integers for each sentence.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.tokenizers.tokenizer">
+<code class="descclassname">kiwi.data.tokenizers.</code><code class="descname">tokenizer</code><span class="sig-paren">(</span><em>sentence</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/tokenizers.html#tokenizer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.tokenizers.tokenizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implement your own tokenize procedure.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.data.utils">
+<span id="kiwi-data-utils-module"></span><h2>kiwi.data.utils module<a class="headerlink" href="#module-kiwi.data.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.data.utils.build_vocabulary">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">build_vocabulary</code><span class="sig-paren">(</span><em>fields_vocab_options</em>, <em>*datasets</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#build_vocabulary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.build_vocabulary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.cross_split_dataset">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">cross_split_dataset</code><span class="sig-paren">(</span><em>dataset</em>, <em>splits</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#cross_split_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.cross_split_dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.deserialize_fields_from_vocabs">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">deserialize_fields_from_vocabs</code><span class="sig-paren">(</span><em>fields</em>, <em>vocabs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#deserialize_fields_from_vocabs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.deserialize_fields_from_vocabs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load serialized vocabularies into their fields.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.deserialize_vocabs">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">deserialize_vocabs</code><span class="sig-paren">(</span><em>vocabs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#deserialize_vocabs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.deserialize_vocabs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore defaultdict lost in serialization.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.fields_from_vocabs">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">fields_from_vocabs</code><span class="sig-paren">(</span><em>fields</em>, <em>vocabs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#fields_from_vocabs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.fields_from_vocabs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load Field objects from vocabs dict.
+From OpenNMT</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.fields_to_vocabs">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">fields_to_vocabs</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#fields_to_vocabs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.fields_to_vocabs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Extract Vocab Dictionary from Fields Dictionary.</dt>
+<dd><dl class="first last docutils">
+<dt>Args:</dt>
+<dd>fields: A dict mapping field names to Field objects</dd>
+<dt>Returns:</dt>
+<dd>vocab: A dict mapping field names to Vocabularies</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.filter_len">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">filter_len</code><span class="sig-paren">(</span><em>x</em>, <em>source_min_length=1</em>, <em>source_max_length=inf</em>, <em>target_min_length=1</em>, <em>target_max_length=inf</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#filter_len"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.filter_len" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.hter_to_binary">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">hter_to_binary</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#hter_to_binary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.hter_to_binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform hter score into binary OK/BAD label.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.load_datasets">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">load_datasets</code><span class="sig-paren">(</span><em>directory</em>, <em>*datasets_names</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#load_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.load_datasets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.load_training_datasets">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">load_training_datasets</code><span class="sig-paren">(</span><em>directory</em>, <em>fieldset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#load_training_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.load_training_datasets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.load_vocabularies_to_datasets">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">load_vocabularies_to_datasets</code><span class="sig-paren">(</span><em>vocab_path</em>, <em>*datasets</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#load_vocabularies_to_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.load_vocabularies_to_datasets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.load_vocabularies_to_fields">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">load_vocabularies_to_fields</code><span class="sig-paren">(</span><em>vocab_path</em>, <em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#load_vocabularies_to_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.load_vocabularies_to_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load serialized Vocabularies from disk into fields.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.project">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">project</code><span class="sig-paren">(</span><em>batch</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Projection onto the first argument.</p>
+<p>Needed to create a postprocessing pipeline that implements the identity.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.read_file">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">read_file</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#read_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.read_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a file into a list of lists of words.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.save_datasets">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">save_datasets</code><span class="sig-paren">(</span><em>directory</em>, <em>**named_datasets</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#save_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.save_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pickle datasets to standard file in directory</p>
+<p>Note that fields cannot be saved as part of a dataset, so they are
+ignored.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Path</em>) – directory where to save the datasets pickle.</li>
+<li><strong>named_datasets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – mapping of name and respective dataset.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.save_file">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">save_file</code><span class="sig-paren">(</span><em>file_path</em>, <em>data</em>, <em>token_sep=' '</em>, <em>example_sep='\n'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#save_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.save_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.save_predicted_probabilities">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">save_predicted_probabilities</code><span class="sig-paren">(</span><em>directory</em>, <em>predictions</em>, <em>prefix=''</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#save_predicted_probabilities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.save_predicted_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.save_training_datasets">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">save_training_datasets</code><span class="sig-paren">(</span><em>directory</em>, <em>train_dataset</em>, <em>valid_dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#save_training_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.save_training_datasets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.save_vocabularies_from_datasets">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">save_vocabularies_from_datasets</code><span class="sig-paren">(</span><em>directory</em>, <em>*datasets</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#save_vocabularies_from_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.save_vocabularies_from_datasets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.save_vocabularies_from_fields">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">save_vocabularies_from_fields</code><span class="sig-paren">(</span><em>directory</em>, <em>fields</em>, <em>include_vectors=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#save_vocabularies_from_fields"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.save_vocabularies_from_fields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save Vocab objects in Field objects to <cite>vocab.pt</cite> file.
+From OpenNMT</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.serialize_fields_to_vocabs">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">serialize_fields_to_vocabs</code><span class="sig-paren">(</span><em>fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#serialize_fields_to_vocabs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.serialize_fields_to_vocabs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save Vocab objects in Field objects to <cite>vocab.pt</cite> file.
+From OpenNMT</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.serialize_vocabs">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">serialize_vocabs</code><span class="sig-paren">(</span><em>vocabs</em>, <em>include_vectors=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#serialize_vocabs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.serialize_vocabs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make vocab dictionary serializable.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.vocab_loaded_if_needed">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">vocab_loaded_if_needed</code><span class="sig-paren">(</span><em>field</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#vocab_loaded_if_needed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.vocab_loaded_if_needed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.wmt18_to_gaps">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">wmt18_to_gaps</code><span class="sig-paren">(</span><em>batch</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#wmt18_to_gaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.wmt18_to_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract gap tags from wmt18 format file.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.utils.wmt18_to_target">
+<code class="descclassname">kiwi.data.utils.</code><code class="descname">wmt18_to_target</code><span class="sig-paren">(</span><em>batch</em>, <em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/utils.html#wmt18_to_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.utils.wmt18_to_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract target tags from wmt18 format file.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.data.vectors">
+<span id="kiwi-data-vectors-module"></span><h2>kiwi.data.vectors module<a class="headerlink" href="#module-kiwi.data.vectors" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.data.vectors.WordEmbeddings">
+<em class="property">class </em><code class="descclassname">kiwi.data.vectors.</code><code class="descname">WordEmbeddings</code><span class="sig-paren">(</span><em>name</em>, <em>emb_format='polyglot'</em>, <em>binary=True</em>, <em>map_fn=&lt;function WordEmbeddings.&lt;lambda&gt;&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/vectors.html#WordEmbeddings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.vectors.WordEmbeddings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtext.vocab.Vectors</span></code></p>
+<dl class="method">
+<dt id="kiwi.data.vectors.WordEmbeddings.cache">
+<code class="descname">cache</code><span class="sig-paren">(</span><em>name</em>, <em>cache</em>, <em>url=None</em>, <em>max_vectors=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/vectors.html#WordEmbeddings.cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.vectors.WordEmbeddings.cache" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.vectors.map_to_polyglot">
+<code class="descclassname">kiwi.data.vectors.</code><code class="descname">map_to_polyglot</code><span class="sig-paren">(</span><em>token</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/vectors.html#map_to_polyglot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.vectors.map_to_polyglot" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.data.vocabulary">
+<span id="kiwi-data-vocabulary-module"></span><h2>kiwi.data.vocabulary module<a class="headerlink" href="#module-kiwi.data.vocabulary" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.data.vocabulary.Vocabulary">
+<em class="property">class </em><code class="descclassname">kiwi.data.vocabulary.</code><code class="descname">Vocabulary</code><span class="sig-paren">(</span><em>counter</em>, <em>max_size=None</em>, <em>min_freq=1</em>, <em>specials=None</em>, <em>vectors=None</em>, <em>unk_init=None</em>, <em>vectors_cache=None</em>, <em>rare_with_vectors=True</em>, <em>add_vectors_vocab=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/vocabulary.html#Vocabulary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.vocabulary.Vocabulary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torchtext.vocab.Vocab</span></code></p>
+<p>Defines a vocabulary object that will be used to numericalize a field.</p>
+<dl class="attribute">
+<dt id="kiwi.data.vocabulary.Vocabulary.freqs">
+<code class="descname">freqs</code><a class="headerlink" href="#kiwi.data.vocabulary.Vocabulary.freqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A collections.Counter object holding the frequencies of tokens
+in the data used to build the Vocab.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.data.vocabulary.Vocabulary.stoi">
+<code class="descname">stoi</code><a class="headerlink" href="#kiwi.data.vocabulary.Vocabulary.stoi" title="Permalink to this definition">¶</a></dt>
+<dd><p>A collections.defaultdict instance mapping token strings to
+numerical identifiers.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.data.vocabulary.Vocabulary.itos">
+<code class="descname">itos</code><a class="headerlink" href="#kiwi.data.vocabulary.Vocabulary.itos" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of token strings indexed by their numerical identifiers.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.data.vocabulary.merge_vocabularies">
+<code class="descclassname">kiwi.data.vocabulary.</code><code class="descname">merge_vocabularies</code><span class="sig-paren">(</span><em>vocab_a</em>, <em>vocab_b</em>, <em>max_size=None</em>, <em>vectors=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/vocabulary.html#merge_vocabularies"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.vocabulary.merge_vocabularies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.data">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kiwi.data" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kiwi.data.fields.html" class="btn btn-neutral float-right" title="kiwi.data.fields package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kiwi.cli.pipelines.html" class="btn btn-neutral float-left" title="kiwi.cli.pipelines package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

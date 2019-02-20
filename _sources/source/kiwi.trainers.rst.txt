@@ -1,0 +1,46 @@
+kiwi.trainers package
+=====================
+
+Submodules
+----------
+
+kiwi.trainers.callbacks module
+------------------------------
+
+.. automodule:: kiwi.trainers.callbacks
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.trainers.linear\_word\_qe\_trainer module
+----------------------------------------------
+
+.. automodule:: kiwi.trainers.linear_word_qe_trainer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.trainers.trainer module
+----------------------------
+
+.. automodule:: kiwi.trainers.trainer
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.trainers.utils module
+--------------------------
+
+.. automodule:: kiwi.trainers.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.trainers
+    :members:
+    :undoc-members:
+    :show-inheritance:

@@ -1,0 +1,757 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.lib.train &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../../../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>kiwi.lib.train</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kiwi.lib.train</h1><div class="highlight"><pre>
+<span></span><span class="c1">#  OpenKiwi: Open-Source Machine Translation Quality Estimation</span>
+<span class="c1">#  Copyright (C) 2019 Unbabel &lt;openkiwi@unbabel.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#  it under the terms of the GNU Affero General Public License as published</span>
+<span class="c1">#  by the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#  (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1">#  along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pformat</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+
+<span class="kn">from</span> <span class="nn">kiwi</span> <span class="k">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">const</span>
+<span class="kn">from</span> <span class="nn">kiwi.cli.pipelines.train</span> <span class="k">import</span> <span class="n">build_parser</span>
+<span class="kn">from</span> <span class="nn">kiwi.data</span> <span class="k">import</span> <span class="n">builders</span><span class="p">,</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">kiwi.data.iterators</span> <span class="k">import</span> <span class="n">build_bucket_iterator</span>
+<span class="kn">from</span> <span class="nn">kiwi.data.utils</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">save_training_datasets</span><span class="p">,</span>
+    <span class="n">save_vocabularies_from_datasets</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">configure_logging</span><span class="p">,</span>
+    <span class="n">configure_seed</span><span class="p">,</span>
+    <span class="n">merge_namespaces</span><span class="p">,</span>
+    <span class="n">save_args_to_file</span><span class="p">,</span>
+    <span class="n">setup_output_directory</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">kiwi.loggers</span> <span class="k">import</span> <span class="n">tracking_logger</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.linear_word_qe_classifier</span> <span class="k">import</span> <span class="n">LinearWordQEClassifier</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.model</span> <span class="k">import</span> <span class="n">Model</span>
+<span class="kn">from</span> <span class="nn">kiwi.trainers.callbacks</span> <span class="k">import</span> <span class="n">Checkpoint</span>
+<span class="kn">from</span> <span class="nn">kiwi.trainers.linear_word_qe_trainer</span> <span class="k">import</span> <span class="n">LinearWordQETrainer</span>
+<span class="kn">from</span> <span class="nn">kiwi.trainers.trainer</span> <span class="k">import</span> <span class="n">Trainer</span>
+<span class="kn">from</span> <span class="nn">kiwi.trainers.utils</span> <span class="k">import</span> <span class="n">optimizer_class</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="TrainRunInfo"><a class="viewcode-back" href="../../../source/kiwi.lib.html#kiwi.lib.train.TrainRunInfo">[docs]</a><span class="k">class</span> <span class="nc">TrainRunInfo</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Encapsulates relevant information on training runs.</span>
+
+<span class="sd">    Can be instantiated with a trainer object.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        stats: Stats of the best model so far</span>
+<span class="sd">        model_path: Path of the best model so far</span>
+<span class="sd">        run_uuid: Unique identifier of the current run</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">):</span>
+        <span class="c1"># FIXME: linear trainer not yet supported here</span>
+        <span class="c1">#   (no full support to checkpointer)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">checkpointer</span><span class="o">.</span><span class="n">best_stats</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model_path</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">checkpointer</span><span class="o">.</span><span class="n">best_model_path</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_uuid</span> <span class="o">=</span> <span class="n">tracking_logger</span><span class="o">.</span><span class="n">run_uuid</span></div>
+
+
+<div class="viewcode-block" id="train_from_file"><a class="viewcode-back" href="../../../source/kiwi.lib.html#kiwi.lib.train.train_from_file">[docs]</a><span class="k">def</span> <span class="nf">train_from_file</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Loads options from a config file and calls the training procedure.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename (str): filename of the configuration file</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">build_parser</span><span class="p">()</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_config_file</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">train_from_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="train_from_options"><a class="viewcode-back" href="../../../source/kiwi.lib.html#kiwi.lib.train.train_from_options">[docs]</a><span class="k">def</span> <span class="nf">train_from_options</span><span class="p">(</span><span class="n">options</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Runs the entire training pipeline using the configuration options received.</span>
+
+<span class="sd">    These options include the pipeline and model options plus the model&#39;s API.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        options (Namespace): All the configuration options retrieved</span>
+<span class="sd">            from either a config file or input flags and the model</span>
+<span class="sd">            being used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">options</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="n">pipeline_options</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">pipeline</span>
+    <span class="n">model_options</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">model</span>
+    <span class="n">ModelClass</span> <span class="o">=</span> <span class="n">options</span><span class="o">.</span><span class="n">model_api</span>
+
+    <span class="n">tracking_run</span> <span class="o">=</span> <span class="n">tracking_logger</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
+        <span class="n">run_uuid</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">run_uuid</span><span class="p">,</span>
+        <span class="n">experiment_name</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">experiment_name</span><span class="p">,</span>
+        <span class="n">tracking_uri</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">mlflow_tracking_uri</span><span class="p">,</span>
+        <span class="n">always_log_artifacts</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">mlflow_always_log_artifacts</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">tracking_run</span><span class="p">:</span>
+        <span class="n">output_dir</span> <span class="o">=</span> <span class="n">setup</span><span class="p">(</span>
+            <span class="n">output_dir</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">output_dir</span><span class="p">,</span>
+            <span class="n">seed</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">seed</span><span class="p">,</span>
+            <span class="n">gpu_id</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">gpu_id</span><span class="p">,</span>
+            <span class="n">debug</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span>
+            <span class="n">quiet</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">quiet</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">all_options</span> <span class="o">=</span> <span class="n">merge_namespaces</span><span class="p">(</span><span class="n">pipeline_options</span><span class="p">,</span> <span class="n">model_options</span><span class="p">)</span>
+        <span class="n">log</span><span class="p">(</span>
+            <span class="n">output_dir</span><span class="p">,</span>
+            <span class="n">config_options</span><span class="o">=</span><span class="nb">vars</span><span class="p">(</span><span class="n">all_options</span><span class="p">),</span>
+            <span class="n">save_config</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">save_config</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">run</span><span class="p">(</span><span class="n">ModelClass</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">pipeline_options</span><span class="p">,</span> <span class="n">model_options</span><span class="p">)</span>
+        <span class="n">train_info</span> <span class="o">=</span> <span class="n">TrainRunInfo</span><span class="p">(</span><span class="n">trainer</span><span class="p">)</span>
+
+    <span class="n">teardown</span><span class="p">(</span><span class="n">pipeline_options</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">train_info</span></div>
+
+
+<div class="viewcode-block" id="run"><a class="viewcode-back" href="../../../source/kiwi.lib.html#kiwi.lib.train.run">[docs]</a><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="n">ModelClass</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">pipeline_options</span><span class="p">,</span> <span class="n">model_options</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Implements the main logic of the training module.</span>
+
+<span class="sd">    Instantiates the dataset, model class and sets their attributes according</span>
+<span class="sd">    to the pipeline options received. Loads or creates a trainer and runs it.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ModelClass (Model): Python Type of the Model to train</span>
+<span class="sd">        output_dir: Directory to save models</span>
+<span class="sd">        pipeline_options (Namespace): Generic Train Options</span>
+<span class="sd">            load_model: load pre-trained predictor model</span>
+<span class="sd">            resume: load trainer state and resume training</span>
+<span class="sd">            gpu_id: Set to non-negative integer to train on GPU</span>
+<span class="sd">            train_batch_size: Batch Size for training</span>
+<span class="sd">            valid_batch_size: Batch size for validation</span>
+
+<span class="sd">        model_options(Namespace): Model Specific options</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The trainer object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">model_name</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">ModelClass</span><span class="p">,</span> <span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="n">ModelClass</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Training the </span><span class="si">{}</span><span class="s2"> model&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">model_name</span><span class="p">))</span>
+    <span class="c1"># FIXME: make sure all places use output_dir</span>
+    <span class="c1"># del pipeline_options.output_dir</span>
+    <span class="n">pipeline_options</span><span class="o">.</span><span class="n">output_dir</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Data step</span>
+    <span class="n">fieldset</span> <span class="o">=</span> <span class="n">ModelClass</span><span class="o">.</span><span class="n">fieldset</span><span class="p">(</span>
+        <span class="n">wmt18_format</span><span class="o">=</span><span class="n">model_options</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;wmt18_format&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">datasets</span> <span class="o">=</span> <span class="n">retrieve_datasets</span><span class="p">(</span>
+        <span class="n">fieldset</span><span class="p">,</span> <span class="n">pipeline_options</span><span class="p">,</span> <span class="n">model_options</span><span class="p">,</span> <span class="n">output_dir</span>
+    <span class="p">)</span>
+    <span class="n">save_vocabularies_from_datasets</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="o">*</span><span class="n">datasets</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">save_data</span><span class="p">:</span>
+        <span class="n">save_training_datasets</span><span class="p">(</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">save_data</span><span class="p">,</span> <span class="o">*</span><span class="n">datasets</span><span class="p">)</span>
+
+    <span class="c1"># Trainer step</span>
+    <span class="n">device_id</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">gpu_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">gpu_id</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">device_id</span> <span class="o">=</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">gpu_id</span>
+
+    <span class="n">vocabs</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">fields_to_vocabs</span><span class="p">(</span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">fields</span><span class="p">)</span>
+
+    <span class="n">trainer</span> <span class="o">=</span> <span class="n">retrieve_trainer</span><span class="p">(</span>
+        <span class="n">ModelClass</span><span class="p">,</span>
+        <span class="n">pipeline_options</span><span class="p">,</span>
+        <span class="n">model_options</span><span class="p">,</span>
+        <span class="n">vocabs</span><span class="p">,</span>
+        <span class="n">output_dir</span><span class="p">,</span>
+        <span class="n">device_id</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">model</span><span class="p">))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> parameters&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trainer</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">num_parameters</span><span class="p">()))</span>
+
+    <span class="c1"># Dataset iterators</span>
+    <span class="n">train_iter</span> <span class="o">=</span> <span class="n">build_bucket_iterator</span><span class="p">(</span>
+        <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">train_batch_size</span><span class="p">,</span>
+        <span class="n">is_train</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device_id</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">valid_iter</span> <span class="o">=</span> <span class="n">build_bucket_iterator</span><span class="p">(</span>
+        <span class="n">datasets</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">batch_size</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">valid_batch_size</span><span class="p">,</span>
+        <span class="n">is_train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device_id</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">trainer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">train_iter</span><span class="p">,</span> <span class="n">valid_iter</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">epochs</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">trainer</span></div>
+
+
+<div class="viewcode-block" id="retrieve_trainer"><a class="viewcode-back" href="../../../source/kiwi.lib.html#kiwi.lib.train.retrieve_trainer">[docs]</a><span class="k">def</span> <span class="nf">retrieve_trainer</span><span class="p">(</span>
+    <span class="n">ModelClass</span><span class="p">,</span> <span class="n">pipeline_options</span><span class="p">,</span> <span class="n">model_options</span><span class="p">,</span> <span class="n">vocabs</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="n">device_id</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates a Trainer object with an associated model.</span>
+
+<span class="sd">    This object encapsulates the logic behind training the model and</span>
+<span class="sd">    checkpointing. This method uses the received pipeline options to</span>
+<span class="sd">    instantiate a Trainer object with the the requested model and</span>
+<span class="sd">    hyperparameters.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ModelClass</span>
+<span class="sd">        pipeline_options (Namespace): Generic training options</span>
+<span class="sd">            resume (bool): Set to true if resuming an existing run.</span>
+<span class="sd">            load_model (str): Directory containing model.torch for loading</span>
+<span class="sd">                pre-created model.</span>
+<span class="sd">            checkpoint_save (bool): Boolean indicating if snapshots should be</span>
+<span class="sd">                saved after validation runs. warning: if false, will never save</span>
+<span class="sd">                the model.</span>
+<span class="sd">            checkpoint_keep_only_best (int): Indicates kiwi to keep the best</span>
+<span class="sd">                `n` models.</span>
+<span class="sd">            checkpoint_early_stop_patience (int): Stops training if metrics</span>
+<span class="sd">                don&#39;t improve after `n` validation runs.</span>
+<span class="sd">            checkpoint_validation_steps (int): Perform validation every `n`</span>
+<span class="sd">                training steps.</span>
+<span class="sd">            optimizer (string): The optimizer to be used in training.</span>
+<span class="sd">            learning_rate (float): Starting learning rate.</span>
+<span class="sd">            learning_rate_decay (float): Factor of learning rate decay.</span>
+<span class="sd">            learning_rate_decay_start (int): Start decay after epoch `x`.</span>
+<span class="sd">            log_interval (int): Log after `k` batches.</span>
+<span class="sd">        model_options (Namespace): Model specific options.</span>
+<span class="sd">        vocabs (dict): Vocab dictionary.</span>
+<span class="sd">        output_dir (str or Path): Output directory for models and stats</span>
+<span class="sd">            concerning training.</span>
+<span class="sd">        device_id (int): The gpu id to be used in training. Set to negative</span>
+<span class="sd">            to use cpu.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        Trainer</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">resume</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Trainer</span><span class="o">.</span><span class="n">resume</span><span class="p">(</span><span class="n">local_path</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="n">device_id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">load_model</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="o">.</span><span class="n">create_from_file</span><span class="p">(</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">load_model</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">ModelClass</span><span class="o">.</span><span class="n">from_options</span><span class="p">(</span><span class="n">vocabs</span><span class="o">=</span><span class="n">vocabs</span><span class="p">,</span> <span class="n">opts</span><span class="o">=</span><span class="n">model_options</span><span class="p">)</span>
+
+    <span class="n">checkpointer</span> <span class="o">=</span> <span class="n">Checkpoint</span><span class="p">(</span>
+        <span class="n">output_dir</span><span class="p">,</span>
+        <span class="n">pipeline_options</span><span class="o">.</span><span class="n">checkpoint_save</span><span class="p">,</span>
+        <span class="n">pipeline_options</span><span class="o">.</span><span class="n">checkpoint_keep_only_best</span><span class="p">,</span>
+        <span class="n">pipeline_options</span><span class="o">.</span><span class="n">checkpoint_early_stop_patience</span><span class="p">,</span>
+        <span class="n">pipeline_options</span><span class="o">.</span><span class="n">checkpoint_validation_steps</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">LinearWordQEClassifier</span><span class="p">):</span>
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">LinearWordQETrainer</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">model_options</span><span class="o">.</span><span class="n">training_algorithm</span><span class="p">,</span>
+            <span class="n">model_options</span><span class="o">.</span><span class="n">regularization_constant</span><span class="p">,</span>
+            <span class="n">checkpointer</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Set GPU or CPU; has to be before instantiating the optimizer</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span>
+
+        <span class="c1"># Optimizer</span>
+        <span class="n">OptimizerClass</span> <span class="o">=</span> <span class="n">optimizer_class</span><span class="p">(</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">optimizer</span><span class="p">)</span>
+        <span class="n">optimizer</span> <span class="o">=</span> <span class="n">OptimizerClass</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">learning_rate</span>
+        <span class="p">)</span>
+        <span class="n">scheduler</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="mf">0.0</span> <span class="o">&lt;</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">learning_rate_decay</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="n">scheduler</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">lr_scheduler</span><span class="o">.</span><span class="n">ReduceLROnPlateau</span><span class="p">(</span>
+                <span class="n">optimizer</span><span class="p">,</span>
+                <span class="n">factor</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">learning_rate_decay</span><span class="p">,</span>
+                <span class="n">patience</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">learning_rate_decay_start</span><span class="p">,</span>
+                <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;max&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span>
+            <span class="n">model</span><span class="p">,</span>
+            <span class="n">optimizer</span><span class="p">,</span>
+            <span class="n">checkpointer</span><span class="p">,</span>
+            <span class="n">log_interval</span><span class="o">=</span><span class="n">pipeline_options</span><span class="o">.</span><span class="n">log_interval</span><span class="p">,</span>
+            <span class="n">scheduler</span><span class="o">=</span><span class="n">scheduler</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">trainer</span></div>
+
+
+<div class="viewcode-block" id="retrieve_datasets"><a class="viewcode-back" href="../../../source/kiwi.lib.html#kiwi.lib.train.retrieve_datasets">[docs]</a><span class="k">def</span> <span class="nf">retrieve_datasets</span><span class="p">(</span><span class="n">fieldset</span><span class="p">,</span> <span class="n">pipeline_options</span><span class="p">,</span> <span class="n">model_options</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates `Dataset` objects for the training and validation sets.</span>
+
+<span class="sd">    Parses files according to pipeline and model options.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fieldset</span>
+<span class="sd">        pipeline_options (Namespace): Generic training options</span>
+<span class="sd">            load_data (str): Input directory for loading preprocessed data</span>
+<span class="sd">                files.</span>
+<span class="sd">            load_model (str): Directory containing model.torch for loading</span>
+<span class="sd">                pre-created model.</span>
+<span class="sd">            resume (boolean): Indicates if you should resume training from a</span>
+<span class="sd">                previous run.</span>
+<span class="sd">            load_vocab (str): Directory containing vocab.torch file to be</span>
+<span class="sd">                loaded.</span>
+<span class="sd">        model_options (Namespace): Model specific options.</span>
+<span class="sd">        output_dir (str): Path to directory where experiment files should be</span>
+<span class="sd">            saved.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        datasets (Dataset): Training and validation datasets</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">load_data</span><span class="p">:</span>
+        <span class="n">datasets</span> <span class="o">=</span> <span class="n">utils</span><span class="o">.</span><span class="n">load_training_datasets</span><span class="p">(</span>
+            <span class="n">pipeline_options</span><span class="o">.</span><span class="n">load_data</span><span class="p">,</span> <span class="n">fieldset</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">load_vocab</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="k">if</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">resume</span><span class="p">:</span>
+            <span class="n">load_vocab</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">VOCAB_FILE</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">load_model</span><span class="p">:</span>
+            <span class="n">load_vocab</span> <span class="o">=</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">load_model</span>
+        <span class="k">elif</span> <span class="n">model_options</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;load_pred_source&quot;</span><span class="p">):</span>
+            <span class="n">load_vocab</span> <span class="o">=</span> <span class="n">model_options</span><span class="o">.</span><span class="n">load_pred_source</span>
+        <span class="k">elif</span> <span class="n">model_options</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;load_pred_target&quot;</span><span class="p">):</span>
+            <span class="n">load_vocab</span> <span class="o">=</span> <span class="n">model_options</span><span class="o">.</span><span class="n">load_pred_target</span>
+        <span class="k">elif</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">load_vocab</span><span class="p">:</span>
+            <span class="n">load_vocab</span> <span class="o">=</span> <span class="n">pipeline_options</span><span class="o">.</span><span class="n">load_vocab</span>
+
+        <span class="n">datasets</span> <span class="o">=</span> <span class="n">builders</span><span class="o">.</span><span class="n">build_training_datasets</span><span class="p">(</span>
+            <span class="n">fieldset</span><span class="p">,</span> <span class="n">load_vocab</span><span class="o">=</span><span class="n">load_vocab</span><span class="p">,</span> <span class="o">**</span><span class="nb">vars</span><span class="p">(</span><span class="n">model_options</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">datasets</span></div>
+
+
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../source/kiwi.lib.html#kiwi.lib.train.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">gpu_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Analyzes pipeline options and sets up requirements for running the training</span>
+<span class="sd">    pipeline.</span>
+
+<span class="sd">    This includes setting up the output directory, random seeds and the</span>
+<span class="sd">    device(s) where training is run.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_dir: Path to directory to use or None, in which case one is</span>
+<span class="sd">            created automatically.</span>
+<span class="sd">        seed (int): Random seed for all random engines (Python, PyTorch, NumPy).</span>
+<span class="sd">        gpu_id (int): GPU number to use or `None` to use the CPU.</span>
+<span class="sd">        debug (bool): Whether to increase the verbosity of output messages.</span>
+<span class="sd">        quiet (bool): Whether to decrease the verbosity of output messages.</span>
+<span class="sd">            Takes precedence over `debug`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        output_dir(str): Path to output directory</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">output_dir</span> <span class="o">=</span> <span class="n">setup_output_directory</span><span class="p">(</span>
+        <span class="n">output_dir</span><span class="p">,</span>
+        <span class="n">tracking_logger</span><span class="o">.</span><span class="n">run_uuid</span><span class="p">,</span>
+        <span class="n">tracking_logger</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span>
+        <span class="n">create</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">configure_logging</span><span class="p">(</span><span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">debug</span><span class="o">=</span><span class="n">debug</span><span class="p">,</span> <span class="n">quiet</span><span class="o">=</span><span class="n">quiet</span><span class="p">)</span>
+    <span class="n">configure_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This is run ID: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tracking_logger</span><span class="o">.</span><span class="n">run_uuid</span><span class="p">))</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Inside experiment ID: </span><span class="si">{}</span><span class="s2"> (</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">tracking_logger</span><span class="o">.</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">tracking_logger</span><span class="o">.</span><span class="n">experiment_name</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Local output directory is: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output_dir</span><span class="p">))</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Logging execution to MLflow at: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">tracking_logger</span><span class="o">.</span><span class="n">get_tracking_uri</span><span class="p">()</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">gpu_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">gpu_id</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">set_device</span><span class="p">(</span><span class="n">gpu_id</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using GPU: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gpu_id</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Using CPU&quot;</span><span class="p">)</span>
+
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="s2">&quot;Artifacts location: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tracking_logger</span><span class="o">.</span><span class="n">get_artifact_uri</span><span class="p">())</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">output_dir</span></div>
+
+
+<div class="viewcode-block" id="teardown"><a class="viewcode-back" href="../../../source/kiwi.lib.html#kiwi.lib.train.teardown">[docs]</a><span class="k">def</span> <span class="nf">teardown</span><span class="p">(</span><span class="n">options</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Tears down after executing prediction pipeline.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        options(Namespace): Pipeline specific options</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="log"><a class="viewcode-back" href="../../../source/kiwi.lib.html#kiwi.lib.train.log">[docs]</a><span class="k">def</span> <span class="nf">log</span><span class="p">(</span>
+    <span class="n">output_dir</span><span class="p">,</span>
+    <span class="n">config_options</span><span class="p">,</span>
+    <span class="n">config_file_name</span><span class="o">=</span><span class="s2">&quot;train_config.yml&quot;</span><span class="p">,</span>
+    <span class="n">save_config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Logs configuration options for the current training run.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_dir (str): Path to directory where experiment files should be</span>
+<span class="sd">            saved.</span>
+<span class="sd">        config_options (Namespace): Namespace representing all configuration</span>
+<span class="sd">            options.</span>
+<span class="sd">        config_file_name (str): Filename of the config file</span>
+<span class="sd">        save_config (str or Path): Boolean stating if you should save a</span>
+<span class="sd">            configuration file.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">pformat</span><span class="p">(</span><span class="n">config_options</span><span class="p">))</span>
+    <span class="n">config_file_copy</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">config_file_name</span><span class="p">)</span>
+    <span class="n">save_args_to_file</span><span class="p">(</span><span class="n">config_file_copy</span><span class="p">,</span> <span class="o">**</span><span class="n">config_options</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tracking_logger</span><span class="o">.</span><span class="n">should_log_artifacts</span><span class="p">():</span>
+        <span class="n">tracking_logger</span><span class="o">.</span><span class="n">log_artifact</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">config_file_copy</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">save_config</span><span class="p">:</span>
+        <span class="n">save_args_to_file</span><span class="p">(</span><span class="n">save_config</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="o">**</span><span class="n">config_options</span><span class="p">)</span>
+
+    <span class="c1"># Log parameters</span>
+    <span class="n">tracking_logger</span><span class="o">.</span><span class="n">log_param</span><span class="p">(</span><span class="s2">&quot;output_dir&quot;</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">)</span>
+    <span class="n">tracking_logger</span><span class="o">.</span><span class="n">log_param</span><span class="p">(</span><span class="s2">&quot;save_config&quot;</span><span class="p">,</span> <span class="n">save_config</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">param</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">config_options</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">tracking_logger</span><span class="o">.</span><span class="n">log_param</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

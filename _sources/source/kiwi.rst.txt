@@ -1,0 +1,43 @@
+kiwi package
+============
+
+Subpackages
+-----------
+
+.. toctree::
+
+    kiwi.cli
+    kiwi.data
+    kiwi.lib
+    kiwi.metrics
+    kiwi.models
+    kiwi.predictors
+    kiwi.trainers
+
+Submodules
+----------
+
+kiwi.constants module
+---------------------
+
+.. automodule:: kiwi.constants
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.loggers module
+-------------------
+
+.. automodule:: kiwi.loggers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi
+    :members:
+    :undoc-members:
+    :show-inheritance:

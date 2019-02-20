@@ -1,0 +1,54 @@
+kiwi.cli.models package
+=======================
+
+Submodules
+----------
+
+kiwi.cli.models.linear module
+-----------------------------
+
+.. automodule:: kiwi.cli.models.linear
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.cli.models.nuqe module
+---------------------------
+
+.. automodule:: kiwi.cli.models.nuqe
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.cli.models.predictor module
+--------------------------------
+
+.. automodule:: kiwi.cli.models.predictor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.cli.models.predictor\_estimator module
+-------------------------------------------
+
+.. automodule:: kiwi.cli.models.predictor_estimator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.cli.models.quetch module
+-----------------------------
+
+.. automodule:: kiwi.cli.models.quetch
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.cli.models
+    :members:
+    :undoc-members:
+    :show-inheritance:

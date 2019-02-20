@@ -1,0 +1,62 @@
+kiwi.data.fieldsets package
+===========================
+
+Submodules
+----------
+
+kiwi.data.fieldsets.extend\_vocabs\_fieldset module
+---------------------------------------------------
+
+.. automodule:: kiwi.data.fieldsets.extend_vocabs_fieldset
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.fieldsets.fieldset module
+-----------------------------------
+
+.. automodule:: kiwi.data.fieldsets.fieldset
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.fieldsets.linear module
+---------------------------------
+
+.. automodule:: kiwi.data.fieldsets.linear
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.fieldsets.predictor module
+------------------------------------
+
+.. automodule:: kiwi.data.fieldsets.predictor
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.fieldsets.predictor\_estimator module
+-----------------------------------------------
+
+.. automodule:: kiwi.data.fieldsets.predictor_estimator
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.fieldsets.quetch module
+---------------------------------
+
+.. automodule:: kiwi.data.fieldsets.quetch
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.data.fieldsets
+    :members:
+    :undoc-members:
+    :show-inheritance:

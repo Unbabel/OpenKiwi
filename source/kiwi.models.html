@@ -1,0 +1,1125 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.models package &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="kiwi.models.linear package" href="kiwi.models.linear.html" />
+    <link rel="prev" title="kiwi.metrics package" href="kiwi.metrics.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">kiwi</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kiwi.html">kiwi package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="kiwi.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">kiwi</a> &raquo;</li>
+        
+          <li><a href="kiwi.html">kiwi package</a> &raquo;</li>
+        
+      <li>kiwi.models package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/kiwi.models.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kiwi-models-package">
+<h1>kiwi.models package<a class="headerlink" href="#kiwi-models-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.models.linear.html">kiwi.models.linear package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.label_dictionary">kiwi.models.linear.label_dictionary module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_model">kiwi.models.linear.linear_model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_trainer">kiwi.models.linear.linear_trainer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_word_qe_decoder">kiwi.models.linear.linear_word_qe_decoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_word_qe_features">kiwi.models.linear.linear_word_qe_features module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.linear_word_qe_sentence">kiwi.models.linear.linear_word_qe_sentence module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.sequence_parts">kiwi.models.linear.sequence_parts module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.sparse_feature_vector">kiwi.models.linear.sparse_feature_vector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.sparse_vector">kiwi.models.linear.sparse_vector module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.structured_classifier">kiwi.models.linear.structured_classifier module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.structured_decoder">kiwi.models.linear.structured_decoder module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear.utils">kiwi.models.linear.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.linear.html#module-kiwi.models.linear">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kiwi.models.modules.html">kiwi.models.modules package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.modules.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.modules.html#module-kiwi.models.modules.attention">kiwi.models.modules.attention module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.modules.html#module-kiwi.models.modules.scorer">kiwi.models.modules.scorer module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kiwi.models.modules.html#module-kiwi.models.modules">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kiwi.models.linear_word_qe_classifier">
+<span id="kiwi-models-linear-word-qe-classifier-module"></span><h2>kiwi.models.linear_word_qe_classifier module<a class="headerlink" href="#module-kiwi.models.linear_word_qe_classifier" title="Permalink to this headline">¶</a></h2>
+<p>This is the main script for the linear sequential word-based quality
+estimator.</p>
+<dl class="class">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear_word_qe_classifier.</code><code class="descname">LinearWordQEClassifier</code><span class="sig-paren">(</span><em>use_basic_features_only=True</em>, <em>use_bigrams=True</em>, <em>use_simple_bigram_features=True</em>, <em>use_parse_features=False</em>, <em>use_stacked_features=False</em>, <em>evaluation_metric='f1_bad'</em>, <em>cost_false_positives=0.5</em>, <em>cost_false_negatives=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="kiwi.models.linear.html#kiwi.models.linear.structured_classifier.StructuredClassifier" title="kiwi.models.linear.structured_classifier.StructuredClassifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.linear.structured_classifier.StructuredClassifier</span></code></a></p>
+<p>Main class for the word-level quality estimator. Inherits from a
+general structured classifier.</p>
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.create_instances">
+<code class="descname">create_instances</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.create_instances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.create_instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocess the dataset if needed to create instances.
+Default is returning the dataset itself. Override if needed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.create_prediction">
+<code class="descname">create_prediction</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>predicted_output</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.create_prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.create_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a list of word-level predictions for a sentence.
+For compliance with probabilities, it returns 1 if label is BAD, 0 if
+OK.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.evaluate">
+<code class="descname">evaluate</code><span class="sig-paren">(</span><em>instances</em>, <em>predictions</em>, <em>print_scores=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the model’s accuracy and F1-BAD score.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.fieldset">
+<em class="property">static </em><code class="descname">fieldset</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.fieldset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.fieldset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.from_options">
+<em class="property">static </em><code class="descname">from_options</code><span class="sig-paren">(</span><em>vocabs</em>, <em>opts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.from_options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.get_coarse_label">
+<code class="descname">get_coarse_label</code><span class="sig-paren">(</span><em>label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.get_coarse_label"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.get_coarse_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the coarse part of a fine-grained label. The coarse label is the
+prefix before the underscore (if any). For example, the coarse part of
+BAD_SUB, BAD_DEL, and BAD is BAD.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.label_instance">
+<code class="descname">label_instance</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>predicted_output</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.label_instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.label_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a labeled instance by adding the predicted output
+information.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>model_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the full configuration and model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.load_configuration">
+<code class="descname">load_configuration</code><span class="sig-paren">(</span><em>config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.load_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.load_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.make_features">
+<code class="descname">make_features</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.make_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.make_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a feature vector for each part.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.make_parts">
+<code class="descname">make_parts</code><span class="sig-paren">(</span><em>instance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.make_parts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.make_parts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates the parts (unigrams and bigrams) for an instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.num_parameters">
+<code class="descname">num_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.num_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.num_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>model_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the full configuration and model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.save_configuration">
+<code class="descname">save_configuration</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.save_configuration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.save_configuration" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>instances</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear_word_qe_classifier.html#LinearWordQEClassifier.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the model on test data.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.title">
+<code class="descname">title</code><em class="property"> = 'Linear Model'</em><a class="headerlink" href="#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.model">
+<span id="kiwi-models-model-module"></span><h2>kiwi.models.model module<a class="headerlink" href="#module-kiwi.models.model" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.models.model.Model">
+<em class="property">class </em><code class="descclassname">kiwi.models.model.</code><code class="descname">Model</code><span class="sig-paren">(</span><em>vocabs</em>, <em>ConfigCls=&lt;class 'kiwi.models.model.ModelConfig'&gt;</em>, <em>config=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.modules.module.Module</span></code></p>
+<dl class="staticmethod">
+<dt id="kiwi.models.model.Model.create_from_file">
+<em class="property">static </em><code class="descname">create_from_file</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.create_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.create_from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.Model.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="kiwi.models.model.Model.from_dict">
+<em class="property">classmethod </em><code class="descname">from_dict</code><span class="sig-paren">(</span><em>model_dict</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.from_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="kiwi.models.model.Model.from_file">
+<em class="property">classmethod </em><code class="descname">from_file</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.Model.get_mask">
+<code class="descname">get_mask</code><span class="sig-paren">(</span><em>batch</em>, <em>output</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.get_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.get_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Mask of Tokens for side.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>batch</strong> – Namespace of tensors</li>
+<li><strong>side</strong> – String identifier.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.Model.loss">
+<code class="descname">loss</code><span class="sig-paren">(</span><em>model_out</em>, <em>target</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.Model.num_parameters">
+<code class="descname">num_parameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.num_parameters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.num_parameters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.Model.predict">
+<code class="descname">predict</code><span class="sig-paren">(</span><em>batch</em>, <em>class_name='BAD'</em>, <em>unmask=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.predict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.Model.predict_raw">
+<code class="descname">predict_raw</code><span class="sig-paren">(</span><em>examples</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.predict_raw"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.predict_raw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.Model.preprocess">
+<code class="descname">preprocess</code><span class="sig-paren">(</span><em>examples</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.preprocess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.preprocess" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocess Raw Data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>examples</strong> (<em>list of dict</em>) – List of examples. Each Example is a dict
+with field strings as keys, and
+unnumericalized, tokenized data as values.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A batch object.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="kiwi.models.model.Model.register_subclass">
+<em class="property">classmethod </em><code class="descname">register_subclass</code><span class="sig-paren">(</span><em>subclass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.register_subclass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.register_subclass" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.Model.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#Model.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.Model.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.models.model.Model.subclasses">
+<code class="descname">subclasses</code><em class="property"> = {'Estimator': &lt;class 'kiwi.models.predictor_estimator.Estimator'&gt;, 'NuQE': &lt;class 'kiwi.models.nuqe.NuQE'&gt;, 'Predictor': &lt;class 'kiwi.models.predictor.Predictor'&gt;, 'QUETCH': &lt;class 'kiwi.models.quetch.QUETCH'&gt;}</em><a class="headerlink" href="#kiwi.models.model.Model.subclasses" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.models.model.ModelConfig">
+<em class="property">class </em><code class="descclassname">kiwi.models.model.</code><code class="descname">ModelConfig</code><span class="sig-paren">(</span><em>vocabs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#ModelConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.ModelConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="classmethod">
+<dt id="kiwi.models.model.ModelConfig.from_dict">
+<em class="property">classmethod </em><code class="descname">from_dict</code><span class="sig-paren">(</span><em>config_dict</em>, <em>vocabs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#ModelConfig.from_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.ModelConfig.from_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create config from a saved state_dict.
+:param config_dict: A dictionary that is the return value of</p>
+<blockquote>
+<div>a call to the <cite>state_dict()</cite> method of <cite>cls</cite></div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>vocab</strong> – See <cite>ModelConfig.__init__</cite></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.ModelConfig.state_dict">
+<code class="descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#ModelConfig.state_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.ModelConfig.state_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the __dict__ for serialization.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.model.ModelConfig.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>other_config</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/model.html#ModelConfig.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.model.ModelConfig.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates the config object with the values of <cite>other_config</cite>
+:param other_config: The <cite>dict</cite> or <cite>ModelConfig</cite> object to update with.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.nuqe">
+<span id="kiwi-models-nuqe-module"></span><h2>kiwi.models.nuqe module<a class="headerlink" href="#module-kiwi.models.nuqe" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.models.nuqe.NuQE">
+<em class="property">class </em><code class="descclassname">kiwi.models.nuqe.</code><code class="descname">NuQE</code><span class="sig-paren">(</span><em>vocabs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/nuqe.html#NuQE"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.nuqe.NuQE" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.quetch.QUETCH" title="kiwi.models.quetch.QUETCH"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.quetch.QUETCH</span></code></a></p>
+<p>Neural Quality Estimation (NuQE) model for word level quality
+estimation.</p>
+<dl class="method">
+<dt id="kiwi.models.nuqe.NuQE.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>source_vectors=None</em>, <em>target_vectors=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/nuqe.html#NuQE.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.nuqe.NuQE.build" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.nuqe.NuQE.fieldset">
+<em class="property">static </em><code class="descname">fieldset</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/nuqe.html#NuQE.fieldset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.nuqe.NuQE.fieldset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.nuqe.NuQE.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/nuqe.html#NuQE.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.nuqe.NuQE.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.nuqe.NuQE.from_options">
+<em class="property">static </em><code class="descname">from_options</code><span class="sig-paren">(</span><em>vocabs</em>, <em>opts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/nuqe.html#NuQE.from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.nuqe.NuQE.from_options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.models.nuqe.NuQE.title">
+<code class="descname">title</code><em class="property"> = 'NuQE'</em><a class="headerlink" href="#kiwi.models.nuqe.NuQE.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.predictor">
+<span id="kiwi-models-predictor-module"></span><h2>kiwi.models.predictor module<a class="headerlink" href="#module-kiwi.models.predictor" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.models.predictor.Predictor">
+<em class="property">class </em><code class="descclassname">kiwi.models.predictor.</code><code class="descname">Predictor</code><span class="sig-paren">(</span><em>vocabs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor.html#Predictor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor.Predictor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.model.Model" title="kiwi.models.model.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.model.Model</span></code></a></p>
+<p>Bidirectional Conditional Language Model</p>
+<dl class="docutils">
+<dt>Implemented after Kim et al 2017, see:</dt>
+<dd><a class="reference external" href="http://www.statmt.org/wmt17/pdf/WMT63.pdf">http://www.statmt.org/wmt17/pdf/WMT63.pdf</a></dd>
+</dl>
+<dl class="staticmethod">
+<dt id="kiwi.models.predictor.Predictor.fieldset">
+<em class="property">static </em><code class="descname">fieldset</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor.html#Predictor.fieldset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor.Predictor.fieldset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor.Predictor.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>batch</em>, <em>source_side=None</em>, <em>target_side=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor.html#Predictor.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor.Predictor.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.predictor.Predictor.from_options">
+<em class="property">static </em><code class="descname">from_options</code><span class="sig-paren">(</span><em>vocabs</em>, <em>opts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor.html#Predictor.from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor.Predictor.from_options" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vocabs</strong> – </li>
+<li><strong>opts</strong> – </li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor.Predictor.loss">
+<code class="descname">loss</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em>, <em>target_side=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor.html#Predictor.loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor.Predictor.loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor.Predictor.metrics">
+<code class="descname">metrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor.html#Predictor.metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor.Predictor.metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor.Predictor.metrics_ordering">
+<code class="descname">metrics_ordering</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor.html#Predictor.metrics_ordering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor.Predictor.metrics_ordering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.models.predictor.Predictor.title">
+<code class="descname">title</code><em class="property"> = 'PredEst Predictor model (an embedder model)'</em><a class="headerlink" href="#kiwi.models.predictor.Predictor.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.models.predictor.PredictorConfig">
+<em class="property">class </em><code class="descclassname">kiwi.models.predictor.</code><code class="descname">PredictorConfig</code><span class="sig-paren">(</span><em>vocabs</em>, <em>hidden_pred=400</em>, <em>rnn_layers_pred=3</em>, <em>dropout_pred=0.0</em>, <em>share_embeddings=False</em>, <em>embedding_sizes=0</em>, <em>target_embeddings_size=200</em>, <em>source_embeddings_size=200</em>, <em>out_embeddings_size=200</em>, <em>predict_inverse=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor.html#PredictorConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor.PredictorConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.model.ModelConfig" title="kiwi.models.model.ModelConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.model.ModelConfig</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.predictor_estimator">
+<span id="kiwi-models-predictor-estimator-module"></span><h2>kiwi.models.predictor_estimator module<a class="headerlink" href="#module-kiwi.models.predictor_estimator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.models.predictor_estimator.Estimator">
+<em class="property">class </em><code class="descclassname">kiwi.models.predictor_estimator.</code><code class="descname">Estimator</code><span class="sig-paren">(</span><em>vocabs</em>, <em>predictor_tgt=None</em>, <em>predictor_src=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.model.Model" title="kiwi.models.model.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.model.Model</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.binary_loss">
+<code class="descname">binary_loss</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.binary_loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.binary_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Sentence Classification Loss</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.predictor_estimator.Estimator.fieldset">
+<em class="property">static </em><code class="descname">fieldset</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.fieldset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.fieldset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.predictor_estimator.Estimator.from_options">
+<em class="property">static </em><code class="descname">from_options</code><span class="sig-paren">(</span><em>vocabs</em>, <em>opts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.from_options" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vocabs</strong> – </li>
+<li><strong>opts</strong> – <p>predict_target (bool): Predict target tags
+predict_source (bool): Predict source tags
+predict_gaps (bool): Predict gap tags
+token_level (bool): Train predictor using PE field.
+sentence_level (bool): Predict Sentence Scores
+sentence_ll (bool): Use likelihood loss for sentence scores</p>
+<blockquote>
+<div>(instead of squared error)</div></blockquote>
+<p>binary_level: Predict binary sentence labels
+target_bad_weight: Weight for target tags bad class. Default 3.0
+source_bad_weight: Weight for source tags bad class. Default 3.0
+gaps_bad_weight: Weight for gap tags bad class. Default 3.0</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.loss">
+<code class="descname">loss</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Model Loss</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.make_contexts_gaps">
+<code class="descname">make_contexts_gaps</code><span class="sig-paren">(</span><em>contexts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.make_contexts_gaps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.make_contexts_gaps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.make_input">
+<code class="descname">make_input</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em>, <em>tagset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.make_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.make_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make Input Sequence from predictor outputs.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.make_sentence_input">
+<code class="descname">make_sentence_input</code><span class="sig-paren">(</span><em>h_tgt</em>, <em>h_src</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.make_sentence_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.make_sentence_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reshape last hidden state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.metrics">
+<code class="descname">metrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.metrics_ordering">
+<code class="descname">metrics_ordering</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.metrics_ordering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.metrics_ordering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.predict_sentence">
+<code class="descname">predict_sentence</code><span class="sig-paren">(</span><em>sentence_input</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.predict_sentence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.predict_sentence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Sentence Score predictions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.predict_tags">
+<code class="descname">predict_tags</code><span class="sig-paren">(</span><em>contexts</em>, <em>out_embed=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.predict_tags"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.predict_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Tag Predictions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.sentence_loss">
+<code class="descname">sentence_loss</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.sentence_loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.sentence_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Sentence score loss</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.models.predictor_estimator.Estimator.title">
+<code class="descname">title</code><em class="property"> = 'PredEst (Predictor-Estimator)'</em><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.predictor_estimator.Estimator.word_loss">
+<code class="descname">word_loss</code><span class="sig-paren">(</span><em>model_out</em>, <em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#Estimator.word_loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.Estimator.word_loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Sequence Tagging Loss</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.models.predictor_estimator.EstimatorConfig">
+<em class="property">class </em><code class="descclassname">kiwi.models.predictor_estimator.</code><code class="descname">EstimatorConfig</code><span class="sig-paren">(</span><em>vocabs</em>, <em>hidden_est=100</em>, <em>rnn_layers_est=1</em>, <em>mlp_est=True</em>, <em>dropout_est=0.0</em>, <em>start_stop=False</em>, <em>predict_target=True</em>, <em>predict_gaps=False</em>, <em>predict_source=False</em>, <em>token_level=True</em>, <em>sentence_level=True</em>, <em>sentence_ll=True</em>, <em>binary_level=True</em>, <em>target_bad_weight=2.0</em>, <em>source_bad_weight=2.0</em>, <em>gaps_bad_weight=2.0</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/predictor_estimator.html#EstimatorConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.predictor_estimator.EstimatorConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.predictor.PredictorConfig" title="kiwi.models.predictor.PredictorConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.predictor.PredictorConfig</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.quetch">
+<span id="kiwi-models-quetch-module"></span><h2>kiwi.models.quetch module<a class="headerlink" href="#module-kiwi.models.quetch" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.models.quetch.QUETCH">
+<em class="property">class </em><code class="descclassname">kiwi.models.quetch.</code><code class="descname">QUETCH</code><span class="sig-paren">(</span><em>vocabs</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCH"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCH" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.model.Model" title="kiwi.models.model.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.model.Model</span></code></a></p>
+<p>QUality Estimation from scraTCH (QUETCH) model.</p>
+<p>TODO: add references.</p>
+<dl class="method">
+<dt id="kiwi.models.quetch.QUETCH.build">
+<code class="descname">build</code><span class="sig-paren">(</span><em>source_vectors=None</em>, <em>target_vectors=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCH.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCH.build" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.quetch.QUETCH.fieldset">
+<em class="property">static </em><code class="descname">fieldset</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCH.fieldset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCH.fieldset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.quetch.QUETCH.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>batch</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCH.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCH.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.quetch.QUETCH.from_options">
+<em class="property">static </em><code class="descname">from_options</code><span class="sig-paren">(</span><em>vocabs</em>, <em>opts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCH.from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCH.from_options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.quetch.QUETCH.loss">
+<code class="descname">loss</code><span class="sig-paren">(</span><em>model_out</em>, <em>target</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCH.loss"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCH.loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.quetch.QUETCH.make_input">
+<code class="descname">make_input</code><span class="sig-paren">(</span><em>batch</em>, <em>side</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCH.make_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCH.make_input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.quetch.QUETCH.metrics">
+<code class="descname">metrics</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCH.metrics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCH.metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.quetch.QUETCH.metrics_ordering">
+<code class="descname">metrics_ordering</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCH.metrics_ordering"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCH.metrics_ordering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.models.quetch.QUETCH.title">
+<code class="descname">title</code><em class="property"> = 'QUETCH'</em><a class="headerlink" href="#kiwi.models.quetch.QUETCH.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.models.quetch.QUETCHConfig">
+<em class="property">class </em><code class="descclassname">kiwi.models.quetch.</code><code class="descname">QUETCHConfig</code><span class="sig-paren">(</span><em>vocabs</em>, <em>predict_target=True</em>, <em>predict_gaps=False</em>, <em>predict_source=False</em>, <em>source_embeddings_size=50</em>, <em>target_embeddings_size=50</em>, <em>hidden_sizes=None</em>, <em>bad_weight=3.0</em>, <em>window_size=10</em>, <em>max_aligned=5</em>, <em>dropout=0.4</em>, <em>embeddings_dropout=0.4</em>, <em>freeze_embeddings=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/quetch.html#QUETCHConfig"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.quetch.QUETCHConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.model.ModelConfig" title="kiwi.models.model.ModelConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.model.ModelConfig</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.utils">
+<span id="kiwi-models-utils-module"></span><h2>kiwi.models.utils module<a class="headerlink" href="#module-kiwi.models.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.models.utils.GradientMul">
+<em class="property">class </em><code class="descclassname">kiwi.models.utils.</code><code class="descname">GradientMul</code><a class="reference internal" href="../_modules/kiwi/models/utils.html#GradientMul"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.GradientMul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.function.Function</span></code></p>
+<dl class="staticmethod">
+<dt id="kiwi.models.utils.GradientMul.backward">
+<em class="property">static </em><code class="descname">backward</code><span class="sig-paren">(</span><em>ctx</em>, <em>grad</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#GradientMul.backward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.GradientMul.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a formula for differentiating the operation.</p>
+<p>This function is to be overridden by all subclasses.</p>
+<p>It must accept a context <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx</span></code> as the first argument, followed by
+as many outputs did <a class="reference internal" href="#kiwi.models.utils.GradientMul.forward" title="kiwi.models.utils.GradientMul.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> return, and it should return as many
+tensors, as there were inputs to <a class="reference internal" href="#kiwi.models.utils.GradientMul.forward" title="kiwi.models.utils.GradientMul.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a>. Each argument is the
+gradient w.r.t the given output, and each returned value should be the
+gradient w.r.t. the corresponding input.</p>
+<p>The context can be used to retrieve tensors saved during the forward
+pass. It also has an attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx.needs_input_grad</span></code> as a tuple
+of booleans representing whether each input needs gradient. E.g.,
+<a class="reference internal" href="#kiwi.models.utils.GradientMul.backward" title="kiwi.models.utils.GradientMul.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code></a> will have <code class="docutils literal notranslate"><span class="pre">ctx.needs_input_grad[0]</span> <span class="pre">=</span> <span class="pre">True</span></code> if the
+first input to <a class="reference internal" href="#kiwi.models.utils.GradientMul.forward" title="kiwi.models.utils.GradientMul.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> needs gradient computated w.r.t. the
+output.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.utils.GradientMul.forward">
+<em class="property">static </em><code class="descname">forward</code><span class="sig-paren">(</span><em>ctx</em>, <em>x</em>, <em>constant=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#GradientMul.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.GradientMul.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the operation.</p>
+<p>This function is to be overridden by all subclasses.</p>
+<p>It must accept a context ctx as the first argument, followed by any
+number of arguments (tensors or other types).</p>
+<p>The context can be used to store tensors that can be then retrieved
+during the backward pass.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.utils.align_source">
+<code class="descclassname">kiwi.models.utils.</code><code class="descname">align_source</code><span class="sig-paren">(</span><em>source</em>, <em>trg2src_alignments</em>, <em>max_aligned</em>, <em>unaligned_idx</em>, <em>padding_idx</em>, <em>pad_size</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#align_source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.align_source" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.utils.align_tensor">
+<code class="descclassname">kiwi.models.utils.</code><code class="descname">align_tensor</code><span class="sig-paren">(</span><em>tensor</em>, <em>alignments</em>, <em>max_aligned</em>, <em>unaligned_idx</em>, <em>padding_idx</em>, <em>pad_size</em>, <em>target_length=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#align_tensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.align_tensor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.utils.apply_packed_sequence">
+<code class="descclassname">kiwi.models.utils.</code><code class="descname">apply_packed_sequence</code><span class="sig-paren">(</span><em>rnn</em>, <em>embedding</em>, <em>lengths</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#apply_packed_sequence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.apply_packed_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs a forward pass of embeddings through an rnn using packed sequence.
+:param rnn: The RNN that that we want to compute a forward pass with.
+:param embedding: A batch of sequence embeddings.
+:type embedding: FloatTensor b x seq x dim
+:param lengths: The length of each sequence in the batch.
+:type lengths: LongTensor batch</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">The output of the RNN <cite>rnn</cite> with input <cite>embedding</cite></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">output</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.utils.convolve_tensor">
+<code class="descclassname">kiwi.models.utils.</code><code class="descname">convolve_tensor</code><span class="sig-paren">(</span><em>sequences</em>, <em>window_size</em>, <em>pad_value=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#convolve_tensor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.convolve_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convolve a sequence and apply padding</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sequence</strong> – 2D tensor</li>
+<li><strong>window_size</strong> – filter length</li>
+<li><strong>pad_value</strong> – int value used as padding</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">3D tensor, where the last dimension has size window_size</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.utils.gradient_mul">
+<code class="descclassname">kiwi.models.utils.</code><code class="descname">gradient_mul</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.models.utils.gradient_mul" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.utils.make_loss_weights">
+<code class="descclassname">kiwi.models.utils.</code><code class="descname">make_loss_weights</code><span class="sig-paren">(</span><em>nb_classes</em>, <em>target_idx</em>, <em>weight</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#make_loss_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.make_loss_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a loss weight vector for nn.CrossEntropyLoss</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>nb_classes</strong> – Number of classes</li>
+<li><strong>target_idx</strong> – ID of the target (reweighted) class</li>
+<li><strong>weight</strong> – Weight of the target class</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><dl class="docutils">
+<dt>Weight Tensor of shape <cite>nb_classes</cite> such that</dt>
+<dd><p class="first last"><cite>weights[target_idx] = weight</cite>
+<cite>weights[other_idx] = 1.0</cite></p>
+</dd>
+</dl>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">weights (FloatTensor)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.utils.map_alignments_to_target">
+<code class="descclassname">kiwi.models.utils.</code><code class="descname">map_alignments_to_target</code><span class="sig-paren">(</span><em>src2tgt_alignments</em>, <em>target_length=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#map_alignments_to_target"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.map_alignments_to_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps a target index to a list of source indexes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>src2tgt_alignments</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><em>list</em></a>) – list of tuples with source, target indexes.</li>
+<li><strong>target_length</strong> – size of the target side; if None, the highest index
+in the alignments is used.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of size target_length where position i refers to the i-th
+target token and contains a list of source indexes aligned to it.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.utils.replace_token">
+<code class="descclassname">kiwi.models.utils.</code><code class="descname">replace_token</code><span class="sig-paren">(</span><em>target</em>, <em>old</em>, <em>new</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#replace_token"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.replace_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces old tokens with new.</p>
+<dl class="docutils">
+<dt>args: target (LongTensor)</dt>
+<dd>old (int): The token to be replaced by new
+new (int): The token used to replace old</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.utils.unroll">
+<code class="descclassname">kiwi.models.utils.</code><code class="descname">unroll</code><span class="sig-paren">(</span><em>list_of_lists</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/utils.html#unroll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.utils.unroll" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>list_of_lists</strong> – a list that contains lists</li>
+<li><strong>rec</strong> – unroll recursively</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a flattened list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kiwi.models" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kiwi.models.linear.html" class="btn btn-neutral float-right" title="kiwi.models.linear package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kiwi.metrics.html" class="btn btn-neutral float-left" title="kiwi.metrics package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

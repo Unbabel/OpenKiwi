@@ -1,0 +1,1216 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.models.linear.linear_word_qe_features &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../../../../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>kiwi.models.linear.linear_word_qe_features</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kiwi.models.linear.linear_word_qe_features</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;A class for handling features for word-level quality estimation.&quot;&quot;&quot;</span>
+
+<span class="c1">#  OpenKiwi: Open-Source Machine Translation Quality Estimation</span>
+<span class="c1">#  Copyright (C) 2019 Unbabel &lt;openkiwi@unbabel.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#  it under the terms of the GNU Affero General Public License as published</span>
+<span class="c1">#  by the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#  (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1">#  along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">kiwi.models.linear.linear_word_qe_sentence</span> <span class="k">import</span> <span class="n">LinearWordQESentence</span>
+
+<span class="kn">from</span> <span class="nn">.sparse_feature_vector</span> <span class="k">import</span> <span class="n">SparseFeatureVector</span>
+
+
+<div class="viewcode-block" id="quantize"><a class="viewcode-back" href="../../../../source/kiwi.models.linear.html#kiwi.models.linear.linear_word_qe_features.quantize">[docs]</a><span class="k">def</span> <span class="nf">quantize</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">bins_down</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Quantize a numeric feature into bins.</span>
+<span class="sd">    Example: bins = [50, 40, 30, 25, 20, 18, 16, 14, 12, 10].&quot;&quot;&quot;</span>
+    <span class="n">bin_up</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="k">for</span> <span class="n">bin_down</span> <span class="ow">in</span> <span class="n">bins_down</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">bin_down</span> <span class="o">&lt;</span> <span class="n">value</span> <span class="o">&lt;=</span> <span class="n">bin_up</span><span class="p">:</span>
+            <span class="n">bin_value</span> <span class="o">=</span> <span class="n">bin_down</span>
+            <span class="k">return</span> <span class="n">bin_value</span>
+        <span class="n">bin_up</span> <span class="o">=</span> <span class="n">bin_down</span>
+    <span class="k">return</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="LinearWordQEFeatures"><a class="viewcode-back" href="../../../../source/kiwi.models.linear.html#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures">[docs]</a><span class="k">class</span> <span class="nc">LinearWordQEFeatures</span><span class="p">(</span><span class="n">SparseFeatureVector</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;This class implements a feature vector for word-level quality</span>
+<span class="sd">    estimation.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">use_basic_features_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">use_simple_bigram_features</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">use_parse_features</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">use_stacked_features</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">save_to_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">load_from_cache</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">cached_features_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">SparseFeatureVector</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">save_to_cache</span><span class="p">,</span> <span class="n">load_from_cache</span><span class="p">,</span> <span class="n">cached_features_file</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_basic_features_only</span> <span class="o">=</span> <span class="n">use_basic_features_only</span>
+        <span class="c1"># True for using only a single bigram indicator feature.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_simple_bigram_features</span> <span class="o">=</span> <span class="n">use_simple_bigram_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_parse_features</span> <span class="o">=</span> <span class="n">use_parse_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_stacked_features</span> <span class="o">=</span> <span class="n">use_stacked_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_client_features</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="LinearWordQEFeatures.get_siblings"><a class="viewcode-back" href="../../../../source/kiwi.models.linear.html#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.get_siblings">[docs]</a>    <span class="k">def</span> <span class="nf">get_siblings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentence_word_features</span><span class="p">):</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">siblings</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">k</span>
+                <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sentence_word_features</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">target_head</span> <span class="o">==</span> <span class="n">info</span><span class="o">.</span><span class="n">target_head</span>
+            <span class="p">]</span>
+            <span class="n">left_siblings</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">siblings</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">index</span><span class="p">]</span>
+            <span class="n">right_siblings</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">siblings</span> <span class="k">if</span> <span class="n">k</span> <span class="o">&gt;</span> <span class="n">index</span><span class="p">]</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">left_siblings</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">left_sibling</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">left_siblings</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">left_sibling</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">right_siblings</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">right_sibling</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">right_siblings</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">right_sibling</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">left_sibling</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+            <span class="n">right_sibling</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+
+        <span class="k">if</span> <span class="n">left_sibling</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">left_sibling_info</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">left_sibling</span><span class="p">]</span>
+            <span class="n">left_sibling_token</span> <span class="o">=</span> <span class="n">left_sibling_info</span><span class="o">.</span><span class="n">token</span>
+            <span class="n">left_sibling_pos</span> <span class="o">=</span> <span class="n">left_sibling_info</span><span class="o">.</span><span class="n">target_pos</span>
+        <span class="k">elif</span> <span class="n">left_sibling</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">left_sibling_token</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+            <span class="n">left_sibling_pos</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">left_sibling_info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">left_sibling_token</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+            <span class="n">left_sibling_pos</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+        <span class="k">if</span> <span class="n">right_sibling</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">right_sibling_info</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">right_sibling</span><span class="p">]</span>
+            <span class="n">right_sibling_token</span> <span class="o">=</span> <span class="n">right_sibling_info</span><span class="o">.</span><span class="n">token</span>
+            <span class="n">right_sibling_pos</span> <span class="o">=</span> <span class="n">right_sibling_info</span><span class="o">.</span><span class="n">target_pos</span>
+        <span class="k">elif</span> <span class="n">right_sibling</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">right_sibling_info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">right_sibling_token</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+            <span class="n">right_sibling_pos</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">right_sibling_info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">right_sibling_token</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+            <span class="n">right_sibling_pos</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">left_sibling_token</span><span class="p">,</span>
+            <span class="n">left_sibling_pos</span><span class="p">,</span>
+            <span class="n">right_sibling_token</span><span class="p">,</span>
+            <span class="n">right_sibling_pos</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="LinearWordQEFeatures.get_head"><a class="viewcode-back" href="../../../../source/kiwi.models.linear.html#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.get_head">[docs]</a>    <span class="k">def</span> <span class="nf">get_head</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentence_word_features</span><span class="p">):</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">head_index</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">target_head</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">head_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+        <span class="k">if</span> <span class="n">head_index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">head_info</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">head_index</span><span class="p">]</span>
+            <span class="n">head_token</span> <span class="o">=</span> <span class="n">head_info</span><span class="o">.</span><span class="n">token</span>
+            <span class="n">head_pos</span> <span class="o">=</span> <span class="n">head_info</span><span class="o">.</span><span class="n">target_pos</span>
+            <span class="n">head_morph</span> <span class="o">=</span> <span class="n">head_info</span><span class="o">.</span><span class="n">target_morph</span>
+        <span class="k">elif</span> <span class="n">head_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">head_info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">head_token</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+            <span class="n">head_pos</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+            <span class="n">head_morph</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">head_info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">head_token</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+            <span class="n">head_pos</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+            <span class="n">head_morph</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+
+        <span class="k">return</span> <span class="n">head_index</span><span class="p">,</span> <span class="n">head_token</span><span class="p">,</span> <span class="n">head_pos</span><span class="p">,</span> <span class="n">head_morph</span></div>
+
+<div class="viewcode-block" id="LinearWordQEFeatures.compute_unigram_features"><a class="viewcode-back" href="../../../../source/kiwi.models.linear.html#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.compute_unigram_features">[docs]</a>    <span class="k">def</span> <span class="nf">compute_unigram_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute unigram features (depending only on a single label).&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_cached_features</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">index</span>
+
+        <span class="n">ignore_source</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">only_basic_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_basic_features_only</span>
+        <span class="n">use_client_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_client_features</span>
+        <span class="n">use_parse_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_parse_features</span>
+        <span class="n">use_stacked_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_stacked_features</span>
+        <span class="n">use_bias</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">use_language_model</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">use_binary_features</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">use_parse_features</span><span class="p">:</span>
+            <span class="n">use_split_morphs</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_morph_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_deprel_features</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">use_head_features</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">use_grandparent_features</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">use_sibling_features</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">use_split_morphs</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_morph_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_deprel_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_head_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_grandparent_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_sibling_features</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">use_unuseful_shared_task_features</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">info</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">use_client_features</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">label</span><span class="p">),</span> <span class="n">info</span><span class="o">.</span><span class="n">client_name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">label</span><span class="p">)]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">part</span><span class="o">.</span><span class="n">label</span><span class="p">)]</span>
+
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">use_bias</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;BIAS_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">use_unuseful_shared_task_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F0=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span>
+                        <span class="n">quantize</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">source_token_count</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span>
+                        <span class="n">label</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F1=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span>
+                        <span class="n">quantize</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_token_count</span><span class="p">,</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">]),</span>
+                        <span class="n">label</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F2=</span><span class="si">%f</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span>
+                        <span class="n">quantize</span><span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">source_target_token_count_ratio</span><span class="p">,</span> <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+                        <span class="p">),</span>
+                        <span class="n">label</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;F3=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;F4=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">left_context</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;F5=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">right_context</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ignore_source</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F6=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">first_aligned_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F7=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">left_alignment</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F8=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">right_alignment</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">use_binary_features</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="c1"># Ablated for German WMT16 (the provided stoplist is wrong).</span>
+                <span class="c1"># self.add_binary_feature(</span>
+                <span class="c1">#     &#39;F9=%d_%s&#39; % (int(info.is_stopword), label))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F10=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">is_punctuation</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="c1"># Ablated for German (capitalized words are nouns)</span>
+                <span class="c1"># self.add_binary_feature(</span>
+                <span class="c1">#     &#39;F11=%d_%s&#39; % (int(info.is_proper_noun), label))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F12=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">is_digit</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">use_language_model</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F13=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">highest_order_ngram_left</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F14=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">highest_order_ngram_right</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="c1"># if use_language_model and not only_basic_features:</span>
+            <span class="c1">#     self.add_binary_feature(</span>
+            <span class="c1">#         &#39;F15=%d_%s&#39; % (info.backoff_behavior_left, label))</span>
+            <span class="c1">#     self.add_binary_feature(</span>
+            <span class="c1">#         &#39;F16=%d_%s&#39; % (info.backoff_behavior_middle, label))</span>
+            <span class="c1">#     self.add_binary_feature(</span>
+            <span class="c1">#         &#39;F17=%d_%s&#39; % (info.backoff_behavior_right, label))</span>
+
+            <span class="k">if</span> <span class="n">use_language_model</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F18=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">source_highest_order_ngram_left</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F19=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">source_highest_order_ngram_right</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F20=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">pseudo_reference</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;F21=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F22=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">aligned_source_pos_list</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">use_unuseful_shared_task_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F23=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">polysemy_count_source</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;F24=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">polysemy_count_target</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="c1"># QUETCH linear model conjoined features.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                <span class="s1">&#39;G0=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">left_context</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                <span class="s1">&#39;G1=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">right_context</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ignore_source</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;G2=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">first_aligned_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;G3=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">aligned_source_pos_list</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Parse features.</span>
+            <span class="k">if</span> <span class="n">use_parse_features</span><span class="p">:</span>
+                <span class="n">head_index</span><span class="p">,</span> <span class="n">head_token</span><span class="p">,</span> <span class="n">head_pos</span><span class="p">,</span> <span class="n">head_morph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_head</span><span class="p">(</span>
+                    <span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">index</span>
+                <span class="p">)</span>
+                <span class="n">head_on_left</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># (head_index &lt;= index)</span>
+
+                <span class="k">if</span> <span class="n">head_index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">_</span><span class="p">,</span> <span class="n">grandparent_token</span><span class="p">,</span> <span class="n">grandparent_pos</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_head</span><span class="p">(</span>
+                        <span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">head_index</span>
+                    <span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">grandparent_token</span><span class="p">,</span> <span class="n">grandparent_pos</span> <span class="o">=</span> <span class="n">head_token</span><span class="p">,</span> <span class="n">head_pos</span>
+                <span class="n">grandparent_on_left</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># (grandparent_index &lt;= index)</span>
+
+                <span class="n">left_sibling_token</span><span class="p">,</span> <span class="n">left_sibling_pos</span><span class="p">,</span> <span class="n">right_sibling_token</span><span class="p">,</span> <span class="n">right_sibling_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_siblings</span><span class="p">(</span>  <span class="c1"># NOQA</span>
+                    <span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">index</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_deprel_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H0=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_deprel</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H1=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">target_deprel</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_head_features</span><span class="p">:</span>
+                    <span class="c1"># self.add_binary_feature(</span>
+                    <span class="c1">#     &#39;H2=%s_%s_%s&#39; % (info.target_pos, head_pos, label))</span>
+                    <span class="c1"># self.add_binary_feature(</span>
+                    <span class="c1">#     &#39;H3=%s_%s_%s&#39; % (info.token, head_token, label))</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H2=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">head_pos</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">head_on_left</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H3=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">head_token</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">head_on_left</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H3a=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">head_pos</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">head_on_left</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H3b=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span>
+                            <span class="n">head_token</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">head_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_morph_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H4=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_morph</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H5=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_morph</span><span class="p">,</span> <span class="n">head_morph</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_split_morphs</span><span class="p">:</span>
+                    <span class="n">all_morphs</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">target_morph</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+                    <span class="n">all_head_morphs</span> <span class="o">=</span> <span class="n">head_morph</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">all_morphs</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;H6=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+                        <span class="k">for</span> <span class="n">hm</span> <span class="ow">in</span> <span class="n">all_head_morphs</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                                <span class="s1">&#39;H7=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">hm</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                            <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_sibling_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H8=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">left_sibling_pos</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H9=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">left_sibling_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H10=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">right_sibling_pos</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H11=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">right_sibling_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_grandparent_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H12=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span>
+                            <span class="n">grandparent_pos</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">grandparent_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H13=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                            <span class="n">grandparent_token</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">grandparent_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H14=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span>
+                            <span class="n">head_pos</span><span class="p">,</span>
+                            <span class="n">grandparent_pos</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">grandparent_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H15=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                            <span class="n">head_pos</span><span class="p">,</span>
+                            <span class="n">grandparent_token</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">grandparent_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H16=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                            <span class="n">head_token</span><span class="p">,</span>
+                            <span class="n">grandparent_pos</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">grandparent_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H17=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span>
+                            <span class="n">head_token</span><span class="p">,</span>
+                            <span class="n">grandparent_token</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">grandparent_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H18=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span>
+                            <span class="n">head_pos</span><span class="p">,</span>
+                            <span class="n">grandparent_token</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">grandparent_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H19=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span>
+                            <span class="n">head_token</span><span class="p">,</span>
+                            <span class="n">grandparent_pos</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">grandparent_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;H20=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                            <span class="n">head_pos</span><span class="p">,</span>
+                            <span class="n">grandparent_pos</span><span class="p">,</span>
+                            <span class="nb">int</span><span class="p">(</span><span class="n">grandparent_on_left</span><span class="p">),</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">use_stacked_features</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">stacked_features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">stacked_features</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">add_numeric_feature</span><span class="p">(</span><span class="s1">&#39;S</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_cached_features</span><span class="p">()</span>
+            <span class="k">return</span></div>
+
+<div class="viewcode-block" id="LinearWordQEFeatures.compute_bigram_features"><a class="viewcode-back" href="../../../../source/kiwi.models.linear.html#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.compute_bigram_features">[docs]</a>    <span class="k">def</span> <span class="nf">compute_bigram_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">part</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Compute bigram features (that depend on consecutive labels).&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_from_cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_cached_features</span><span class="p">()</span>
+            <span class="k">return</span>
+
+        <span class="n">index</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">index</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">label</span>
+        <span class="n">previous_label</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">previous_label</span>
+
+        <span class="n">ignore_source</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">only_basic_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_basic_features_only</span>
+        <span class="n">use_client_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_client_features</span>
+        <span class="n">use_parse_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_parse_features</span>
+        <span class="n">use_stacked_features</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_stacked_features</span>  <span class="c1"># False</span>
+        <span class="n">use_bias</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># True for using only a single bigram indicator feature.</span>
+        <span class="n">use_only_bias</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_simple_bigram_features</span>
+        <span class="n">use_language_model</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">use_binary_features</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">use_trigram_features</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">if</span> <span class="n">use_parse_features</span><span class="p">:</span>
+            <span class="n">use_split_morphs</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_morph_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_deprel_features</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">use_head_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_sibling_features</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">use_split_morphs</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_morph_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_deprel_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_head_features</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">use_sibling_features</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentence_word_features</span><span class="p">):</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">index</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info</span> <span class="o">=</span> <span class="n">LinearWordQESentence</span><span class="o">.</span><span class="n">create_stop_symbol</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">info_previous</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">info_previous</span> <span class="o">=</span> <span class="n">LinearWordQESentence</span><span class="o">.</span><span class="n">create_stop_symbol</span><span class="p">()</span>
+
+        <span class="n">bigram_label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">previous_label</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_client_features</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">bigram_label</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">client_name</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">bigram_label</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="n">bigram_label</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">use_bias</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;B1=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">label</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">use_only_bias</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;B2=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;B3=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;B4=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">right_context</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                <span class="s1">&#39;B5=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">left_context</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ignore_source</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B6=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">first_aligned_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B7=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">left_alignment</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B8=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">right_alignment</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B9=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">first_aligned_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B10=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">left_alignment</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B11=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">right_alignment</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">use_binary_features</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="c1"># Ablated for German WMT16 (the provided stoplist is wrong).</span>
+                <span class="c1"># self.add_binary_feature(</span>
+                <span class="c1">#     &#39;B12=%d_%s&#39; % (int(info.is_stopword), label))</span>
+                <span class="c1"># self.add_binary_feature(</span>
+                <span class="c1">#     &#39;B13=%d_%s&#39; % (int(info_previous.is_stopword), label))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B14=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">is_punctuation</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B15=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">is_punctuation</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="c1"># Ablated for German (capitalized words are nouns)</span>
+                <span class="c1"># self.add_binary_feature(</span>
+                <span class="c1">#     &#39;B16=%d_%s&#39; % (int(info.is_proper_noun), label))</span>
+                <span class="c1"># self.add_binary_feature(</span>
+                <span class="c1">#     &#39;B17=%d_%s&#39; % (int(info_previous.is_proper_noun), label))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B18=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">is_digit</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B19=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">is_digit</span><span class="p">),</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">use_language_model</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B20=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">highest_order_ngram_left</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B21=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">highest_order_ngram_right</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B22=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">highest_order_ngram_left</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B23=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">highest_order_ngram_right</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="c1"># if use_language_model and not only_basic_features:</span>
+            <span class="c1">#     self.add_binary_feature(</span>
+            <span class="c1">#         &#39;B24=%d_%s&#39; % (info.backoff_behavior_left, label))</span>
+            <span class="c1">#     self.add_binary_feature(</span>
+            <span class="c1">#         &#39;B25=%d_%s&#39; % (info.backoff_behavior_middle, label))</span>
+            <span class="c1">#     self.add_binary_feature(</span>
+            <span class="c1">#         &#39;B26=%d_%s&#39; % (info.backoff_behavior_right, label))</span>
+            <span class="c1">#     self.add_binary_feature(</span>
+            <span class="c1">#         &#39;B27=%d_%s&#39; % (info_previous.backoff_behavior_left,</span>
+            <span class="c1">#                        label))</span>
+            <span class="c1">#     self.add_binary_feature(</span>
+            <span class="c1">#         &#39;B28=%d_%s&#39; % (info_previous.backoff_behavior_middle,</span>
+            <span class="c1">#                        label))</span>
+            <span class="c1">#     self.add_binary_feature(</span>
+            <span class="c1">#         &#39;B29=%d_%s&#39; % (info_previous.backoff_behavior_right,</span>
+            <span class="c1">#                        label))</span>
+
+            <span class="k">if</span> <span class="n">use_language_model</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B30=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">source_highest_order_ngram_left</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B31=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">source_highest_order_ngram_right</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B33=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">source_highest_order_ngram_left</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B34=</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">source_highest_order_ngram_right</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;B35=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B36=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">aligned_source_pos_list</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B37=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;B38=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">aligned_source_pos_list</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Conjoined features.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                <span class="s1">&#39;C0=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">left_context</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                <span class="s1">&#39;C1=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">right_context</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                <span class="s1">&#39;C2=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info_previous</span><span class="o">.</span><span class="n">left_context</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                <span class="s1">&#39;C3=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info_previous</span><span class="o">.</span><span class="n">right_context</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">use_trigram_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;D1=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span>
+                        <span class="n">info_previous</span><span class="o">.</span><span class="n">left_context</span><span class="p">,</span>
+                        <span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                        <span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                        <span class="n">label</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;D2=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span>
+                        <span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                        <span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                        <span class="n">info</span><span class="o">.</span><span class="n">right_context</span><span class="p">,</span>
+                        <span class="n">label</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">ignore_source</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;C4=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">first_aligned_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;C5=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span>
+                        <span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                        <span class="n">info_previous</span><span class="o">.</span><span class="n">first_aligned_token</span><span class="p">,</span>
+                        <span class="n">label</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">only_basic_features</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;C6=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">aligned_source_pos_list</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                    <span class="s1">&#39;C7=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                    <span class="o">%</span> <span class="p">(</span>
+                        <span class="n">info_previous</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span>
+                        <span class="n">info_previous</span><span class="o">.</span><span class="n">aligned_source_pos_list</span><span class="p">,</span>
+                        <span class="n">label</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="c1"># Parse features.</span>
+            <span class="k">if</span> <span class="n">use_parse_features</span><span class="p">:</span>
+                <span class="n">head_index</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">target_head</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="n">previous_head_index</span> <span class="o">=</span> <span class="n">info_previous</span><span class="o">.</span><span class="n">target_head</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="n">head_index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">head_info</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span><span class="n">head_index</span><span class="p">]</span>
+                    <span class="n">head_token</span> <span class="o">=</span> <span class="n">head_info</span><span class="o">.</span><span class="n">token</span>
+                    <span class="n">head_pos</span> <span class="o">=</span> <span class="n">head_info</span><span class="o">.</span><span class="n">target_pos</span>
+                    <span class="n">head_morph</span> <span class="o">=</span> <span class="n">head_info</span><span class="o">.</span><span class="n">target_morph</span>
+                <span class="k">elif</span> <span class="n">head_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">head_info</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">head_token</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+                    <span class="n">head_pos</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+                    <span class="n">head_morph</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">head_info</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">head_token</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+                    <span class="n">head_pos</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+                    <span class="n">head_morph</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+                <span class="k">if</span> <span class="n">previous_head_index</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">previous_head_info</span> <span class="o">=</span> <span class="n">sentence_word_features</span><span class="p">[</span>
+                        <span class="n">previous_head_index</span>
+                    <span class="p">]</span>
+                    <span class="n">previous_head_token</span> <span class="o">=</span> <span class="n">previous_head_info</span><span class="o">.</span><span class="n">token</span>
+                    <span class="n">previous_head_pos</span> <span class="o">=</span> <span class="n">previous_head_info</span><span class="o">.</span><span class="n">target_pos</span>
+                    <span class="n">previous_head_morph</span> <span class="o">=</span> <span class="n">previous_head_info</span><span class="o">.</span><span class="n">target_morph</span>
+                <span class="k">elif</span> <span class="n">previous_head_index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">previous_head_info</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">previous_head_token</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+                    <span class="n">previous_head_pos</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+                    <span class="n">previous_head_morph</span> <span class="o">=</span> <span class="s1">&#39;__ROOT__&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">previous_head_info</span> <span class="o">=</span> <span class="kc">None</span>
+                    <span class="n">previous_head_token</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+                    <span class="n">previous_head_pos</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+                    <span class="n">previous_head_morph</span> <span class="o">=</span> <span class="s1">&#39;__START__&#39;</span>
+
+                <span class="n">left_sibling_token</span><span class="p">,</span> <span class="n">left_sibling_pos</span><span class="p">,</span> <span class="n">right_sibling_token</span><span class="p">,</span> <span class="n">right_sibling_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_siblings</span><span class="p">(</span>  <span class="c1"># NOQA</span>
+                    <span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">index</span>
+                <span class="p">)</span>
+
+                <span class="n">previous_left_sibling_token</span><span class="p">,</span> <span class="n">previous_left_sibling_pos</span><span class="p">,</span> <span class="n">previous_right_sibling_token</span><span class="p">,</span> <span class="n">previous_right_sibling_pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_siblings</span><span class="p">(</span>  <span class="c1"># NOQA</span>
+                    <span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">index</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_deprel_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D0=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">target_deprel</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D1=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                            <span class="n">info_previous</span><span class="o">.</span><span class="n">target_deprel</span><span class="p">,</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_head_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D2=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">previous_head_pos</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D3=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">previous_head_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_morph_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D4=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">target_morph</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D5=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info_previous</span><span class="o">.</span><span class="n">target_morph</span><span class="p">,</span>
+                            <span class="n">previous_head_morph</span><span class="p">,</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_split_morphs</span><span class="p">:</span>
+                    <span class="n">all_morphs</span> <span class="o">=</span> <span class="n">info_previous</span><span class="o">.</span><span class="n">target_morph</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+                    <span class="n">all_head_morphs</span> <span class="o">=</span> <span class="n">previous_head_morph</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">all_morphs</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;D6=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+                        <span class="k">for</span> <span class="n">hm</span> <span class="ow">in</span> <span class="n">all_head_morphs</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                                <span class="s1">&#39;D7=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">hm</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                            <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_sibling_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D8=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info_previous</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span>
+                            <span class="n">previous_left_sibling_pos</span><span class="p">,</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D9=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                            <span class="n">previous_left_sibling_token</span><span class="p">,</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D10=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info_previous</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span>
+                            <span class="n">previous_right_sibling_pos</span><span class="p">,</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;D11=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span>
+                            <span class="n">info_previous</span><span class="o">.</span><span class="n">token</span><span class="p">,</span>
+                            <span class="n">previous_right_sibling_token</span><span class="p">,</span>
+                            <span class="n">label</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_deprel_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E0=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_deprel</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E1=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">target_deprel</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_head_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E2=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">head_pos</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E3=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">head_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_morph_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E4=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_morph</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E5=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_morph</span><span class="p">,</span> <span class="n">head_morph</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_split_morphs</span><span class="p">:</span>
+                    <span class="n">all_morphs</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="n">target_morph</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+                    <span class="n">all_head_morphs</span> <span class="o">=</span> <span class="n">head_morph</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">all_morphs</span><span class="p">:</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span><span class="s1">&#39;E6=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+                        <span class="k">for</span> <span class="n">hm</span> <span class="ow">in</span> <span class="n">all_head_morphs</span><span class="p">:</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                                <span class="s1">&#39;E7=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">hm</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                            <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">use_sibling_features</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E8=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">left_sibling_pos</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E9=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">left_sibling_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E10=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">target_pos</span><span class="p">,</span> <span class="n">right_sibling_pos</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">add_binary_feature</span><span class="p">(</span>
+                        <span class="s1">&#39;E11=</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span>
+                        <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">token</span><span class="p">,</span> <span class="n">right_sibling_token</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+                    <span class="p">)</span>
+            <span class="k">if</span> <span class="n">use_stacked_features</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">stacked_features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">stacked_features</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">add_numeric_feature</span><span class="p">(</span><span class="s1">&#39;Z</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">stacked_features</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">info_previous</span><span class="o">.</span><span class="n">stacked_features</span><span class="p">):</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">add_numeric_feature</span><span class="p">(</span><span class="s1">&#39;ZZ</span><span class="si">%d</span><span class="s1">_</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">label</span><span class="p">),</span> <span class="n">value</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_to_cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_cached_features</span><span class="p">()</span>
+            <span class="k">return</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,960 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.lib package &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="kiwi.metrics package" href="kiwi.metrics.html" />
+    <link rel="prev" title="kiwi.data.fieldsets package" href="kiwi.data.fieldsets.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">kiwi</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kiwi.html">kiwi package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="kiwi.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">kiwi</a> &raquo;</li>
+        
+          <li><a href="kiwi.html">kiwi package</a> &raquo;</li>
+        
+      <li>kiwi.lib package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/kiwi.lib.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kiwi-lib-package">
+<h1>kiwi.lib package<a class="headerlink" href="#kiwi-lib-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kiwi.lib.evaluate">
+<span id="kiwi-lib-evaluate-module"></span><h2>kiwi.lib.evaluate module<a class="headerlink" href="#module-kiwi.lib.evaluate" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.lib.evaluate.eval_sentence_level">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">eval_sentence_level</code><span class="sig-paren">(</span><em>sent_gold</em>, <em>sent_preds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#eval_sentence_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.eval_sentence_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.eval_word_level">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">eval_word_level</code><span class="sig-paren">(</span><em>golds</em>, <em>pred_files</em>, <em>tag_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#eval_word_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.eval_word_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.evaluate_from_options">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">evaluate_from_options</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#evaluate_from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.evaluate_from_options" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Evaluates a model’s predictions based on the flags received from</dt>
+<dd>the configuration files. Refer to configuration for a list of</dd>
+</dl>
+<p>available configuration flags for the evaluate pipeline.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>Namespace</em>) – Namespace containing all pipeline options</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.print_scores_table">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">print_scores_table</code><span class="sig-paren">(</span><em>scores</em>, <em>prefix='TARGET'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#print_scores_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.print_scores_table" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.print_sentences_ranking_table">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">print_sentences_ranking_table</code><span class="sig-paren">(</span><em>scores</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#print_sentences_ranking_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.print_sentences_ranking_table" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.print_sentences_scoring_table">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">print_sentences_scoring_table</code><span class="sig-paren">(</span><em>scores</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#print_sentences_scoring_table"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.print_sentences_scoring_table" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.retrieve_gold_standard">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">retrieve_gold_standard</code><span class="sig-paren">(</span><em>pipeline_options</em>, <em>is_wmt18_format</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#retrieve_gold_standard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.retrieve_gold_standard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.retrieve_predictions">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">retrieve_predictions</code><span class="sig-paren">(</span><em>pipeline_options</em>, <em>is_wmt18_pred_format</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#retrieve_predictions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.retrieve_predictions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.retrieve_sentence_predictions">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">retrieve_sentence_predictions</code><span class="sig-paren">(</span><em>pipeline_options</em>, <em>pred_files</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#retrieve_sentence_predictions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.retrieve_sentence_predictions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.score_sentence_level">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">score_sentence_level</code><span class="sig-paren">(</span><em>gold</em>, <em>pred</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#score_sentence_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.score_sentence_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.score_word_level">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">score_word_level</code><span class="sig-paren">(</span><em>gold</em>, <em>prediction</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#score_word_level"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.score_word_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.setup">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">setup</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.evaluate.teardown">
+<code class="descclassname">kiwi.lib.evaluate.</code><code class="descname">teardown</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/evaluate.html#teardown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.evaluate.teardown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.lib.jackknife">
+<span id="kiwi-lib-jackknife-module"></span><h2>kiwi.lib.jackknife module<a class="headerlink" href="#module-kiwi.lib.jackknife" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.lib.jackknife.average_all">
+<code class="descclassname">kiwi.lib.jackknife.</code><code class="descname">average_all</code><span class="sig-paren">(</span><em>predictions</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/jackknife.html#average_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.jackknife.average_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.jackknife.average_predictions">
+<code class="descclassname">kiwi.lib.jackknife.</code><code class="descname">average_predictions</code><span class="sig-paren">(</span><em>ensemble</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/jackknife.html#average_predictions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.jackknife.average_predictions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Average an ensemble of predictions.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.jackknife.reshape_by_lengths">
+<code class="descclassname">kiwi.lib.jackknife.</code><code class="descname">reshape_by_lengths</code><span class="sig-paren">(</span><em>sequence</em>, <em>lengths</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/jackknife.html#reshape_by_lengths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.jackknife.reshape_by_lengths" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.jackknife.run">
+<code class="descclassname">kiwi.lib.jackknife.</code><code class="descname">run</code><span class="sig-paren">(</span><em>ModelClass</em>, <em>output_dir</em>, <em>pipeline_options</em>, <em>model_options</em>, <em>splits</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/jackknife.html#run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.jackknife.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.jackknife.run_from_options">
+<code class="descclassname">kiwi.lib.jackknife.</code><code class="descname">run_from_options</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/jackknife.html#run_from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.jackknife.run_from_options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.jackknife.teardown">
+<code class="descclassname">kiwi.lib.jackknife.</code><code class="descname">teardown</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/jackknife.html#teardown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.jackknife.teardown" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.lib.predict">
+<span id="kiwi-lib-predict-module"></span><h2>kiwi.lib.predict module<a class="headerlink" href="#module-kiwi.lib.predict" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.lib.predict.load_model">
+<code class="descclassname">kiwi.lib.predict.</code><code class="descname">load_model</code><span class="sig-paren">(</span><em>model_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/predict.html#load_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.predict.load_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a pretrained model into a <cite>Predicter</cite> object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>load_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – A path to the saved model file.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Throws:</dt>
+<dd>Exception: If the path does not exist, or is not a valid model file.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.predict.predict_from_options">
+<code class="descclassname">kiwi.lib.predict.</code><code class="descname">predict_from_options</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/predict.html#predict_from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.predict.predict_from_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses the configuration options to run the prediction pipeline.
+Iteratively calls <cite>setup</cite>, <cite>run</cite> and <cite>teardown</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>Namespace</em>) – Namespace containing all parsed options.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.predict.run">
+<code class="descclassname">kiwi.lib.predict.</code><code class="descname">run</code><span class="sig-paren">(</span><em>ModelClass</em>, <em>output_dir</em>, <em>pipeline_opts</em>, <em>model_opts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/predict.html#run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.predict.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the prediction pipeline. Loads the model and necessary files
+and creates the model’s predictions for all data received.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ModelClass</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.7)"><em>type</em></a>) – Python Type of the Model to train</li>
+<li><strong>output_dir</strong> – Directory to save predictions</li>
+<li><strong>pipeline_options</strong> (<em>Namespace</em>) – Generic predict Options
+batch_size: Max batch size for predicting</li>
+<li><strong>model_options</strong> (<em>Namespace</em>) – Model Specific options</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary with format {‘target’:predictions}</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Predictions (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.predict.setup">
+<code class="descclassname">kiwi.lib.predict.</code><code class="descname">setup</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/predict.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.predict.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyze pipeline options and set up requirements to running
+the prediction pipeline. This includes setting up the output
+directory, random seeds and the device where predictions are run.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>Namespace</em>) – Pipeline specific options</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Path to output directory</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">output_dir(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.predict.teardown">
+<code class="descclassname">kiwi.lib.predict.</code><code class="descname">teardown</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/predict.html#teardown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.predict.teardown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tears down after executing prediction pipeline.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>Namespace</em>) – Pipeline specific options</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.lib.search">
+<span id="kiwi-lib-search-module"></span><h2>kiwi.lib.search module<a class="headerlink" href="#module-kiwi.lib.search" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.lib.search.get_action">
+<code class="descclassname">kiwi.lib.search.</code><code class="descname">get_action</code><span class="sig-paren">(</span><em>option</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/search.html#get_action"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.search.get_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.search.main">
+<code class="descclassname">kiwi.lib.search.</code><code class="descname">main</code><span class="sig-paren">(</span><em>argv=None</em>, <em>external_options=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/search.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.search.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.search.run">
+<code class="descclassname">kiwi.lib.search.</code><code class="descname">run</code><span class="sig-paren">(</span><em>options</em>, <em>extra_options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/search.html#run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.search.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.search.split_options">
+<code class="descclassname">kiwi.lib.search.</code><code class="descname">split_options</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/search.html#split_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.search.split_options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.lib.train">
+<span id="kiwi-lib-train-module"></span><h2>kiwi.lib.train module<a class="headerlink" href="#module-kiwi.lib.train" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.lib.train.TrainRunInfo">
+<em class="property">class </em><code class="descclassname">kiwi.lib.train.</code><code class="descname">TrainRunInfo</code><span class="sig-paren">(</span><em>trainer</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#TrainRunInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.TrainRunInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Encapsulates relevant information on training runs.</p>
+<p>Can be instantiated with a trainer object.</p>
+<dl class="attribute">
+<dt id="kiwi.lib.train.TrainRunInfo.stats">
+<code class="descname">stats</code><a class="headerlink" href="#kiwi.lib.train.TrainRunInfo.stats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stats of the best model so far</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.lib.train.TrainRunInfo.model_path">
+<code class="descname">model_path</code><a class="headerlink" href="#kiwi.lib.train.TrainRunInfo.model_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path of the best model so far</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.lib.train.TrainRunInfo.run_uuid">
+<code class="descname">run_uuid</code><a class="headerlink" href="#kiwi.lib.train.TrainRunInfo.run_uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unique identifier of the current run</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.train.log">
+<code class="descclassname">kiwi.lib.train.</code><code class="descname">log</code><span class="sig-paren">(</span><em>output_dir</em>, <em>config_options</em>, <em>config_file_name='train_config.yml'</em>, <em>save_config=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs configuration options for the current training run.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to directory where experiment files should be
+saved.</li>
+<li><strong>config_options</strong> (<em>Namespace</em>) – Namespace representing all configuration
+options.</li>
+<li><strong>config_file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filename of the config file</li>
+<li><strong>save_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Path</em>) – Boolean stating if you should save a
+configuration file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.train.retrieve_datasets">
+<code class="descclassname">kiwi.lib.train.</code><code class="descname">retrieve_datasets</code><span class="sig-paren">(</span><em>fieldset</em>, <em>pipeline_options</em>, <em>model_options</em>, <em>output_dir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#retrieve_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.retrieve_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates <cite>Dataset</cite> objects for the training and validation sets.</p>
+<p>Parses files according to pipeline and model options.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fieldset</strong> – </li>
+<li><strong>pipeline_options</strong> (<em>Namespace</em>) – <p>Generic training options
+load_data (str): Input directory for loading preprocessed data</p>
+<blockquote>
+<div>files.</div></blockquote>
+<dl class="docutils">
+<dt>load_model (str): Directory containing model.torch for loading</dt>
+<dd>pre-created model.</dd>
+<dt>resume (boolean): Indicates if you should resume training from a</dt>
+<dd>previous run.</dd>
+<dt>load_vocab (str): Directory containing vocab.torch file to be</dt>
+<dd>loaded.</dd>
+</dl>
+</li>
+<li><strong>model_options</strong> (<em>Namespace</em>) – Model specific options.</li>
+<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to directory where experiment files should be
+saved.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Training and validation datasets</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">datasets (Dataset)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.train.retrieve_trainer">
+<code class="descclassname">kiwi.lib.train.</code><code class="descname">retrieve_trainer</code><span class="sig-paren">(</span><em>ModelClass</em>, <em>pipeline_options</em>, <em>model_options</em>, <em>vocabs</em>, <em>output_dir</em>, <em>device_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#retrieve_trainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.retrieve_trainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Trainer object with an associated model.</p>
+<p>This object encapsulates the logic behind training the model and
+checkpointing. This method uses the received pipeline options to
+instantiate a Trainer object with the the requested model and
+hyperparameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ModelClass</strong> – </li>
+<li><strong>pipeline_options</strong> (<em>Namespace</em>) – <p>Generic training options
+resume (bool): Set to true if resuming an existing run.
+load_model (str): Directory containing model.torch for loading</p>
+<blockquote>
+<div>pre-created model.</div></blockquote>
+<dl class="docutils">
+<dt>checkpoint_save (bool): Boolean indicating if snapshots should be</dt>
+<dd>saved after validation runs. warning: if false, will never save
+the model.</dd>
+<dt>checkpoint_keep_only_best (int): Indicates kiwi to keep the best</dt>
+<dd><cite>n</cite> models.</dd>
+<dt>checkpoint_early_stop_patience (int): Stops training if metrics</dt>
+<dd>don’t improve after <cite>n</cite> validation runs.</dd>
+<dt>checkpoint_validation_steps (int): Perform validation every <cite>n</cite></dt>
+<dd>training steps.</dd>
+</dl>
+<p>optimizer (string): The optimizer to be used in training.
+learning_rate (float): Starting learning rate.
+learning_rate_decay (float): Factor of learning rate decay.
+learning_rate_decay_start (int): Start decay after epoch <cite>x</cite>.
+log_interval (int): Log after <cite>k</cite> batches.</p>
+</li>
+<li><strong>model_options</strong> (<em>Namespace</em>) – Model specific options.</li>
+<li><strong>vocabs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Vocab dictionary.</li>
+<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Path</em>) – Output directory for models and stats
+concerning training.</li>
+<li><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The gpu id to be used in training. Set to negative
+to use cpu.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">Trainer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.train.run">
+<code class="descclassname">kiwi.lib.train.</code><code class="descname">run</code><span class="sig-paren">(</span><em>ModelClass</em>, <em>output_dir</em>, <em>pipeline_options</em>, <em>model_options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Implements the main logic of the training module.</p>
+<p>Instantiates the dataset, model class and sets their attributes according
+to the pipeline options received. Loads or creates a trainer and runs it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ModelClass</strong> (<a class="reference internal" href="kiwi.models.html#kiwi.models.model.Model" title="kiwi.models.model.Model"><em>Model</em></a>) – Python Type of the Model to train</li>
+<li><strong>output_dir</strong> – Directory to save models</li>
+<li><strong>pipeline_options</strong> (<em>Namespace</em>) – Generic Train Options
+load_model: load pre-trained predictor model
+resume: load trainer state and resume training
+gpu_id: Set to non-negative integer to train on GPU
+train_batch_size: Batch Size for training
+valid_batch_size: Batch size for validation</li>
+<li><strong>model_options</strong> (<em>Namespace</em>) – Model Specific options</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The trainer object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.train.setup">
+<code class="descclassname">kiwi.lib.train.</code><code class="descname">setup</code><span class="sig-paren">(</span><em>output_dir</em>, <em>seed=42</em>, <em>gpu_id=None</em>, <em>debug=False</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Analyzes pipeline options and sets up requirements for running the training
+pipeline.</p>
+<p>This includes setting up the output directory, random seeds and the
+device(s) where training is run.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>output_dir</strong> – Path to directory to use or None, in which case one is
+created automatically.</li>
+<li><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Random seed for all random engines (Python, PyTorch, NumPy).</li>
+<li><strong>gpu_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – GPU number to use or <cite>None</cite> to use the CPU.</li>
+<li><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to increase the verbosity of output messages.</li>
+<li><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to decrease the verbosity of output messages.
+Takes precedence over <cite>debug</cite>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Path to output directory</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">output_dir(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.train.teardown">
+<code class="descclassname">kiwi.lib.train.</code><code class="descname">teardown</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#teardown"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.teardown" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tears down after executing prediction pipeline.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>Namespace</em>) – Pipeline specific options</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.train.train_from_file">
+<code class="descclassname">kiwi.lib.train.</code><code class="descname">train_from_file</code><span class="sig-paren">(</span><em>filename</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#train_from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.train_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads options from a config file and calls the training procedure.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename of the configuration file</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.train.train_from_options">
+<code class="descclassname">kiwi.lib.train.</code><code class="descname">train_from_options</code><span class="sig-paren">(</span><em>options</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#train_from_options"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.train_from_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the entire training pipeline using the configuration options received.</p>
+<p>These options include the pipeline and model options plus the model’s API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>options</strong> (<em>Namespace</em>) – All the configuration options retrieved
+from either a config file or input flags and the model
+being used.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.lib.utils">
+<span id="kiwi-lib-utils-module"></span><h2>kiwi.lib.utils module<a class="headerlink" href="#module-kiwi.lib.utils" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="kiwi.lib.utils.configure_device">
+<code class="descclassname">kiwi.lib.utils.</code><code class="descname">configure_device</code><span class="sig-paren">(</span><em>gpu_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/utils.html#configure_device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.utils.configure_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure gpu to be used in computation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gpu_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the gpu to be used</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.utils.configure_logging">
+<code class="descclassname">kiwi.lib.utils.</code><code class="descname">configure_logging</code><span class="sig-paren">(</span><em>output_dir=None</em>, <em>debug=False</em>, <em>quiet=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/utils.html#configure_logging"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.utils.configure_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the logger. Sets up the log format, logging level
+and output directory of logging.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output_dir</strong> – The directory where log output will be stored.
+Defaults to None.</li>
+<li><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Change logging level to debug.</li>
+<li><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Change logging level to warning to supress info logs.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.utils.configure_seed">
+<code class="descclassname">kiwi.lib.utils.</code><code class="descname">configure_seed</code><span class="sig-paren">(</span><em>seed</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/utils.html#configure_seed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.utils.configure_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the random seed for all relevant packages.
+These include: random, numpy, torch and torch.cuda</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – the random seed to be set</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.utils.merge_namespaces">
+<code class="descclassname">kiwi.lib.utils.</code><code class="descname">merge_namespaces</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/utils.html#merge_namespaces"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.utils.merge_namespaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility function used to merge Namespaces. Useful for merging Argparse
+options.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>*args</strong> – Variable length list of Namespaces</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.utils.parse_integer_with_positive_infinity">
+<code class="descclassname">kiwi.lib.utils.</code><code class="descname">parse_integer_with_positive_infinity</code><span class="sig-paren">(</span><em>string</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/utils.html#parse_integer_with_positive_infinity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.utils.parse_integer_with_positive_infinity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Workaround to be able to pass both integers and infinity as CLAs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string</strong> – A string representation of an integer, or infinity</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.utils.save_args_to_file">
+<code class="descclassname">kiwi.lib.utils.</code><code class="descname">save_args_to_file</code><span class="sig-paren">(</span><em>file_name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/utils.html#save_args_to_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.utils.save_args_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves <cite>**kwargs</cite> to a file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the file where the args should
+be saved in.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.utils.save_config_file">
+<code class="descclassname">kiwi.lib.utils.</code><code class="descname">save_config_file</code><span class="sig-paren">(</span><em>options</em>, <em>file_name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/utils.html#save_config_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.utils.save_config_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves a configuration file with OpenKiwi configuration options.
+Calls <cite>save_args_to_file</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>options</strong> (<em>Namespace</em>) – Namespace with all configuration options
+that should be saved.</li>
+<li><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the output configuration file.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.lib.utils.setup_output_directory">
+<code class="descclassname">kiwi.lib.utils.</code><code class="descname">setup_output_directory</code><span class="sig-paren">(</span><em>output_dir</em>, <em>run_uuid=None</em>, <em>experiment_id=None</em>, <em>create=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/utils.html#setup_output_directory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.utils.setup_output_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets up the output directory. This means either creating one, or
+verifying that the provided directory exists. Output directories
+are created using the run and experiment ids.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The target output directory</li>
+<li><strong>run_uuid</strong> – The current hash of the current run.</li>
+<li><strong>experiment_id</strong> – The id of the current experiment</li>
+<li><strong>create</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Boolean indicating whether to create a new folder.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.lib">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kiwi.lib" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kiwi.metrics.html" class="btn btn-neutral float-right" title="kiwi.metrics package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kiwi.data.fieldsets.html" class="btn btn-neutral float-left" title="kiwi.data.fieldsets package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

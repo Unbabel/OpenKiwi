@@ -1,0 +1,86 @@
+kiwi.data package
+=================
+
+Subpackages
+-----------
+
+.. toctree::
+
+    kiwi.data.fields
+    kiwi.data.fieldsets
+
+Submodules
+----------
+
+kiwi.data.builders module
+-------------------------
+
+.. automodule:: kiwi.data.builders
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.corpus module
+-----------------------
+
+.. automodule:: kiwi.data.corpus
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.iterators module
+--------------------------
+
+.. automodule:: kiwi.data.iterators
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.qe\_dataset module
+----------------------------
+
+.. automodule:: kiwi.data.qe_dataset
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.tokenizers module
+---------------------------
+
+.. automodule:: kiwi.data.tokenizers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.utils module
+----------------------
+
+.. automodule:: kiwi.data.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.vectors module
+------------------------
+
+.. automodule:: kiwi.data.vectors
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.data.vocabulary module
+---------------------------
+
+.. automodule:: kiwi.data.vocabulary
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.data
+    :members:
+    :undoc-members:
+    :show-inheritance:

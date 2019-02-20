@@ -1,0 +1,62 @@
+kiwi.lib package
+================
+
+Submodules
+----------
+
+kiwi.lib.evaluate module
+------------------------
+
+.. automodule:: kiwi.lib.evaluate
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.lib.jackknife module
+-------------------------
+
+.. automodule:: kiwi.lib.jackknife
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.lib.predict module
+-----------------------
+
+.. automodule:: kiwi.lib.predict
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.lib.search module
+----------------------
+
+.. automodule:: kiwi.lib.search
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.lib.train module
+---------------------
+
+.. automodule:: kiwi.lib.train
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+kiwi.lib.utils module
+---------------------
+
+.. automodule:: kiwi.lib.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: kiwi.lib
+    :members:
+    :undoc-members:
+    :show-inheritance:

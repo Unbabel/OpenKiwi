@@ -1,0 +1,742 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.models.linear_word_qe_classifier &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../../../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>kiwi.models.linear_word_qe_classifier</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kiwi.models.linear_word_qe_classifier</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;This is the main script for the linear sequential word-based quality</span>
+<span class="sd">estimator.&quot;&quot;&quot;</span>
+<span class="c1">#  OpenKiwi: Open-Source Machine Translation Quality Estimation</span>
+<span class="c1">#  Copyright (C) 2019 Unbabel &lt;openkiwi@unbabel.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#  it under the terms of the GNU Affero General Public License as published</span>
+<span class="c1">#  by the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#  (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1">#  along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">kiwi</span> <span class="k">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">const</span>
+<span class="kn">from</span> <span class="nn">kiwi.data.fieldsets.linear</span> <span class="k">import</span> <span class="n">build_fieldset</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.linear.label_dictionary</span> <span class="k">import</span> <span class="n">LabelDictionary</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.linear.linear_word_qe_decoder</span> <span class="k">import</span> <span class="n">LinearWordQEDecoder</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.linear.linear_word_qe_features</span> <span class="k">import</span> <span class="n">LinearWordQEFeatures</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.linear.linear_word_qe_sentence</span> <span class="k">import</span> <span class="n">LinearWordQESentence</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.linear.sequence_parts</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">SequenceBigramPart</span><span class="p">,</span>
+    <span class="n">SequenceUnigramPart</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.linear.structured_classifier</span> <span class="k">import</span> <span class="n">StructuredClassifier</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="LinearWordQEClassifier"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier">[docs]</a><span class="k">class</span> <span class="nc">LinearWordQEClassifier</span><span class="p">(</span><span class="n">StructuredClassifier</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Main class for the word-level quality estimator. Inherits from a</span>
+<span class="sd">    general structured classifier.&quot;&quot;&quot;</span>
+
+    <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Linear Model&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">use_basic_features_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">use_bigrams</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">use_simple_bigram_features</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">use_parse_features</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">use_stacked_features</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">evaluation_metric</span><span class="o">=</span><span class="s1">&#39;f1_bad&#39;</span><span class="p">,</span>
+        <span class="n">cost_false_positives</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+        <span class="n">cost_false_negatives</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span> <span class="o">=</span> <span class="n">LinearWordQEDecoder</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">cost_false_positives</span><span class="p">,</span> <span class="n">cost_false_negatives</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">LabelDictionary</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_basic_features_only</span> <span class="o">=</span> <span class="n">use_basic_features_only</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_bigrams</span> <span class="o">=</span> <span class="n">use_bigrams</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_simple_bigram_features</span> <span class="o">=</span> <span class="n">use_simple_bigram_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_parse_features</span> <span class="o">=</span> <span class="n">use_parse_features</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_stacked_features</span> <span class="o">=</span> <span class="n">use_stacked_features</span>
+
+        <span class="c1"># Evaluation.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evaluation_metric</span> <span class="o">=</span> <span class="n">evaluation_metric</span>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.fieldset"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.fieldset">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">fieldset</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">build_fieldset</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.from_options"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.from_options">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_options</span><span class="p">(</span><span class="n">vocabs</span><span class="p">,</span> <span class="n">opts</span><span class="p">):</span>
+        <span class="n">use_parse_features</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">train_target_parse</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="n">use_stacked_features</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">opts</span><span class="o">.</span><span class="n">train_target_stacked</span> <span class="k">else</span> <span class="kc">False</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LinearWordQEClassifier</span><span class="p">(</span>
+            <span class="n">use_basic_features_only</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">use_basic_features_only</span><span class="p">,</span>
+            <span class="n">use_bigrams</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">use_bigrams</span><span class="p">,</span>
+            <span class="n">use_simple_bigram_features</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">use_simple_bigram_features</span><span class="p">,</span>
+            <span class="n">use_parse_features</span><span class="o">=</span><span class="n">use_parse_features</span><span class="p">,</span>
+            <span class="n">use_stacked_features</span><span class="o">=</span><span class="n">use_stacked_features</span><span class="p">,</span>
+            <span class="n">evaluation_metric</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">evaluation_metric</span><span class="p">,</span>
+            <span class="n">cost_false_positives</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">cost_false_positives</span><span class="p">,</span>
+            <span class="n">cost_false_negatives</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">cost_false_negatives</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.num_parameters"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.num_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">num_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span></div>
+
+    <span class="c1"># -- END of new methods --</span>
+
+    <span class="c1"># TODO: Eliminate this function.</span>
+<div class="viewcode-block" id="LinearWordQEClassifier.get_coarse_label"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.get_coarse_label">[docs]</a>    <span class="k">def</span> <span class="nf">get_coarse_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the coarse part of a fine-grained label. The coarse label is the</span>
+<span class="sd">        prefix before the underscore (if any). For example, the coarse part of</span>
+<span class="sd">        BAD_SUB, BAD_DEL, and BAD is BAD.&quot;&quot;&quot;</span>
+        <span class="n">sep</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sep</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">coarse_label</span> <span class="o">=</span> <span class="n">label</span><span class="p">[:</span><span class="n">sep</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">coarse_label</span> <span class="o">=</span> <span class="n">label</span>
+        <span class="k">return</span> <span class="n">coarse_label</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.create_instances"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.create_instances">[docs]</a>    <span class="k">def</span> <span class="nf">create_instances</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="p">):</span>
+        <span class="n">instances</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">num_words</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
+            <span class="n">sentence</span> <span class="o">=</span> <span class="n">LinearWordQESentence</span><span class="p">()</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">example</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span>
+                    <span class="n">label_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">get_label_id</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">label_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label_id</span><span class="p">)</span>
+            <span class="n">sentence</span><span class="o">.</span><span class="n">create_from_sentence_pair</span><span class="p">(</span>
+                <span class="n">source_words</span><span class="o">=</span><span class="n">example</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
+                <span class="n">target_words</span><span class="o">=</span><span class="n">example</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>
+                <span class="n">alignments</span><span class="o">=</span><span class="n">example</span><span class="o">.</span><span class="n">alignments</span><span class="p">,</span>
+                <span class="n">source_pos_tags</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">SOURCE_POS</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="n">target_pos_tags</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">TARGET_POS</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+                <span class="n">target_parse_heads</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">example</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">TARGET_PARSE_HEADS</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="p">),</span>
+                <span class="n">target_parse_relations</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">example</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">TARGET_PARSE_RELATIONS</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="p">),</span>
+                <span class="n">target_ngram_left</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">example</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">TARGET_NGRAM_LEFT</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="p">),</span>
+                <span class="n">target_ngram_right</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">example</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">TARGET_NGRAM_RIGHT</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="p">),</span>
+                <span class="n">target_stacked_features</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">example</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">TARGET_STACKED</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="p">),</span>
+                <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">instances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+            <span class="n">num_words</span> <span class="o">+=</span> <span class="n">sentence</span><span class="o">.</span><span class="n">num_words</span><span class="p">()</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Number of sentences: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Number of words: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">num_words</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Number of labels: </span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">instances</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.make_parts"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.make_parts">[docs]</a>    <span class="k">def</span> <span class="nf">make_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates the parts (unigrams and bigrams) for an instance.&quot;&quot;&quot;</span>
+        <span class="n">gold_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">parts</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">make_gold</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">word_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">num_words</span><span class="p">()):</span>
+            <span class="k">for</span> <span class="n">label_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)):</span>
+                <span class="n">part</span> <span class="o">=</span> <span class="n">SequenceUnigramPart</span><span class="p">(</span><span class="n">word_index</span><span class="p">,</span> <span class="n">label_id</span><span class="p">)</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">make_gold</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">label_id</span> <span class="o">==</span> <span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_labels</span><span class="p">[</span><span class="n">word_index</span><span class="p">]:</span>
+                        <span class="n">gold_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">gold_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_bigrams</span><span class="p">:</span>
+            <span class="c1"># First word.</span>
+            <span class="k">for</span> <span class="n">label_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)):</span>
+                <span class="n">part</span> <span class="o">=</span> <span class="n">SequenceBigramPart</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">label_id</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">make_gold</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">label_id</span> <span class="o">==</span> <span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="n">gold_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">gold_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="c1"># Intermediate word.</span>
+            <span class="k">for</span> <span class="n">word_index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">instance</span><span class="o">.</span><span class="n">num_words</span><span class="p">()):</span>
+                <span class="k">for</span> <span class="n">label_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)):</span>
+                    <span class="k">for</span> <span class="n">previous_label_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)):</span>
+                        <span class="n">part</span> <span class="o">=</span> <span class="n">SequenceBigramPart</span><span class="p">(</span>
+                            <span class="n">word_index</span><span class="p">,</span> <span class="n">label_id</span><span class="p">,</span> <span class="n">previous_label_id</span>
+                        <span class="p">)</span>
+                        <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">make_gold</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="p">(</span>
+                                <span class="n">label_id</span>
+                                <span class="o">==</span> <span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_labels</span><span class="p">[</span><span class="n">word_index</span><span class="p">]</span>
+                                <span class="ow">and</span> <span class="n">previous_label_id</span>
+                                <span class="o">==</span> <span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_labels</span><span class="p">[</span><span class="n">word_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+                            <span class="p">):</span>
+                                <span class="n">gold_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+                            <span class="k">else</span><span class="p">:</span>
+                                <span class="n">gold_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+            <span class="c1"># Last word.</span>
+            <span class="k">for</span> <span class="n">previous_label_id</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">)):</span>
+                <span class="n">part</span> <span class="o">=</span> <span class="n">SequenceBigramPart</span><span class="p">(</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">num_words</span><span class="p">(),</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">previous_label_id</span>
+                <span class="p">)</span>
+                <span class="n">parts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">make_gold</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="p">(</span>
+                        <span class="n">previous_label_id</span>
+                        <span class="o">==</span> <span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_labels</span><span class="p">[</span>
+                            <span class="n">instance</span><span class="o">.</span><span class="n">num_words</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span>
+                        <span class="p">]</span>
+                    <span class="p">):</span>
+                        <span class="n">gold_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">gold_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">make_gold</span><span class="p">:</span>
+            <span class="n">gold_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">gold_list</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">parts</span><span class="p">,</span> <span class="n">gold_array</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">parts</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.make_features"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.make_features">[docs]</a>    <span class="k">def</span> <span class="nf">make_features</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">parts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a feature vector for each part.&quot;&quot;&quot;</span>
+        <span class="n">features</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">part</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
+            <span class="n">part_features</span> <span class="o">=</span> <span class="n">LinearWordQEFeatures</span><span class="p">(</span>
+                <span class="n">use_basic_features_only</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_basic_features_only</span><span class="p">,</span>
+                <span class="n">use_simple_bigram_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_simple_bigram_features</span><span class="p">,</span>
+                <span class="n">use_parse_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_parse_features</span><span class="p">,</span>
+                <span class="n">use_stacked_features</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">use_stacked_features</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">SequenceUnigramPart</span><span class="p">):</span>
+                <span class="n">part_features</span><span class="o">.</span><span class="n">compute_unigram_features</span><span class="p">(</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">part</span>
+                <span class="p">)</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">SequenceBigramPart</span><span class="p">):</span>
+                <span class="n">part_features</span><span class="o">.</span><span class="n">compute_bigram_features</span><span class="p">(</span>
+                    <span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_features</span><span class="p">,</span> <span class="n">part</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+            <span class="n">features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">part_features</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">features</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.label_instance"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.label_instance">[docs]</a>    <span class="k">def</span> <span class="nf">label_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">predicted_output</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a labeled instance by adding the predicted output</span>
+<span class="sd">        information.&quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;This does not seem to be called&#39;</span>
+        <span class="n">labeled_instance</span> <span class="o">=</span> <span class="n">LinearWordQESentence</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">sentence</span><span class="p">)</span>
+        <span class="n">labeled_instance</span><span class="o">.</span><span class="n">sentence_word_features</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_features</span>
+        <span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">num_words</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">SequenceUnigramPart</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">predicted_output</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="n">predictions</span><span class="p">[</span><span class="n">part</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">label</span>
+        <span class="n">labeled_instance</span><span class="o">.</span><span class="n">sentence_word_labels</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">get_label_name</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span> <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">predictions</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">labeled_instance</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.create_prediction"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.create_prediction">[docs]</a>    <span class="k">def</span> <span class="nf">create_prediction</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">parts</span><span class="p">,</span> <span class="n">predicted_output</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates a list of word-level predictions for a sentence.</span>
+<span class="sd">        For compliance with probabilities, it returns 1 if label is BAD, 0 if</span>
+<span class="sd">        OK.&quot;&quot;&quot;</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">num_words</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">part</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">parts</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">part</span><span class="p">,</span> <span class="n">SequenceUnigramPart</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">predicted_output</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">:</span>
+                <span class="n">predictions</span><span class="p">[</span><span class="n">part</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">part</span><span class="o">.</span><span class="n">label</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">const</span><span class="o">.</span><span class="n">BAD</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">get_label_name</span><span class="p">(</span><span class="n">pred</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">pred</span> <span class="ow">in</span> <span class="n">predictions</span>
+        <span class="p">]</span>
+        <span class="k">return</span> <span class="n">predictions</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.test"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.test">[docs]</a>    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Run the model on test data.&quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Testing...&#39;</span><span class="p">)</span>
+        <span class="n">predictions</span> <span class="o">=</span> <span class="n">StructuredClassifier</span><span class="o">.</span><span class="n">test</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">predictions</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.evaluate"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instances</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">print_scores</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Evaluates the model&#39;s accuracy and F1-BAD score.&quot;&quot;&quot;</span>
+        <span class="n">all_predictions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">word_predictions</span> <span class="ow">in</span> <span class="n">predictions</span><span class="p">:</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">const</span><span class="o">.</span><span class="n">BAD</span> <span class="k">if</span> <span class="n">prediction</span> <span class="k">else</span> <span class="n">const</span><span class="o">.</span><span class="n">OK</span>
+                <span class="k">for</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="n">word_predictions</span>
+            <span class="p">]</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">label</span><span class="p">])</span> <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">]</span>
+            <span class="n">all_predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+
+        <span class="c1"># TODO: Get rid of fine-grained labels.</span>
+        <span class="c1"># Allow fine-grained labels. Their names should be a coarse-grained</span>
+        <span class="c1"># label, followed by an underscore, followed by a sub-label.</span>
+        <span class="c1"># For example, BAD_SUB or BAD_DEL are two instances of bad labels.</span>
+        <span class="n">fine_to_coarse</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">coarse_labels</span> <span class="o">=</span> <span class="n">LabelDictionary</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span>
+            <span class="n">coarse_label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_coarse_label</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">coarse_label</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">coarse_labels</span><span class="p">:</span>
+                <span class="n">lid</span> <span class="o">=</span> <span class="n">coarse_labels</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">coarse_label</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">lid</span> <span class="o">=</span> <span class="n">coarse_labels</span><span class="p">[</span><span class="n">coarse_label</span><span class="p">]</span>
+            <span class="n">fine_to_coarse</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">[</span><span class="n">label</span><span class="p">]]</span> <span class="o">=</span> <span class="n">lid</span>
+
+        <span class="c1"># Iterate through sentences and compare gold values with predicted</span>
+        <span class="c1"># values. Update counts.</span>
+        <span class="n">num_matched</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">num_matched_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coarse_labels</span><span class="p">))</span>
+        <span class="n">num_predicted</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">num_predicted_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coarse_labels</span><span class="p">))</span>
+        <span class="n">num_gold_labels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coarse_labels</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">all_predictions</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">instance</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">instances</span><span class="p">):</span>
+            <span class="n">predictions</span> <span class="o">=</span> <span class="n">all_predictions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_labels</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">predictions</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">predictions</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">fine_to_coarse</span><span class="p">[</span><span class="n">predictions</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+                    <span class="o">==</span> <span class="n">fine_to_coarse</span><span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_labels</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+                <span class="p">):</span>
+                    <span class="n">num_matched</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">num_predicted</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">fine_to_coarse</span><span class="p">[</span><span class="n">predictions</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+                    <span class="o">==</span> <span class="n">fine_to_coarse</span><span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_labels</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+                <span class="p">):</span>
+                    <span class="n">num_matched_labels</span><span class="p">[</span><span class="n">fine_to_coarse</span><span class="p">[</span><span class="n">predictions</span><span class="p">[</span><span class="n">j</span><span class="p">]]]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">num_predicted_labels</span><span class="p">[</span><span class="n">fine_to_coarse</span><span class="p">[</span><span class="n">predictions</span><span class="p">[</span><span class="n">j</span><span class="p">]]]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">num_gold_labels</span><span class="p">[</span>
+                    <span class="n">fine_to_coarse</span><span class="p">[</span><span class="n">instance</span><span class="o">.</span><span class="n">sentence_word_labels</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span>
+                <span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">acc</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_matched</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_predicted</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Accuracy: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">acc</span><span class="p">)</span>
+
+        <span class="c1"># We allow multiple bad labels. They should be named BAD*.</span>
+        <span class="n">bad</span> <span class="o">=</span> <span class="n">coarse_labels</span><span class="p">[</span><span class="s1">&#39;BAD&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">num_matched_labels</span><span class="p">[</span><span class="n">bad</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">f1_bad</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">precision_bad</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_matched_labels</span><span class="p">[</span><span class="n">bad</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span>
+                <span class="n">num_predicted_labels</span><span class="p">[</span><span class="n">bad</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">recall_bad</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_matched_labels</span><span class="p">[</span><span class="n">bad</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span>
+                <span class="n">num_gold_labels</span><span class="p">[</span><span class="n">bad</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">f1_bad</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="mi">2</span> <span class="o">*</span> <span class="n">precision_bad</span> <span class="o">*</span> <span class="n">recall_bad</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision_bad</span> <span class="o">+</span> <span class="n">recall_bad</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;# gold bad: </span><span class="si">%d</span><span class="s1">/</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">num_gold_labels</span><span class="p">[</span><span class="n">bad</span><span class="p">],</span> <span class="nb">sum</span><span class="p">(</span><span class="n">num_gold_labels</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;# predicted bad: </span><span class="si">%d</span><span class="s1">/</span><span class="si">%d</span><span class="s1">&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">num_predicted_labels</span><span class="p">[</span><span class="n">bad</span><span class="p">],</span> <span class="nb">sum</span><span class="p">(</span><span class="n">num_predicted_labels</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="n">ok</span> <span class="o">=</span> <span class="n">coarse_labels</span><span class="p">[</span><span class="s1">&#39;OK&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">num_matched_labels</span><span class="p">[</span><span class="n">ok</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">f1_ok</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">precision_ok</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_matched_labels</span><span class="p">[</span><span class="n">ok</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span>
+                <span class="n">num_predicted_labels</span><span class="p">[</span><span class="n">ok</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">recall_ok</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">num_matched_labels</span><span class="p">[</span><span class="n">ok</span><span class="p">])</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span>
+                <span class="n">num_gold_labels</span><span class="p">[</span><span class="n">ok</span><span class="p">]</span>
+            <span class="p">)</span>
+            <span class="n">f1_ok</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">precision_ok</span> <span class="o">*</span> <span class="n">recall_ok</span> <span class="o">/</span> <span class="p">(</span><span class="n">precision_ok</span> <span class="o">+</span> <span class="n">recall_ok</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;# gold ok: </span><span class="si">%d</span><span class="s1">/</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">num_gold_labels</span><span class="p">[</span><span class="n">ok</span><span class="p">],</span> <span class="nb">sum</span><span class="p">(</span><span class="n">num_gold_labels</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="s1">&#39;# predicted ok: </span><span class="si">%d</span><span class="s1">/</span><span class="si">%d</span><span class="s1">&#39;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">num_predicted_labels</span><span class="p">[</span><span class="n">ok</span><span class="p">],</span> <span class="nb">sum</span><span class="p">(</span><span class="n">num_predicted_labels</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;F1 bad: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">f1_bad</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;F1 ok: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">f1_ok</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;F1 mult: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">f1_bad</span> <span class="o">*</span> <span class="n">f1_ok</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluation_metric</span> <span class="o">==</span> <span class="s1">&#39;f1_mult&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">f1_bad</span> <span class="o">*</span> <span class="n">f1_ok</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluation_metric</span> <span class="o">==</span> <span class="s1">&#39;f1_bad&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">f1_bad</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.load_configuration"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.load_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">load_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_basic_features_only</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;use_basic_features_only&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_bigrams</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;use_bigrams&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_simple_bigram_features</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;use_simple_bigram_features&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_stacked_features</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;use_stacked&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_parse_features</span> <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;use_parse&#39;</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.save_configuration"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.save_configuration">[docs]</a>    <span class="k">def</span> <span class="nf">save_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;use_basic_features_only&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_basic_features_only</span><span class="p">,</span>
+            <span class="s1">&#39;use_bigrams&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_bigrams</span><span class="p">,</span>
+            <span class="s1">&#39;use_simple_bigram_features&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_simple_bigram_features</span><span class="p">,</span>
+            <span class="s1">&#39;use_stacked&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_stacked_features</span><span class="p">,</span>
+            <span class="s1">&#39;use_parse&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_parse_features</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">config</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.load"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_path</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">pickle</span>
+
+        <span class="k">with</span> <span class="n">Path</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_configuration</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">labels</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">source_vocab</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">target_vocab</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fid</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">EOFError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">source_vocab</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">target_vocab</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="LinearWordQEClassifier.save"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.linear_word_qe_classifier.LinearWordQEClassifier.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_path</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">pickle</span>
+
+        <span class="k">with</span> <span class="n">Path</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fid</span><span class="p">:</span>
+            <span class="n">config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_configuration</span><span class="p">()</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">fid</span><span class="p">)</span></div></div>
+            <span class="c1"># pickle.dump(self.source_vocab, fid)</span>
+            <span class="c1"># pickle.dump(self.target_vocab, fid)</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

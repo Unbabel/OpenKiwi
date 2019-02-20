@@ -1,0 +1,671 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.models.predictor &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../../../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../source/modules.html">kiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../source/kiwi.html">kiwi package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../source/kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../source/kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>kiwi.models.predictor</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for kiwi.models.predictor</h1><div class="highlight"><pre>
+<span></span><span class="c1">#  OpenKiwi: Open-Source Machine Translation Quality Estimation</span>
+<span class="c1">#  Copyright (C) 2019 Unbabel &lt;openkiwi@unbabel.com&gt;</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is free software: you can redistribute it and/or modify</span>
+<span class="c1">#  it under the terms of the GNU Affero General Public License as published</span>
+<span class="c1">#  by the Free Software Foundation, either version 3 of the License, or</span>
+<span class="c1">#  (at your option) any later version.</span>
+<span class="c1">#</span>
+<span class="c1">#  This program is distributed in the hope that it will be useful,</span>
+<span class="c1">#  but WITHOUT ANY WARRANTY; without even the implied warranty of</span>
+<span class="c1">#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the</span>
+<span class="c1">#  GNU Affero General Public License for more details.</span>
+<span class="c1">#</span>
+<span class="c1">#  You should have received a copy of the GNU Affero General Public License</span>
+<span class="c1">#  along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
+<span class="c1">#</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="k">import</span> <span class="n">OrderedDict</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="k">import</span> <span class="n">nn</span>
+
+<span class="kn">from</span> <span class="nn">kiwi</span> <span class="k">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">const</span>
+<span class="kn">from</span> <span class="nn">kiwi.metrics</span> <span class="k">import</span> <span class="n">CorrectMetric</span><span class="p">,</span> <span class="n">ExpectedErrorMetric</span><span class="p">,</span> <span class="n">PerplexityMetric</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.model</span> <span class="k">import</span> <span class="n">Model</span><span class="p">,</span> <span class="n">ModelConfig</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.modules.attention</span> <span class="k">import</span> <span class="n">Attention</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.modules.scorer</span> <span class="k">import</span> <span class="n">MLPScorer</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.utils</span> <span class="k">import</span> <span class="n">apply_packed_sequence</span><span class="p">,</span> <span class="n">replace_token</span>
+
+
+<div class="viewcode-block" id="PredictorConfig"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.predictor.PredictorConfig">[docs]</a><span class="k">class</span> <span class="nc">PredictorConfig</span><span class="p">(</span><span class="n">ModelConfig</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">vocabs</span><span class="p">,</span>
+        <span class="n">hidden_pred</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span>
+        <span class="n">rnn_layers_pred</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">dropout_pred</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">share_embeddings</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">embedding_sizes</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">target_embeddings_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">source_embeddings_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">out_embeddings_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+        <span class="n">predict_inverse</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Predictor Hyperparams.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">vocabs</span><span class="p">)</span>
+
+        <span class="c1"># Vocabulary</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">target_side</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">TARGET</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_side</span> <span class="o">=</span> <span class="n">const</span><span class="o">.</span><span class="n">SOURCE</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">predict_inverse</span> <span class="o">=</span> <span class="n">predict_inverse</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict_inverse</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_side</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">target_side</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">target_side</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">source_side</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_vocab_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_vocab_size</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">source_vocab_size</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">target_vocab_size</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Architecture</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hidden_pred</span> <span class="o">=</span> <span class="n">hidden_pred</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rnn_layers_pred</span> <span class="o">=</span> <span class="n">rnn_layers_pred</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout_pred</span> <span class="o">=</span> <span class="n">dropout_pred</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">share_embeddings</span> <span class="o">=</span> <span class="n">share_embeddings</span>
+        <span class="k">if</span> <span class="n">embedding_sizes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_embeddings_size</span> <span class="o">=</span> <span class="n">embedding_sizes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_embeddings_size</span> <span class="o">=</span> <span class="n">embedding_sizes</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out_embeddings_size</span> <span class="o">=</span> <span class="n">embedding_sizes</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_embeddings_size</span> <span class="o">=</span> <span class="n">target_embeddings_size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">source_embeddings_size</span> <span class="o">=</span> <span class="n">source_embeddings_size</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out_embeddings_size</span> <span class="o">=</span> <span class="n">out_embeddings_size</span></div>
+
+
+<div class="viewcode-block" id="Predictor"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.predictor.Predictor">[docs]</a><span class="nd">@Model</span><span class="o">.</span><span class="n">register_subclass</span>
+<span class="k">class</span> <span class="nc">Predictor</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Bidirectional Conditional Language Model</span>
+
+<span class="sd">       Implemented after Kim et al 2017, see:</span>
+<span class="sd">         http://www.statmt.org/wmt17/pdf/WMT63.pdf</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;PredEst Predictor model (an embedder model)&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocabs</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">          vocabs: Dictionary Mapping Field Names to Vocabularies.</span>
+<span class="sd">        kwargs:</span>
+<span class="sd">          config: A state dict of a PredictorConfig object.</span>
+<span class="sd">          dropout: LSTM dropout Default 0.0</span>
+<span class="sd">          hidden_pred: LSTM Hidden Size, default 200</span>
+<span class="sd">          rnn_layers: Default 3</span>
+<span class="sd">          embedding_sizes: If set, takes precedence over other embedding params</span>
+<span class="sd">                           Default 100</span>
+<span class="sd">          source_embeddings_size: Default 100</span>
+<span class="sd">          target_embeddings_size: Default 100</span>
+<span class="sd">          out_embeddings_size: Output softmax embedding. Default 100</span>
+<span class="sd">          share_embeddings: Tie input and output embeddings for target.</span>
+<span class="sd">                            Default False</span>
+<span class="sd">          predict_inverse: Predict from target to source. Default False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">vocabs</span><span class="o">=</span><span class="n">vocabs</span><span class="p">,</span> <span class="n">ConfigCls</span><span class="o">=</span><span class="n">PredictorConfig</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">scorer</span> <span class="o">=</span> <span class="n">MLPScorer</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_pred</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_pred</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">layers</span><span class="o">=</span><span class="mi">2</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">attention</span> <span class="o">=</span> <span class="n">Attention</span><span class="p">(</span><span class="n">scorer</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding_source</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">source_vocab_size</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">source_embeddings_size</span><span class="p">,</span>
+            <span class="n">const</span><span class="o">.</span><span class="n">PAD_ID</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding_target</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_vocab_size</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_embeddings_size</span><span class="p">,</span>
+            <span class="n">const</span><span class="o">.</span><span class="n">PAD_ID</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lstm_source</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span>
+            <span class="n">input_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">source_embeddings_size</span><span class="p">,</span>
+            <span class="n">hidden_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_pred</span><span class="p">,</span>
+            <span class="n">num_layers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">rnn_layers_pred</span><span class="p">,</span>
+            <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dropout_pred</span><span class="p">,</span>
+            <span class="n">bidirectional</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">forward_target</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span>
+            <span class="n">input_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_embeddings_size</span><span class="p">,</span>
+            <span class="n">hidden_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_pred</span><span class="p">,</span>
+            <span class="n">num_layers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">rnn_layers_pred</span><span class="p">,</span>
+            <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dropout_pred</span><span class="p">,</span>
+            <span class="n">bidirectional</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">backward_target</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span>
+            <span class="n">input_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_embeddings_size</span><span class="p">,</span>
+            <span class="n">hidden_size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_pred</span><span class="p">,</span>
+            <span class="n">num_layers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">rnn_layers_pred</span><span class="p">,</span>
+            <span class="n">batch_first</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">dropout</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">dropout_pred</span><span class="p">,</span>
+            <span class="n">bidirectional</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">W1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding_target</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">share_embeddings</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">W1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_vocab_size</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">out_embeddings_size</span><span class="p">,</span>
+                <span class="n">const</span><span class="o">.</span><span class="n">PAD_ID</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">W2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">out_embeddings_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">out_embeddings_size</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_embeddings_size</span><span class="p">,</span>
+                <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">out_embeddings_size</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_pred</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">out_embeddings_size</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">S</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span>
+                <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">hidden_pred</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">out_embeddings_size</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">init</span><span class="o">.</span><span class="n">xavier_uniform_</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loss</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">(</span>
+            <span class="n">reduction</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PAD_ID</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="Predictor.fieldset"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.predictor.Predictor.fieldset">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">fieldset</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="nn">kiwi.data.fieldsets.predictor</span> <span class="k">import</span> <span class="n">build_fieldset</span>
+
+        <span class="k">return</span> <span class="n">build_fieldset</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Predictor.from_options"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.predictor.Predictor.from_options">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">from_options</span><span class="p">(</span><span class="n">vocabs</span><span class="p">,</span> <span class="n">opts</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            vocabs:</span>
+<span class="sd">            opts:</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Predictor</span><span class="p">(</span>
+            <span class="n">vocabs</span><span class="p">,</span>
+            <span class="n">hidden_pred</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">hidden_pred</span><span class="p">,</span>
+            <span class="n">rnn_layers_pred</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">rnn_layers_pred</span><span class="p">,</span>
+            <span class="n">dropout_pred</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">dropout_pred</span><span class="p">,</span>
+            <span class="n">share_embeddings</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">share_embeddings</span><span class="p">,</span>
+            <span class="n">embedding_sizes</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">embedding_sizes</span><span class="p">,</span>
+            <span class="n">target_embeddings_size</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">target_embeddings_size</span><span class="p">,</span>
+            <span class="n">source_embeddings_size</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">source_embeddings_size</span><span class="p">,</span>
+            <span class="n">out_embeddings_size</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">out_embeddings_size</span><span class="p">,</span>
+            <span class="n">predict_inverse</span><span class="o">=</span><span class="n">opts</span><span class="o">.</span><span class="n">predict_inverse</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">model</span></div>
+
+<div class="viewcode-block" id="Predictor.loss"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.predictor.Predictor.loss">[docs]</a>    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_out</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">target_side</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">target_side</span><span class="p">:</span>
+            <span class="n">target_side</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_side</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">target_side</span><span class="p">)</span>
+        <span class="c1"># There are no predictions for first/last element</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="n">replace_token</span><span class="p">(</span><span class="n">target</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">const</span><span class="o">.</span><span class="n">STOP_ID</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">PAD_ID</span><span class="p">)</span>
+        <span class="c1"># Predicted Class must be in dim 1 for xentropyloss</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="n">model_out</span><span class="p">[</span><span class="n">target_side</span><span class="p">]</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="n">logits</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loss</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span>
+        <span class="n">loss_dict</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="n">loss_dict</span><span class="p">[</span><span class="n">target_side</span><span class="p">]</span> <span class="o">=</span> <span class="n">loss</span>
+        <span class="n">loss_dict</span><span class="p">[</span><span class="n">const</span><span class="o">.</span><span class="n">LOSS</span><span class="p">]</span> <span class="o">=</span> <span class="n">loss</span>
+        <span class="k">return</span> <span class="n">loss_dict</span></div>
+
+<div class="viewcode-block" id="Predictor.forward"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.predictor.Predictor.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">source_side</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">target_side</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">source_side</span><span class="p">:</span>
+            <span class="n">source_side</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">source_side</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">target_side</span><span class="p">:</span>
+            <span class="n">target_side</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_side</span>
+
+        <span class="n">source</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">source_side</span><span class="p">)</span>
+        <span class="n">target</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">target_side</span><span class="p">)</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">target_len</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="c1"># Remove First and Last Element (Start / Stop Tokens)</span>
+        <span class="n">source_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mask</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">source_side</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">source_lengths</span> <span class="o">=</span> <span class="n">source_mask</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">target_lengths</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_mask</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="n">target_side</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">source_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding_source</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+        <span class="n">target_embeddings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedding_target</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+        <span class="c1"># Source Encoding</span>
+        <span class="n">source_contexts</span><span class="p">,</span> <span class="n">hidden</span> <span class="o">=</span> <span class="n">apply_packed_sequence</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lstm_source</span><span class="p">,</span> <span class="n">source_embeddings</span><span class="p">,</span> <span class="n">source_lengths</span>
+        <span class="p">)</span>
+        <span class="c1"># Target Encoding.</span>
+        <span class="n">h_forward</span><span class="p">,</span> <span class="n">h_backward</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_hidden</span><span class="p">(</span><span class="n">hidden</span><span class="p">)</span>
+        <span class="n">forward_contexts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">forward_target</span><span class="p">(</span><span class="n">target_embeddings</span><span class="p">,</span> <span class="n">h_forward</span><span class="p">)</span>
+        <span class="n">target_emb_rev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reverse_padded_seq</span><span class="p">(</span>
+            <span class="n">target_lengths</span><span class="p">,</span> <span class="n">target_embeddings</span>
+        <span class="p">)</span>
+        <span class="n">backward_contexts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">backward_target</span><span class="p">(</span><span class="n">target_emb_rev</span><span class="p">,</span> <span class="n">h_backward</span><span class="p">)</span>
+        <span class="n">backward_contexts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reverse_padded_seq</span><span class="p">(</span>
+            <span class="n">target_lengths</span><span class="p">,</span> <span class="n">backward_contexts</span>
+        <span class="p">)</span>
+
+        <span class="c1"># For each position, concatenate left context i-1 and right context i+1</span>
+        <span class="n">target_contexts</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">forward_contexts</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">backward_contexts</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="c1"># For each position i, concatenate Emeddings i-1 and i+1</span>
+        <span class="n">target_embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">target_embeddings</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">target_embeddings</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Get Attention vectors for all positions and stack.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">attention</span><span class="o">.</span><span class="n">set_mask</span><span class="p">(</span><span class="n">source_mask</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
+        <span class="n">attns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">attention</span><span class="p">(</span>
+                <span class="n">target_contexts</span><span class="p">[:,</span> <span class="n">i</span><span class="p">],</span> <span class="n">source_contexts</span><span class="p">,</span> <span class="n">source_contexts</span>
+            <span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">target_len</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="p">]</span>
+        <span class="n">attns</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">attns</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># Combine attention, embeddings and target context vectors</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;bsi,il-&gt;bsl&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">attns</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">C</span><span class="p">])</span>
+        <span class="n">V</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;bsj,jl-&gt;bsl&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">target_embeddings</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">])</span>
+        <span class="n">S</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;bsk,kl-&gt;bsl&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">target_contexts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">S</span><span class="p">])</span>
+        <span class="n">t_tilde</span> <span class="o">=</span> <span class="n">C</span> <span class="o">+</span> <span class="n">V</span> <span class="o">+</span> <span class="n">S</span>
+        <span class="c1"># Maxout with pooling size 2</span>
+        <span class="n">t</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">max</span><span class="p">(</span>
+            <span class="n">t_tilde</span><span class="o">.</span><span class="n">view</span><span class="p">(</span>
+                <span class="n">t_tilde</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">t_tilde</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">t_tilde</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span>
+            <span class="p">),</span>
+            <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;oh,bso-&gt;bsh&#39;</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">W2</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+        <span class="n">logits</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;vh,bsh-&gt;bsv&#39;</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">W1</span><span class="o">.</span><span class="n">weight</span><span class="p">,</span> <span class="n">f</span><span class="p">])</span>
+        <span class="n">PreQEFV</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;bsh,bsh-&gt;bsh&#39;</span><span class="p">,</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">W1</span><span class="p">(</span><span class="n">target</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">f</span><span class="p">])</span>
+        <span class="n">PostQEFV</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">forward_contexts</span><span class="p">,</span> <span class="n">backward_contexts</span><span class="p">],</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="n">target_side</span><span class="p">:</span> <span class="n">logits</span><span class="p">,</span>
+            <span class="n">const</span><span class="o">.</span><span class="n">PREQEFV</span><span class="p">:</span> <span class="n">PreQEFV</span><span class="p">,</span>
+            <span class="n">const</span><span class="o">.</span><span class="n">POSTQEFV</span><span class="p">:</span> <span class="n">PostQEFV</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_reverse_padded_seq</span><span class="p">(</span><span class="n">lengths</span><span class="p">,</span> <span class="n">sequence</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Reverses a batch of padded sequences of different length.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">batch_size</span><span class="p">,</span> <span class="n">max_length</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">reversed_idx</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">batch_size</span> <span class="o">*</span> <span class="n">max_length</span><span class="p">):</span>
+            <span class="n">batch_id</span> <span class="o">=</span> <span class="n">i</span> <span class="o">//</span> <span class="n">max_length</span>
+            <span class="n">sent_id</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="n">max_length</span>
+            <span class="k">if</span> <span class="n">sent_id</span> <span class="o">&lt;</span> <span class="n">lengths</span><span class="p">[</span><span class="n">batch_id</span><span class="p">]:</span>
+                <span class="n">sent_id_rev</span> <span class="o">=</span> <span class="n">lengths</span><span class="p">[</span><span class="n">batch_id</span><span class="p">]</span> <span class="o">-</span> <span class="n">sent_id</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sent_id_rev</span> <span class="o">=</span> <span class="n">sent_id</span>  <span class="c1"># Padding symbol, don&#39;t change order</span>
+            <span class="n">reversed_idx</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">max_length</span> <span class="o">*</span> <span class="n">batch_id</span> <span class="o">+</span> <span class="n">sent_id_rev</span><span class="p">)</span>
+        <span class="n">flat_sequence</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">contiguous</span><span class="p">()</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span> <span class="o">*</span> <span class="n">max_length</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">reversed_seq</span> <span class="o">=</span> <span class="n">flat_sequence</span><span class="p">[</span><span class="n">reversed_idx</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">*</span><span class="n">sequence</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">reversed_seq</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_split_hidden</span><span class="p">(</span><span class="n">hidden</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Split Hidden State into forward/backward parts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">h</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">hidden</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">idx_forward</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+        <span class="n">idx_backward</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span>
+        <span class="n">hidden_forward</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">idx_forward</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">idx_forward</span><span class="p">])</span>
+        <span class="n">hidden_backward</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">idx_backward</span><span class="p">],</span> <span class="n">c</span><span class="p">[</span><span class="n">idx_backward</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">hidden_forward</span><span class="p">,</span> <span class="n">hidden_backward</span>
+
+<div class="viewcode-block" id="Predictor.metrics"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.predictor.Predictor.metrics">[docs]</a>    <span class="k">def</span> <span class="nf">metrics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">metrics</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">main_metric</span> <span class="o">=</span> <span class="n">PerplexityMetric</span><span class="p">(</span>
+            <span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_side</span><span class="p">,</span>
+            <span class="n">target_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_side</span><span class="p">,</span>
+            <span class="n">PAD</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PAD_ID</span><span class="p">,</span>
+            <span class="n">STOP</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">STOP_ID</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">main_metric</span><span class="p">)</span>
+
+        <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">CorrectMetric</span><span class="p">(</span>
+                <span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_side</span><span class="p">,</span>
+                <span class="n">target_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_side</span><span class="p">,</span>
+                <span class="n">PAD</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PAD_ID</span><span class="p">,</span>
+                <span class="n">STOP</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">STOP_ID</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">metrics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">ExpectedErrorMetric</span><span class="p">(</span>
+                <span class="n">prefix</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_side</span><span class="p">,</span>
+                <span class="n">target_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">target_side</span><span class="p">,</span>
+                <span class="n">PAD</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">PAD_ID</span><span class="p">,</span>
+                <span class="n">STOP</span><span class="o">=</span><span class="n">const</span><span class="o">.</span><span class="n">STOP_ID</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">metrics</span></div>
+
+<div class="viewcode-block" id="Predictor.metrics_ordering"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.predictor.Predictor.metrics_ordering">[docs]</a>    <span class="k">def</span> <span class="nf">metrics_ordering</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">min</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

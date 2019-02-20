@@ -1,0 +1,912 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>kiwi.models.linear package &mdash; openkiwi 0.1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="kiwi.models.modules package" href="kiwi.models.modules.html" />
+    <link rel="prev" title="kiwi.models package" href="kiwi.models.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> openkiwi
+          
+
+          
+            
+            <img src="../_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#with-pip">With pip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#mlflow-integration">MLflow integration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#train-pipeline">Train Pipeline</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#estimator-model">Estimator Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#nuqe-model">NuQE Model</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#predict">Predict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#evaluate">Evaluate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reproduce.html">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-data">Downloading Data</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#downloading-models">Downloading Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#setup-directories">Setup Directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../reproduce.html#the-numbers">The numbers</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing to OpenKiwi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#installing">Installing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html#contribution-guide">Contribution guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#basic-guidelines">Basic guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing">Contributing</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Configuration Options</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">OpenKiwi Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../CLI.html">Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Named Arguments">Named Arguments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Pipelines">Pipelines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../CLI.html#Sub-commands:">Sub-commands:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#train">train</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#predict">predict</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#jackknife">jackknife</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../CLI.html#evaluate">evaluate</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../flags.html">Configuration Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../cli/train.html">Train Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_nuqe.html">NuQE training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor.html">Predictor training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_quetch.html">QUETCH training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train_linear.html">Linear training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training">training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-optimization">training-optimization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/train.html#training-save-load">training-save-load</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/predict.html">Predict Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_nuqe.html">NuQE predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_quetch.html">QUETCH predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict_linear.html">Linear predicting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../cli/predict.html#predicting">predicting</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/jackknife.html">jackknife Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/jackknife.html#jackknifing">jackknifing</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../cli/evaluate.html">Evaluate Interface</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../flags.html#general-options">General Options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#random">random</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Library Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">kiwi</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="kiwi.html">kiwi package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="kiwi.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="kiwi.cli.html">kiwi.cli package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.data.html">kiwi.data package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.lib.html">kiwi.lib package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.metrics.html">kiwi.metrics package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="kiwi.models.html">kiwi.models package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.predictors.html">kiwi.predictors package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="kiwi.trainers.html">kiwi.trainers package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kiwi.html#module-kiwi">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">openkiwi</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">kiwi</a> &raquo;</li>
+        
+          <li><a href="kiwi.html">kiwi package</a> &raquo;</li>
+        
+          <li><a href="kiwi.models.html">kiwi.models package</a> &raquo;</li>
+        
+      <li>kiwi.models.linear package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/source/kiwi.models.linear.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kiwi-models-linear-package">
+<h1>kiwi.models.linear package<a class="headerlink" href="#kiwi-models-linear-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-kiwi.models.linear.label_dictionary">
+<span id="kiwi-models-linear-label-dictionary-module"></span><h2>kiwi.models.linear.label_dictionary module<a class="headerlink" href="#module-kiwi.models.linear.label_dictionary" title="Permalink to this headline">¶</a></h2>
+<p>This implements a dictionary of labels.</p>
+<dl class="class">
+<dt id="kiwi.models.linear.label_dictionary.LabelDictionary">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.label_dictionary.</code><code class="descname">LabelDictionary</code><span class="sig-paren">(</span><em>label_names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/label_dictionary.html#LabelDictionary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.label_dictionary.LabelDictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<p>This class implements a dictionary of labels. Labels as mapped to
+integers, and it is efficient to retrieve the label name from its
+integer representation, and vice-versa.</p>
+<dl class="method">
+<dt id="kiwi.models.linear.label_dictionary.LabelDictionary.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/label_dictionary.html#LabelDictionary.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.label_dictionary.LabelDictionary.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new label.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.label_dictionary.LabelDictionary.get_label_id">
+<code class="descname">get_label_id</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/label_dictionary.html#LabelDictionary.get_label_id"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.label_dictionary.LabelDictionary.get_label_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get label id from name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.label_dictionary.LabelDictionary.get_label_name">
+<code class="descname">get_label_name</code><span class="sig-paren">(</span><em>label_id</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/label_dictionary.html#LabelDictionary.get_label_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.label_dictionary.LabelDictionary.get_label_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get label name from id.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.label_dictionary.LabelDictionary.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>label_file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/label_dictionary.html#LabelDictionary.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.label_dictionary.LabelDictionary.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load labels from a file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.label_dictionary.LabelDictionary.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>label_file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/label_dictionary.html#LabelDictionary.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.label_dictionary.LabelDictionary.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save labels to a file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.linear_model">
+<span id="kiwi-models-linear-linear-model-module"></span><h2>kiwi.models.linear.linear_model module<a class="headerlink" href="#module-kiwi.models.linear.linear_model" title="Permalink to this headline">¶</a></h2>
+<p>This implements a linear model.</p>
+<dl class="class">
+<dt id="kiwi.models.linear.linear_model.LinearModel">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_model.</code><code class="descname">LinearModel</code><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An abstract linear model.</p>
+<dl class="method">
+<dt id="kiwi.models.linear.linear_model.LinearModel.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all weights.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_model.LinearModel.compute_score">
+<code class="descname">compute_score</code><span class="sig-paren">(</span><em>features</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel.compute_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel.compute_score" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute a score by taking the inner product with a feature
+vector.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_model.LinearModel.compute_score_binary_features">
+<code class="descname">compute_score_binary_features</code><span class="sig-paren">(</span><em>binary_features</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel.compute_score_binary_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel.compute_score_binary_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute a score by taking the inner product with a binary
+feature vector.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_model.LinearModel.finalize">
+<code class="descname">finalize</code><span class="sig-paren">(</span><em>t</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel.finalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel.finalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finalize by setting the weights as the running average.
+This is a no-op if use_average=False.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_model.LinearModel.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>model_file</em>, <em>average=False</em>, <em>feature_indices=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the model from a file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_model.LinearModel.make_gradient_step">
+<code class="descname">make_gradient_step</code><span class="sig-paren">(</span><em>features</em>, <em>eta</em>, <em>t</em>, <em>gradient</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel.make_gradient_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel.make_gradient_step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a gradient step with stepsize eta.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_model.LinearModel.read_fnames">
+<code class="descname">read_fnames</code><span class="sig-paren">(</span><em>fnames_file</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel.read_fnames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel.read_fnames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read file mapping from integers to feature descriptions.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_model.LinearModel.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>model_file</em>, <em>average=False</em>, <em>feature_indices=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the model to a file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_model.LinearModel.write_fnames">
+<code class="descname">write_fnames</code><span class="sig-paren">(</span><em>fnames_file</em>, <em>fnames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel.write_fnames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel.write_fnames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write file mapping from integers to feature descriptions.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.linear_trainer">
+<span id="kiwi-models-linear-linear-trainer-module"></span><h2>kiwi.models.linear.linear_trainer module<a class="headerlink" href="#module-kiwi.models.linear.linear_trainer" title="Permalink to this headline">¶</a></h2>
+<p>A generic implementation of a basic trainer.</p>
+<dl class="class">
+<dt id="kiwi.models.linear.linear_trainer.LinearTrainer">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_trainer.</code><code class="descname">LinearTrainer</code><span class="sig-paren">(</span><em>classifier</em>, <em>checkpointer</em>, <em>algorithm='svm_mira'</em>, <em>regularization_constant=1000000000000.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_trainer.html#LinearTrainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_trainer.LinearTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="kiwi.models.linear.linear_trainer.LinearTrainer.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>train_iterator</em>, <em>valid_iterator</em>, <em>epochs=50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_trainer.html#LinearTrainer.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_trainer.LinearTrainer.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train with a general online algorithm.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_trainer.LinearTrainer.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>output_directory</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_trainer.html#LinearTrainer.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_trainer.LinearTrainer.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.linear_word_qe_decoder">
+<span id="kiwi-models-linear-linear-word-qe-decoder-module"></span><h2>kiwi.models.linear.linear_word_qe_decoder module<a class="headerlink" href="#module-kiwi.models.linear.linear_word_qe_decoder" title="Permalink to this headline">¶</a></h2>
+<p>Decoder for word-level quality estimation.</p>
+<dl class="class">
+<dt id="kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_word_qe_decoder.</code><code class="descname">LinearWordQEDecoder</code><span class="sig-paren">(</span><em>estimator</em>, <em>cost_false_positives=0.5</em>, <em>cost_false_negatives=0.5</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_decoder.html#LinearWordQEDecoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.linear.structured_decoder.StructuredDecoder" title="kiwi.models.linear.structured_decoder.StructuredDecoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.linear.structured_decoder.StructuredDecoder</span></code></a></p>
+<p>A decoder for word-level quality estimation.</p>
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.decode">
+<code class="descname">decode</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>scores</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_decoder.html#LinearWordQEDecoder.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decoder. Return the most likely sequence of OK/BAD labels.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.decode_mira">
+<code class="descname">decode_mira</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>scores</em>, <em>gold_outputs</em>, <em>old_mira=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_decoder.html#LinearWordQEDecoder.decode_mira"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.decode_mira" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cost-augmented decoder. Allows a compromise between precision and
+recall. In general:
+p = a - (a+b)*z0
+q = b*sum(z0)
+p’<a href="#id1"><span class="problematic" id="id2">*</span></a>z + q = a*sum(z) - (a+b)*z0’<a href="#id3"><span class="problematic" id="id4">*</span></a>z + b*sum(z0)</p>
+<blockquote>
+<div>= a*(1-z0)’<a href="#id5"><span class="problematic" id="id6">*</span></a>z + b*(1-z)’<a href="#id7"><span class="problematic" id="id8">*</span></a>z0</div></blockquote>
+<p>a =&gt; penalty for predicting 1 when it is 0 (FP)
+b =&gt; penalty for predicting 0 when it is 1 (FN)</p>
+<p>F1: a = 0.5, b = 0.5
+recall: a = 0, b = 1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.decode_with_bigrams">
+<code class="descname">decode_with_bigrams</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>scores</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_decoder.html#LinearWordQEDecoder.decode_with_bigrams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.decode_with_bigrams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decoder for a sequential model (with bigrams).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.decode_with_unigrams">
+<code class="descname">decode_with_unigrams</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>scores</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_decoder.html#LinearWordQEDecoder.decode_with_unigrams"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.decode_with_unigrams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decoder for a non-sequential model (unigrams only).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.run_viterbi">
+<code class="descname">run_viterbi</code><span class="sig-paren">(</span><em>initial_scores</em>, <em>transition_scores</em>, <em>final_scores</em>, <em>emission_scores</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_decoder.html#LinearWordQEDecoder.run_viterbi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_decoder.LinearWordQEDecoder.run_viterbi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the viterbi trellis for a given sequence.
+Receives:
+- Initial scores: (num_states) array
+- Transition scores: (length-1, num_states, num_states) array
+- Final scores: (num_states) array
+- Emission scores: (length, num_states) array.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.linear.linear_word_qe_decoder.logzero">
+<code class="descclassname">kiwi.models.linear.linear_word_qe_decoder.</code><code class="descname">logzero</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_decoder.html#logzero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_decoder.logzero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return log of zero.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.linear_word_qe_features">
+<span id="kiwi-models-linear-linear-word-qe-features-module"></span><h2>kiwi.models.linear.linear_word_qe_features module<a class="headerlink" href="#module-kiwi.models.linear.linear_word_qe_features" title="Permalink to this headline">¶</a></h2>
+<p>A class for handling features for word-level quality estimation.</p>
+<dl class="class">
+<dt id="kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_word_qe_features.</code><code class="descname">LinearWordQEFeatures</code><span class="sig-paren">(</span><em>use_basic_features_only=True</em>, <em>use_simple_bigram_features=True</em>, <em>use_parse_features=False</em>, <em>use_stacked_features=False</em>, <em>save_to_cache=False</em>, <em>load_from_cache=False</em>, <em>cached_features_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_features.html#LinearWordQEFeatures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.linear.sparse_feature_vector.SparseFeatureVector" title="kiwi.models.linear.sparse_feature_vector.SparseFeatureVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.linear.sparse_feature_vector.SparseFeatureVector</span></code></a></p>
+<p>This class implements a feature vector for word-level quality
+estimation.</p>
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.compute_bigram_features">
+<code class="descname">compute_bigram_features</code><span class="sig-paren">(</span><em>sentence_word_features</em>, <em>part</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_features.html#LinearWordQEFeatures.compute_bigram_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.compute_bigram_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute bigram features (that depend on consecutive labels).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.compute_unigram_features">
+<code class="descname">compute_unigram_features</code><span class="sig-paren">(</span><em>sentence_word_features</em>, <em>part</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_features.html#LinearWordQEFeatures.compute_unigram_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.compute_unigram_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute unigram features (depending only on a single label).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.get_head">
+<code class="descname">get_head</code><span class="sig-paren">(</span><em>sentence_word_features</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_features.html#LinearWordQEFeatures.get_head"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.get_head" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.get_siblings">
+<code class="descname">get_siblings</code><span class="sig-paren">(</span><em>sentence_word_features</em>, <em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_features.html#LinearWordQEFeatures.get_siblings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_features.LinearWordQEFeatures.get_siblings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.linear.linear_word_qe_features.quantize">
+<code class="descclassname">kiwi.models.linear.linear_word_qe_features.</code><code class="descname">quantize</code><span class="sig-paren">(</span><em>value</em>, <em>bins_down</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_features.html#quantize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_features.quantize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quantize a numeric feature into bins.
+Example: bins = [50, 40, 30, 25, 20, 18, 16, 14, 12, 10].</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.linear_word_qe_sentence">
+<span id="kiwi-models-linear-linear-word-qe-sentence-module"></span><h2>kiwi.models.linear.linear_word_qe_sentence module<a class="headerlink" href="#module-kiwi.models.linear.linear_word_qe_sentence" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_word_qe_sentence.</code><code class="descname">LinearWordQESentence</code><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_sentence.html#LinearWordQESentence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Represents a sentence (word features and their labels).</p>
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence.create_from_sentence_pair">
+<code class="descname">create_from_sentence_pair</code><span class="sig-paren">(</span><em>source_words</em>, <em>target_words</em>, <em>alignments</em>, <em>source_pos_tags=None</em>, <em>target_pos_tags=None</em>, <em>target_parse_heads=None</em>, <em>target_parse_relations=None</em>, <em>target_ngram_left=None</em>, <em>target_ngram_right=None</em>, <em>target_stacked_features=None</em>, <em>labels=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_sentence.html#LinearWordQESentence.create_from_sentence_pair"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence.create_from_sentence_pair" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an instance from source/target token and alignment
+information.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence.create_stop_symbol">
+<em class="property">static </em><code class="descname">create_stop_symbol</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_sentence.html#LinearWordQESentence.create_stop_symbol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence.create_stop_symbol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates dummy features for a stop symbol.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence.num_words">
+<code class="descname">num_words</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_sentence.html#LinearWordQESentence.num_words"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence.num_words" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of words of the sentence.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.models.linear.linear_word_qe_sentence.LinearWordQETokenFeatures">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_word_qe_sentence.</code><code class="descname">LinearWordQETokenFeatures</code><span class="sig-paren">(</span><em>stacked_features=None</em>, <em>source_token_count=-1</em>, <em>target_token_count=-1</em>, <em>source_target_token_count_ratio=0.0</em>, <em>token=''</em>, <em>left_context=''</em>, <em>right_context=''</em>, <em>first_aligned_token=''</em>, <em>left_alignment=''</em>, <em>right_alignment=''</em>, <em>is_stopword=False</em>, <em>is_punctuation=False</em>, <em>is_proper_noun=False</em>, <em>is_digit=False</em>, <em>highest_order_ngram_left=-1</em>, <em>highest_order_ngram_right=-1</em>, <em>backoff_behavior_left=0.0</em>, <em>backoff_behavior_middle=0.0</em>, <em>backoff_behavior_right=0.0</em>, <em>source_highest_order_ngram_left=-1</em>, <em>source_highest_order_ngram_right=-1</em>, <em>pseudo_reference=False</em>, <em>target_pos=''</em>, <em>target_morph=''</em>, <em>target_head=-1</em>, <em>target_deprel=''</em>, <em>aligned_source_pos_list=''</em>, <em>polysemy_count_source=0</em>, <em>polysemy_count_target=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_sentence.html#LinearWordQETokenFeatures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_sentence.LinearWordQETokenFeatures" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.sequence_parts">
+<span id="kiwi-models-linear-sequence-parts-module"></span><h2>kiwi.models.linear.sequence_parts module<a class="headerlink" href="#module-kiwi.models.linear.sequence_parts" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.models.linear.sequence_parts.SequenceBigramPart">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.sequence_parts.</code><code class="descname">SequenceBigramPart</code><span class="sig-paren">(</span><em>index</em>, <em>label</em>, <em>previous_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sequence_parts.html#SequenceBigramPart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sequence_parts.SequenceBigramPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A part for bigrams (two labels at consecutive words position).
+Necessary for the model to be sequential.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.models.linear.sequence_parts.SequenceUnigramPart">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.sequence_parts.</code><code class="descname">SequenceUnigramPart</code><span class="sig-paren">(</span><em>index</em>, <em>label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sequence_parts.html#SequenceUnigramPart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sequence_parts.SequenceUnigramPart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>A part for unigrams (a single label at a word position).</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.sparse_feature_vector">
+<span id="kiwi-models-linear-sparse-feature-vector-module"></span><h2>kiwi.models.linear.sparse_feature_vector module<a class="headerlink" href="#module-kiwi.models.linear.sparse_feature_vector" title="Permalink to this headline">¶</a></h2>
+<p>This defines the class for defining sparse features in linear models.</p>
+<dl class="class">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.sparse_feature_vector.</code><code class="descname">SparseBinaryFeatureVector</code><span class="sig-paren">(</span><em>feature_indices=None</em>, <em>save_to_cache=False</em>, <em>load_from_cache=False</em>, <em>cached_features_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseBinaryFeatureVector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+<p>A generic class for a sparse binary feature vector.</p>
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.add_binary_feature">
+<code class="descname">add_binary_feature</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseBinaryFeatureVector.add_binary_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.add_binary_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a binary feature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.add_categorical_feature">
+<code class="descname">add_categorical_feature</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseBinaryFeatureVector.add_categorical_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.add_categorical_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a categorical feature, represented internally as a binary
+feature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.load_cached_features">
+<code class="descname">load_cached_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseBinaryFeatureVector.load_cached_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.load_cached_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load features from file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.save_cached_features">
+<code class="descname">save_cached_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseBinaryFeatureVector.save_cached_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.save_cached_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save features to file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.to_sparse_vector">
+<code class="descname">to_sparse_vector</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseBinaryFeatureVector.to_sparse_vector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.to_sparse_vector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert to a SparseVector.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseFeatureVector">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.sparse_feature_vector.</code><code class="descname">SparseFeatureVector</code><span class="sig-paren">(</span><em>save_to_cache=False</em>, <em>load_from_cache=False</em>, <em>cached_features_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseFeatureVector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseFeatureVector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.models.linear.sparse_vector.SparseVector" title="kiwi.models.linear.sparse_vector.SparseVector"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.models.linear.sparse_vector.SparseVector</span></code></a></p>
+<p>A generic class for a sparse feature vector.</p>
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.add_binary_feature">
+<code class="descname">add_binary_feature</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseFeatureVector.add_binary_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.add_binary_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a binary feature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.add_categorical_feature">
+<code class="descname">add_categorical_feature</code><span class="sig-paren">(</span><em>name</em>, <em>value</em>, <em>allow_duplicates=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseFeatureVector.add_categorical_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.add_categorical_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a categorical feature, represented internally as a binary
+feature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.add_numeric_feature">
+<code class="descname">add_numeric_feature</code><span class="sig-paren">(</span><em>name</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseFeatureVector.add_numeric_feature"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.add_numeric_feature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a numeric feature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.load_cached_features">
+<code class="descname">load_cached_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseFeatureVector.load_cached_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.load_cached_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load features from file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.save_cached_features">
+<code class="descname">save_cached_features</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseFeatureVector.save_cached_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseFeatureVector.save_cached_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save features to file.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.sparse_vector">
+<span id="kiwi-models-linear-sparse-vector-module"></span><h2>kiwi.models.linear.sparse_vector module<a class="headerlink" href="#module-kiwi.models.linear.sparse_vector" title="Permalink to this headline">¶</a></h2>
+<p>This defines a generic class for sparse vectors.</p>
+<dl class="class">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.sparse_vector.</code><code class="descname">SparseVector</code><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<p>Implementation of a sparse vector using a dictionary.</p>
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>vector</em>, <em>scalar=1.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds this vector and a given vector.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.add_constant">
+<code class="descname">add_constant</code><span class="sig-paren">(</span><em>scalar</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.add_constant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.add_constant" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a constant to each element of the vector.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.as_string">
+<code class="descname">as_string</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.as_string"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.as_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.copy">
+<code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a copy of the current vector.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.dot_product">
+<code class="descname">dot_product</code><span class="sig-paren">(</span><em>vector</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.dot_product"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.dot_product" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the dot product with a given vector.
+Note: this iterates through the self vector, so it may be inefficient
+if the number of nonzeros in self is much larger than the number of
+nonzeros in vector. Hence the function reverts to
+vector.dot_product(self) if that is beneficial.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>f</em>, <em>dtype=&lt;class 'str'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load vector from file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.normalize">
+<code class="descname">normalize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.normalize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.normalize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize the vector. Note: if the norm is zero, do nothing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>f</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save vector to file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.scale">
+<code class="descname">scale</code><span class="sig-paren">(</span><em>scalar</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scales this vector by a scale factor.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.sparse_vector.SparseVector.squared_norm">
+<code class="descname">squared_norm</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector.squared_norm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector.squared_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the squared norm of the vector.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.structured_classifier">
+<span id="kiwi-models-linear-structured-classifier-module"></span><h2>kiwi.models.linear.structured_classifier module<a class="headerlink" href="#module-kiwi.models.linear.structured_classifier" title="Permalink to this headline">¶</a></h2>
+<p>A generic implementation of an abstract structured linear classifier.</p>
+<dl class="class">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.structured_classifier.</code><code class="descname">StructuredClassifier</code><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An abstract structured classifier.</p>
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.compute_scores">
+<code class="descname">compute_scores</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>features</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.compute_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.compute_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute a score for every part in the instance using the current
+model and the part-specific features.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.create_instances">
+<code class="descname">create_instances</code><span class="sig-paren">(</span><em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.create_instances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.create_instances" title="Permalink to this definition">¶</a></dt>
+<dd><p>Preprocess the dataset if needed to create instances.
+Default is returning the dataset itself. Override if needed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.create_prediction">
+<code class="descname">create_prediction</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>predicted_output</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.create_prediction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.create_prediction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a prediction for an instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.evaluate">
+<code class="descname">evaluate</code><span class="sig-paren">(</span><em>instances</em>, <em>predictions</em>, <em>print_scores=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the structure classifier, computing a task-dependent
+evaluation metric.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.label_instance">
+<code class="descname">label_instance</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>predicted_output</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.label_instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.label_instance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a labeled instance by adding the predicted output
+information.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.load">
+<code class="descname">load</code><span class="sig-paren">(</span><em>model_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the full configuration and model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.make_features">
+<code class="descname">make_features</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.make_features"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.make_features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a feature vector for each part.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.make_parts">
+<code class="descname">make_parts</code><span class="sig-paren">(</span><em>instance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.make_parts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.make_parts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the task-specific parts for this instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>instance</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the structured classifier on a single instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>model_path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the full configuration and model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.test">
+<code class="descname">test</code><span class="sig-paren">(</span><em>instances</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier.test"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier.test" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the structured classifier on dev/test data.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.structured_decoder">
+<span id="kiwi-models-linear-structured-decoder-module"></span><h2>kiwi.models.linear.structured_decoder module<a class="headerlink" href="#module-kiwi.models.linear.structured_decoder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="kiwi.models.linear.structured_decoder.StructuredDecoder">
+<em class="property">class </em><code class="descclassname">kiwi.models.linear.structured_decoder.</code><code class="descname">StructuredDecoder</code><a class="reference internal" href="../_modules/kiwi/models/linear/structured_decoder.html#StructuredDecoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_decoder.StructuredDecoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>An abstract decoder for structured prediction.</p>
+<dl class="method">
+<dt id="kiwi.models.linear.structured_decoder.StructuredDecoder.decode">
+<code class="descname">decode</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>scores</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_decoder.html#StructuredDecoder.decode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_decoder.StructuredDecoder.decode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decode, computing the highest-scores output.
+Must return a vector of 0/1 predicted_outputs of the same size
+as parts.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_decoder.StructuredDecoder.decode_cost_augmented">
+<code class="descname">decode_cost_augmented</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>scores</em>, <em>gold_outputs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_decoder.html#StructuredDecoder.decode_cost_augmented"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_decoder.StructuredDecoder.decode_cost_augmented" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform cost-augmented decoding.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="kiwi.models.linear.structured_decoder.StructuredDecoder.decode_mira">
+<code class="descname">decode_mira</code><span class="sig-paren">(</span><em>instance</em>, <em>parts</em>, <em>scores</em>, <em>gold_outputs</em>, <em>old_mira=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/structured_decoder.html#StructuredDecoder.decode_mira"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_decoder.StructuredDecoder.decode_mira" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform cost-augmented decoding or classical MIRA.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear.utils">
+<span id="kiwi-models-linear-utils-module"></span><h2>kiwi.models.linear.utils module<a class="headerlink" href="#module-kiwi.models.linear.utils" title="Permalink to this headline">¶</a></h2>
+<p>Several utility functions.</p>
+<dl class="function">
+<dt id="kiwi.models.linear.utils.nearly_binary_tol">
+<code class="descclassname">kiwi.models.linear.utils.</code><code class="descname">nearly_binary_tol</code><span class="sig-paren">(</span><em>a</em>, <em>tol</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/utils.html#nearly_binary_tol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.utils.nearly_binary_tol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a number is binary up to a tolerance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.linear.utils.nearly_eq_tol">
+<code class="descclassname">kiwi.models.linear.utils.</code><code class="descname">nearly_eq_tol</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>tol</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/utils.html#nearly_eq_tol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.utils.nearly_eq_tol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if two numbers are equal up to a tolerance.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="kiwi.models.linear.utils.nearly_zero_tol">
+<code class="descclassname">kiwi.models.linear.utils.</code><code class="descname">nearly_zero_tol</code><span class="sig-paren">(</span><em>a</em>, <em>tol</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/utils.html#nearly_zero_tol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.utils.nearly_zero_tol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if a number is zero up to a tolerance.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-kiwi.models.linear">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-kiwi.models.linear" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kiwi.models.modules.html" class="btn btn-neutral float-right" title="kiwi.models.modules package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kiwi.models.html" class="btn btn-neutral float-left" title="kiwi.models package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
