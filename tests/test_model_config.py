@@ -1,5 +1,6 @@
 import pytest
 
+from kiwi import __version__
 from kiwi import constants
 from kiwi.models.model import ModelConfig
 
@@ -7,7 +8,7 @@ from kiwi.models.model import ModelConfig
 @pytest.fixture
 def state_dict():
     return {
-        '__version__': '1.0.0',
+        '__version__' : __version__,
         'a': None,
         'b': 12,
         'c': 4,
