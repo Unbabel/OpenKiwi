@@ -6,7 +6,6 @@ import numpy as np
 from more_itertools import flatten
 from scipy.stats.stats import pearsonr, rankdata, spearmanr
 
-import pandas as pd
 from kiwi import constants as const
 from kiwi.data.utils import read_file
 from kiwi.metrics.functions import (
@@ -15,8 +14,6 @@ from kiwi.metrics.functions import (
     mean_absolute_error,
     mean_squared_error,
 )
-from kiwi.metrics.metrics import MovingF1
-from kiwi.metrics.metrics import MovingSkipsAtQuality as SkipsAtQ
 
 
 def evaluate_from_options(options):
@@ -98,20 +95,6 @@ def evaluate_from_options(options):
                         (str(pred_file), _read_sentence_scores(str(pred_file)))
                     )
 
-    threshold = None
-    if (
-        pipeline_options.pred_cal
-        and pipeline_options.gold_cal
-        and pipeline_options.type == "probs"
-    ):
-        scores_cal = read_file(pipeline_options.pred_cal)
-        golds_cal = read_file(pipeline_options.gold_cal)
-        if is_wmt18_format:
-            golds_cal, _ = _split_wmt18(golds_cal)
-        if is_wmt18_pred_format:
-            scores_cal, _ = _split_wmt18(scores_cal)
-        threshold = calibrate_threshold(scores_cal, golds_cal)
-
     # Numericalize Text Labels
     if pipeline_options.type == "tags":
         for tag_name in const.TAGS:
@@ -128,8 +111,7 @@ def evaluate_from_options(options):
 
     for tag in const.TAGS:
         if tag in golds and pred_files[tag]:
-            t = threshold if tag == const.TARGET_TAGS else None
-            eval_word_level(golds, pred_files, tag, threshold=t)
+            eval_word_level(golds, pred_files, tag)
 
     if const.SENTENCE_SCORES in golds:
         sent_golds = golds[const.SENTENCE_SCORES]
@@ -153,8 +135,6 @@ def evaluate_from_options(options):
 
         for pred_file in pred_files[const.BINARY]:
             sent_preds.append(pred_file)
-        if sent_preds:
-            eval_skips_at_quality(sent_golds, sent_preds)
 
     teardown()
 
@@ -244,7 +224,7 @@ def teardown():
     pass
 
 
-def eval_word_level(golds, pred_files, tag_name, threshold=None):
+def eval_word_level(golds, pred_files, tag_name):
     scores_table = []
     for pred_file, pred in pred_files[tag_name]:
         _check_lengths(golds[tag_name], pred)
@@ -254,14 +234,6 @@ def eval_word_level(golds, pred_files, tag_name, threshold=None):
         )
 
         scores_table.append((pred_file, *scores))
-
-        if threshold is not None:
-            scores_cal = score_word_level(
-                list(flatten(golds[tag_name])),
-                list(flatten(pred)),
-                threshold=threshold,
-            )
-            scores_table.append(("CAL" + pred_file, *scores_cal))
     # If more than one system is provided, compute ensemble score
     if len(pred_files[tag_name]) > 1:
         ensemble_pred = _average(
@@ -294,18 +266,9 @@ def eval_sentence_level(sent_gold, sent_preds):
     print_sentences_ranking_table(sentence_ranking)
 
 
-def calibrate_threshold(scores, golds):
-    m = MovingF1()
-    scores = [float(x) for x in flatten(scores)]
-    golds = list(flatten(_wmt_to_labels(golds)))
-    f1, threshold = m.choose(m.eval(scores, golds))
-    print("xF1 calibrate: {}".format(f1))
-    return threshold
-
-
-def score_word_level(gold, prediction, threshold=0.5):
+def score_word_level(gold, prediction):
     gold_tags = gold
-    pred_tags = _probs_to_labels(prediction, threshold=threshold)
+    pred_tags = _probs_to_labels(prediction)
     return f1_scores(pred_tags, gold_tags)
 
 
@@ -320,47 +283,6 @@ def score_sentence_level(gold, pred):
     delta_avg = delta_average(gold, rankdata(pred, method="ordinal"))
 
     return (pearson[0], mae, rmse), (spearman[0], delta_avg)
-
-
-def eval_skips_at_quality(
-    sent_labels,
-    sent_scores,
-    target=0.0,
-    scores_higher_is_better=False,
-    labels_higher_is_better=True,
-):
-    m = SkipsAtQ(
-        scores_higher_is_better=scores_higher_is_better,
-        labels_higher_is_better=labels_higher_is_better,
-    )
-    m_oracle = SkipsAtQ(
-        scores_higher_is_better=labels_higher_is_better,
-        labels_higher_is_better=labels_higher_is_better,
-    )
-    skips_at_q = {}
-    oracle_graph, _ = zip(*m_oracle.eval(sent_labels, sent_labels))
-    skips_at_q["oracle"] = oracle_graph
-    for pred_file, scores in sent_scores:
-        graph, _ = zip(*m.eval(scores, sent_labels))
-        skips_at_q[pred_file] = graph
-    print_graphs(skips_at_q, ".")
-
-
-def print_graphs(graphs, output_dir):
-    import seaborn as sns
-
-    df_dict = {"source": [], "skips": [], "ter": []}
-    for name, graph in graphs.items():
-        skips, qual = zip(*graph)
-        df_dict["skips"] += skips
-        df_dict["ter"] += qual
-        df_dict["source"] += len(skips) * [name]
-    sns.set()
-    df = pd.DataFrame(df_dict)
-    plot = sns.lineplot(
-        x="skips", y="ter", hue="source", style="source", data=df
-    )
-    plot.figure.savefig(str(Path(output_dir) / "SkipsAtQ.png"))
 
 
 def print_scores_table(scores, prefix="TARGET"):
