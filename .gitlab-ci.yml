@@ -5,9 +5,9 @@ variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
 
 stages:
+    - pages
     - lint
     - test
-    - pages
     - pypi
 
 before_script:
@@ -38,6 +38,7 @@ pages:
     extends: .test
     stage: pages
     script:
+        - git fetch
         - git clone --branch gh-pages . gh-pages
         - tox -e gh-pages
         - cd gh-pages
