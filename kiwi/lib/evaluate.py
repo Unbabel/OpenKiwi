@@ -36,26 +36,67 @@ def evaluate_from_options(options):
     is_wmt18_format = pipeline_options.format.lower() == "wmt18"
     is_wmt18_pred_format = pipeline_options.pred_format.lower() == "wmt18"
 
-    golds = {}
     # handling of gold target
+    golds = retrieve_gold_standard(pipeline_options, is_wmt18_format)
+
+    # handling of prediction files
+    pred_files = retrieve_predictions(
+        pipeline_options, is_wmt18_pred_format
+    )
+
+    if not any(pred_files.values()):
+        print(
+            "Please specify at least one of these options: "
+            "--input-dir, --pred-target, --pred-source, --pred-sents"
+        )
+        return
+
+    # evaluate word level
+    for tag in const.TAGS:
+        if tag in golds and pred_files[tag]:
+            scores = eval_word_level(golds, pred_files, tag)
+            print_scores_table(scores, tag)
+
+    # evaluate sentence level
+    if const.SENTENCE_SCORES in golds:
+        sent_golds = golds[const.SENTENCE_SCORES]
+        sent_preds = retrieve_sentence_predictions(pipeline_options, pred_files)
+
+        if sent_preds:
+            sentence_scores, sentence_ranking = eval_sentence_level(
+                sent_golds, sent_preds
+            )
+            print_sentences_scoring_table(sentence_scores)
+            print_sentences_ranking_table(sentence_ranking)
+
+        for pred_file in pred_files[const.BINARY]:
+            sent_preds.append(pred_file)
+
+    teardown()
+
+    # TODO return some evaluation info besides just printing the graph
+
+
+def retrieve_gold_standard(pipeline_options, is_wmt18_format):
+    golds = {}
     if pipeline_options.gold_target:
         gold_target = _wmt_to_labels(read_file(pipeline_options.gold_target))
         if is_wmt18_format:
             gold_target, gold_gaps = _split_wmt18(gold_target)
             golds[const.GAP_TAGS] = gold_gaps
         golds[const.TARGET_TAGS] = gold_target
-
     # handling of gold source
     if pipeline_options.gold_source:
         gold_source = _wmt_to_labels(read_file(pipeline_options.gold_source))
         golds[const.SOURCE_TAGS] = gold_source
-
     # handling of gold sentences
     if pipeline_options.gold_sents:
         gold_sentences = _read_sentence_scores(pipeline_options.gold_sents)
         golds[const.SENTENCE_SCORES] = gold_sentences
+    return golds
 
-    # handling of prediction files
+
+def retrieve_predictions(pipeline_options, is_wmt18_pred_format):
     pred_files = {target: [] for target in const.TARGETS}
     if pipeline_options.pred_target:
         for pred_file in pipeline_options.pred_target:
@@ -78,7 +119,6 @@ def evaluate_from_options(options):
             pred_files[const.SENTENCE_SCORES].append(
                 (str(pred_file), pred_sents)
             )
-
     if pipeline_options.input_dir:
         for input_dir in pipeline_options.input_dir:
             input_dir = Path(input_dir)
@@ -101,44 +141,23 @@ def evaluate_from_options(options):
             for i in range(len(pred_files[tag_name])):
                 fname, pred_tags = pred_files[tag_name][i]
                 pred_files[tag_name][i] = (fname, _wmt_to_labels(pred_tags))
+    return pred_files
 
-    if not any(pred_files.values()):
-        print(
-            "Please specify at least one of these options: "
-            "--input-dir, --pred-target, --pred-source, --pred-sents"
-        )
-        return
 
-    for tag in const.TAGS:
-        if tag in golds and pred_files[tag]:
-            eval_word_level(golds, pred_files, tag)
-
-    if const.SENTENCE_SCORES in golds:
-        sent_golds = golds[const.SENTENCE_SCORES]
-        sent_preds = pred_files[const.SENTENCE_SCORES]
-        sents_avg = (
-            pipeline_options.sents_avg
-            if pipeline_options.sents_avg
-            else pipeline_options.type
-        )
-        tag_to_sent = _probs_to_sentence_score
-
-        if sents_avg == "tags":
-            tag_to_sent = _tags_to_sentence_score
-
-        for pred_file, pred in pred_files[const.TARGET_TAGS]:
-            sent_pred = np.array(tag_to_sent(pred))
-            sent_preds.append((pred_file, sent_pred))
-
-        if sent_preds:
-            eval_sentence_level(sent_golds, sent_preds)
-
-        for pred_file in pred_files[const.BINARY]:
-            sent_preds.append(pred_file)
-
-    teardown()
-
-    # TODO return some evaluation info besides just printing the graph
+def retrieve_sentence_predictions(pipeline_options, pred_files):
+    sent_preds = pred_files[const.SENTENCE_SCORES]
+    sents_avg = (
+        pipeline_options.sents_avg
+        if pipeline_options.sents_avg
+        else pipeline_options.type
+    )
+    tag_to_sent = _probs_to_sentence_score
+    if sents_avg == "tags":
+        tag_to_sent = _tags_to_sentence_score
+    for pred_file, pred in pred_files[const.TARGET_TAGS]:
+        sent_pred = np.array(tag_to_sent(pred))
+        sent_preds.append((pred_file, sent_pred))
+    return sent_preds
 
 
 def _split_wmt18(tags):
@@ -244,7 +263,26 @@ def eval_word_level(golds, pred_files, tag_name):
         )
         scores_table.append(("*ensemble*", *ensemble_score))
 
-    print_scores_table(scores_table, tag_name)
+    scores = np.array(
+        scores_table,
+        dtype=[
+            ("File", "object"),
+            ("F1_{}".format(const.LABELS[0]), float),
+            ("F1_{}".format(const.LABELS[1]), float),
+            ("F1_mult", float),
+        ],
+    )
+    # Put the main metric in the first column
+    scores = scores[
+        [
+            "File",
+            "F1_mult",
+            "F1_{}".format(const.LABELS[0]),
+            "F1_{}".format(const.LABELS[1]),
+        ]
+    ]
+
+    return scores
 
 
 def eval_sentence_level(sent_gold, sent_preds):
@@ -262,8 +300,21 @@ def eval_sentence_level(sent_gold, sent_preds):
     sentence_scores.append(("*ensemble*", *ensemble_score))
     sentence_ranking.append(("*ensemble*", *ensemble_ranking))
 
-    print_sentences_scoring_table(sentence_scores)
-    print_sentences_ranking_table(sentence_ranking)
+    sentence_scores = np.array(
+        sentence_scores,
+        dtype=[
+            ("File", "object"),
+            ("Pearson r", float),
+            ("MAE", float),
+            ("RMSE", float),
+        ],
+    )
+    sentence_ranking = np.array(
+        sentence_ranking,
+        dtype=[("File", "object"), ("Spearman r", float), ("DeltaAvg", float)],
+    )
+
+    return sentence_scores, sentence_ranking
 
 
 def score_word_level(gold, prediction):
@@ -286,42 +337,22 @@ def score_sentence_level(gold, pred):
 
 
 def print_scores_table(scores, prefix="TARGET"):
-    scoring = np.array(
-        scores,
-        dtype=[
-            ("File", "object"),
-            ("F1_{}".format(const.LABELS[0]), float),
-            ("F1_{}".format(const.LABELS[1]), float),
-            ("xF1", float),
-        ],
-    )
-
-    # Put the main metric in the first column
-    scoring = scoring[
-        [
-            "File",
-            "xF1",
-            "F1_{}".format(const.LABELS[0]),
-            "F1_{}".format(const.LABELS[1]),
-        ]
-    ]
-
-    prefix_path, scoring["File"] = _extract_path_prefix(scoring["File"])
+    prefix_path, scores["File"] = _extract_path_prefix(scores["File"])
     path_str = " ({})".format(prefix_path) if prefix_path else ""
 
-    max_method_length = max(len(path_str) + 4, max(map(len, scoring["File"])))
+    max_method_length = max(len(path_str) + 4, max(map(len, scores["File"])))
     print("-" * (max_method_length + 13 * 3))
     print("Word-level scores for {}:".format(prefix))
     print(
         "{:{width}}    {:9}    {:9}    {:9}".format(
             "File{}".format(path_str),
-            "xF1",
+            "F1_mult",
             "F1_{}".format(const.LABELS[0]),
             "F1_{}".format(const.LABELS[1]),
             width=max_method_length,
         )
     )
-    for score in np.sort(scoring, order=["xF1", "File"])[::-1]:
+    for score in np.sort(scores, order=["F1_mult", "File"])[::-1]:
         print(
             "{:{width}s}    {:<9.5f}    {:<9.5}    {:<9.5f}".format(
                 *score, width=max_method_length
@@ -330,19 +361,10 @@ def print_scores_table(scores, prefix="TARGET"):
 
 
 def print_sentences_scoring_table(scores):
-    scoring = np.array(
-        scores,
-        dtype=[
-            ("File", "object"),
-            ("Pearson r", float),
-            ("MAE", float),
-            ("RMSE", float),
-        ],
-    )
-    prefix_path, scoring["File"] = _extract_path_prefix(scoring["File"])
+    prefix_path, scores["File"] = _extract_path_prefix(scores["File"])
     path_str = " ({})".format(prefix_path) if prefix_path else ""
 
-    max_method_length = max(len(path_str) + 4, max(map(len, scoring["File"])))
+    max_method_length = max(len(path_str) + 4, max(map(len, scores["File"])))
     print("-" * (max_method_length + 13 * 3))
     print("Sentence-level scoring:")
     print(
@@ -354,7 +376,7 @@ def print_sentences_scoring_table(scores):
             width=max_method_length,
         )
     )
-    for score in np.sort(scoring, order=["Pearson r", "File"])[::-1]:
+    for score in np.sort(scores, order=["Pearson r", "File"])[::-1]:
         print(
             "{:{width}s}    {:<9.5f}    {:<9.5f}    {:<9.5f}".format(
                 *score, width=max_method_length
@@ -363,14 +385,10 @@ def print_sentences_scoring_table(scores):
 
 
 def print_sentences_ranking_table(scores):
-    scoring = np.array(
-        scores,
-        dtype=[("File", "object"), ("Spearman r", float), ("DeltaAvg", float)],
-    )
-    prefix_path, scoring["File"] = _extract_path_prefix(scoring["File"])
+    prefix_path, scores["File"] = _extract_path_prefix(scores["File"])
     path_str = " ({})".format(prefix_path) if prefix_path else ""
 
-    max_method_length = max(len(path_str) + 4, max(map(len, scoring["File"])))
+    max_method_length = max(len(path_str) + 4, max(map(len, scores["File"])))
     print("-" * (max_method_length + 13 * 3))
     print("Sentence-level ranking:")
     print(
@@ -381,7 +399,7 @@ def print_sentences_ranking_table(scores):
             width=max_method_length,
         )
     )  # noqa
-    for score in np.sort(scoring, order=["Spearman r", "File"])[::-1]:
+    for score in np.sort(scores, order=["Spearman r", "File"])[::-1]:
         print(
             "{:{width}s}    {:<10.5f}    {:<9.5f}".format(
                 *score, width=max_method_length
