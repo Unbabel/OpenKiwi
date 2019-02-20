@@ -39,10 +39,10 @@ pages:
     stage: pages
     script:
         - git fetch
-        - git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
+        - git clone --branch gh-pages ${CI_REPOSITORY_URL} gh-pages
         - tox -e gh-pages
         - cd gh-pages
-        - msg=`git log master -1 --pretty=short --abbrev-commit`; cd gh-pages; git add .; git commit -m "$msg"
+        - cd gh-pages; git add .; git commit -m "Update docs"
         - git push origin gh-pages
     only:
         - master
