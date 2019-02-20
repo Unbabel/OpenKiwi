@@ -71,6 +71,7 @@ class PipelineParser:
         options_fn=None,
         add_io_options=True,
         add_general_options=True,
+        add_logging_options=True,
         add_save_load_options=True,
     ):
         self.name = name
@@ -98,6 +99,8 @@ class PipelineParser:
                 opts.io_opts(self._parser)
             if add_general_options:
                 opts.general_opts(self._parser)
+            if add_logging_options:
+                opts.logging_opts(self._parser)
             if add_save_load_options:
                 opts.save_load_opts(self._parser)
 

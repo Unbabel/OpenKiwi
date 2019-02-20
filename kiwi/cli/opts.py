@@ -47,7 +47,7 @@ class PathType(object):
 
 def io_opts(parser):
     # Logging
-    group = parser.add_argument_group('I/O and logging')
+    group = parser.add_argument_group('I/O')
     group.add_argument(
         '--save-config',
         required=False,
@@ -64,6 +64,11 @@ def io_opts(parser):
         action='store_true',
         help='Only output warning and error messages.',
     )
+
+
+def logging_opts(parser):
+    # Logging options
+    group = parser.add_argument_group('Logging')
     group.add_argument(
         '--log-interval', type=int, default=100, help='Log every k batches.'
     )
