@@ -50,6 +50,7 @@ class ModelConfig:
     def state_dict(self):
         """Return the __dict__ for serialization.
         """
+        self.__dict__['__version__'] = '1.0.0'
         return self.__dict__
 
 
@@ -219,6 +220,7 @@ class Model(nn.Module):
     def save(self, path):
         vocabs = utils.serialize_vocabs(self.vocabs)
         model_dict = {
+            '__version__': '1.0.0',
             const.VOCAB: vocabs,
             self.__class__.__name__: {
                 const.CONFIG: self.config.state_dict(),
