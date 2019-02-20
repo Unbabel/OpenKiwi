@@ -39,7 +39,7 @@ pages:
     stage: pages
     script:
         - git fetch
-        - git clone --branch gh-pages . gh-pages
+        - git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
         - tox -e gh-pages
         - cd gh-pages
         - msg=`git log master -1 --pretty=short --abbrev-commit`; cd gh-pages; git add .; git commit -m "$msg"
