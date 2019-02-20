@@ -1,4 +1,0 @@
-config: experiments/predest/en_de/predictor_estimator.yaml
-
-h-c: [3]
-experiment-name: h-c

@@ -1,5 +1,4 @@
 import logging
-from distutils.util import strtobool
 
 from kiwi.cli.better_argparse import PipelineParser
 from kiwi.cli.opts import PathType
@@ -123,7 +122,13 @@ def evaluate_opts(parser):
 
 def build_parser():
     return PipelineParser(
-        name="evaluate", model_parsers=None, options_fn=evaluate_opts
+        name="evaluate",
+        model_parsers=None,
+        options_fn=evaluate_opts,
+        add_io_options=True,
+        add_general_options=False,
+        add_logging_options=False,
+        add_save_load_options=False,
     )
 
 

@@ -1,8 +1,8 @@
 NuQE training
 =============
 
-.. toctree::
-   train_nuqe
+.. contents:: Contents
+   :local:
 
 .. argparse::
    :module: kiwi.cli.models.nuqe

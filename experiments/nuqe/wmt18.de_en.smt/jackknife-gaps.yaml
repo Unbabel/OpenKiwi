@@ -1,5 +1,0 @@
-experiment-name: NuQE WMT18 Gaps de_en.smt
-
-train-config: experiments/nuqe/wmt18.de_en.smt/train-gaps.yaml
-
-splits: 5

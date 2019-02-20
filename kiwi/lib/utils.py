@@ -136,8 +136,8 @@ def setup_output_directory(
 
 def merge_namespaces(*args):
     """
-    Utility function used to merge Namespaces. Useful for merging
-    Argparse options.
+    Utility function used to merge Namespaces. Useful for merging Argparse
+    options.
 
     Args:
         *args: Variable length list of Namespaces

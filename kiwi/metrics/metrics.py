@@ -372,7 +372,7 @@ class MovingMetric:
         """
         return zip(*sorted(zip(scores, labels)))
 
-    def update(score, label):
+    def update(self, score, label):
         """Move the threshold past score
         """
         return None

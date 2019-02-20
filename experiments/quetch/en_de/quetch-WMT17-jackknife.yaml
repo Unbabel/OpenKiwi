@@ -1,5 +1,0 @@
-model: quetch
-base-config: experiments/quetch-WMT17.yaml
-splits: 5
-output-dir: predictions/quetch/WMT17/jackknife/
-experiment-name: QUETCH-WMT17-JACKKNIFE

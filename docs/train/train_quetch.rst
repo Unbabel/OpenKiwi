@@ -1,8 +1,8 @@
 QUETCH training
 ===============
 
-.. toctree::
-   train_quetch
+.. contents:: Contents
+   :local:
 
 .. argparse::
    :module: kiwi.cli.models.quetch

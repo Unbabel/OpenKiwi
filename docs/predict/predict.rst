@@ -20,6 +20,7 @@ Model specific options can be seen here:
    predict_quetch
    predict_linear
 
+.. _predict-flags:
 
 .. argparse::
    :module: kiwi.cli.pipelines.predict

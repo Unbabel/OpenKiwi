@@ -47,13 +47,14 @@ class PathType(object):
 
 def io_opts(parser):
     # Logging
-    group = parser.add_argument_group('I/O and logging')
+    group = parser.add_argument_group('I/O')
     group.add_argument(
         '--save-config',
         required=False,
+        type=PathType(exists=False),
         is_write_out_config_file_arg=False,
         # Setting it to true makes it save and exit
-        help='Save parsed configuration and arguments to file',
+        help='Save parsed configuration and arguments to the specified file',
     )
     group.add_argument(
         '-d', '--debug', action='store_true', help='Output additional messages.'
@@ -64,6 +65,11 @@ def io_opts(parser):
         action='store_true',
         help='Only output warning and error messages.',
     )
+
+
+def logging_opts(parser):
+    # Logging options
+    group = parser.add_argument_group('Logging')
     group.add_argument(
         '--log-interval', type=int, default=100, help='Log every k batches.'
     )
@@ -71,20 +77,21 @@ def io_opts(parser):
         '--mlflow-tracking-uri',
         type=str,
         default='mlruns/',
-        help='Log model parameters, training metrics, and artifacts (files) '
-        'to this MLflow server. Uses the localhost by default.',
+        help='If using MLflow, logs model parameters, training metrics, and '
+        'artifacts (files) to this MLflow server. Uses the localhost by '
+        'default.',
     )
     group.add_argument(
         '--experiment-name',
         required=False,
-        help='MLflow will log this run under this experiment name, '
-        'which appears as a separate section in the UI. It '
-        'will also be used in some messages and files.',
+        help='If using MLflow, it will log this run under this experiment '
+        'name, which appears as a separate section'
+        'in the UI. It will also be used in some messages and files.',
     )
     group.add_argument(
         '--run-uuid',
         required=False,
-        help='If specified, MLflow will log metrics and params '
+        help='If specified, MLflow/Default Logger will log metrics and params '
         'under this ID. If it exists, the run status will '
         'change to running. This ID is also used for creating '
         'this run\'s output directory. '
@@ -105,10 +112,10 @@ def io_opts(parser):
         nargs='?',
         const=True,
         default=False,
-        help='Always log (send) artifacts (files) to MLflow artifacts URI. '
-        'By default (false), artifacts are only logged if MLflow is a '
-        'remote server (as specified by --mlflow-tracking-uri option). '
-        'All generated files are always saved in --output-dir, so it '
+        help='If using MLFlow, always log (send) artifacts (files) to MLflow '
+        'artifacts URI. By default (false), artifacts are only logged if'
+        'MLflow is a remote server (as specified by --mlflow-tracking-uri '
+        'option). All generated files are always saved in --output-dir, so it '
         'might be considered redundant to copy them to a local MLflow '
         'server. If this is not the case, set this option to true.',
     )

@@ -7,6 +7,7 @@ a YAML 'mapping' (for details, see http://learn.getgrav.org/advanced/yaml). If
 an arg is specified in more than one place, then command line values override
 config file values which override defaults.
 
+.. _evaluate-flags:
 
 .. argparse::
    :module: kiwi.cli.pipelines.evaluate

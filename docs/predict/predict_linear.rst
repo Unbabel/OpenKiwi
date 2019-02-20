@@ -1,8 +1,8 @@
 Linear predicting
 =================
 
-.. toctree::
-   predict_linear
+.. contents:: Contents
+   :local:
 
 .. argparse::
    :module: kiwi.cli.models.linear

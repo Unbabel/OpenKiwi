@@ -3,7 +3,10 @@ from pathlib import Path
 from pprint import pformat
 
 from kiwi.data.builders import build_test_dataset
-from kiwi.data.utils import deserialize_fields_from_vocabs, save_predicted_probabilities
+from kiwi.data.utils import (
+    deserialize_fields_from_vocabs,
+    save_predicted_probabilities,
+)
 from kiwi.lib.utils import (
     configure_device,
     configure_logging,
@@ -82,7 +85,9 @@ def run(ModelClass, output_dir, pipeline_opts, model_opts):
     if ModelClass == LinearWordQEClassifier:
         load_vocab = None
 
-        model = LinearWordQEClassifier(evaluation_metric=model_opts.evaluation_metric)
+        model = LinearWordQEClassifier(
+            evaluation_metric=model_opts.evaluation_metric
+        )
         model.load(pipeline_opts.load_model)
         predicter = LinearTester(model)
     else:
@@ -105,7 +110,9 @@ def run(ModelClass, output_dir, pipeline_opts, model_opts):
         load_vocab=load_vocab,
         **vars(model_opts),
     )
-    predictions = predicter.run(test_dataset, batch_size=pipeline_opts.batch_size)
+    predictions = predicter.run(
+        test_dataset, batch_size=pipeline_opts.batch_size
+    )
 
     save_predicted_probabilities(output_dir, predictions)
     return predictions
@@ -126,7 +133,9 @@ def setup(options):
     output_dir = setup_output_directory(
         options.output_dir, options.run_uuid, experiment_id=None, create=True
     )
-    configure_logging(output_dir=output_dir, debug=options.debug, quiet=options.quiet)
+    configure_logging(
+        output_dir=output_dir, debug=options.debug, quiet=options.quiet
+    )
     configure_seed(options.seed)
     configure_device(options.gpu_id)
 

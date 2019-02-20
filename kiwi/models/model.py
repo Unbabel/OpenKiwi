@@ -15,6 +15,7 @@ class ModelConfig(object):
 
     def __init__(self, vocabs, **kwargs):
         """Model Configuration Base Class.
+
         Args:
         vocabs: Dictionary Mapping Field Names to Vocabularies.
                 Must contain 'source' and 'target' keys
@@ -194,7 +195,7 @@ class Model(nn.Module):
         Return:
             A batch object.
         """
-        pass
+        raise NotImplementedError
 
     def get_mask(self, batch, output):
         """Compute Mask of Tokens for side.

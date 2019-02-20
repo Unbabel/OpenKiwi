@@ -1,8 +1,8 @@
 QUETCH predicting
 =============
 
-.. toctree::
-   predict_quetch
+.. contents:: Contents
+   :local:
 
 .. argparse::
    :module: kiwi.cli.models.quetch

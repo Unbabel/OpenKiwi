@@ -26,9 +26,6 @@ class HyperPipelineParser:
             ignore_unknown_config_file_keys=False,
         )
 
-        # self._config_option_parser = configargparse.get_argument_parser(
-        #     name='meta-config', add_help=False)
-
         self._parser.add(
             '--config',
             required=False,
@@ -60,8 +57,6 @@ class HyperPipelineParser:
         options = Namespace()
         options.meta = meta_options
         options.pipeline = pipeline_options
-        # options.all_options = merge_namespaces(meta_options,
-        #                                        pipeline_options)
 
         return options
 
@@ -76,6 +71,7 @@ class PipelineParser:
         options_fn=None,
         add_io_options=True,
         add_general_options=True,
+        add_logging_options=True,
         add_save_load_options=True,
     ):
         self.name = name
@@ -103,6 +99,8 @@ class PipelineParser:
                 opts.io_opts(self._parser)
             if add_general_options:
                 opts.general_opts(self._parser)
+            if add_logging_options:
+                opts.logging_opts(self._parser)
             if add_save_load_options:
                 opts.save_load_opts(self._parser)
 
@@ -123,8 +121,7 @@ class PipelineParser:
             self._config_option_parser = self._parsers['config']
         else:
             self._config_option_parser = configargparse.get_argument_parser(
-                'config',
-                add_help=False,
+                'config', add_help=False
             )
             self._parsers['config'] = self._config_option_parser
             self.add_config_option(self._config_option_parser, read_file=False)

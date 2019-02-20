@@ -1,8 +1,8 @@
 Linear training
 ===============
 
-.. toctree::
-   train_linear
+.. contents:: Contents
+   :local:
 
 .. argparse::
    :module: kiwi.cli.models.linear

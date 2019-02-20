@@ -1,7 +1,7 @@
 import configargparse
 
 from kiwi import __version__
-from kiwi.cli.pipelines import jackknife, predict, train, evaluate
+from kiwi.cli.pipelines import evaluate, jackknife, predict, train
 
 
 def build_parser():
@@ -12,22 +12,7 @@ def build_parser():
         description='Quality Estimation toolkit',
         add_help=True,
     )
-    # prog=None, usage=None, description=None, epilog=None, parents=[],
-    # formatter_class=argparse.HelpFormatter, prefix_chars='-',
-    # fromfile_prefix_chars=None,
-    # argument_default=None, conflict_handler='error', add_help=True
     parser.add_argument('--version', action='version', version=__version__)
-    # subparsers = parser.add_subparsers()
-    # help_parser = subparsers.add_parser('help', add_help=False)
-    # help_parser.add_argument('-h', '--help', action='store_true')
-    # pipeline_parser = subparsers.add_parser('pipeline')
-    # pipeline_parser.add_argument(
-    #     dest='pipeline',
-    #     # title='Pipelines',
-    #     # description="Use 'kiwi <pipeline> (-h | --help)' to check it out.",
-    #     help='Run "kiwi <pipeline> (-h | --help) for more information.',
-    #     choices=['train', 'predict', 'search', 'jackknife', 'preprocess',
-    #              'pretrain'])
     subparsers = parser.add_subparsers(
         title='Pipelines',
         description="Use 'kiwi <pipeline> (-h | --help)' to check it out.",

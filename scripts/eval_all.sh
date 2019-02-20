@@ -65,4 +65,4 @@ for folder in $(find ${BASE_DIR} -type d); do
 done
 
 ARGS="$ARGS $SENTS $GAPS $TAGS --format wmt18 --pred-format wmt18  --type probs"
-python /home/sony/OpenKiwi/scripts/evaluate.py $ARGS
+kiwi evaluate $ARGS
