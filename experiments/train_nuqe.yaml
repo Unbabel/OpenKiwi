@@ -2,6 +2,8 @@
 #
 model: nuqe
 
+output-dir: runs/nuqe
+
 window-size: 3
 max-aligned: 5
 
@@ -24,6 +26,7 @@ init-support: 0.1
 init-type: uniform
 
 ### Pretrained Embedding Options ###
+# pip-install the polyglot package to use these
 #embeddings-format: polyglot
 #source-embeddings: path/to/source/embeddings_pkl.tar.bz2
 #target-embeddings: path/to/target/embeddings_pkl.tar.bz2

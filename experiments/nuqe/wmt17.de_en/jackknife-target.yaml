@@ -1,5 +1,0 @@
-model: nuqe
-base-config: experiments/nuqe/de_en/nuqe-WMT17.yaml
-splits: 5
-output-dir: predictions/nuqe/WMT17/de_en/jackknife/
-experiment-name: NUQE-WMT17-de_en-JACKKNIFE

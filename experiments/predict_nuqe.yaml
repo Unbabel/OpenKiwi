@@ -1,0 +1,8 @@
+load-model: runs/nuqe/best_model.torch
+
+output-dir: predictions/nuqe_wmt17_en_de
+
+gpu-id: 0
+
+test-source: data/WMT17/word_level/dev.src
+test-target: data/WMT17/word_level/dev.mt
