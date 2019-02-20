@@ -41,7 +41,9 @@ pages:
         - git fetch
         - git clone --branch gh-pages ${CI_REPOSITORY_URL} gh-pages
         - tox -e gh-pages
-
+        - git config --global user.email "openkiwi@unbabel.com"
+        - git config --global user.name "GitLab CI"
+ 
         - cd gh-pages; git add .; git commit -m "Update docs"
         - git push origin gh-pages
     only:
