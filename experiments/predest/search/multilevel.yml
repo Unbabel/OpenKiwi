@@ -1,8 +1,0 @@
-config: experiments/predest/en_de/predictor_estimator.yaml
-
-binary-level: [True, False]
-sentence-level: [True, False]
-token-level: [True, False]
-sentence-ll: [True, False]
-
-experiment-name: Predictor Estimator WMT17 En De Multilevel

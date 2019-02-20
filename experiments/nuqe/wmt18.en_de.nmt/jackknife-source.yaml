@@ -1,5 +1,0 @@
-experiment-name: NuQE WMT18 en-de NMT source JACKKNIFE
-
-train-config: experiments/nuqe/wmt18.en_de.nmt/train-source.yaml
-
-splits: 5

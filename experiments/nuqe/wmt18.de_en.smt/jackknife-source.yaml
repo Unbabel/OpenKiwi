@@ -1,5 +1,0 @@
-experiment-name: NuQE WMT18 Source de_en.smt
-
-train-config: experiments/nuqe/wmt18.de_en.smt/train-source.yaml
-
-splits: 5

@@ -1,0 +1,3 @@
+gold-target: data/WMT17/word_level/dev.tags
+
+pred-target: predictions/nuqe_wmt17_en_de

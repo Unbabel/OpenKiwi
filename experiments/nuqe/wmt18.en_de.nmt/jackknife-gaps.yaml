@@ -1,5 +1,0 @@
-experiment-name: NuQE WMT18 en-de NMT gaps JACKKNIFE
-
-train-config: experiments/nuqe/wmt18.en_de.nmt/train-gaps.yaml
-
-splits: 5
