@@ -1,5 +1,7 @@
 ![OpenKiwi Logo](https://github.com/Unbabel/OpenKiwi/blob/master/docs/_static/img/openkiwi-logo-horizontal.svg)
 
+--------------------------------------------------------------------------------
+
 [![PyPI version](https://badge.fury.io/py/openkiwi.svg)](https://badge.fury.io/py/openkiwi)
 [![python versions](https://img.shields.io/pypi/pyversions/openkiwi.svg)](https://pypi.org/project/openkiwi/)
 [![pipeline status](https://gitlab.com/Unbabel/OpenKiwi/badges/master/pipeline.svg)](https://gitlab.com/Unbabel/OpenKiwi/commits/master)
