@@ -4,7 +4,7 @@ Contributing to OpenKiwi
 Installing
 ----------
 
-Please note that since Python>=3.5 is required, all the below commands, especially `pip`,
+Please note that since Python\>=3.5 is required, all the below commands, especially `pip`,
 also have to be the Python 3 version. This might require that you run `pip3` instead.
 
 This project uses a newer configuration format defined by PEP-518, namely, a `pyproject.toml` file.
@@ -55,4 +55,4 @@ Running::
 
 should now show you a help message.
 
-.. mdinclude:: ../../CONTRIBUTING.md
+.. mdinclude:: ../CONTRIBUTING.md

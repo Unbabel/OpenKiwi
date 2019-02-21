@@ -19,7 +19,7 @@ Welcome to OpenKiwi's documentation!
    :maxdepth: 2
    :caption: Contributing to OpenKiwi
 
-   contributing/contributing
+   contributing
 
 .. toctree::
    :maxdepth: 2
