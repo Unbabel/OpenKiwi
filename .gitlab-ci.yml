@@ -51,10 +51,11 @@ pages:
         - git config --global user.name "GitLab CI"
         - lasttag=`git describe --abbrev=0 --tags`; cd gh-pages; git add .; git commit -m "Update docs for $lasttag"
         - git push git@github.com:Unbabel/OpenKiwi.git gh-pages
-    only:
-        - tags
-    except:
-        - branches
+#    only:
+#        - tags
+#    except:
+#        - branches
+    when: manual
 
 pypi:
     # Upload to PyPI index
