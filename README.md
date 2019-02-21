@@ -1,4 +1,4 @@
-# OpenKiwi
+![OpenKiwi Logo](https://github.com/Unbabel/OpenKiwi/blob/master/docs/_static/img/openkiwi-logo-horizontal.png)
 
 [![PyPI version](https://badge.fury.io/py/openkiwi.svg)](https://badge.fury.io/py/openkiwi)
 [![python versions](https://img.shields.io/pypi/pyversions/openkiwi.svg)](https://pypi.org/project/openkiwi/)
@@ -15,7 +15,7 @@ Quality estimation(QE) is one of the missing pieces of machine translation: its 
 
 * Framework for training QE models and using pre-trained models for evaluating MT
 * Supports both word and sentence-level Quality estimation
-* Implementation of five QE systems in Pytorch: QUETCH [[1]], NuQE [2, 3], predictor-estimator [4, 5], APE-QE [3], and a stacked ensemble with a linear system [2, 3] 
+* Implementation of five QE systems in Pytorch: QUETCH [1], NuQE [2, 3], predictor-estimator [4, 5], APE-QE [3], and a stacked ensemble with a linear system [2, 3] 
 * Easy to use API. Import it as a package in other projects or run from the command line
 * Provides scripts to run pre-trained QE models on data from the WMT 2018 campaign.
 * Easy to track and reproduce experiments via yaml configuration files.

@@ -16,7 +16,7 @@ Welcome to OpenKiwi's documentation!
    reproduce.rst
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contributing to OpenKiwi
 
    contributing
