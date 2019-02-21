@@ -59,6 +59,6 @@ pypi:
     # Upload to PyPI index
     stage: pypi
     script:
-        - poetry publish --build -u ${PYPI_REPOSITORY_USERNAME} -p ${PYPI_REPOSITORY_PASSWORD}
+        - poetry publish --build -u ${PYPI_REPOSITORY_USERNAME} -p '${PYPI_REPOSITORY_PASSWORD}'
     only:
         - tags
