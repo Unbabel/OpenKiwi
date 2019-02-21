@@ -52,8 +52,9 @@ pages:
         - lasttag=`git describe --abbrev=0 --tags`; cd gh-pages; git add .; git commit -m "Update docs for $lasttag"
         - git push git@github.com:Unbabel/OpenKiwi.git gh-pages
     only:
-        - master
-    when: manual
+        - tags
+    except:
+        - branches
 
 pypi:
     # Upload to PyPI index
@@ -62,3 +63,5 @@ pypi:
         - poetry publish --build -u ${PYPI_REPOSITORY_USERNAME} -p '${PYPI_REPOSITORY_PASSWORD}'
     only:
         - tags
+    except:
+        - branches
