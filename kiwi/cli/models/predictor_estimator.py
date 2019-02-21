@@ -26,17 +26,6 @@ def _add_training_data_file_opts(parser):
         help='Path to training target file',
     )
     group.add_argument(
-        '--train-source-tags',
-        type=PathType(exists=True),
-        help='Path to training label file for source (WMT18 format)',
-    )
-    group.add_argument(
-        '--train-target-tags',
-        type=PathType(exists=True),
-        help='Path to training label file for target',
-    )
-
-    group.add_argument(
         '--train-pe',
         type=PathType(exists=True),
         help='Path to file containing post-edited target.',

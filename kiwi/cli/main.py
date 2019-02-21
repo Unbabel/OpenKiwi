@@ -32,12 +32,12 @@ def build_parser():
         add_help=False,
         help='Use a pre-trained model for prediction',
     )
-    subparsers.add_parser(
-        'search',
-        # parents=[search.parser],
-        add_help=False,
-        help='Search training hyperparameters for a QE model',
-    )
+    # subparsers.add_parser(
+    #     'search',
+    #     # parents=[search.parser],
+    #     add_help=False,
+    #     help='Search training hyperparameters for a QE model',
+    # )
     subparsers.add_parser(
         'jackknife',
         # parents=[jackknife.parser],

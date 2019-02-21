@@ -1,24 +1,27 @@
-.. OpenKiwi documentation master file, created by
-   sphinx-quickstart on Tue Nov 20 15:16:09 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to OpenKiwi's documentation!
 ====================================
 
+.. image:: _static/img/openkiwi-logo-horizontal.svg
+   :width: 400
+   :alt: OpenKiwi by Unbabel
+
+----
+
 .. mdinclude:: ../README.md
+   :start-line: 3
 
 .. toctree::
    :maxdepth: 2
-   :caption: Quickstart
+   :caption: Getting Started
 
    quickstart.md
+   reproduce.rst
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contributing to OpenKiwi
 
-   contributing/contributing
+   contributing
 
 .. toctree::
    :maxdepth: 2

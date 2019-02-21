@@ -3,33 +3,25 @@
 
 [tool.poetry]
 name = "openkiwi"
-version = "0.2.0"
+version = "0.1.0"
 description = "Machine Translation Quality Estimation Toolkit"
-authors = ["AI Research, Unbabel <ai-research@unbabel.com>"]
+authors = ["AI Research, Unbabel <openkiwi@unbabel.com>"]
 license = "AGPL-3.0"
-
 readme = 'README.md'
-
 homepage = 'https://github.com/Unbabel/OpenKiwi'
 repository = 'https://github.com/Unbabel/OpenKiwi'
-documentation = 'https://git.com/Unbabel/OpenKiwi'
-
+documentation = 'https://unbabel.github.io/OpenKiwi/'
 keywords = ['OpenKiwi', 'Quality Estimation', 'Machine Translation', 'Unbabel']
-
 classifiers = [
     'Development Status :: 4 - Beta',
     'Environment :: Console',
-    'Framework :: PyTorch',
     'Intended Audience :: Science/Research',
     'Topic :: Scientific/Engineering :: Artificial Intelligence',
 ]
-
 packages = [
     {include = "kiwi"},
 ]
-
 include = ['pyproject.toml', 'CHANGELOG', 'LICENSE', 'CONTRIBUTING.md']
-#exclude = []
 
 
 [tool.poetry.scripts]

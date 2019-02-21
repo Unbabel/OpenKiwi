@@ -5,6 +5,7 @@ from pathlib import Path
 import torch
 from tqdm import tqdm
 
+import kiwi
 from kiwi import constants as const
 from kiwi.loggers import tracking_logger
 from kiwi.metrics.stats import Stats
@@ -181,6 +182,7 @@ class Trainer:
         torch.save(optimizer_dict, str(optimizer_path))
 
         state = {
+            '__version__': kiwi.__version__,
             '_epoch': self._epoch,
             '_step': self._step,
             'checkpointer': self.checkpointer,

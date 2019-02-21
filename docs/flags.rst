@@ -19,10 +19,10 @@ For pipeline specific options see:
 .. toctree::
    :maxdepth: 1
 
-   train/train
-   predict/predict
-   jackknife/jackknife
-   evaluate/evaluate
+   cli/train
+   cli/predict
+   cli/jackknife
+   cli/evaluate
 
 
 .. _generic-flags:

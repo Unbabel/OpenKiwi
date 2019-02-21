@@ -39,6 +39,9 @@ class EstimatorConfig(PredictorConfig, QEModelConfig):
         sentence_level=True,
         sentence_ll=True,
         binary_level=True,
+        target_bad_weight=2.0,
+        source_bad_weight=2.0,
+        gaps_bad_weight=2.0,
         **kwargs
     ):
         """Predictor Estimator Hyperparams.

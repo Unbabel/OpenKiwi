@@ -1,5 +1,6 @@
 import pytest
 
+from kiwi import __version__
 from kiwi import constants as const
 from kiwi.models.model import ModelConfig
 
@@ -19,6 +20,7 @@ class MockVocab(object):
 @pytest.fixture
 def state_dict():
     return {
+        '__version__' : __version__,
         'a': None,
         'b': 12,
         'c': 4,
