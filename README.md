@@ -8,6 +8,9 @@
     
 Toolkit for Machine Translation Quality Estimation.
 
+Quality estimation(QE) is one of the missing pieces of machine translation: its goal is to evaluate a translation system’s quality without access to reference translations. We present **OpenKiwi**, a Pytorch-based open-source framework that implements the best QE systems from WMT 2015-18 shared tasks, making it easy to experiment with these models under the same framework. Using OpenKiwi and a stacked combination of these models we have achieved state-of-the-art results on the widely used WMT18 English-German dataset.
+
+
 ## Features
 
 * Framework for training QE models and using pre-trained models for evaluating MT
@@ -44,7 +47,7 @@ inside your project or run in the command line
 kiwi
 ```
 
-Optionally, after installation if you'd like to take advantage of our Mlflow integration simply install it in the same virtualenv as OpenKiwi.
+**Optionally**, after installation if you'd like to take advantage of our Mlflow integration simply install it in the same virtualenv as OpenKiwi.
 
 Running for example:
 
@@ -55,17 +58,17 @@ pip install mlflow
 
 ## Getting Started
 
-Detailed usage examples and instructions can be seen in the full documentation. 
-TODO: Insert link to documentation
+
+Detailed usage examples and instructions can be seen in the [Full Documentation](https://unbabel.github.io/OpenKiwi/index.html).
+
 
 ## Pre-trained models
 
-We provide pre-trained models with the corresponding pre-processed datasets and configuration
-files. These can be seen in TODO: INSERT link to location
+We provide pre-trained models with the corresponding pre-processed datasets and configuration files. You can easily reproduce our numbers in the WMT18 word-level task by following the instructions available [here](https://unbabel.github.io/OpenKiwi/reproduce.html)
 
 ## Contribution
 
-We welcome contributions to improve OpenKiwi. Please refer to [contributing](CONTRIBUTING.md) for quick instructions or to TODO: Insert link to documentation for more detailed instructions on how to set up your development environment.
+We welcome contributions to improve OpenKiwi. Please refer to [contributing](CONTRIBUTING.md) for quick instructions or to [contributing instructions](https://unbabel.github.io/OpenKiwi/contributing/contributing.html) for more detailed instructions on how to set up your development environment.
 
 ## License
 

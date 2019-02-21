@@ -6,13 +6,14 @@
 Welcome to OpenKiwi's documentation!
 ====================================
 
-.. mdinclude:: ../README.md
+
 
 .. toctree::
    :maxdepth: 2
-   :caption: Quickstart
+   :caption: Getting Started
 
    quickstart.md
+   reproduce.rst
 
 .. toctree::
    :maxdepth: 2
