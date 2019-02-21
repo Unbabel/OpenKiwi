@@ -17,20 +17,10 @@ Quality estimation(QE) is one of the missing pieces of machine translation: its 
 
 * Framework for training QE models and using pre-trained models for evaluating MT
 * Supports both word and sentence-level Quality estimation
-* Implementation of five QE systems in Pytorch: QUETCH [1], NuQE [2, 3], predictor-estimator [4, 5], APE-QE [3], and a stacked ensemble with a linear system [2, 3] 
+* Implementation of five QE systems in Pytorch: QUETCH [[1]], NuQE [[2], [3]], predictor-estimator [[4], [5]], APE-QE [3], and a stacked ensemble with a linear system [2, 3] 
 * Easy to use API. Import it as a package in other projects or run from the command line
 * Provides scripts to run pre-trained QE models on data from the WMT 2018 campaign.
 * Easy to track and reproduce experiments via yaml configuration files.
-
-[1][Kreutzer et al. (2015): QUality Estimation from ScraTCH (QUETCH): Deep Learning for Word-level Translation Quality Estimation](http://aclweb.org/anthology/W15-3037)
-
-[2][Martins et al. (2016): Unbabel's Participation in the WMT16 Word-Level Translation Quality Estimation Shared Task](http://www.aclweb.org/anthology/W16-2387)
-
-[3][Martins et al. (2017): Pushing the Limits of Translation Quality Estimation](http://www.aclweb.org/anthology/Q17-1015)
-
-[4][Kim et al. (2017): Predictor-Estimator using Multilevel Task Learning with Stack Propagation for Neural Quality Estimation](http://www.aclweb.org/anthology/W17-4763)
-
-[5][Wang et al. (2018): Alibaba Submission for WMT18 Quality Estimation Task](http://statmt.org/wmt18/pdf/WMT093.pdf)
 
 
 ### Using OpenKiwi
@@ -75,3 +65,20 @@ We welcome contributions to improve OpenKiwi. Please refer to [contributing](CON
 ## License
 
 OpenKiwi is Affero GPL Licensed. You can see the details of this license in [LICENSE](LICENSE.md).
+
+## References
+
+##### [[1]] [Kreutzer et al. (2015): QUality Estimation from ScraTCH (QUETCH): Deep Learning for Word-level Translation Quality Estimation](http://aclweb.org/anthology/W15-3037)
+[1]:#1-kreutzer-et-al-2015-quality-estimation-from-scratch-quetch-deep-learning-for-word-level-translation-quality-estimationhttpaclweborganthologyw15-3037
+
+##### [[2]] [Martins et al. (2016): Unbabel's Participation in the WMT16 Word-Level Translation Quality Estimation Shared Task](http://www.aclweb.org/anthology/W16-2387)
+[2]:#2-martins-et-al-2016-unbabels-participation-in-the-wmt16-word-level-translation-quality-estimation-shared-taskhttpwwwaclweborganthologyw16-2387
+
+##### [[3]] [Martins et al. (2017): Pushing the Limits of Translation Quality Estimation](http://www.aclweb.org/anthology/Q17-1015)
+[3]:#3-martins-et-al-2017-pushing-the-limits-of-translation-quality-estimationhttpwwwaclweborganthologyq17-1015
+
+##### [[4]] [Kim et al. (2017): Predictor-Estimator using Multilevel Task Learning with Stack Propagation for Neural Quality Estimation](http://www.aclweb.org/anthology/W17-4763)
+[4]:#4-kim-et-al-2017-predictor-estimator-using-multilevel-task-learning-with-stack-propagation-for-neural-quality-estimationhttpwwwaclweborganthologyw17-4763
+
+##### [[5]] [Wang et al. (2018): Alibaba Submission for WMT18 Quality Estimation Task](http://statmt.org/wmt18/pdf/WMT093.pdf)
+[5]:#5-wang-et-al-2018-alibaba-submission-for-wmt18-quality-estimation-taskhttpstatmtorgwmt18pdfwmt093pdf
