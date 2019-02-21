@@ -1,8 +1,8 @@
 image: python:3.6
 
-variables:
-    DOCKER_DRIVER: overlay2
-    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+#variables:
+#    DOCKER_DRIVER: overlay2
+#    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
 
 stages:
     - lint
@@ -35,6 +35,7 @@ test:
         - tox -e py
 
 pages:
+    # Generate docs and publish to GH Pages
     extends: .test
     stage: pages
     script:
@@ -48,19 +49,16 @@ pages:
         - tox -e gh-pages
         - git config --global user.email "openkiwi@unbabel.com"
         - git config --global user.name "GitLab CI"
-
-        - cd gh-pages; git add .; git commit -m "Update docs"
+        - lasttag=`git describe --abbrev=0 --tags`; cd gh-pages; git add .; git commit -m "Update docs for $lasttag"
         - git push git@github.com:Unbabel/OpenKiwi.git gh-pages
     only:
         - master
     when: manual
 
 pypi:
-    # Upload to internal PyPI index
+    # Upload to PyPI index
     stage: pypi
     script:
-        - poetry config repositories.unbabel ${UNBABEL_PYPI_REPOSITORY_URL}
-        - poetry config http-basic.unbabel ${UNBABEL_PYPI_REPOSITORY_USERNAME} ${UNBABEL_PYPI_REPOSITORY_PASSWORD}
-        - poetry publish --build -r unbabel
+        - poetry publish --build -u ${PYPI_REPOSITORY_USERNAME} -p ${PYPI_REPOSITORY_PASSWORD}
     only:
-        - tags  # Only allow this stage to be run when a new tag is pushed
+        - tags
