@@ -6,7 +6,7 @@
 Welcome to OpenKiwi's documentation!
 ====================================
 
-
+.. mdinclude:: ../README.md
 
 .. toctree::
    :maxdepth: 2
