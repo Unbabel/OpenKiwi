@@ -5,9 +5,9 @@ variables:
     IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
 
 stages:
-    - pages
     - lint
     - test
+    - pages
     - pypi
 
 before_script:
@@ -44,7 +44,6 @@ pages:
         - chmod 700 ~/.ssh
         - ssh-keyscan github.com >> ~/.ssh/known_hosts
         - chmod 644 ~/.ssh/known_hosts
-        - git fetch
         - git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
         - tox -e gh-pages
         - git config --global user.email "openkiwi@unbabel.com"
