@@ -103,26 +103,6 @@ def add_predicting_data_file_opts(parser):
         required=True,
         help='Path to test alignments between source and target.',
     )
-    group.add_argument(
-        '--test-source-tags',
-        type=PathType(exists=True),
-        help='Path to validation label file for source (WMT18 format)',
-    )
-    group.add_argument(
-        '--test-target-tags',
-        type=PathType(exists=True),
-        help='Path to validation label file for target',
-    )
-    group.add_argument(
-        '--test-source-pos',
-        type=PathType(exists=True),
-        help='Path to training PoS tags file for source',
-    )
-    group.add_argument(
-        '--test-target-pos',
-        type=PathType(exists=True),
-        help='Path to training PoS tags file for target',
-    )
 
     return group
 
