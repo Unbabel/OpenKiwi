@@ -1,8 +1,8 @@
 image: python:3.6
 
-#variables:
-#    DOCKER_DRIVER: overlay2
-#    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
+variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME
 
 stages:
     - lint
@@ -12,7 +12,7 @@ stages:
 
 before_script:
     # Python 3.5 installation of pyyaml breaks without Python.h
-    - apt update && apt install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+    - apt-get update && apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
     - pip install poetry
     - poetry config settings.virtualenvs.create false
     - pip install tox
@@ -40,7 +40,7 @@ pages:
     stage: pages
     script:
         - eval $(ssh-agent -s)
-        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - echo -n "${SSH_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
         - ssh-keyscan github.com >> ~/.ssh/known_hosts
@@ -51,11 +51,11 @@ pages:
         - git config --global user.name "GitLab CI"
         - lasttag=`git rev-parse --short HEAD`; cd gh-pages; git add .; git commit -m "Update docs for $lasttag"
         - git push git@github.com:Unbabel/OpenKiwi.git gh-pages
-#    only:
-#        - tags
-#    except:
-#        - branches
-    when: manual
+    only:
+        - tags
+    except:
+        - branches
+#    when: manual
 
 pypi:
     # Upload to PyPI index
