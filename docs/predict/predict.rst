@@ -15,7 +15,6 @@ Model specific options can be seen here:
    :maxdepth: 1
 
    predict_nuqe
-   predict_predictor
    predict_predictor_estimator
    predict_quetch
    predict_linear
