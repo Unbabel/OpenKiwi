@@ -12,7 +12,7 @@ stages:
 
 before_script:
     # Python 3.5 installation of pyyaml breaks without Python.h
-    - apt update && apt install -y --no-install-recommends libpython3.5-dev python3.5-dev
+    - apt update && apt install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
     - pip install poetry
     - poetry config settings.virtualenvs.create false
     - pip install tox
@@ -38,6 +38,10 @@ pages:
     extends: .test
     stage: pages
     script:
+        - eval $(ssh-agent -s)
+        - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+        - mkdir -p ~/.ssh
+        - chmod 700 ~/.ssh
         - git fetch
         - git clone --branch gh-pages ${CI_REPOSITORY_URL} gh-pages
         - tox -e gh-pages
@@ -45,7 +49,7 @@ pages:
         - git config --global user.name "GitLab CI"
  
         - cd gh-pages; git add .; git commit -m "Update docs"
-        - git push https://${CI_ACCESS_USER}:${CI_ACCESS_TOKEN}@github.com:Unbabel/OpenKiwi.git gh-pages
+        - git push git@github.com:Unbabel/OpenKiwi.git gh-pages
     only:
         - master
     when: manual
@@ -56,7 +60,6 @@ pypi:
     script:
         - poetry config repositories.unbabel ${UNBABEL_PYPI_REPOSITORY_URL}
         - poetry config http-basic.unbabel ${UNBABEL_PYPI_REPOSITORY_USERNAME} ${UNBABEL_PYPI_REPOSITORY_PASSWORD}
-#        - poetry install
         - poetry publish --build -r unbabel
     only:
         - tags  # Only allow this stage to be run when a new tag is pushed
