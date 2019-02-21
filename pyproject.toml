@@ -12,7 +12,7 @@ readme = 'README.md'
 
 homepage = 'https://github.com/Unbabel/OpenKiwi'
 repository = 'https://github.com/Unbabel/OpenKiwi'
-documentation = 'https://git.com/Unbabel/OpenKiwi'
+documentation = 'https://unbabel.github.io/OpenKiwi/'
 
 keywords = ['OpenKiwi', 'Quality Estimation', 'Machine Translation', 'Unbabel']
 
