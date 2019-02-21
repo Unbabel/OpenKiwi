@@ -42,12 +42,14 @@ pages:
         - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
         - mkdir -p ~/.ssh
         - chmod 700 ~/.ssh
+        - ssh-keyscan github.com >> ~/.ssh/known_hosts
+        - chmod 644 ~/.ssh/known_hosts
         - git fetch
-        - git clone --branch gh-pages ${CI_REPOSITORY_URL} gh-pages
+        - git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
         - tox -e gh-pages
         - git config --global user.email "openkiwi@unbabel.com"
         - git config --global user.name "GitLab CI"
- 
+
         - cd gh-pages; git add .; git commit -m "Update docs"
         - git push git@github.com:Unbabel/OpenKiwi.git gh-pages
     only:
