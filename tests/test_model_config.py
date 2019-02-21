@@ -7,6 +7,7 @@ from kiwi.models.model import ModelConfig
 @pytest.fixture
 def state_dict():
     return {
+        '__version__': '1.0.0',
         'a': None,
         'b': 12,
         'c': 4,
