@@ -45,7 +45,7 @@ pages:
         - git config --global user.name "GitLab CI"
  
         - cd gh-pages; git add .; git commit -m "Update docs"
-        - git push origin gh-pages
+        - git push https://${CI_ACCESS_USER}:${CI_ACCESS_TOKEN}@github.com:Unbabel/OpenKiwi.git gh-pages
     only:
         - master
     when: manual
