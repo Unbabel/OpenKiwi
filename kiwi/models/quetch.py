@@ -187,15 +187,20 @@ class QUETCH(Model):
         nb_classes = self.config.nb_classes
         dropout = self.config.dropout
 
-        weight = make_loss_weights(nb_classes, const.BAD_ID, self.config.bad_weight)
+        weight = make_loss_weights(
+            nb_classes, const.BAD_ID, self.config.bad_weight
+        )
 
-        self._loss = nn.CrossEntropyLoss(weight=weight, ignore_index=const.PAD_TAGS_ID)
+        self._loss = nn.CrossEntropyLoss(
+            weight=weight, ignore_index=const.PAD_TAGS_ID
+        )
 
         # Embeddings layers:
         self._build_embeddings(source_vectors, target_vectors)
 
         feature_set_size = (
-            self.config.source_embeddings_size + self.config.target_embeddings_size
+            self.config.source_embeddings_size
+            + self.config.target_embeddings_size
         ) * self.config.window_size
 
         self.linear = nn.Linear(feature_set_size, hidden_size)
@@ -228,11 +233,15 @@ class QUETCH(Model):
             )
 
         target_input = convolve_tensor(
-            target_input, self.config.window_size, self.config.target_padding_idx
+            target_input,
+            self.config.window_size,
+            self.config.target_padding_idx,
         )
 
         source_input = convolve_tensor(
-            source_input, self.config.window_size, self.config.source_padding_idx
+            source_input,
+            self.config.window_size,
+            self.config.source_padding_idx,
         )
 
         if side == const.SOURCE_TAGS:
@@ -268,7 +277,9 @@ class QUETCH(Model):
         else:
             align_side = const.TARGET_TAGS
 
-        target_input, source_input, nb_alignments = self.make_input(batch, align_side)
+        target_input, source_input, nb_alignments = self.make_input(
+            batch, align_side
+        )
 
         #
         # Source Branch
