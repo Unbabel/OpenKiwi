@@ -16,7 +16,7 @@ class WordEmbeddings(Vectors):
         emb_format='polyglot',
         binary=True,
         map_fn=lambda x: x,
-        **kwargs,
+        **kwargs
     ):
         """
         Arguments:

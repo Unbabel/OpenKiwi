@@ -44,7 +44,7 @@ class EstimatorConfig(PredictorConfig):
         target_bad_weight=2.0,
         source_bad_weight=2.0,
         gaps_bad_weight=2.0,
-        **kwargs,
+        **kwargs
     ):
         """Predictor Estimator Hyperparams.
         """
