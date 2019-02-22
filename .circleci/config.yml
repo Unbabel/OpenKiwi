@@ -14,26 +14,34 @@ jobs:
                       sudo pip install tox
             - run: tox -e lint
     test:
+#        environment:
+#            CC_TEST_REPORTER_ID: CIRCLECI_CC_TEST_REPORTER_ID
         docker:
             - image: circleci/python:3.6
         steps:
             - checkout
             - run:
+                  name: Prepare system
                   command: |
                       sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev
                       sudo pip install poetry
                       poetry config settings.virtualenvs.create false
                       sudo pip install tox
-            - run: tox -e py
-#            - store_test_results:
-#                  path: test-results
-#            - store_artifacts:
-#                  path: test-results
-#                  destination: tr1
-            - store_artifacts:
-                  path: htmlcov
-                  destination: coverage
-                  prefix: coverage
+            - run:
+                  name: CodeClimate before-build
+                  command: |
+                      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+                      chmod +x ./cc-test-reporter
+                      ./cc-test-reporter before-build
+            - run:
+                  name: Run Python tests
+                  command: tox -e py
+            - run:
+                  name: CodeClimate combine and upload coverage
+                  command: |
+                      ./cc-test-reporter after-build -t coverage.py --exit-code $?
+                      ./cc-test-reporter format-coverage -t coverage.py coverage.xml
+                      ./cc-test-reporter upload-coverage || true
     pages:
         docker:
             - image: circleci/python:3.6
@@ -43,11 +51,21 @@ jobs:
                       - "f3:65:88:37:1e:8d:9b:dc:22:40:9f:c2:2d:1c:a4:36"
             - checkout
             - run:
+                  name: Prepare system
                   command: |
                       sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+                      sudo pip install poetry
+                      poetry config settings.virtualenvs.create false
+                      sudo pip install tox
+            - run:
+                  name: Retrieve GH pages
+                  command: |
                       sudo ssh-keyscan github.com >> ~/.ssh/known_hosts
                       sudo chmod 644 ~/.ssh/known_hosts
                       git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
+            - run:
+                  name: Generate and upload GH pages
+                  command: |
                       tox -e gh-pages
                       git config --global user.email "openkiwi@unbabel.com"
                       git config --global user.name "GitLab CI"
@@ -60,10 +78,11 @@ workflows:
         jobs:
             - lint
             - test
-            - pages:
-                  requires:
-                      - lint
-                      - test
-                  filters:
-                      branches:
-                          only: master
+            - pages
+#            - pages:
+#                  requires:
+#                      - lint
+#                      - test
+#                  filters:
+#                      branches:
+#                          only: master
