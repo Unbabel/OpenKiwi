@@ -7,7 +7,7 @@ jobs:
             - checkout
             - run:
                   command: |
-                      sudo apt-get update && apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
                       sudo pip install poetry
                       poetry config settings.virtualenvs.create false
                       sudo pip install tox
