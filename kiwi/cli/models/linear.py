@@ -74,6 +74,17 @@ def add_training_data_file_opts(parser):
         help='Path to train alignments between source and target.',
     )
     group.add_argument(
+        '--train-source-tags',
+        type=PathType(exists=True),
+        help='Path to validation label file for source (WMT18 format)',
+    )
+    group.add_argument(
+        '--train-target-tags',
+        type=PathType(exists=True),
+        help='Path to validation label file for target',
+    )
+
+    group.add_argument(
         '--train-source-pos',
         type=PathType(exists=True),
         help='Path to training PoS tags file for source',
@@ -184,18 +195,6 @@ def add_predicting_data_file_opts(parser):
         type=PathType(exists=True),
         help='Path to test alignments between source and target.',
     )
-
-    group.add_argument(
-        '--test-source-tags',
-        type=PathType(exists=True),
-        help='Path to validation label file for source (WMT18 format)',
-    )
-    group.add_argument(
-        '--test-target-tags',
-        type=PathType(exists=True),
-        help='Path to validation label file for target',
-    )
-
     group.add_argument(
         '--test-source-pos',
         type=PathType(exists=True),
