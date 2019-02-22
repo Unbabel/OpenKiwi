@@ -1,6 +1,23 @@
+#  OpenKiwi: Open-Source Machine Translation Quality Estimation
+#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published
+#  by the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+
 import configargparse
 
-from kiwi import __version__
+from kiwi import __version__, __copyright__
 from kiwi.cli.pipelines import evaluate, jackknife, predict, train
 
 
@@ -11,6 +28,7 @@ def build_parser():
         prog='kiwi',
         description='Quality Estimation toolkit',
         add_help=True,
+        epilog='Copyright {}'.format(__copyright__),
     )
     parser.add_argument('--version', action='version', version=__version__)
     subparsers = parser.add_subparsers(
@@ -32,12 +50,6 @@ def build_parser():
         add_help=False,
         help='Use a pre-trained model for prediction',
     )
-    # subparsers.add_parser(
-    #     'search',
-    #     # parents=[search.parser],
-    #     add_help=False,
-    #     help='Search training hyperparameters for a QE model',
-    # )
     subparsers.add_parser(
         'jackknife',
         # parents=[jackknife.parser],

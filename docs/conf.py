@@ -45,7 +45,10 @@ metadata = toml.load(os.path.join(project_root, 'pyproject.toml'))
 about = metadata['tool']['poetry']
 
 project = about['name']
-copyright = 'Unbabel 2019'
+copyright = (
+    '2019 Unbabel. All rights reserved. '
+    'Source code available under the AGPL-3.0.'
+)
 author = '; '.join(about['authors'])
 
 # The short X.Y version
@@ -244,7 +247,6 @@ intersphinx_mapping = {
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
-
 
 # -- Options for Recommonmark
 # ---------------------------------------------------

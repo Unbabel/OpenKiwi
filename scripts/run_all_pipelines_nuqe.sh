@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 #SBATCH --gres=gpu:1
 
 GPU=0
@@ -46,7 +45,7 @@ do
         then
             if [[ ! -d "${JACKKNIFE_DIR:+$JACKKNIFE_DIR/}" ]]
             then
-                python -m kiwi jackknife --train-config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
+                python -m kiwi jackknife --train-config experiments/${MODEL}/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
                                          --experiment-name "Official run for OpenKiwi" \
                                          --splits 10 \
                                          --seed ${SEED} \
@@ -65,7 +64,7 @@ do
         if ${RUN_TRAIN}
 	then
             if [[ ! -d "${TRAIN_DIR:+$TRAIN_DIR/}" ]]; then
-                python -m kiwi train --config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
+                python -m kiwi train --config experiments/${MODEL}/${DATASET_NAME}.${LANGUAGE_PAIR}/train-${SIDE}.yaml \
                                      --experiment-name "Official run for OpenKiwi" \
                                      --seed ${SEED} \
                                      --gpu-id ${GPU} \
@@ -86,7 +85,7 @@ do
         echo "================================================================="
 	if ${RUN_PREDICT}
 	then
-            python -m kiwi predict --config experiments/nuqe/${DATASET_NAME}.${LANGUAGE_PAIR}/predict-${SIDE}.yaml \
+            python -m kiwi predict --config experiments/${MODEL}/${DATASET_NAME}.${LANGUAGE_PAIR}/predict-${SIDE}.yaml \
                                    --experiment-name "Official run for OpenKiwi" \
                                    --load-model ${TRAIN_DIR}/best_model.torch \
                                    --output-dir ${PREDICT_DIR}
@@ -101,7 +100,7 @@ do
 
 
     # Evaluate on dev set
-    kiwi evaluate --type probs  \
+    python -m kiwi evaluate --type probs  \
                   --format ${FORMAT} \
                   --gold-source data/${DATASET}/dev.src_tags \
                   --gold-target data/${DATASET}/dev.tags \
@@ -111,7 +110,7 @@ do
                   --pred-gaps ${OUTPUT_PREDICTIONS_DIR}/dev.gap_tags \
                   --pred-target ${OUTPUT_PREDICTIONS_DIR}/dev.tags
     # Evaluate on test set
-    kiwi evaluate --type probs  \
+    python -m kiwi evaluate --type probs  \
                   --format ${FORMAT} \
                   --gold-source data/${DATASET}/test.src_tags \
                   --gold-target data/${DATASET}/test.tags \
@@ -126,14 +125,14 @@ done
 if [[ ${COUNT} -gt 1 ]]
 then
     # Evaluate all predictions at once
-    kiwi evaluate --type probs --format ${FORMAT} \
+    python -m kiwi evaluate --type probs --format ${FORMAT} \
                   --gold-source data/${DATASET}/dev.src_tags \
                   --gold-target data/${DATASET}/dev.tags \
                   --pred-format wmt17 \
                   --pred-source ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.source_tags \
                   --pred-gaps ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.gap_tags \
                   --pred-target ${OUTPUT_PREDICTIONS_ROOT_DIR}/[1-${COUNT}]/dev.tags
-    kiwi evaluate --type probs --format ${FORMAT} \
+    python -m kiwi evaluate --type probs --format ${FORMAT} \
                   --gold-source data/${DATASET}/test.src_tags \
                   --gold-target data/${DATASET}/test.tags \
                   --pred-format wmt17 \
@@ -155,4 +154,3 @@ then
 fi
 python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/dev.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/${ALL_RUNS}/dev.tags
 python scripts/stack_probabilities_for_linear.py -o ${OUTPUT_PREDICTIONS_ROOT_DIR}/test.${MODEL}.stacked ${OUTPUT_PREDICTIONS_ROOT_DIR}/${ALL_RUNS}/test.tags
-

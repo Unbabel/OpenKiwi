@@ -1,3 +1,20 @@
+#  OpenKiwi: Open-Source Machine Translation Quality Estimation
+#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published
+#  by the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+
 import argparse
 from pathlib import Path
 
@@ -40,14 +57,15 @@ def writefile(data, path):
 def get_folds(data, n_folds):
     fold_size = len(data) // n_folds
 
-    folds = [data[i * fold_size:(i + 1) * fold_size]
-             for i in range(n_folds - 1)]
-    folds.append(data[(n_folds - 1) * fold_size:])
+    folds = [
+        data[i * fold_size : (i + 1) * fold_size] for i in range(n_folds - 1)
+    ]
+    folds.append(data[(n_folds - 1) * fold_size :])
     return folds
 
 
 def jackknife(folds):
-    jackknifed = [folds[:i] + folds[i + 1:] for i in range(len(folds))]
+    jackknifed = [folds[:i] + folds[i + 1 :] for i in range(len(folds))]
     jackknifed = [[x for fold in folds for x in fold] for folds in jackknifed]
     return jackknifed
 
@@ -69,7 +87,7 @@ def main(args):
     data_name = Path(args.data).name
     for i, (src, pe, src_pred) in enumerate(zip(src_jk, pe_jk, src_folds)):
         if len(src) != len(pe):
-            raise
+            raise Exception('Source and PE have different sizes.')
         writefile(
             src_pred, '{}/fold_{}/pred_fold.src'.format(args.out_dir, i + 1)
         )

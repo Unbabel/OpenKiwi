@@ -1,19 +1,45 @@
+#  OpenKiwi: Open-Source Machine Translation Quality Estimation
+#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published
+#  by the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+
 from pathlib import Path
 
 import pytest
 
 from kiwi.cli.pipelines.train import build_parser
-from kiwi.lib.utils import (parse_integer_with_positive_infinity,
-                            save_args_to_file)
+from kiwi.lib.utils import (
+    parse_integer_with_positive_infinity,
+    save_args_to_file,
+)
 
 
 @pytest.fixture
 def minimal_args(data_opts_17):
-    return ['--model', 'predictor',
-            '--train-source', data_opts_17.train_source,
-            '--train-target', data_opts_17.train_target,
-            '--valid-source', data_opts_17.valid_source,
-            '--valid-target', data_opts_17.valid_target]
+    return [
+        '--model',
+        'predictor',
+        '--train-source',
+        data_opts_17.train_source,
+        '--train-target',
+        data_opts_17.train_target,
+        '--valid-source',
+        data_opts_17.valid_source,
+        '--valid-target',
+        data_opts_17.valid_target,
+    ]
 
 
 @pytest.fixture
@@ -40,9 +66,9 @@ def test_can_write_and_read_default_opts(config_file_args, minimal_args):
     else:
         raised_exception = None
 
-    assert(raised_exception is None)
-    assert(loaded_options.source_max_length == float('inf'))
-    assert(loaded_options.target_max_length == float('inf'))
+    assert raised_exception is None
+    assert loaded_options.source_max_length == float('inf')
+    assert loaded_options.target_max_length == float('inf')
 
     loaded_options = vars(loaded_options)
     del loaded_options['config']
