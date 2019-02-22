@@ -1,5 +1,18 @@
+# TODO: Use caching
 version: 2
 jobs:
+    lint:
+        docker:
+            - image: circleci/python:3.6
+        steps:
+            - checkout
+            - run:
+                  command: |
+                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev
+                      sudo pip install poetry
+                      poetry config settings.virtualenvs.create false
+                      sudo pip install tox
+            - run: tox -e lint
     test:
         docker:
             - image: circleci/python:3.6
@@ -7,21 +20,19 @@ jobs:
             - checkout
             - run:
                   command: |
-                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev
                       sudo pip install poetry
                       poetry config settings.virtualenvs.create false
                       sudo pip install tox
-            #        - save_cache:
-            #            key: deps-{{ .Branch }}-{{ checksum "poetry.lock" }}
-            #            paths:
-            - run: tox -e lint,py
-            - store_test_results:
-                  path: test-results
+            - run: tox -e py
+#            - store_test_results:
+#                  path: test-results
+#            - store_artifacts:
+#                  path: test-results
+#                  destination: tr1
             - store_artifacts:
-                  path: test-results
-                  destination: tr1
-            - store_artifacts:
-                  path: .coverage
+                  path: htmlcov
+                  destination: coverage
                   prefix: coverage
     pages:
         docker:
@@ -45,11 +56,13 @@ jobs:
 
 workflows:
     version: 2
-    one_and_two:
+    workflow:
         jobs:
+            - lint
             - test
             - pages:
                   requires:
+                      - lint
                       - test
                   filters:
                       branches:
