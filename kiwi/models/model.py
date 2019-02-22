@@ -28,18 +28,27 @@ from kiwi.data import utils
 logger = logging.getLogger(__name__)
 
 
-class ModelConfig:
+class ModelConfig(object):
     __metaclass__ = ABCMeta
 
-    def __init__(self, vocabs):
+    def __init__(self, vocabs, **kwargs):
         """Model Configuration Base Class.
 
         Args:
         vocabs: Dictionary Mapping Field Names to Vocabularies.
                 Must contain 'source' and 'target' keys
         """
-        self.source_vocab_size = len(vocabs[const.SOURCE])
-        self.target_vocab_size = len(vocabs[const.TARGET])
+        super().__init__(**kwargs)
+        self.pad_idx = {}
+        self.stop_idx = {}
+        self.start_idx = {}
+        self.vocab_sizes = {}
+        for side in [const.SOURCE, const.TARGET, const.PE]:
+            if side in vocabs:
+                self.pad_idx[side] = vocabs[side].token_to_id(const.PAD)
+                self.stop_idx[side] = vocabs[side].token_to_id(const.STOP)
+                self.start_idx[side] = vocabs[side].token_to_id(const.START)
+                self.vocab_sizes[side] = len(vocabs[side])
 
     @classmethod
     def from_dict(cls, config_dict, vocabs):
@@ -49,7 +58,7 @@ class ModelConfig:
                           a call to the `state_dict()` method of `cls`
              vocab: See `ModelConfig.__init__`
         """
-        config = cls(vocabs)
+        config = cls(vocabs=vocabs)
         config.update(config_dict)
         return config
 
@@ -70,6 +79,42 @@ class ModelConfig:
         """
         self.__dict__['__version__'] = kiwi.__version__
         return self.__dict__
+
+
+class QEModelConfig(ModelConfig):
+    """Config for a Quality Estimation Model.
+    """
+
+    def __init__(
+            self,
+            vocabs,
+            predict_target,
+            predict_source,
+            predict_gaps,
+            target_bad_weight=2.0,
+            source_bad_weight=2.0,
+            gaps_bad_weight=2.0,
+            **kwargs
+    ):
+        super().__init__(vocabs, **kwargs)
+        self.bad_weights = {}
+        self.output_tags = []
+        if predict_target:
+            self.bad_weights[const.TARGET_TAGS] = target_bad_weight
+            self.output_tags.append(const.TARGET_TAGS)
+        if predict_source:
+            self.bad_weights[const.SOURCE_TAGS] = source_bad_weight
+            self.output_tags.append(const.SOURCE_TAGS)
+        if predict_gaps:
+            self.bad_weights[const.GAP_TAGS] = gaps_bad_weight
+            self.output_tags.append(const.GAP_TAGS)
+
+        self.bad_idx = {}
+        self.nb_classes = {}
+        for tag in self.output_tags:
+            self.pad_idx[tag] = vocabs[tag].token_to_id(const.PAD)
+            self.bad_idx[tag] = vocabs[tag].token_to_id(const.BAD)
+            self.nb_classes[tag] = len(vocabs[tag]) - 1  # Ignore Pad
 
 
 class Model(nn.Module):
@@ -117,16 +162,17 @@ class Model(nn.Module):
     def predict(self, batch, class_name=const.BAD, unmask=True):
         model_out = self(batch)
         predictions = {}
-        class_index = torch.tensor([const.LABELS.index(class_name)])
 
         for key in model_out:
             if key in [const.TARGET_TAGS, const.SOURCE_TAGS, const.GAP_TAGS]:
                 # Models are assumed to return logits, not probabilities
                 logits = model_out[key]
                 probs = torch.softmax(logits, dim=-1)
-                class_probs = probs.index_select(
-                    -1, class_index.to(device=probs.device)
+                class_index = torch.LongTensor(
+                    [self.vocabs[key].token_to_id(class_name)],
+                    device=probs.device,
                 )
+                class_probs = probs.index_select(-1, class_index)
                 class_probs = class_probs.squeeze(-1).tolist()
                 if unmask:
                     if key == const.SOURCE_TAGS:
@@ -149,16 +195,14 @@ class Model(nn.Module):
             elif key == const.BINARY:
                 logits = model_out[key]
                 probs = torch.softmax(logits, dim=-1)
-                class_probs = probs.index_select(
-                    -1, class_index.to(device=probs.device)
-                )
+                class_probs = probs[..., 0]
                 predictions[key] = class_probs.tolist()
 
         return predictions
 
     def predict_raw(self, examples):
         batch = self.preprocess(examples)
-        return self.predict(batch, class_name=const.BAD_ID, unmask=True)
+        return self.predict(batch, class_name=const.BAD, unmask=True)
 
     def preprocess(self, examples):
         """Preprocess Raw Data.

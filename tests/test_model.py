@@ -26,6 +26,9 @@ from kiwi.data.vocabulary import Vocabulary
 from kiwi.models.model import Model
 
 
+BAD_ID, OK_ID, UNK_ID, PAD_ID, START_ID, STOP_ID = range(6)
+
+
 def test_get_mask():
     target_lengths = torch.LongTensor([1, 2, 3, 4])
     source_lengths = torch.LongTensor([4, 3, 2, 1])
@@ -47,33 +50,33 @@ def test_get_mask():
     gap_mask = target_mask[:, 1:]
     target_tags_mask = target_mask[:, 1:-1]
     source_tags_mask = source_mask[:, 1:-1]
-    source = torch.LongTensor(np.random.randint(4, 100, size=(4, 6)))
-    target = torch.LongTensor(np.random.randint(4, 100, size=(4, 6)))
+    source = torch.LongTensor(np.random.randint(6, 100, size=(4, 6)))
+    target = torch.LongTensor(np.random.randint(6, 100, size=(4, 6)))
     source_tags = torch.LongTensor(np.random.randint(0, 2, size=(4, 4)))
     target_tags = torch.LongTensor(np.random.randint(0, 2, size=(4, 4)))
     gap_tags = torch.LongTensor(np.random.randint(0, 2, size=(4, 5)))
 
-    source = source.masked_fill(1 - source_mask, const.PAD_ID)
-    target = target.masked_fill(1 - target_mask, const.PAD_ID)
+    source = source.masked_fill(1 - source_mask, PAD_ID)
+    target = target.masked_fill(1 - target_mask, PAD_ID)
     target_tags = target_tags.masked_fill(
-        1 - target_tags_mask, const.PAD_TAGS_ID
+        1 - target_tags_mask, PAD_ID
     )
     source_tags = source_tags.masked_fill(
-        1 - source_tags_mask, const.PAD_TAGS_ID
+        1 - source_tags_mask, PAD_ID
     )
-    gap_tags = gap_tags.masked_fill(1 - gap_mask, const.PAD_TAGS_ID)
+    gap_tags = gap_tags.masked_fill(1 - gap_mask, PAD_ID)
 
-    source[:, 0] = const.START_ID
+    source[:, 0] = START_ID
     stop_mask = torch.arange(6).unsqueeze(0).expand_as(source) == (
         (source_lengths + 1).unsqueeze(1)
     )
 
-    source = source.masked_fill(stop_mask, const.STOP_ID)
-    target[:, 0] = const.START_ID
+    source = source.masked_fill(stop_mask, STOP_ID)
+    target[:, 0] = START_ID
     stop_mask = torch.arange(6).unsqueeze(0).expand_as(target) == (
         (target_lengths + 1).unsqueeze(1)
     )
-    target = target.masked_fill(stop_mask, const.STOP_ID)
+    target = target.masked_fill(stop_mask, STOP_ID)
 
     batch = SimpleNamespace(
         **{
@@ -87,13 +90,13 @@ def test_get_mask():
 
     vocab = Vocabulary(collections.Counter())
     vocab.stoi = {
-        const.UNK: const.UNK_ID,
-        const.PAD: const.PAD_ID,
-        const.START: const.START_ID,
-        const.STOP: const.STOP_ID,
+        const.UNK: UNK_ID,
+        const.PAD: PAD_ID,
+        const.START: START_ID,
+        const.STOP: STOP_ID,
     }
     tags_vocab = Vocabulary(collections.Counter())
-    tags_vocab.stoi = {const.PAD: const.PAD_TAGS_ID}
+    tags_vocab.stoi = {const.PAD: PAD_ID}
 
     model = Model(
         vocabs={

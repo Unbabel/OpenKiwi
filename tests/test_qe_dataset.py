@@ -17,7 +17,7 @@
 
 import pytest
 
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.data.builders import build_training_datasets
 from kiwi.data.fieldsets.quetch import build_fieldset
 from kiwi.data.iterators import build_bucket_iterator
@@ -36,8 +36,10 @@ def check_qe_dataset(options):
         dev_dataset, batch_size=8, is_train=False, device=None
     )
 
+    pad_idx = train_dataset.fields[const.SOURCE].vocab.token_to_id(const.PAD)
+
     for batch_train, batch_dev in zip(train_iter, dev_iter):
-        train_source = getattr(batch_train, constants.SOURCE)
+        train_source = getattr(batch_train, const.SOURCE)
         if isinstance(train_source, tuple):
             train_source, lenghts = train_source
         train_source.t()
@@ -45,29 +47,21 @@ def check_qe_dataset(options):
         # buckets should be sorted in decreasing length order
         # so we can use pack/padded sequences
         for train_sample in train_source:
-            train_mask = train_sample != constants.PAD_ID
+            train_mask = (train_sample != pad_idx)
             train_cur_len = train_mask.int().sum().item()
             assert train_cur_len <= train_prev_len
             train_prev_len = train_cur_len
 
-    source_field = train_dataset.fields[constants.SOURCE]
-    target_field = train_dataset.fields[constants.TARGET]
-    target_tags_field = train_dataset.fields[constants.TARGET_TAGS]
-
+    source_field = train_dataset.fields[const.SOURCE]
+    target_field = train_dataset.fields[const.TARGET]
+    target_tags_field = train_dataset.fields[const.TARGET_TAGS]
     # check if each token is in the vocab
-    for train_sample, dev_sample in zip(train_dataset, dev_dataset):
-        for word in getattr(train_sample, constants.SOURCE):
+    for train_sample in train_dataset:
+        for word in getattr(train_sample, const.SOURCE):
             assert word in source_field.vocab.stoi
-        for word in getattr(train_sample, constants.TARGET):
+        for word in getattr(train_sample, const.TARGET):
             assert word in target_field.vocab.stoi
-        for tag in getattr(train_sample, constants.TARGET_TAGS):
-            assert tag in target_tags_field.vocab.stoi
-
-        for word in getattr(dev_sample, constants.SOURCE):
-            assert word in source_field.vocab.stoi
-        for word in getattr(dev_sample, constants.TARGET):
-            assert word in target_field.vocab.stoi
-        for tag in getattr(dev_sample, constants.TARGET_TAGS):
+        for tag in getattr(train_sample, const.TARGET_TAGS):
             assert tag in target_tags_field.vocab.stoi
 
 

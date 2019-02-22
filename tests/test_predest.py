@@ -20,7 +20,7 @@ import argparse
 import pytest
 
 from conftest import check_computation, check_jackknife
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.models.predictor_estimator import Estimator
 
 
@@ -81,8 +81,8 @@ def test_computation_target(temp_output_dir, train_opts, target_opts, atol):
         temp_output_dir,
         train_opts,
         target_opts,
-        output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.426000,
+        output_name=const.TARGET_TAGS,
+        expected_avg_probs=0.452956,
         atol=atol,
     )
 
@@ -97,8 +97,8 @@ def test_computation_target(temp_output_dir, train_opts, target_opts, atol):
         temp_output_dir,
         resume_opts,
         target_opts,
-        output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.426000,
+        output_name=const.TARGET_TAGS,
+        expected_avg_probs=0.452956,
         atol=atol,
     )
 
@@ -110,8 +110,8 @@ def test_computation_gaps(temp_output_dir, train_opts, gap_opts, atol):
         temp_output_dir,
         train_opts,
         gap_opts,
-        output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.322811,
+        output_name=const.GAP_TAGS,
+        expected_avg_probs=0.289914,
         atol=atol,
     )
     gap_opts.predict_target = True
@@ -120,8 +120,8 @@ def test_computation_gaps(temp_output_dir, train_opts, gap_opts, atol):
         temp_output_dir,
         train_opts,
         gap_opts,
-        output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.328905,
+        output_name=const.GAP_TAGS,
+        expected_avg_probs=0.331126,
         atol=atol,
     )
 
@@ -132,8 +132,8 @@ def test_computation_source(temp_output_dir, train_opts, source_opts, atol):
         temp_output_dir,
         train_opts,
         source_opts,
-        output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.456631,
+        output_name=const.SOURCE_TAGS,
+        expected_avg_probs=0.449527,
         atol=atol,
     )
 
@@ -144,8 +144,8 @@ def test_jackknifing_target(temp_output_dir, train_opts, target_opts, atol):
         temp_output_dir,
         train_opts,
         target_opts,
-        output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.461057,
+        output_name=const.TARGET_TAGS,
+        expected_avg_probs=0.47876,
         atol=atol,
     )
 
@@ -156,8 +156,8 @@ def test_jackknifing_gaps(temp_output_dir, train_opts, gap_opts, atol):
         temp_output_dir,
         train_opts,
         gap_opts,
-        output_name=constants.GAP_TAGS,
-        expected_avg_probs=0.433703,
+        output_name=const.GAP_TAGS,
+        expected_avg_probs=0.407023,
         atol=atol,
     )
 
@@ -168,8 +168,8 @@ def test_jackknifing_source(temp_output_dir, train_opts, source_opts, atol):
         temp_output_dir,
         train_opts,
         source_opts,
-        output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.496570,
+        output_name=const.SOURCE_TAGS,
+        expected_avg_probs=0.484402,
         atol=atol,
     )
 

@@ -21,7 +21,7 @@ import numpy as np
 import pytest
 
 from conftest import check_computation, check_jackknife
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.lib.utils import merge_namespaces, save_config_file
 from kiwi.models.quetch import QUETCH
 
@@ -32,7 +32,7 @@ def test_computation(temp_output_dir, train_opts, quetch_opts, atol):
         temp_output_dir,
         train_opts,
         quetch_opts,
-        output_name=constants.TARGET_TAGS,
+        output_name=const.TARGET_TAGS,
         expected_avg_probs=0.439731,
         atol=atol,
     )
@@ -55,14 +55,14 @@ def test_api(temp_output_dir, train_opts, quetch_opts, atol):
     predicter = load_model(train_run_info.model_path)
 
     examples = {
-        constants.SOURCE: open(quetch_opts.test_source).readlines(),
-        constants.TARGET: open(quetch_opts.test_target).readlines(),
-        constants.ALIGNMENTS: open(quetch_opts.test_alignments).readlines(),
+        const.SOURCE: open(quetch_opts.test_source).readlines(),
+        const.TARGET: open(quetch_opts.test_target).readlines(),
+        const.ALIGNMENTS: open(quetch_opts.test_alignments).readlines(),
     }
 
     predictions = predicter.predict(examples, batch_size=train_opts.batch_size)
 
-    predictions = predictions[constants.TARGET_TAGS]
+    predictions = predictions[const.TARGET_TAGS]
     avg_of_avgs = np.mean(list(map(np.mean, predictions)))
     max_prob = max(map(max, predictions))
     min_prob = min(map(min, predictions))
@@ -76,7 +76,7 @@ def test_jackknifing(temp_output_dir, train_opts, quetch_opts, atol):
         temp_output_dir,
         train_opts,
         quetch_opts,
-        output_name=constants.TARGET_TAGS,
+        output_name=const.TARGET_TAGS,
         expected_avg_probs=0.486359,
         atol=atol,
     )

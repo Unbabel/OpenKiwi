@@ -33,19 +33,17 @@ from kiwi.metrics import (
     RMSEMetric,
     SpearmanMetric,
     ThresholdCalibrationMetric,
-    TokenMetric,
 )
-from kiwi.models.model import Model
+from kiwi.models.model import Model, QEModelConfig
 from kiwi.models.predictor import Predictor, PredictorConfig
 from kiwi.models.utils import apply_packed_sequence, make_loss_weights
 
 logger = logging.getLogger(__name__)
 
 
-class EstimatorConfig(PredictorConfig):
+class EstimatorConfig(PredictorConfig, QEModelConfig):
     def __init__(
         self,
-        vocabs,
         hidden_est=100,
         rnn_layers_est=1,
         mlp_est=True,
@@ -65,7 +63,12 @@ class EstimatorConfig(PredictorConfig):
     ):
         """Predictor Estimator Hyperparams.
         """
-        super().__init__(vocabs, **kwargs)
+        super().__init__(
+            predict_target=predict_target,
+            predict_source=predict_source,
+            predict_gaps=predict_gaps,
+            **kwargs
+        )
         self.start_stop = start_stop or predict_gaps
         self.hidden_est = hidden_est
         self.rnn_layers_est = rnn_layers_est
@@ -78,9 +81,6 @@ class EstimatorConfig(PredictorConfig):
         self.sentence_level = sentence_level
         self.sentence_ll = sentence_ll
         self.binary_level = binary_level
-        self.target_bad_weight = target_bad_weight
-        self.source_bad_weight = source_bad_weight
-        self.gaps_bad_weight = gaps_bad_weight
 
 
 @Model.register_subclass
@@ -99,6 +99,7 @@ class Estimator(Model):
             self.config.update(predictor_tgt.config)
 
         # Predictor Settings #
+        self.predictors = nn.ModuleDict()
         predict_tgt = self.config.predict_target or self.config.predict_gaps
         if predict_tgt and not predictor_tgt:
             predictor_tgt = Predictor(
@@ -111,6 +112,7 @@ class Estimator(Model):
                 source_embeddings_size=self.config.source_embeddings_size,
                 out_embeddings_size=self.config.out_embeddings_size,
             )
+            self.predictors[const.TARGET] = predictor_tgt
         if self.config.predict_source and not predictor_src:
             predictor_src = Predictor(
                 vocabs=vocabs,
@@ -122,6 +124,7 @@ class Estimator(Model):
                 source_embeddings_size=self.config.source_embeddings_size,
                 out_embeddings_size=self.config.out_embeddings_size,
             )
+            self.predictors[const.SOURCE] = predictor_src
 
         # Update the predictor vocabs if token level == True
         # Required by `get_mask` call in predictor forward with `pe` side
@@ -132,14 +135,10 @@ class Estimator(Model):
             if predictor_tgt:
                 predictor_tgt.vocabs = vocabs
 
-        self.predictor_tgt = predictor_tgt
-        self.predictor_src = predictor_src
-
         predictor_hidden = self.config.hidden_pred
         embedding_size = self.config.out_embeddings_size
         input_size = 2 * predictor_hidden + embedding_size
 
-        self.nb_classes = len(const.LABELS)
         self.lstm_input_size = input_size
 
         self.mlp = None
@@ -149,7 +148,6 @@ class Estimator(Model):
         self.binary_scale = None
 
         # Build Model #
-
         if self.config.start_stop:
             self.start_PreQEFV = nn.Parameter(torch.zeros(1, 1, embedding_size))
             self.end_PreQEFV = nn.Parameter(torch.zeros(1, 1, embedding_size))
@@ -168,16 +166,32 @@ class Estimator(Model):
             dropout=self.config.dropout_est,
             bidirectional=True,
         )
-        self.embedding_out = nn.Linear(
-            2 * self.config.hidden_est, self.nb_classes
-        )
-        if self.config.predict_gaps:
-            self.embedding_out_gaps = nn.Linear(
-                4 * self.config.hidden_est, self.nb_classes
-            )
         self.dropout = None
         if self.config.dropout_est:
             self.dropout = nn.Dropout(self.config.dropout_est)
+
+        # Word Level Objectives #
+        self.xents = nn.ModuleDict()
+        self.tags_output_emb = nn.ModuleDict()
+        for tag in self.config.output_tags:
+            if tag == const.GAP_TAGS:
+                tag_embedding_size = 4 * self.config.hidden_est
+            else:
+                tag_embedding_size = 2 * self.config.hidden_est
+            self.tags_output_emb[tag] = nn.Linear(
+                tag_embedding_size,
+                self.config.nb_classes[tag]
+            )
+            weight = make_loss_weights(
+                self.config.nb_classes[tag],
+                self.config.bad_idx[tag],
+                self.config.bad_weights[tag]
+            )
+            self.xents[tag] = nn.CrossEntropyLoss(
+                reduction='sum',
+                ignore_index=self.config.pad_idx[tag],
+                weight=weight
+            )
 
         # Multitask Learning Objectives #
         sentence_input_size = (
@@ -213,31 +227,6 @@ class Estimator(Model):
                 nn.Linear(sentence_input_size // 4, 2),
             )
 
-        # Build Losses #
-
-        # FIXME: Remove dependency on magic numbers
-        self.xents = nn.ModuleDict()
-        weight = make_loss_weights(
-            self.nb_classes, const.BAD_ID, self.config.target_bad_weight
-        )
-
-        self.xents[const.TARGET_TAGS] = nn.CrossEntropyLoss(
-            reduction='sum', ignore_index=const.PAD_TAGS_ID, weight=weight
-        )
-        if self.config.predict_source:
-            weight = make_loss_weights(
-                self.nb_classes, const.BAD_ID, self.config.source_bad_weight
-            )
-            self.xents[const.SOURCE_TAGS] = nn.CrossEntropyLoss(
-                reduction='sum', ignore_index=const.PAD_TAGS_ID, weight=weight
-            )
-        if self.config.predict_gaps:
-            weight = make_loss_weights(
-                self.nb_classes, const.BAD_ID, self.config.gaps_bad_weight
-            )
-            self.xents[const.GAP_TAGS] = nn.CrossEntropyLoss(
-                reduction='sum', ignore_index=const.PAD_TAGS_ID, weight=weight
-            )
         if self.config.sentence_level and not self.config.sentence_ll:
             self.mse_loss = nn.MSELoss(reduction='sum')
         if self.config.binary_level:
@@ -310,43 +299,25 @@ class Estimator(Model):
 
     def forward(self, batch):
         outputs = OrderedDict()
-        contexts_tgt, h_tgt = None, None
-        contexts_src, h_src = None, None
-        if self.config.predict_target or self.config.predict_gaps:
-            model_out_tgt = self.predictor_tgt(batch)
-            input_seq, target_lengths = self.make_input(
-                model_out_tgt, batch, const.TARGET_TAGS
-            )
-
-            contexts_tgt, h_tgt = apply_packed_sequence(
-                self.lstm, input_seq, target_lengths
-            )
-            if self.config.predict_target:
-                logits = self.predict_tags(contexts_tgt)
-                if self.config.start_stop:
-                    logits = logits[:, 1:-1]
-                outputs[const.TARGET_TAGS] = logits
-
-            if self.config.predict_gaps:
-                contexts_gaps = self.make_contexts_gaps(contexts_tgt)
-                logits = self.predict_tags(
-                    contexts_gaps, out_embed=self.embedding_out_gaps
+        contexts, hs = {}, {}
+        for tag in self.config.output_tags:
+            if tag == const.SOURCE_TAGS:
+                side = const.SOURCE
+            else:
+                side = const.TARGET
+            if side not in contexts:
+                model_out = self.predictors[side](batch)
+                input_seq, target_lengths = self.make_input(
+                    model_out, batch, side
                 )
-                outputs[const.GAP_TAGS] = logits
-        if self.config.predict_source:
-            model_out_src = self.predictor_src(batch)
-            input_seq, target_lengths = self.make_input(
-                model_out_src, batch, const.SOURCE_TAGS
-            )
-            contexts_src, h_src = apply_packed_sequence(
-                self.lstm, input_seq, target_lengths
-            )
-
-            logits = self.predict_tags(contexts_src)
-            outputs[const.SOURCE_TAGS] = logits
+                contexts[side], hs[side] = apply_packed_sequence(
+                    self.lstm, input_seq, target_lengths
+                )
+            logits = self.predict_tags(contexts[side], tag=tag)
+            outputs[tag] = logits
 
         # Sentence/Binary/Token Level prediction
-        sentence_input = self.make_sentence_input(h_tgt, h_src)
+        sentence_input = self.make_sentence_input(hs)
         if self.config.sentence_level:
             outputs.update(self.predict_sentence(sentence_input))
 
@@ -355,34 +326,25 @@ class Estimator(Model):
             outputs[const.BINARY] = bin_logits
 
         if self.config.token_level and hasattr(batch, const.PE):
-            if self.predictor_tgt:
-                model_out = self.predictor_tgt(batch, target_side=const.PE)
+            if const.TARGET in self.predictors:
+                model_out = self.predictors[const.TARGET](
+                    batch, target_side=const.PE
+                )
                 logits = model_out[const.PE]
                 outputs[const.PE] = logits
-            if self.predictor_src:
-                model_out = self.predictor_src(batch, source_side=const.PE)
+            if const.SOURCE in self.predictors:
+                model_out = self.predictors[const.SOURCE](
+                    batch, source_side=const.PE
+                )
                 logits = model_out[const.SOURCE]
                 outputs[const.SOURCE] = logits
 
-        # TODO remove?
-        # if self.use_probs:
-        #     logits -= logits.mean(-1, keepdim=True)
-        #     logits_exp = logits.exp()
-        #     logprobs = logits - logits_exp.sum(-1, keepdim=True).log()
-        #     sentence_scores = ((logprobs.exp() * token_mask).sum(1)
-        #                        / target_lengths)
-        #     sentence_scores = sentence_scores[..., 1 - self.BAD_ID]
-        #     binary_logits = (logprobs * token_mask).sum(1)
-
         return outputs
 
-    def make_input(self, model_out, batch, tagset):
+    def make_input(self, model_out, batch, side):
         """Make Input Sequence from predictor outputs. """
         PreQEFV = model_out[const.PREQEFV]
         PostQEFV = model_out[const.POSTQEFV]
-        side = const.TARGET
-        if tagset == const.SOURCE_TAGS:
-            side = const.SOURCE
         token_mask = self.get_mask(batch, side)
         batch_size = token_mask.shape[0]
         target_lengths = token_mask.sum(1)
@@ -413,9 +375,9 @@ class Estimator(Model):
         contexts = torch.cat((contexts[:, :-1], contexts[:, 1:]), dim=-1)
         return contexts
 
-    def make_sentence_input(self, h_tgt, h_src):
+    def make_sentence_input(self, h):
         """Reshape last hidden state. """
-        h = h_tgt[0] if h_tgt else h_src[0]
+        h = h[const.TARGET][0] if const.TARGET in h else h[const.SOURCE][0]
         h = h.contiguous().transpose(0, 1)
         return h.reshape(h.shape[0], -1)
 
@@ -432,7 +394,7 @@ class Estimator(Model):
             mean = outputs['SENT_MU'].clone().detach()
             # Compute log-likelihood of x given mu, sigma
             normal = Normal(mean, sigma)
-            # Renormalize on [0,1] for truncated Gaussian
+            # Predict the mean of truncated Gaussian with shape sigma, mu
             partition_function = (normal.cdf(1) - normal.cdf(0)).detach()
             outputs[const.SENTENCE_SCORES] = mean + (
                 (
@@ -444,17 +406,21 @@ class Estimator(Model):
 
         return outputs
 
-    def predict_tags(self, contexts, out_embed=None):
+    def predict_tags(self, contexts, tag):
         """Compute Tag Predictions."""
-        if not out_embed:
-            out_embed = self.embedding_out
+        if tag == const.GAP_TAGS:
+            contexts = self.make_contexts_gaps(contexts)
         batch_size, length, hidden = contexts.shape
         if self.dropout:
             contexts = self.dropout(contexts)
         # Fold sequence length in batch dimension
         contexts_flat = contexts.contiguous().view(-1, hidden)
-        logits_flat = out_embed(contexts_flat)
-        logits = logits_flat.view(batch_size, length, self.nb_classes)
+        logits_flat = self.tags_output_emb[tag](contexts_flat)
+        logits = logits_flat.view(
+            batch_size, length, self.config.nb_classes[tag]
+        )
+        if self.config.start_stop and tag != const.GAP_TAGS:
+            logits = logits[:, 1:-1]
         return logits
 
     def sentence_loss(self, model_out, batch):
@@ -476,11 +442,10 @@ class Estimator(Model):
     def word_loss(self, model_out, batch):
         """Compute Sequence Tagging Loss"""
         word_loss = OrderedDict()
-        for tag in const.TAGS:
-            if tag in model_out:
-                logits = model_out[tag]
-                logits = logits.transpose(1, 2)
-                word_loss[tag] = self.xents[tag](logits, getattr(batch, tag))
+        for tag in self.config.output_tags:
+            logits = model_out[tag]
+            logits = logits.transpose(1, 2)
+            word_loss[tag] = self.xents[tag](logits, getattr(batch, tag))
         return word_loss
 
     def binary_loss(self, model_out, batch):
@@ -500,12 +465,14 @@ class Estimator(Model):
             loss_dict[const.BINARY] = loss_bin
 
         if const.PE in model_out:
-            loss_token = self.predictor_tgt.loss(
+            loss_token = self.predictors[const.TARGET].loss(
                 model_out, batch, target_side=const.PE
             )
             loss_dict[const.PE] = loss_token[const.PE]
         if const.SOURCE in model_out:
-            loss_token = self.predictor_src.loss(model_out, batch)
+            loss_token = self.predictors[const.SOURCE].loss(
+                model_out, batch
+            )
             loss_dict[const.SOURCE] = loss_token[const.SOURCE]
 
         loss_dict[const.LOSS] = sum(loss.sum() for _, loss in loss_dict.items())
@@ -519,7 +486,7 @@ class Estimator(Model):
                 F1Metric(
                     prefix=const.TARGET_TAGS,
                     target_name=const.TARGET_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[const.TARGET_TAGS],
                     labels=const.LABELS,
                 )
             )
@@ -527,14 +494,14 @@ class Estimator(Model):
                 ThresholdCalibrationMetric(
                     prefix=const.TARGET_TAGS,
                     target_name=const.TARGET_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[const.TARGET_TAGS],
                 )
             )
             metrics.append(
                 CorrectMetric(
                     prefix=const.TARGET_TAGS,
                     target_name=const.TARGET_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[const.TARGET_TAGS],
                 )
             )
 
@@ -543,7 +510,7 @@ class Estimator(Model):
                 F1Metric(
                     prefix=const.SOURCE_TAGS,
                     target_name=const.SOURCE_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[const.SOURCE_TAGS],
                     labels=const.LABELS,
                 )
             )
@@ -551,7 +518,7 @@ class Estimator(Model):
                 CorrectMetric(
                     prefix=const.SOURCE_TAGS,
                     target_name=const.SOURCE_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[const.SOURCE_TAGS],
                 )
             )
         if self.config.predict_gaps:
@@ -559,7 +526,7 @@ class Estimator(Model):
                 F1Metric(
                     prefix=const.GAP_TAGS,
                     target_name=const.GAP_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[const.GAP_TAGS],
                     labels=const.LABELS,
                 )
             )
@@ -567,7 +534,7 @@ class Estimator(Model):
                 CorrectMetric(
                     prefix=const.GAP_TAGS,
                     target_name=const.GAP_TAGS,
-                    PAD=const.PAD_TAGS_ID,
+                    PAD=self.config.pad_idx[const.GAP_TAGS],
                 )
             )
 
@@ -583,61 +550,58 @@ class Estimator(Model):
             metrics.append(
                 CorrectMetric(prefix=const.BINARY, target_name=const.BINARY)
             )
-        if self.config.token_level and self.predictor_tgt is not None:
+
+        if self.config.token_level and const.TARGET in self.predictors:
             metrics.append(
                 CorrectMetric(
                     prefix=const.PE,
                     target_name=const.PE,
-                    PAD=const.PAD_ID,
-                    STOP=const.STOP_ID,
+                    PAD=self.config.pad_idx[const.PE],
+                    STOP=self.config.stop_idx[const.PE],
                 )
             )
             metrics.append(
                 ExpectedErrorMetric(
                     prefix=const.PE,
                     target_name=const.PE,
-                    PAD=const.PAD_ID,
-                    STOP=const.STOP_ID,
+                    PAD=self.config.pad_idx[const.PE],
+                    STOP=self.config.stop_idx[const.PE],
                 )
             )
             metrics.append(
                 PerplexityMetric(
                     prefix=const.PE,
                     target_name=const.PE,
-                    PAD=const.PAD_ID,
-                    STOP=const.STOP_ID,
+                    PAD=self.config.pad_idx[const.PE],
+                    STOP=self.config.stop_idx[const.PE],
                 )
             )
-        if self.config.token_level and self.predictor_src is not None:
+        if self.config.token_level and const.SOURCE in self.predictors:
             metrics.append(
                 CorrectMetric(
                     prefix=const.SOURCE,
                     target_name=const.SOURCE,
-                    PAD=const.PAD_ID,
-                    STOP=const.STOP_ID,
+                    PAD=self.config.pad_idx[const.SOURCE],
+                    STOP=self.config.stop_idx[const.SOURCE],
                 )
             )
             metrics.append(
                 ExpectedErrorMetric(
                     prefix=const.SOURCE,
                     target_name=const.SOURCE,
-                    PAD=const.PAD_ID,
-                    STOP=const.STOP_ID,
+                    PAD=self.config.pad_idx[const.SOURCE],
+                    STOP=self.config.stop_idx[const.SOURCE],
                 )
             )
             metrics.append(
                 PerplexityMetric(
                     prefix=const.SOURCE,
                     target_name=const.SOURCE,
-                    PAD=const.PAD_ID,
-                    STOP=const.STOP_ID,
+                    PAD=self.config.pad_idx[const.SOURCE],
+                    STOP=self.config.stop_idx[const.SOURCE],
                 )
             )
-        metrics.append(
-            TokenMetric(
-                target_name=const.TARGET, STOP=const.STOP_ID, PAD=const.PAD_ID
-            )
-        )
+
         return metrics
 
     def metrics_ordering(self):

@@ -18,7 +18,7 @@
 import pytest
 
 from conftest import check_computation, check_jackknife
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.models.quetch import QUETCH
 
 
@@ -61,7 +61,7 @@ def test_computation_target(temp_output_dir, train_opts, target_opts, atol):
         temp_output_dir,
         train_opts,
         target_opts,
-        output_name=constants.TARGET_TAGS,
+        output_name=const.TARGET_TAGS,
         expected_avg_probs=0.361237,
         atol=atol,
     )
@@ -73,7 +73,7 @@ def test_computation_gaps(temp_output_dir, train_opts, gap_opts, atol):
         temp_output_dir,
         train_opts,
         gap_opts,
-        output_name=constants.GAP_TAGS,
+        output_name=const.GAP_TAGS,
         expected_avg_probs=0.251563,
         atol=atol,
     )
@@ -85,8 +85,8 @@ def test_computation_source(temp_output_dir, train_opts, source_opts, atol):
         temp_output_dir,
         train_opts,
         source_opts,
-        output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.355306,
+        output_name=const.SOURCE_TAGS,
+        expected_avg_probs=0.358804,
         atol=atol,
     )
 
@@ -97,8 +97,8 @@ def test_jackknifing_target(temp_output_dir, train_opts, target_opts, atol):
         temp_output_dir,
         train_opts,
         target_opts,
-        output_name=constants.TARGET_TAGS,
-        expected_avg_probs=0.372357,
+        output_name=const.TARGET_TAGS,
+        expected_avg_probs=0.403426,
         atol=atol,
     )
 
@@ -109,7 +109,7 @@ def test_jackknifing_gaps(temp_output_dir, train_opts, gap_opts, atol):
         temp_output_dir,
         train_opts,
         gap_opts,
-        output_name=constants.GAP_TAGS,
+        output_name=const.GAP_TAGS,
         expected_avg_probs=0.279053,
         atol=atol,
     )
@@ -121,8 +121,8 @@ def test_jackknifing_source(temp_output_dir, train_opts, source_opts, atol):
         temp_output_dir,
         train_opts,
         source_opts,
-        output_name=constants.SOURCE_TAGS,
-        expected_avg_probs=0.394607,
+        output_name=const.SOURCE_TAGS,
+        expected_avg_probs=0.397483,
         atol=atol,
     )
 

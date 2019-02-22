@@ -18,7 +18,7 @@
 import pytest
 
 from conftest import check_computation
-from kiwi import constants
+from kiwi import constants as const
 from kiwi.models.linear_word_qe_classifier import LinearWordQEClassifier
 
 
@@ -29,7 +29,7 @@ def test_train_linear(temp_output_dir, train_opts, linear_opts, atol):
         temp_output_dir,
         train_opts,
         linear_opts,
-        output_name=constants.TARGET_TAGS,
+        output_name=const.TARGET_TAGS,
         expected_avg_probs=0.0,
         atol=atol,
     )
@@ -50,7 +50,7 @@ def test_train_linear(temp_output_dir, train_opts, linear_opts, atol):
 #         for key, values in predictions.items():
 #             train_predictions[key] += values
 #     save_predicted_probabilities(options.output_dir, train_predictions)
-#     train_predictions = train_predictions[constants.TARGET_TAGS]
+#     train_predictions = train_predictions[const.TARGET_TAGS]
 #     avg_of_avgs = np.mean(list(map(np.mean, train_predictions)))
 #     max_prob = max(map(max, train_predictions))
 #     min_prob = min(map(min, train_predictions))

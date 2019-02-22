@@ -15,32 +15,20 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
-from torchtext import data
-
 from kiwi import constants as const
-from kiwi.data.fields.sequence_labels_field import SequenceLabelsField
+from kiwi.data.fields.qe_field import QEField
 from kiwi.data.fieldsets.fieldset import Fieldset
 from kiwi.data.tokenizers import tokenizer
 
 
 def build_text_field():
-    return data.Field(
+    return QEField(
         tokenize=tokenizer,
         init_token=const.START,
         batch_first=True,
         eos_token=const.STOP,
         pad_token=const.PAD,
         unk_token=const.UNK,
-    )
-
-
-def build_label_field(postprocessing=None):
-    return SequenceLabelsField(
-        classes=const.LABELS,
-        tokenize=tokenizer,
-        pad_token=const.PAD,
-        batch_first=True,
-        postprocessing=postprocessing,
     )
 
 

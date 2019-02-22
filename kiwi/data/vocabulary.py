@@ -16,15 +16,11 @@
 #
 
 import warnings
-from collections import defaultdict
 
 import torchtext
 
-from kiwi.constants import PAD, START, STOP, UNALIGNED, UNK, UNK_ID
-
-
-def _default_unk_index():
-    return UNK_ID  # should be zero
+from kiwi.constants import PAD, START, STOP, UNALIGNED
+from kiwi.data.forgetful_defaultdict import ForgetfulDefaultdict
 
 
 class Vocabulary(torchtext.vocab.Vocab):
@@ -33,7 +29,7 @@ class Vocabulary(torchtext.vocab.Vocab):
     Attributes:
         freqs: A collections.Counter object holding the frequencies of tokens
             in the data used to build the Vocab.
-        stoi: A collections.defaultdict instance mapping token strings to
+        stoi: A dict instance mapping token strings to
             numerical identifiers.
         itos: A list of token strings indexed by their numerical identifiers.
     """
@@ -49,6 +45,7 @@ class Vocabulary(torchtext.vocab.Vocab):
         vectors_cache=None,
         rare_with_vectors=True,
         add_vectors_vocab=False,
+        unk=False
     ):
         """Create a Vocab object from a collections.Counter.
 
@@ -79,10 +76,14 @@ class Vocabulary(torchtext.vocab.Vocab):
                 vocabulary will add words that are not in the datasets but are
                 in the vectors vocabulary (e.g. words from polyglot vectors).
                 Default: False.
+            unk: Unknown Token
         """
         if specials is None:
-            specials = ['<pad>']
-
+            specials = []
+        self.unk = unk
+        if self.unk:
+            specials = [self.unk] + specials
+        self.specials = specials
         self.freqs = counter
         counter = counter.copy()
         min_freq = max(min_freq, 1)
@@ -132,23 +133,34 @@ class Vocabulary(torchtext.vocab.Vocab):
             v_itos = vset - set(self.itos)
             self.itos.extend(list(v_itos))
 
-        self.stoi = defaultdict(_default_unk_index)
+        self.stoi = dict()
         # stoi is simply a reverse dict for itos
         self.stoi.update({tok: i for i, tok in enumerate(self.itos)})
 
+        if self.unk:  # defaultdict that does not insert keys upon lookup
+            self.stoi = ForgetfulDefaultdict(self.stoi[self.unk], self.stoi)
         self.vectors = None
         if vectors is not None:
             self.load_vectors(vectors, unk_init=unk_init, cache=vectors_cache)
         else:
             assert unk_init is None and vectors_cache is None
 
+    def token_to_id(self, token):
+        if token in self.stoi or self.unk is not None:
+            return self.stoi[token]
+        raise ValueError('Token {} not in Vocabulary!'.format(token))
+
+    def id_to_token(self, idx):
+        return self.itos[idx]
+
 
 def merge_vocabularies(vocab_a, vocab_b, max_size=None, vectors=None, **kwargs):
     merged = vocab_a.freqs + vocab_b.freqs
     return Vocabulary(
         merged,
-        specials=[UNK, PAD, START, STOP, UNALIGNED],
+        specials=[PAD, START, STOP, UNALIGNED],
         max_size=max_size,
         vectors=vectors,
-        **kwargs,
+        unk=vocab_a.unk or vocab_b.unk,  # use unk if either a or b used unk
+        **kwargs
     )
