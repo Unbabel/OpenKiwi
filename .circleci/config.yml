@@ -7,10 +7,10 @@ jobs:
             - checkout
             - run:
                   command: |
-                      apt-get update && apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
-                      pip install poetry
+                      sudo apt-get update && apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+                      sudo pip install poetry
                       poetry config settings.virtualenvs.create false
-                      pip install tox
+                      sudo pip install tox
             #        - save_cache:
             #            key: deps-{{ .Branch }}-{{ checksum "poetry.lock" }}
             #            paths:
@@ -33,9 +33,9 @@ jobs:
             - checkout
             - run:
                   command: |
-                      apt-get update && apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
-                      ssh-keyscan github.com >> ~/.ssh/known_hosts
-                      chmod 644 ~/.ssh/known_hosts
+                      sudo apt-get update && apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+                      sudo ssh-keyscan github.com >> ~/.ssh/known_hosts
+                      sudo chmod 644 ~/.ssh/known_hosts
                       git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
                       tox -e gh-pages
                       git config --global user.email "openkiwi@unbabel.com"
