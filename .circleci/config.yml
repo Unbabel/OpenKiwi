@@ -14,7 +14,7 @@ jobs:
             #        - save_cache:
             #            key: deps-{{ .Branch }}-{{ checksum "poetry.lock" }}
             #            paths:
-            - run: tox -e lint,test
+            - run: tox -e lint,py
             - store_test_results:
                   path: test-results
             - store_artifacts:
@@ -33,7 +33,7 @@ jobs:
             - checkout
             - run:
                   command: |
-                      sudo apt-get update && apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
                       sudo ssh-keyscan github.com >> ~/.ssh/known_hosts
                       sudo chmod 644 ~/.ssh/known_hosts
                       git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
