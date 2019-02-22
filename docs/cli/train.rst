@@ -1,26 +1,5 @@
 Train Interface
 ===============
- API:
--------------
-
-Run::
-
-    import kiwi
-
-    train_predest_config = 'experiments/examples/train_predest.yaml'
-    kiwi.train(train_predest_config)
-
-    train_nuqe_config = 'experiments/examples/train_nuqe.yaml'
-    kiwi.train(train_nuqe_config)
-
-
-CLI:
------
-
-Run::
-
-    kiwi train --config {model_config_file} [OPTS]
-
 
 
 **Note**: Args that start with '-\\-' (eg. -\\-save-config) can also be set in a config file
@@ -41,6 +20,25 @@ Model specific options can be seen here:
    train_predictor_estimator
    train_quetch
    train_linear
+
+Usage examples of the python api.
+
+Run::
+
+    import kiwi
+
+    train_predest_config = 'experiments/examples/train_predest.yaml'
+    kiwi.train(train_predest_config)
+
+    train_nuqe_config = 'experiments/examples/train_nuqe.yaml'
+    kiwi.train(train_nuqe_config)
+
+Usage example of the cli api.
+
+Run::
+
+    kiwi train --config {model_config_file} [OPTS]
+
 
 .. _train-flags:
 

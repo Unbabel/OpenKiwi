@@ -14,8 +14,9 @@ Welcome to OpenKiwi's documentation!
    :maxdepth: 2
    :caption: Getting Started
 
+   installation
    quickstart.md
-   reproduce.rst
+   reproduce
 
 .. toctree::
    :maxdepth: 3
