@@ -1,0 +1,56 @@
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - checkout
+      - run:
+          command: |
+              apt-get update && apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+              pip install poetry
+              poetry config settings.virtualenvs.create false
+              pip install tox
+#      - save_cache:
+#          key: deps-{{ .Branch }}-{{ checksum "poetry.lock" }}
+#          paths:
+      - run: tox -e lint,test
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
+          destination: tr1
+      -store_artifacts:
+          path: .coverage
+          prefix: coverage
+  pages:
+    docker:
+      - image: circleci/python:3.6
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "f3:65:88:37:1e:8d:9b:dc:22:40:9f:c2:2d:1c:a4:36"
+      - checkout
+      - run:
+          command: |
+              apt-get update && apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
+              ssh-keyscan github.com >> ~/.ssh/known_hosts
+              chmod 644 ~/.ssh/known_hosts
+              git clone --branch gh-pages git@github.com:Unbabel/OpenKiwi.git gh-pages
+              tox -e gh-pages
+              git config --global user.email "openkiwi@unbabel.com"
+              git config --global user.name "GitLab CI"
+              lasttag=`git rev-parse --short HEAD`; cd gh-pages; git add .; git commit -m "Update docs for $lasttag"
+              git push git@github.com:Unbabel/OpenKiwi.git gh-pages
+
+workflows:
+  version: 2
+  one_and_two:
+    jobs:
+      - test
+      - pages:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master

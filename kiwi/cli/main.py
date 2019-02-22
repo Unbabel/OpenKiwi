@@ -17,7 +17,7 @@
 
 import configargparse
 
-from kiwi import __version__, __copyright__
+from kiwi import __copyright__, __version__
 from kiwi.cli.pipelines import evaluate, jackknife, predict, train
 
 
