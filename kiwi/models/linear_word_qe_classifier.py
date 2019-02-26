@@ -112,13 +112,16 @@ class LinearWordQEClassifier(StructuredClassifier):
         num_words = 0
         for example in dataset:
             sentence = LinearWordQESentence()
-            labels = []
-            for label in example.tags:
-                if label in self.labels:
-                    label_id = self.labels.get_label_id(label)
-                else:
-                    label_id = self.labels.add(label)
-                labels.append(label_id)
+            labels = None
+            if hasattr(example, 'tags'):
+                labels = []
+                for label in example.tags:
+                    if label in self.labels:
+                        label_id = self.labels.get_label_id(label)
+                    else:
+                        label_id = self.labels.add(label)
+                    labels.append(label_id)
+
             sentence.create_from_sentence_pair(
                 source_words=example.source,
                 target_words=example.target,

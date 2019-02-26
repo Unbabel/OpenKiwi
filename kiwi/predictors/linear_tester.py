@@ -27,5 +27,4 @@ class LinearTester(object):
     def run(self, dataset, **kwargs):
         instances = self.classifier.create_instances(dataset)
         predictions = self.classifier.test(instances)
-        self.classifier.evaluate(instances, predictions)
         return {const.TARGET_TAGS: predictions}
