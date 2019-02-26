@@ -93,11 +93,17 @@ workflows:
         jobs:
             - lint
             - test
-            - pages:
+            - hold:
                   type: approval
                   requires:
                       - lint
                       - test
+                  filters:
+                      branches:
+                          only: master
+            - pages:
+                  requires:
+                      - hold
                   filters:
                       branches:
                           only: master
