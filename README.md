@@ -23,15 +23,15 @@ Quality estimation (QE) is one of the missing pieces of machine translation: its
 
 ## Results
 
-Results for the WMT18 Quality Estimation shared task, for word level *and* sentence level on the test set.
+Results for the [WMT18 Quality Estimation shared task](http://www.statmt.org/wmt18/quality-estimation-task.html#results), for [word level](https://competitions.codalab.org/competitions/19306#results) *and* [sentence level](https://competitions.codalab.org/competitions/19316#results) on the test set.
 
 |   Model   | En-De SMT |           |           |           |           | En-De NMT |           |           |           |           |
 |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
 |           |     MT    |    gaps   |   source  |     r     |     ⍴     |     MT    |    gaps   |   source  |     r     |     ⍴     |
-| deepQUEST |   42.98   |   28.24   |   33.97   |   48.72   |   50.97   |   30.31   |   11.93   |   28.59   |   38.08   |   48.00   |
-|    UNQE   |     --    |     --    |     --    |   70.00   |   72.44   |     --    |     --    |     --    | **51.29** | **60.52** |
-|  Wang2018 |   62.46   |   49.99   |     --    | **73.97** | **75.43** |   43.61   |     --    |     --    |   50.12   |   60.49   |
 |  OpenKiwi | **62.70** | **52.14** | **48.88** |   71.08   |   72.70   | **44.77** | **22.89** | **36.53** |   46.72   |   58.51   |
+|  Wang2018 |   62.46   |   49.99   |     --    | **73.97** | **75.43** |   43.61   |     --    |     --    |   50.12   |   60.49   |
+|    UNQE   |     --    |     --    |     --    |   70.00   |   72.44   |     --    |     --    |     --    | **51.29** | **60.52** |
+| deepQUEST |   42.98   |   28.24   |   33.97   |   48.72   |   50.97   |   30.31   |   11.93   |   28.59   |   38.08   |   48.00   |
 
 
 ## Quick Installation
@@ -82,18 +82,19 @@ OpenKiwi is Affero GPL licensed. You can see the details of this license in [LIC
 
 If you use OpenKiwi, please cite the following report.
 
-[OpenKiwi: An Open Source Framework for Quality Estimation](https://unbabel.github.io/OpenKiwi/paper.pdf)
+[OpenKiwi: An Open Source Framework for Quality Estimation](https://arxiv.org/abs/1902.08646)
 
 ```
-@inproceedings{openkiwi,
-  author    = {Fábio Kepler and
-               Jonay Trénous and
-               Marcos Treviso and
-               Miguel Vera and
-               André F. T. Martins},
-  title     = {Open{K}iwi: An Open Source Framework for Quality Estimation},
-  year      = {2019},
-  url       = {https://unbabel.github.io/OpenKiwi/paper.pdf},
+@misc{openkiwi,
+    author = {Fábio Kepler and
+              Jonay Trénous and
+              Marcos Treviso and
+              Miguel Vera and
+              André F. T. Martins},
+    title  = {Open{K}iwi: An Open Source Framework for Quality Estimation},
+    year   = {2019},
+    url    = {https://arxiv.org/abs/1902.08646},
+    Eprint = {arXiv:1902.08646},
 }
 ```
 
