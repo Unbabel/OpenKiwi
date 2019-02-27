@@ -23,3 +23,16 @@ We provide the `models <https://github.com/Unbabel/OpenKiwi/releases/>`_ used in
 +-----------+-------+-------+--------+-------+-------+-------+-------+--------+-------+-------+
 | Ensembled | 61.33 | 53.05 |  51.11 | 72.89 | 76.37 | 43.04 | 24.74 |  34.46 | 52.34 | 56.98 |
 +-----------+-------+-------+--------+-------+-------+-------+-------+--------+-------+-------+
+
+Reproducing benchmark values
+---------------------------
+
+Go to `WMT18 Download <https://lindat.mff.cuni.cz/repository/xmlui/handle/11372/LRT-2619>`_ and follow the instructions to download a zip archive with the development data. Then, open a shell and navigate to the directory where you downloaded the data. Ensure that OpenKiwi is installed in your environment, and run the following command(s) to download and evaluate our models:
+
+(SMT dataset)::
+
+    wget https://github.com/Unbabel/OpenKiwi/releases/download/0.1.1/en_de.smt_models.zip && unzip -n en_de.smt_models.zip && ./run_smt.sh
+
+(NMT dataset)::
+
+    wget https://github.com/Unbabel/OpenKiwi/releases/download/0.1.1/en_de.nmt_models.zip && unzip -n en_de.nmt_models.zip && ./run_nmt.sh
