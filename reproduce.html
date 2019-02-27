@@ -106,7 +106,10 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#evaluate">Evaluate</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using pre-trained models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using pre-trained models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
 <ul>
@@ -374,6 +377,18 @@
 </tr>
 </tbody>
 </table>
+<div class="section" id="reproducing-benchmark-values">
+<h2>Reproducing benchmark values<a class="headerlink" href="#reproducing-benchmark-values" title="Permalink to this headline">¶</a></h2>
+<p>Go to <a class="reference external" href="https://lindat.mff.cuni.cz/repository/xmlui/handle/11372/LRT-2619">WMT18 Download</a> and follow the instructions to download a zip archive with the development data. Then, open a shell and navigate to the directory where you downloaded the data. Ensure that OpenKiwi is installed in your environment, and run the following command(s) to download and evaluate our models:</p>
+<p>(SMT dataset):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Unbabel</span><span class="o">/</span><span class="n">OpenKiwi</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">en_de</span><span class="o">.</span><span class="n">smt_models</span><span class="o">.</span><span class="n">zip</span> <span class="o">&amp;&amp;</span> <span class="n">unzip</span> <span class="o">-</span><span class="n">n</span> <span class="n">en_de</span><span class="o">.</span><span class="n">smt_models</span><span class="o">.</span><span class="n">zip</span> <span class="o">&amp;&amp;</span> <span class="o">./</span><span class="n">run_smt</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>(NMT dataset):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">Unbabel</span><span class="o">/</span><span class="n">OpenKiwi</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">en_de</span><span class="o">.</span><span class="n">nmt_models</span><span class="o">.</span><span class="n">zip</span> <span class="o">&amp;&amp;</span> <span class="n">unzip</span> <span class="o">-</span><span class="n">n</span> <span class="n">en_de</span><span class="o">.</span><span class="n">nmt_models</span><span class="o">.</span><span class="n">zip</span> <span class="o">&amp;&amp;</span> <span class="o">./</span><span class="n">run_nmt</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 
