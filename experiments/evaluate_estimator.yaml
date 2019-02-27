@@ -1,3 +1,16 @@
-gold-target: data/WMT17/word_level/dev.tags
+# Example file for configuring the evaluation pipeline
+#
+# The input type for prediction files (Probabilities[probs] or tags)
+type: probs
+ 
+# The format of gold files (wmt17/wmt18)
+format: wmt17
 
-pred-target: predictions/estimator_wmt17_en_de
+# Format of predictions (wmt17/wmt18). Either they predict gaps or not.
+pred-format: wmt17
+
+# File path for the reference files
+gold-target: data/WMT17/word_level/test.tags
+
+# File path for the prediction files
+pred-target: predictions/predest/WMT17/tags

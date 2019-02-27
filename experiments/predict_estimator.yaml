@@ -1,8 +1,27 @@
-load-model: runs/estimator/best_model.torch
+#MAIN OPTIONS (running args)
 
-output-dir: predictions/estimator_wmt17_en_de
+experiment-name: predict-predest
 
+output-dir: predictions/predest/wmt18/en_de
+
+#
+# GENERAL OPTIONS
+#
+# random
+seed: 42
+
+# gpu
 gpu-id: 0
 
-test-source: data/WMT17/word_level/dev.src
-test-target: data/WMT17/word_level/dev.mt
+model: estimator
+
+# save and load
+load-model: runs/predest/best_model.torch
+
+#
+# DATA OPTIONS
+#
+wmt18-format: False
+test-source: data/WMT17/word_level/test.src
+test-target: data/WMT17/word_level/test.mt
+valid-batch-size: 64
