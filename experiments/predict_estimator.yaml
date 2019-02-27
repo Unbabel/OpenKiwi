@@ -17,7 +17,6 @@ model: estimator
 
 # save and load
 load-model: runs/predest/best_model.torch
-load-vocab: runs/predest/vocab.torch
 
 #
 # DATA OPTIONS
@@ -26,4 +25,3 @@ wmt18-format: False
 test-source: data/WMT17/word_level/test.src
 test-target: data/WMT17/word_level/test.mt
 valid-batch-size: 64
-

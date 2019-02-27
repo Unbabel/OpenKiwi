@@ -1,8 +1,8 @@
 model: nuqe
 
-# 
+#
 # WMT2018-NUQE OPTION
-# 
+#
 # what to predict
 predict-target: true
 predict-gaps: false
@@ -12,14 +12,14 @@ predict-source: false
 # (WMT18+ has added GAP tags)
 wmt18-format: true
 
-# 
+#
 # MAIN OPTIONS (running args)
-# 
+#
 experiment-name: NuQE WMT18 en_de.nmt
 
-# 
+#
 # GENERAL OPTIONS
-# 
+#
 # random
 seed: 42
 
@@ -31,23 +31,19 @@ mlflow-tracking-uri: mlruns/
 # save and load
 resume: false
 
-# 
+#
 # DATA OPTIONS
-# 
+#
 # corpus
 train-source: data/WMT18/word_level/en_de.nmt/train.src
-# train-source-pos: data/WMT18/word_level/en_de.nmt/train.src.pos
 train-source-tags: data/WMT18/word_level/en_de.nmt/train.src_tags
 train-target: data/WMT18/word_level/en_de.nmt/train.mt
-# train-target-pos: data/WMT18/word_level/en_de.nmt/train.mt.pos
 train-target-tags: data/WMT18/word_level/en_de.nmt/train.tags
 train-alignments: data/WMT18/word_level/en_de.nmt/train.src-mt.alignments
 
 valid-source: data/WMT18/word_level/en_de.nmt/dev.src
-# valid-source-pos: data/WMT18/word_level/en_de.nmt/dev.src.pos
 valid-source-tags: data/WMT18/word_level/en_de.nmt/dev.src_tags
 valid-target: data/WMT18/word_level/en_de.nmt/dev.mt
-# valid-target-pos: data/WMT18/word_level/en_de.nmt/dev.mt.pos
 valid-target-tags: data/WMT18/word_level/en_de.nmt/dev.tags
 valid-alignments: data/WMT18/word_level/en_de.nmt/dev.src-mt.alignments
 
@@ -71,9 +67,9 @@ add-embeddings-vocab: false
 # save-data: null
 # load-data: null
 
-# 
+#
 # MODEL OPTIONS
-# 
+#
 # embeddings
 source-embeddings-size: 50
 target-embeddings-size: 50
@@ -86,9 +82,9 @@ embeddings-dropout: 0.5
 freeze-embeddings: false
 bad-weight: 3.0
 
-# 
+#
 # TRAINING OPTIONS
-# 
+#
 epochs: 50
 shuffle: true
 train-batch-size: 64
@@ -100,14 +96,14 @@ checkpoint-save: true
 checkpoint-keep-only-best: 1
 checkpoint-early-stop-patience: 10
 
-# 
+#
 # TRAINING OPTIMIZATION
-# 
+#
 optimizer: adam
 learning-rate: 0.001
 
-# 
+#
 # QUETCH OPTIONS
-# 
+#
 window-size: 3
 max-aligned: 5

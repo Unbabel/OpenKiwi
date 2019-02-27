@@ -29,10 +29,10 @@ or mix the two modes to override parameters in a config file.
 ### Train Pipeline
 
 Before we continue into specific instructions for training models please take into account
-that if you're working with data from WMT18 or later, you must make sure to pass the 
-`--wmt18-format True` flag. Either through yaml, or the CLI. This happens because WMT18 
+that if you're working with data from WMT18 or later, you must make sure to pass the
+`--wmt18-format` flag. Either through yaml, or the CLI. This happens because WMT18
 introduced `GAP` tags that classify the gaps between words.
-Note that the example files provided use WMT17 data for the `predictor-estimator` and 
+Note that the example files provided use WMT17 data for the `predictor-estimator` and
 WMT18 data for `NuQE`.
 You can check all the configuration options in :ref:`here <train-flags>`
 
