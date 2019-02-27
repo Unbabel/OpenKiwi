@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Using pre-trained models &mdash; openkiwi 0.1.0 documentation</title>
+  <title>Using pre-trained models &mdash; openkiwi 0.1.1 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.1.1
               </div>
             
           
@@ -106,14 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#evaluate">Evaluate</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Using pre-trained models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#reproducing-benchmark-values">Reproducing benchmark values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#downloading-data">Downloading Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#downloading-models">Downloading Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#setup-directories">Setup Directories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-numbers">The numbers</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using pre-trained models</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
 <ul>
@@ -271,10 +264,7 @@
             
   <div class="section" id="using-pre-trained-models">
 <h1>Using pre-trained models<a class="headerlink" href="#using-pre-trained-models" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="reproducing-benchmark-values">
-<h2>Reproducing benchmark values<a class="headerlink" href="#reproducing-benchmark-values" title="Permalink to this headline">¶</a></h2>
-<p>The values provided in the table presented in the README are the results of our models in the WMT18 test set. These values can only be obtained by submiting your model to the online leaderboard (<a class="reference external" href="https://competitions.codalab.org/competitions/19306#results">here</a>). However, contrary to the test set, the training and dev sets for WMT18 are widely available and can be downloaded from their website.
-As such, here we provide the results that these same models achieve in the dev set:</p>
+<p>We provide the <a class="reference external" href="https://github.com/Unbabel/OpenKiwi/releases/">models</a> used in our submission to <a class="reference external" href="https://competitions.codalab.org/competitions/19306#results">Codalab</a> together with a script that ensembles their predictions over the dev set. For reference, these are our results (which you can reproduce by following the steps below)</p>
 <table border="1" class="docutils">
 <colgroup>
 <col width="13%" />
@@ -384,50 +374,6 @@ As such, here we provide the results that these same models achieve in the dev s
 </tr>
 </tbody>
 </table>
-<p>In order to reproduce the values provided in the table above you should follow the following steps:</p>
-<ol class="arabic simple">
-<li><a class="reference internal" href="#download-wmt"><span class="std std-ref">Download Data</span></a></li>
-<li><a class="reference internal" href="#download-model"><span class="std std-ref">Download Models</span></a></li>
-<li><a class="reference internal" href="#setup-reproduce"><span class="std std-ref">Setup Directory</span></a></li>
-<li><a class="reference internal" href="#scripts-reproduce"><span class="std std-ref">Get Numbers</span></a></li>
-</ol>
-</div>
-<div class="section" id="downloading-data">
-<span id="download-wmt"></span><h2>Downloading Data<a class="headerlink" href="#downloading-data" title="Permalink to this headline">¶</a></h2>
-<p>In order to download the data necessary for running these pre-trained models please refer to <a class="reference external" href="https://lindat.mff.cuni.cz/repository/xmlui/handle/11372/LRT-2619">WMT18 Download</a>. Here you should be able to download both the training and dev sets for all relevant language pairs.</p>
-</div>
-<div class="section" id="downloading-models">
-<span id="download-model"></span><h2>Downloading Models<a class="headerlink" href="#downloading-models" title="Permalink to this headline">¶</a></h2>
-<p>To download models, please refer to <a class="reference external" href="https://github.com/Unbabel/OpenKiwi/releases">Github Releases</a>. From there, pick the models whose numbers you’d like to reproduce and download the appropriate zip archives.</p>
-</div>
-<div class="section" id="setup-directories">
-<span id="setup-reproduce"></span><h2>Setup Directories<a class="headerlink" href="#setup-directories" title="Permalink to this headline">¶</a></h2>
-<p>In order for our script to know where to find the downloaded models and data we ask you to reproduce the following directory structure:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>example_folder
-|-- data
-|   `-- word-level
-|       |-- en_de.nmt
-|       |-- en_de.smt
-`-- models
-    |-- reproduce_numbers.sh
-    |-- model1
-    |-- model2
-    `-- modeln
-</pre></div>
-</div>
-<p>Create a folder such as <cite>example_folder</cite> and move both the data and models folders inside that folder.</p>
-</div>
-<div class="section" id="the-numbers">
-<span id="scripts-reproduce"></span><h2>The numbers<a class="headerlink" href="#the-numbers" title="Permalink to this headline">¶</a></h2>
-<p>Finally, we prepared a script in order to easily run all models, create their predictions and calculate all relevant metrics.</p>
-<p>This script should come included in the base level of the zip archives.
-Once you have downloaded the data, zip and setup the directories as shown above, please <cite>cd</cite> into the models directory.
-There, you only need to run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">reproduce_numbers</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-<p>And after a few moments, the numbers in the table above should be shown in the console.</p>
-</div>
 </div>
 
 

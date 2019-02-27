@@ -3,7 +3,7 @@
 
 This document gives a quick overview of how to use OpenKiwi with the provided example configuration file.
 
-To be able to run the examples, download the [WMT17 En-DE Word Level Quality Estimation data](https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11372/LRT-1974/task2_en-de_training-dev.tar.gz) (you will need to provide your email address to receive a download link) and extract its contents into `data/WMT17`. To be able to pretrain the `predictor` model, additionally download the [English-German in-domain Corpus](https://www.quest.dcs.shef.ac.uk/wmt18_files_qe/corpus_en-de.tar.gz) provided by WMT and extract its contents into `data/parallel`.
+To be able to run the examples, download the [WMT17 En-DE Word Level Quality Estimation data](https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11372/LRT-1974/task2_en-de_training-dev.tar.gz) (you will need to provide your email address to receive a download link) and extract its contents into `data/WMT17`. To be able to pretrain the `predictor` model, additionally download the [English-German in-domain Corpus](https://www.quest.dcs.shef.ac.uk/wmt18_files_qe/corpus_en-de.tar.gz) provided by WMT and extract its contents into `data/WMT18`.
 
 
 OpenKiwi can be used as a package from within Python or from the command line.
@@ -28,6 +28,12 @@ or mix the two modes to override parameters in a config file.
 
 ### Train Pipeline
 
+Before we continue into specific instructions for training models please take into account
+that if you're working with data from WMT18 or later, you must make sure to pass the
+`--wmt18-format` flag. Either through yaml, or the CLI. This happens because WMT18
+introduced `GAP` tags that classify the gaps between words.
+Note that the example files provided use WMT17 data for the `predictor-estimator` and
+WMT18 data for `NuQE`.
 You can check all the configuration options in :ref:`here <train-flags>`
 
 #### Estimator Model

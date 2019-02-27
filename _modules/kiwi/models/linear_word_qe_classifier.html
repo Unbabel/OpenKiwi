@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>kiwi.models.linear_word_qe_classifier &mdash; openkiwi 0.1.0 documentation</title>
+  <title>kiwi.models.linear_word_qe_classifier &mdash; openkiwi 0.1.1 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.1.1
               </div>
             
           
@@ -104,14 +104,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#evaluate">Evaluate</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../../reproduce.html">Using pre-trained models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-data">Downloading Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#downloading-models">Downloading Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#setup-directories">Setup Directories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../reproduce.html#the-numbers">The numbers</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../reproduce.html">Using pre-trained models</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
 <ul>
@@ -380,13 +373,16 @@
         <span class="n">num_words</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">example</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
             <span class="n">sentence</span> <span class="o">=</span> <span class="n">LinearWordQESentence</span><span class="p">()</span>
-            <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">example</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span>
-                    <span class="n">label_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">get_label_id</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">label_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
-                <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label_id</span><span class="p">)</span>
+            <span class="n">labels</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">example</span><span class="p">,</span> <span class="s1">&#39;tags&#39;</span><span class="p">):</span>
+                <span class="n">labels</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">example</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">:</span>
+                        <span class="n">label_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">get_label_id</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">label_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+                    <span class="n">labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label_id</span><span class="p">)</span>
+
             <span class="n">sentence</span><span class="o">.</span><span class="n">create_from_sentence_pair</span><span class="p">(</span>
                 <span class="n">source_words</span><span class="o">=</span><span class="n">example</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
                 <span class="n">target_words</span><span class="o">=</span><span class="n">example</span><span class="o">.</span><span class="n">target</span><span class="p">,</span>

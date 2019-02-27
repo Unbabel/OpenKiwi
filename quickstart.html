@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Quickstart &mdash; openkiwi 0.1.0 documentation</title>
+  <title>Quickstart &mdash; openkiwi 0.1.1 documentation</title>
   
 
   
@@ -64,7 +64,7 @@
             
             
               <div class="version">
-                0.1.0
+                0.1.1
               </div>
             
           
@@ -106,14 +106,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#evaluate">Evaluate</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="reproduce.html">Using pre-trained models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-data">Downloading Data</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reproduce.html#downloading-models">Downloading Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reproduce.html#setup-directories">Setup Directories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="reproduce.html#the-numbers">The numbers</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="reproduce.html">Using pre-trained models</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
 <ul>
@@ -272,7 +265,7 @@
   <div class="section" id="quickstart">
 <h1>Quickstart<a class="headerlink" href="#quickstart" title="Permalink to this headline">¶</a></h1>
 <p>This document gives a quick overview of how to use OpenKiwi with the provided example configuration file.</p>
-<p>To be able to run the examples, download the <a class="reference external" href="https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11372/LRT-1974/task2_en-de_training-dev.tar.gz">WMT17 En-DE Word Level Quality Estimation data</a> (you will need to provide your email address to receive a download link) and extract its contents into <code class="docutils literal notranslate"><span class="pre">data/WMT17</span></code>. To be able to pretrain the <code class="docutils literal notranslate"><span class="pre">predictor</span></code> model, additionally download the <a class="reference external" href="https://www.quest.dcs.shef.ac.uk/wmt18_files_qe/corpus_en-de.tar.gz">English-German in-domain Corpus</a> provided by WMT and extract its contents into <code class="docutils literal notranslate"><span class="pre">data/parallel</span></code>.</p>
+<p>To be able to run the examples, download the <a class="reference external" href="https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11372/LRT-1974/task2_en-de_training-dev.tar.gz">WMT17 En-DE Word Level Quality Estimation data</a> (you will need to provide your email address to receive a download link) and extract its contents into <code class="docutils literal notranslate"><span class="pre">data/WMT17</span></code>. To be able to pretrain the <code class="docutils literal notranslate"><span class="pre">predictor</span></code> model, additionally download the <a class="reference external" href="https://www.quest.dcs.shef.ac.uk/wmt18_files_qe/corpus_en-de.tar.gz">English-German in-domain Corpus</a> provided by WMT and extract its contents into <code class="docutils literal notranslate"><span class="pre">data/WMT18</span></code>.</p>
 <p>OpenKiwi can be used as a package from within Python or from the command line.</p>
 <p>Its functionality is split in <code class="docutils literal notranslate"><span class="pre">pipelines</span></code>.
 Currently supported are:</p>
@@ -292,7 +285,13 @@ On the command line, you can alternatively pass parameters as arguments,
 or mix the two modes to override parameters in a config file.</p>
 <div class="section" id="train-pipeline">
 <h2>Train Pipeline<a class="headerlink" href="#train-pipeline" title="Permalink to this headline">¶</a></h2>
-<p>You can check all the configuration options in <a class="reference internal" href="cli/train.html#train-flags"><span class="std std-ref">here</span></a></p>
+<p>Before we continue into specific instructions for training models please take into account
+that if you’re working with data from WMT18 or later, you must make sure to pass the
+<code class="docutils literal notranslate"><span class="pre">--wmt18-format</span></code> flag. Either through yaml, or the CLI. This happens because WMT18
+introduced <code class="docutils literal notranslate"><span class="pre">GAP</span></code> tags that classify the gaps between words.
+Note that the example files provided use WMT17 data for the <code class="docutils literal notranslate"><span class="pre">predictor-estimator</span></code> and
+WMT18 data for <code class="docutils literal notranslate"><span class="pre">NuQE</span></code>.
+You can check all the configuration options in <a class="reference internal" href="cli/train.html#train-flags"><span class="std std-ref">here</span></a></p>
 <div class="section" id="estimator-model">
 <h3>Estimator Model<a class="headerlink" href="#estimator-model" title="Permalink to this headline">¶</a></h3>
 <p>Example Configuration files with detailed hyperparameter documentation:</p>
