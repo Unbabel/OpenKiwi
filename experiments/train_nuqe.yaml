@@ -15,7 +15,7 @@ wmt18-format: true
 # 
 # MAIN OPTIONS (running args)
 # 
-experiment-name: NuQE WMT18 Target en_de.nmt
+experiment-name: NuQE WMT18 en_de.nmt
 
 # 
 # GENERAL OPTIONS
