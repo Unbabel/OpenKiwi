@@ -14,12 +14,12 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-
+from collections import Counter
 import warnings
 
 import torchtext
 
-from kiwi.constants import PAD, START, STOP, UNALIGNED
+from kiwi.constants import PAD, START, STOP, UNALIGNED, UNK
 from kiwi.data.forgetful_defaultdict import ForgetfulDefaultdict
 
 
@@ -45,7 +45,7 @@ class Vocabulary(torchtext.vocab.Vocab):
         vectors_cache=None,
         rare_with_vectors=True,
         add_vectors_vocab=False,
-        unk=False
+        unk=None
     ):
         """Create a Vocab object from a collections.Counter.
 
@@ -146,12 +146,29 @@ class Vocabulary(torchtext.vocab.Vocab):
             assert unk_init is None and vectors_cache is None
 
     def token_to_id(self, token):
-        if token in self.stoi or self.unk is not None:
+        if token in self.stoi or self.unk:
             return self.stoi[token]
         raise ValueError('Token {} not in Vocabulary!'.format(token))
 
     def id_to_token(self, idx):
         return self.itos[idx]
+
+    def net_length(self):
+        """Length excluding specials
+        """
+        return len(self.itos) - len(self.specials)
+
+    @staticmethod
+    def from_vocab(vocab):
+        unk = UNK if UNK in vocab.stoi else False
+        vocabulary = Vocabulary(counter=Counter(), unk=unk)
+        # The old format does contain Noen tokens
+        vocabulary.itos = [tok for tok in vocab.itos if tok is not None]
+        vocabulary.stoi = {tok: idx for idx, tok in enumerate(vocabulary.itos)}
+        if unk:
+            unk_id = vocab.stoi[unk]
+            vocabulary.stoi = ForgetfulDefaultdict(unk_id, vocabulary.stoi)
+        return vocabulary
 
 
 def merge_vocabularies(vocab_a, vocab_b, max_size=None, vectors=None, **kwargs):

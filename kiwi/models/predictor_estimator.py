@@ -82,6 +82,16 @@ class EstimatorConfig(PredictorConfig, QEModelConfig):
         self.sentence_ll = sentence_ll
         self.binary_level = binary_level
 
+    @staticmethod
+    def convert_serial_format(config_dict, kwargs):
+        config_dict, kwargs = (super(EstimatorConfig, EstimatorConfig)
+                               .convert_serial_format(config_dict, kwargs))
+        if '__version__' not in config_dict:
+            kwargs['target_bad_weight'] = config_dict['target_bad_weight']
+            kwargs['source_bad_weight'] = config_dict['source_bad_weight']
+            kwargs['gaps_bad_weight'] = config_dict['gaps_bad_weight']
+        return config_dict, kwargs
+
 
 @Model.register_subclass
 class Estimator(Model):
@@ -231,71 +241,6 @@ class Estimator(Model):
             self.mse_loss = nn.MSELoss(reduction='sum')
         if self.config.binary_level:
             self.xent_binary = nn.CrossEntropyLoss(reduction='sum')
-
-    @staticmethod
-    def fieldset(*args, **kwargs):
-        from kiwi.data.fieldsets.predictor_estimator import build_fieldset
-
-        return build_fieldset(*args, **kwargs)
-
-    @staticmethod
-    def from_options(vocabs, opts):
-        """
-
-        Args:
-            vocabs:
-            opts:
-                predict_target (bool): Predict target tags
-                predict_source (bool): Predict source tags
-                predict_gaps (bool): Predict gap tags
-                token_level (bool): Train predictor using PE field.
-                sentence_level (bool): Predict Sentence Scores
-                sentence_ll (bool): Use likelihood loss for sentence scores
-                                    (instead of squared error)
-                binary_level: Predict binary sentence labels
-                target_bad_weight: Weight for target tags bad class. Default 3.0
-                source_bad_weight: Weight for source tags bad class. Default 3.0
-                gaps_bad_weight: Weight for gap tags bad class. Default 3.0
-
-        Returns:
-
-        """
-        predictor_src = predictor_tgt = None
-        if opts.load_pred_source:
-            predictor_src = Predictor.from_file(opts.load_pred_source)
-        if opts.load_pred_target:
-            predictor_tgt = Predictor.from_file(opts.load_pred_target)
-
-        model = Estimator(
-            vocabs,
-            predictor_tgt=predictor_tgt,
-            predictor_src=predictor_src,
-            hidden_est=opts.hidden_est,
-            rnn_layers_est=opts.rnn_layers_est,
-            mlp_est=opts.mlp_est,
-            dropout_est=opts.dropout_est,
-            start_stop=opts.start_stop,
-            predict_target=opts.predict_target,
-            predict_gaps=opts.predict_gaps,
-            predict_source=opts.predict_source,
-            token_level=opts.token_level,
-            sentence_level=opts.sentence_level,
-            sentence_ll=opts.sentence_ll,
-            binary_level=opts.binary_level,
-            target_bad_weight=opts.target_bad_weight,
-            source_bad_weight=opts.source_bad_weight,
-            gaps_bad_weight=opts.gaps_bad_weight,
-            hidden_pred=opts.hidden_pred,
-            rnn_layers_pred=opts.rnn_layers_pred,
-            dropout_pred=opts.dropout_pred,
-            share_embeddings=opts.dropout_est,
-            embedding_sizes=opts.embedding_sizes,
-            target_embeddings_size=opts.target_embeddings_size,
-            source_embeddings_size=opts.source_embeddings_size,
-            out_embeddings_size=opts.out_embeddings_size,
-            predict_inverse=opts.predict_inverse,
-        )
-        return model
 
     def forward(self, batch):
         outputs = OrderedDict()
@@ -606,3 +551,101 @@ class Estimator(Model):
 
     def metrics_ordering(self):
         return max
+
+    @staticmethod
+    def fieldset(*args, **kwargs):
+        from kiwi.data.fieldsets.predictor_estimator import build_fieldset
+
+        return build_fieldset(*args, **kwargs)
+
+    @staticmethod
+    def from_options(vocabs, opts):
+        """
+
+        Args:
+            vocabs:
+            opts:
+                predict_target (bool): Predict target tags
+                predict_source (bool): Predict source tags
+                predict_gaps (bool): Predict gap tags
+                token_level (bool): Train predictor using PE field.
+                sentence_level (bool): Predict Sentence Scores
+                sentence_ll (bool): Use likelihood loss for sentence scores
+                                    (instead of squared error)
+                binary_level: Predict binary sentence labels
+                target_bad_weight: Weight for target tags bad class. Default 3.0
+                source_bad_weight: Weight for source tags bad class. Default 3.0
+                gaps_bad_weight: Weight for gap tags bad class. Default 3.0
+
+        Returns:
+
+        """
+        predictor_src = predictor_tgt = None
+        if opts.load_pred_source:
+            predictor_src = Predictor.from_file(opts.load_pred_source)
+        if opts.load_pred_target:
+            predictor_tgt = Predictor.from_file(opts.load_pred_target)
+
+        model = Estimator(
+            vocabs,
+            predictor_tgt=predictor_tgt,
+            predictor_src=predictor_src,
+            hidden_est=opts.hidden_est,
+            rnn_layers_est=opts.rnn_layers_est,
+            mlp_est=opts.mlp_est,
+            dropout_est=opts.dropout_est,
+            start_stop=opts.start_stop,
+            predict_target=opts.predict_target,
+            predict_gaps=opts.predict_gaps,
+            predict_source=opts.predict_source,
+            token_level=opts.token_level,
+            sentence_level=opts.sentence_level,
+            sentence_ll=opts.sentence_ll,
+            binary_level=opts.binary_level,
+            target_bad_weight=opts.target_bad_weight,
+            source_bad_weight=opts.source_bad_weight,
+            gaps_bad_weight=opts.gaps_bad_weight,
+            hidden_pred=opts.hidden_pred,
+            rnn_layers_pred=opts.rnn_layers_pred,
+            dropout_pred=opts.dropout_pred,
+            share_embeddings=opts.dropout_est,
+            embedding_sizes=opts.embedding_sizes,
+            target_embeddings_size=opts.target_embeddings_size,
+            source_embeddings_size=opts.source_embeddings_size,
+            out_embeddings_size=opts.out_embeddings_size,
+            predict_inverse=opts.predict_inverse,
+        )
+        return model
+
+    @staticmethod
+    def convert_serial_format(class_dict):
+        class_dict = (super(Estimator, Estimator).
+                      convert_serial_format(class_dict))
+        if '__version__' not in class_dict:
+            replacements = [
+                ('predictor_tgt', ['predictors.target']),
+                ('predictor_src', ['predictors.source']),
+                ('embedding_out_gaps.', ['tags_output_emb.gap_tags.'])
+            ]
+            old, new = 'embedding_out.', []
+            if class_dict['config']['predict_target']:
+                new.append('tags_output_emb.tags.')
+            if class_dict['config']['predict_source']:
+                new.append('tags_output_emb.source_tags.')
+            replacements.append((old, new))
+            old, new = 'xents.tags.', []
+            if class_dict['config']['predict_target']:
+                new.append('xents.tags.')
+            if class_dict['config']['predict_source']:
+                new.append('xents.source_tags.')
+            replacements.append((old, new))
+            state_dict = class_dict[const.STATE_DICT]
+            for key in list(state_dict.keys()):
+                for old, new in replacements:
+                    if old in key:
+                        value = state_dict[key]
+                        del state_dict[key]
+                        for replacement in new:
+                            new_key = key.replace(old, replacement)
+                            state_dict[new_key] = value
+        return class_dict

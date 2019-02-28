@@ -74,12 +74,6 @@ class QUETCHConfig(QEModelConfig):
         self.dropout = dropout
         self.embeddings_dropout = embeddings_dropout
         self.freeze_embeddings = freeze_embeddings
-        # self.predict_side = predict_side
-
-        # if predicting tags or source, default predict_target=true
-        # doesn't make sense
-        if predict_gaps or predict_source:
-            predict_target = predict_target
         self.predict_target = predict_target
         self.predict_gaps = predict_gaps
         self.predict_source = predict_source

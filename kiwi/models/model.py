@@ -24,7 +24,7 @@ import torch.nn as nn
 import kiwi
 from kiwi import constants as const
 from kiwi.data import utils
-
+from kiwi.data.vocabulary import Vocabulary
 logger = logging.getLogger(__name__)
 
 
@@ -43,24 +43,13 @@ class ModelConfig(object):
         self.stop_idx = {}
         self.start_idx = {}
         self.vocab_sizes = {}
+
         for side in [const.SOURCE, const.TARGET, const.PE]:
             if side in vocabs:
                 self.pad_idx[side] = vocabs[side].token_to_id(const.PAD)
                 self.stop_idx[side] = vocabs[side].token_to_id(const.STOP)
                 self.start_idx[side] = vocabs[side].token_to_id(const.START)
                 self.vocab_sizes[side] = len(vocabs[side])
-
-    @classmethod
-    def from_dict(cls, config_dict, vocabs):
-        """Create config from a saved state_dict.
-           Args:
-             config_dict: A dictionary that is the return value of
-                          a call to the `state_dict()` method of `cls`
-             vocab: See `ModelConfig.__init__`
-        """
-        config = cls(vocabs=vocabs)
-        config.update(config_dict)
-        return config
 
     def update(self, other_config):
         """Updates the config object with the values of `other_config`
@@ -79,6 +68,26 @@ class ModelConfig(object):
         """
         self.__dict__['__version__'] = kiwi.__version__
         return self.__dict__
+
+    @classmethod
+    def from_dict(cls, config_dict, vocabs, **kwargs):
+        """Create config from a saved state_dict.
+           Args:
+             config_dict: A dictionary that is the return value of
+                          a call to the `state_dict()` method of `cls`
+             vocab: See `ModelConfig.__init__`
+             kwargs: keyword arguments that are passed to the `cls` constructor
+        """
+        config_dict, kwargs = cls.convert_serial_format(config_dict, kwargs)
+        config = cls(vocabs=vocabs, **kwargs)
+        config.update(config_dict)
+        return config
+
+    @staticmethod
+    def convert_serial_format(config_dict, kwargs):
+        """Currently does nothing.
+        """
+        return config_dict, kwargs
 
 
 class QEModelConfig(ModelConfig):
@@ -115,6 +124,16 @@ class QEModelConfig(ModelConfig):
             self.pad_idx[tag] = vocabs[tag].token_to_id(const.PAD)
             self.bad_idx[tag] = vocabs[tag].token_to_id(const.BAD)
             self.nb_classes[tag] = len(vocabs[tag]) - 1  # Ignore Pad
+
+    @staticmethod
+    def convert_serial_format(config_dict, kwargs):
+        config_dict, kwargs = (super(QEModelConfig, QEModelConfig)
+                               .convert_serial_format(config_dict, kwargs))
+        if '__version__' not in config_dict:
+            kwargs['predict_target'] = config_dict['predict_target']
+            kwargs['predict_source'] = config_dict['predict_source']
+            kwargs['predict_gaps'] = config_dict['predict_gaps']
+        return config_dict, kwargs
 
 
 class Model(nn.Module):
@@ -240,6 +259,7 @@ class Model(nn.Module):
         mask = torch.ones_like(input_tensor, dtype=torch.uint8)
 
         possible_padding = [const.PAD, const.START, const.STOP]
+
         unk_id = self.vocabs[side].stoi.get(const.UNK)
         for pad in possible_padding:
             pad_id = self.vocabs[side].stoi.get(pad)
@@ -272,21 +292,33 @@ class Model(nn.Module):
         return cls.from_dict(model_dict)
 
     @classmethod
-    def from_dict(cls, model_dict):
-        vocabs = utils.deserialize_vocabs(model_dict[const.VOCAB])
-        class_dict = model_dict[cls.__name__]
+    def from_dict(cls, class_dict):
+        if '__version__' not in class_dict:
+            class_dict.update(class_dict[cls.__name__])
+            del class_dict[cls.__name__]
+        class_dict = cls.convert_serial_format(class_dict)
+        vocabs = dict(class_dict[const.VOCAB])
         model = cls(vocabs=vocabs, config=class_dict[const.CONFIG])
         model.load_state_dict(class_dict[const.STATE_DICT])
         return model
+
+    @staticmethod
+    def convert_serial_format(class_dict):
+        if '__version__' not in class_dict:
+            vocabs = dict(class_dict[const.VOCAB])
+            class_dict = class_dict
+            for key in vocabs.keys():
+                vocabs[key] = Vocabulary.from_vocab(vocabs[key])
+            class_dict[const.VOCAB] = vocabs
+        return class_dict
 
     def save(self, path):
         vocabs = utils.serialize_vocabs(self.vocabs)
         model_dict = {
             '__version__': kiwi.__version__,
+            'class_name': self.__class__.__name__,
             const.VOCAB: vocabs,
-            self.__class__.__name__: {
-                const.CONFIG: self.config.state_dict(),
-                const.STATE_DICT: self.state_dict(),
-            },
+            const.CONFIG: self.config.state_dict(),
+            const.STATE_DICT: self.state_dict(),
         }
         torch.save(model_dict, str(path))
