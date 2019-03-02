@@ -1,4 +1,5 @@
 ![OpenKiwi Logo](https://github.com/Unbabel/OpenKiwi/blob/master/docs/_static/img/openkiwi-logo-horizontal.svg)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FUnbabel%2FOpenKiwi.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FUnbabel%2FOpenKiwi?ref=badge_shield)
 
 --------------------------------------------------------------------------------
 
@@ -77,6 +78,9 @@ Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for quick instructions or to 
 
 OpenKiwi is Affero GPL licensed. You can see the details of this license in [LICENSE](LICENSE).
 
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FUnbabel%2FOpenKiwi.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FUnbabel%2FOpenKiwi?ref=badge_large)
 
 ## Citation
 
