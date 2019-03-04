@@ -89,6 +89,15 @@ class QUETCHConfig(QEModelConfig):
             vocabs[const.TARGET].token_to_id(const.UNALIGNED)
         )
 
+    @staticmethod
+    def convert_serial_format(config_dict, kwargs):
+        config_dict, kwargs = (super(QUETCHConfig, QUETCHConfig)
+                               .convert_serial_format(config_dict, kwargs))
+        if '__version__' not in config_dict:
+            del config_dict['nb_classes']
+        return config_dict, kwargs
+
+
 
 @Model.register_subclass
 class QUETCH(Model):
