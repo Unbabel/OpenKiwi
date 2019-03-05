@@ -270,21 +270,20 @@ class Model(nn.Module):
 
     @staticmethod
     def create_from_file(path):
-        model_dict = torch.load(
+        class_dict = torch.load(
             str(path), map_location=lambda storage, loc: storage
         )
-        for model_name in Model.subclasses:
-            if model_name in model_dict:
-                model = Model.subclasses[model_name].from_dict(model_dict)
-                return model
-        return None
+        class_dict = Model.convert_serial_format(class_dict)
+        model_name = class_dict['class_name']
+        model = Model.subclasses[model_name].from_dict(class_dict)
+        return model
 
     @classmethod
     def from_file(cls, path):
         model_dict = torch.load(
             str(path), map_location=lambda storage, loc: storage
         )
-        if cls.__name__ not in model_dict:
+        if model_dict.get('class_name') != cls.__name__:
             raise KeyError(
                 '{} model data not found in {}'.format(cls.__name__, path)
             )
@@ -310,6 +309,16 @@ class Model(nn.Module):
             for key in vocabs.keys():
                 vocabs[key] = Vocabulary.from_vocab(vocabs[key])
             class_dict[const.VOCAB] = vocabs
+        if 'class_name' not in class_dict:
+            for model_name in Model.subclasses.keys():
+                if model_name in class_dict:
+                    class_dict['class_name'] = model_name
+                    model_dict = class_dict[model_name]
+                    del class_dict[model_name]
+                    class_dict.update(model_dict)
+                    break
+            else:  # No Model Dict Found
+                raise ValueError('Cannot read serialization format')
         return class_dict
 
     def save(self, path):

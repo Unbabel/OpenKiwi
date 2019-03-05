@@ -98,7 +98,6 @@ class QUETCHConfig(QEModelConfig):
         return config_dict, kwargs
 
 
-
 @Model.register_subclass
 class QUETCH(Model):
     """QUality Estimation from scraTCH (QUETCH) model.
