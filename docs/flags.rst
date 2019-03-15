@@ -51,3 +51,8 @@ They are divided into three different categories, general, IO and save/load.
    :func: save_load_opts
    :prog: kiwi <pipeline>
 
+.. argparse::
+   :module: kiwi.cli.opts
+   :passparser:
+   :func: logging_opts
+   :prog: kiwi <pipeline>
