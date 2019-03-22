@@ -72,6 +72,7 @@ def source_opts(predest_opts_multitask):
     options.predict_target = False
     options.predict_gaps = False
     options.predict_source = True
+    options.sentence_level = False
     return options
 
 

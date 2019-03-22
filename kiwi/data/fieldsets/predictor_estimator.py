@@ -88,7 +88,7 @@ def build_fieldset(wmt18_format=False):
             name=const.GAP_TAGS,
             field=build_label_field(post_pipe_gaps),
             file_option_suffix='_target_tags',
-            required=[Fieldset.TRAIN, Fieldset.VALID],
+            required=None,
         )
 
     fieldset.add(

@@ -99,7 +99,11 @@ class Estimator(Model):
             self.config.update(predictor_tgt.config)
 
         # Predictor Settings #
-        predict_tgt = self.config.predict_target or self.config.predict_gaps
+        predict_tgt = (
+            self.config.predict_target
+            or self.config.predict_gaps
+            or self.config.sentence_level
+        )
         if predict_tgt and not predictor_tgt:
             predictor_tgt = Predictor(
                 vocabs=vocabs,
@@ -312,7 +316,11 @@ class Estimator(Model):
         outputs = OrderedDict()
         contexts_tgt, h_tgt = None, None
         contexts_src, h_src = None, None
-        if self.config.predict_target or self.config.predict_gaps:
+        if (
+            self.config.predict_target
+            or self.config.predict_gaps
+            or self.config.sentence_level
+        ):
             model_out_tgt = self.predictor_tgt(batch)
             input_seq, target_lengths = self.make_input(
                 model_out_tgt, batch, const.TARGET_TAGS
