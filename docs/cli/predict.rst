@@ -9,6 +9,9 @@ config file values which override defaults.
 
 For generic options see: :ref:`here <generic-flags>`
 
+When using the prediction interface you need to pass a pre-trained model using the `--load-model` flag described in :ref:`General options <generic-flags>`.
+If you do not specify a pre-trained model to be loaded and used for predictions, OpenKiwi will not be able to predict anything.
+
 Model specific options can be seen here:
 
 .. toctree::
