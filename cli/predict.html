@@ -172,6 +172,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../flags.html#gpu">gpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../flags.html#I/O">I/O</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../flags.html#save-load">save-load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../flags.html#Logging">Logging</a></li>
 </ul>
 </li>
 </ul>
@@ -277,6 +278,8 @@ a YAML ‘mapping’ (for details, see <a class="reference external" href="http:
 an arg is specified in more than one place, then command line values override
 config file values which override defaults.</p>
 <p>For generic options see: <a class="reference internal" href="../flags.html#generic-flags"><span class="std std-ref">here</span></a></p>
+<p>When using the prediction interface you need to pass a pre-trained model using the <cite>–load-model</cite> flag described in <a class="reference internal" href="../flags.html#generic-flags"><span class="std std-ref">General options</span></a>.
+If you do not specify a pre-trained model to be loaded and used for predictions, OpenKiwi will not be able to predict anything.</p>
 <p>Model specific options can be seen here:</p>
 <div class="toctree-wrapper compound">
 <ul>

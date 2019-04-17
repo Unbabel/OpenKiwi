@@ -172,6 +172,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#gpu">gpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#I/O">I/O</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#save-load">save-load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Logging">Logging</a></li>
 </ul>
 </li>
 </ul>
@@ -364,6 +365,49 @@ They are divided into three different categories, general, IO and save/load.</p>
 <tr><td class="option-group">
 <kbd>--load-vocab</kbd></td>
 <td>Directory containing a vocab.torch file to be loaded</td></tr>
+</tbody>
+</table>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">kiwi</span> <span class="o">&lt;</span><span class="n">pipeline</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">interval</span> <span class="n">LOG_INTERVAL</span><span class="p">]</span>
+                       <span class="p">[</span><span class="o">--</span><span class="n">mlflow</span><span class="o">-</span><span class="n">tracking</span><span class="o">-</span><span class="n">uri</span> <span class="n">MLFLOW_TRACKING_URI</span><span class="p">]</span>
+                       <span class="p">[</span><span class="o">--</span><span class="n">experiment</span><span class="o">-</span><span class="n">name</span> <span class="n">EXPERIMENT_NAME</span><span class="p">]</span>
+                       <span class="p">[</span><span class="o">--</span><span class="n">run</span><span class="o">-</span><span class="n">uuid</span> <span class="n">RUN_UUID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">dir</span> <span class="n">OUTPUT_DIR</span><span class="p">]</span>
+                       <span class="p">[</span><span class="o">--</span><span class="n">mlflow</span><span class="o">-</span><span class="n">always</span><span class="o">-</span><span class="n">log</span><span class="o">-</span><span class="n">artifacts</span> <span class="p">[</span><span class="n">MLFLOW_ALWAYS_LOG_ARTIFACTS</span><span class="p">]]</span>
+</pre></div>
+</div>
+<div class="section" id="Logging">
+<h3>Logging<a class="headerlink" href="#Logging" title="Permalink to this headline">¶</a></h3>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd>--log-interval</kbd></td>
+<td><p class="first">Log every k batches.</p>
+<p class="last">Default: 100</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--mlflow-tracking-uri</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">If using MLflow, logs model parameters, training metrics, and artifacts (files) to this MLflow server. Uses the localhost by default.</p>
+<p class="last">Default: “mlruns/”</p>
+</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--experiment-name</kbd></td>
+</tr>
+<tr><td>&#160;</td><td>If using MLflow, it will log this run under this experiment name, which appears as a separate sectionin the UI. It will also be used in some messages and files.</td></tr>
+<tr><td class="option-group">
+<kbd>--run-uuid</kbd></td>
+<td>If specified, MLflow/Default Logger will log metrics and params under this ID. If it exists, the run status will change to running. This ID is also used for creating this run’s output directory. (Run ID must be a 32-character hex string)</td></tr>
+<tr><td class="option-group">
+<kbd>--output-dir</kbd></td>
+<td>Output several files for this run under this directory. If not specified, a directory under “runs” is created or reused based on the Run UUID. Files might also be sent to MLflow depending on the –mlflow-always-log-artifacts option.</td></tr>
+<tr><td class="option-group" colspan="2">
+<kbd>--mlflow-always-log-artifacts</kbd></td>
+</tr>
+<tr><td>&#160;</td><td><p class="first">If using MLFlow, always log (send) artifacts (files) to MLflow artifacts URI. By default (false), artifacts are only logged ifMLflow is a remote server (as specified by –mlflow-tracking-uri option). All generated files are always saved in –output-dir, so it might be considered redundant to copy them to a local MLflow server. If this is not the case, set this option to true.</p>
+<p class="last">Default: False</p>
+</td></tr>
 </tbody>
 </table>
 </div>

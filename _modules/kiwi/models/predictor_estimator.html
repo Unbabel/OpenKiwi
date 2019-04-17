@@ -170,6 +170,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../flags.html#gpu">gpu</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../flags.html#I/O">I/O</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../flags.html#save-load">save-load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../flags.html#Logging">Logging</a></li>
 </ul>
 </li>
 </ul>
@@ -363,7 +364,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">predictor_tgt</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
 
         <span class="c1"># Predictor Settings #</span>
-        <span class="n">predict_tgt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">predict_target</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">predict_gaps</span>
+        <span class="n">predict_tgt</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">predict_target</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">predict_gaps</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sentence_level</span>
+        <span class="p">)</span>
         <span class="k">if</span> <span class="n">predict_tgt</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">predictor_tgt</span><span class="p">:</span>
             <span class="n">predictor_tgt</span> <span class="o">=</span> <span class="n">Predictor</span><span class="p">(</span>
                 <span class="n">vocabs</span><span class="o">=</span><span class="n">vocabs</span><span class="p">,</span>
@@ -576,7 +581,11 @@
         <span class="n">outputs</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
         <span class="n">contexts_tgt</span><span class="p">,</span> <span class="n">h_tgt</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
         <span class="n">contexts_src</span><span class="p">,</span> <span class="n">h_src</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">predict_target</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">predict_gaps</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">predict_target</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">predict_gaps</span>
+            <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">sentence_level</span>
+        <span class="p">):</span>
             <span class="n">model_out_tgt</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">predictor_tgt</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
             <span class="n">input_seq</span><span class="p">,</span> <span class="n">target_lengths</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_input</span><span class="p">(</span>
                 <span class="n">model_out_tgt</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">const</span><span class="o">.</span><span class="n">TARGET_TAGS</span>
