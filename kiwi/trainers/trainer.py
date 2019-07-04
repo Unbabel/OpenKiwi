@@ -27,6 +27,7 @@ from kiwi import constants as const
 from kiwi.loggers import tracking_logger
 from kiwi.metrics.stats import Stats
 from kiwi.models.model import Model
+from kiwi.models.utils import load_torch_file
 from kiwi.trainers.callbacks import EarlyStopException
 from kiwi.trainers.utils import optimizer_class
 
@@ -216,30 +217,6 @@ class Trainer:
             )
         return event
 
-    def load(self, directory):
-        logger.info('Loading training state from {}'.format(directory))
-        root_path = Path(directory)
-        model_path = root_path / const.MODEL_FILE
-        self.model = self.model.from_file(model_path)
-
-        optimizer_path = root_path / const.OPTIMIZER
-        optimizer_dict = torch.load(
-            str(optimizer_path), map_location=lambda storage, loc: storage
-        )
-        if optimizer_dict['name'] != (type(self.optimizer).__name__.lower()):
-            logger.warning('Trying to load the wrong optimizer.')
-        self.optimizer.load_state_dict(optimizer_dict['state_dict'])
-
-        scheduler_dict = optimizer_dict['scheduler_dict']
-        if scheduler_dict:
-            self.scheduler.load_state_dict(scheduler_dict['state_dict'])
-
-        trainer_path = root_path / const.TRAINER
-        state = torch.load(
-            str(trainer_path), map_location=lambda storage, loc: storage
-        )
-        self.__dict__.update(state)
-
     @classmethod
     def from_directory(cls, directory, device_id=None):
         logger.info('Loading training state from {}'.format(directory))
@@ -252,9 +229,8 @@ class Trainer:
             model.to(device_id)
 
         optimizer_path = root_path / const.OPTIMIZER
-        optimizer_dict = torch.load(
-            str(optimizer_path), map_location=lambda storage, loc: storage
-        )
+        optimizer_dict = load_torch_file(str(optimizer_path))
+
         optimizer = optimizer_class(optimizer_dict['name'])(
             model.parameters(), lr=0.0
         )
@@ -262,32 +238,39 @@ class Trainer:
 
         trainer = cls(model, optimizer, checkpointer=None)
         trainer_path = root_path / const.TRAINER
-        state = torch.load(
-            str(trainer_path), map_location=lambda storage, loc: storage
-        )
+        state = load_torch_file(str(trainer_path))
         trainer.__dict__.update(state)
         return trainer
 
     @classmethod
-    def resume(cls, local_path=None, prefix='epoch_', device_id=None):
+    def resume(cls, local_path=None, prefix='latest_', device_id=None):
         if local_path:
             artifacts_uri = Path(local_path)
         else:
             artifacts_uri = Path(tracking_logger.get_artifact_uri())
-        saved_checkpoints = [
-            int(str(path.name).replace(prefix, ''))
-            for path in artifacts_uri.glob('{}*'.format(prefix))
-            if path.is_dir()
-        ]
-        if not saved_checkpoints:
-            logger.warning(
-                'No saved trainer checkpoint found at {}'.format(
-                    artifacts_uri / (prefix + '*')
-                )
-            )
-            return None
 
-        last_save = max(saved_checkpoints)
+        if Path(local_path) / Path(prefix + 'epoch') in artifacts_uri.glob(
+            '{}*'.format(prefix)
+        ):
+            last_save = 'epoch'
+
+        else:
+            logging.info(
+                'Latest epoch not found. Looking for other checkpoints'
+            )
+            prefix = 'epoch_'
+            saved_checkpoints = [
+                int(str(path.name).replace(prefix, ''))
+                for path in artifacts_uri.glob('{}*'.format(prefix))
+                if path.is_dir()
+            ]
+            if not saved_checkpoints:
+                raise FileNotFoundError(
+                    'Couldn\'t load trainer from: {}'.format(
+                        artifacts_uri / (prefix + '*')
+                    )
+                )
+            last_save = max(saved_checkpoints)
 
         snapshot_dir = artifacts_uri / '{}{}'.format(prefix, last_save)
         logger.info('Resuming training from: {}'.format(snapshot_dir))

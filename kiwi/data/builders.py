@@ -44,7 +44,7 @@ def build_training_datasets(
     valid_source=None,
     valid_target=None,
     load_vocab=None,
-    **kwargs
+    **kwargs,
 ):
     """Build a training and validation QE datasets.
 

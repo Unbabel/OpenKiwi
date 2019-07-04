@@ -113,8 +113,9 @@ def train_opts(parser):
         const=True,
         default=False,
         help='Resume training a previous run. '
-        'The --run-uuid (and possibly --experiment-name) '
-        'option must be specified. Files are then searched '
+        'If --output-dir is not none, Kiwi will load from a checkpoint folder '
+        'in that location. If --output-dir is not specified, '
+        'then the --run-uuid option must be set. Files are then searched '
         'under the "runs" directory. If not found, they are '
         'downloaded from the MLflow server '
         '(check the --mlflow-tracking-uri option).',
