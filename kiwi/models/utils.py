@@ -15,6 +15,9 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 
+import logging
+from pathlib import Path
+
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -22,6 +25,10 @@ from more_itertools import first, flatten
 from torch.autograd import Function
 from torch.nn.utils.rnn import pack_padded_sequence as pack
 from torch.nn.utils.rnn import pad_packed_sequence as unpack
+
+from kiwi import constants as const
+
+logger = logging.getLogger(__name__)
 
 
 def unroll(list_of_lists):
@@ -211,6 +218,27 @@ def make_loss_weights(nb_classes, target_idx, weight):
     weights = torch.ones(nb_classes)
     weights[target_idx] = weight
     return weights
+
+
+def load_torch_file(file_path):
+    file_path = Path(file_path)
+    if not file_path.exists():
+        raise FileNotFoundError('Torch file not found: {}'.format(file_path))
+
+    file_dict = torch.load(
+        str(file_path), map_location=lambda storage, loc: storage
+    )
+    if isinstance(file_dict, Path):
+        # Resolve cases where file is just a link to another torch file
+        linked_path = file_dict
+        if not linked_path.exists():
+            relative_path = (
+                file_path.with_name(file_dict.name) / const.MODEL_FILE
+            )
+            if relative_path.exists():
+                linked_path = relative_path
+        return load_torch_file(linked_path)
+    return file_dict
 
 
 class GradientMul(Function):

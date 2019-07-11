@@ -21,6 +21,8 @@ import shutil
 import threading
 from pathlib import Path
 
+import torch
+
 from kiwi import constants as const
 from kiwi.data.utils import save_predicted_probabilities
 
@@ -80,6 +82,7 @@ class Checkpoint:
         self.stats_summary_history = []
         self._last_saved = 0
         self._validation_epoch = 0
+        self._best_checkpoint_path = None
 
     def must_eval(self, epoch=None, step=None):
         if epoch is not None:
@@ -88,13 +91,11 @@ class Checkpoint:
             return self.validation_steps and step % self.validation_steps == 0
         return False
 
-    def must_save(self, stats):
-        if self.save:
-            if self._validation_epoch <= self.keep_only_best:
-                return True
-            elif stats > self.worst_stats():
-                return True
-        return False
+    def must_save_best(self, stats):
+        if self._validation_epoch <= self.keep_only_best:
+            return True
+        elif stats > self.worst_stats():
+            return True
 
     def early_stopping(self):
         no_improvement = self._validation_epoch - self._last_saved
@@ -123,15 +124,23 @@ class Checkpoint:
                 )
 
     def check_in(self, trainer, stats, epoch=None, step=None):
+        """Saves stat summary and handles checkpoint saving."""
         self._validation_epoch += 1
         self.stats_summary_history.append(stats)
-        if self.must_save(stats):
-            self._last_saved = self._validation_epoch
-            output_path = self.make_output_path(epoch=epoch, step=step)
-            path_to_remove = self.push_to_heap(stats, output_path)
-            event = trainer.save(output_path)
-            if path_to_remove:
-                self.remove_snapshot(path_to_remove, event)
+        if self.save:
+            if self.must_save_best(stats):
+                self._last_saved = self._validation_epoch
+                output_path = self.make_output_path(epoch=epoch, step=step)
+                path_to_remove = self.push_to_heap(stats, output_path)
+                event = trainer.save(output_path)
+                self._best_checkpoint_path = output_path
+                if path_to_remove:
+                    self.remove_snapshot(path_to_remove, event)
+
+                self.save_latest(trainer, saved_best=True)
+                return output_path
+
+            output_path = self.save_latest(trainer)
             return output_path
         return None
 
@@ -167,13 +176,13 @@ class Checkpoint:
             if event:
                 event.wait()
             logger.info(message)
-            shutil.rmtree(str(path))
+            # ignores directory not empty error
+            shutil.rmtree(str(path), ignore_errors=True)
             if event:
                 event.clear()
 
-        removal_message = (
-            'Removing previous snapshot because it is worse: '
-            '{}'.format(path_to_remove)
+        removal_message = 'Removing previous snapshot: {}'.format(
+            path_to_remove
         )
 
         t = threading.Thread(
@@ -183,6 +192,7 @@ class Checkpoint:
         )
         try:
             t.start()
+            return t
         except FileNotFoundError as e:
             logger.exception(e)
 
@@ -211,6 +221,38 @@ class Checkpoint:
         if path.exists():
             return path
         return self.best_iteration_path()
+
+    def last_model_path(self):
+        """Generates the path where the latest model should be saved.
+        """
+        path = self.output_directory / const.LAST_CHECKPOINT_FOLDER
+        temp_path = self.output_directory / const.TEMP_LAST_CHECKPOINT_FOLDER
+        return path, temp_path
+
+    def save_latest(self, trainer, saved_best=False):
+        """Saves latest checkpoint of the current model.
+        In case a model was just saved due to being the best validation, saves a
+        pointer instead of the full model. Returns path of saved model.
+        """
+        output_path, temp_path = self.last_model_path()
+        # if best was saved, there's no need to save the entire model twice
+        if saved_best:
+            temp_path.mkdir(exist_ok=True)
+            logging.info('Saving training state to {}'.format(temp_path))
+            for file in Path(self._best_checkpoint_path).glob('*'):
+                file_path = temp_path / file.name
+                torch.save(file, str(file_path))
+        else:
+            trainer.save(temp_path)
+
+        if output_path.exists():
+            t = self.remove_snapshot(output_path)
+            t.join()
+
+        logger.info('Moving {} to {}'.format(temp_path, output_path))
+        shutil.move(str(temp_path), str(output_path))
+
+        return output_path
 
     def check_out(self):
         best_path = self.best_iteration_path()

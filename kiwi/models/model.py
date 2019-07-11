@@ -24,6 +24,7 @@ import torch.nn as nn
 import kiwi
 from kiwi import constants as const
 from kiwi.data import utils
+from kiwi.models.utils import load_torch_file
 
 logger = logging.getLogger(__name__)
 
@@ -206,14 +207,19 @@ class Model(nn.Module):
 
     @staticmethod
     def create_from_file(path):
-        model_dict = torch.load(
-            str(path), map_location=lambda storage, loc: storage
-        )
+
+        try:
+            model_dict = load_torch_file(path)
+        except FileNotFoundError:
+            # If no model is found
+            raise FileNotFoundError(
+                'No valid model data found in {}'.format(path)
+            )
+
         for model_name in Model.subclasses:
             if model_name in model_dict:
                 model = Model.subclasses[model_name].from_dict(model_dict)
                 return model
-        return None
 
     @classmethod
     def from_file(cls, path):
