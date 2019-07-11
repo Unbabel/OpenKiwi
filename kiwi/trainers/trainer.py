@@ -266,7 +266,7 @@ class Trainer:
             ]
             if not saved_checkpoints:
                 raise FileNotFoundError(
-                    'Couldn\'t load trainer from: {}'.format(
+                    "Couldn't load trainer from: {}".format(
                         artifacts_uri / (prefix + '*')
                     )
                 )
