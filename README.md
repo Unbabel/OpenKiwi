@@ -83,9 +83,7 @@ OpenKiwi is Affero GPL licensed. You can see the details of this license in [LIC
 
 ## Citation
 
-If you use OpenKiwi, please cite the following report.
-
-[OpenKiwi: An Open Source Framework for Quality Estimation](https://www.aclweb.org/anthology/P19-3020)
+If you use OpenKiwi, please cite the following paper: [OpenKiwi: An Open Source Framework for Quality Estimation](https://www.aclweb.org/anthology/P19-3020).
 
 ```
 @inproceedings{openkiwi,
