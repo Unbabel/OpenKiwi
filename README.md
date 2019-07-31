@@ -7,10 +7,13 @@
 [![CircleCI](https://circleci.com/gh/Unbabel/OpenKiwi/tree/master.svg?style=shield)](https://circleci.com/gh/Unbabel/OpenKiwi/tree/master)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/1910f04383c401e1c5f3/test_coverage)](https://codeclimate.com/github/Unbabel/OpenKiwi/test_coverage)
 
-Open-Source Machine Translation Quality Estimation in PyTorch.
+**Open-Source Machine Translation Quality Estimation in PyTorch**
 
 Quality estimation (QE) is one of the missing pieces of machine translation: its goal is to evaluate a translation system’s quality without access to reference translations. We present **OpenKiwi**, a Pytorch-based open-source framework that implements the best QE systems from WMT 2015-18 shared tasks, making it easy to experiment with these models under the same framework. Using OpenKiwi and a stacked combination of these models we have achieved state-of-the-art results on word-level QE on the WMT 2018 English-German dataset.
 
+## News
+
+We have been nominated for the [Best Demo Paper at ACL 2019](http://www.acl2019.org/EN/nominations-for-acl-2019-best-paper-awards.xhtml)! Check out the [published paper](https://www.aclweb.org/anthology/P19-3020). We will later post the web interface we've put in place for the live presentation at ACL.
 
 ## Features
 
@@ -82,10 +85,10 @@ OpenKiwi is Affero GPL licensed. You can see the details of this license in [LIC
 
 If you use OpenKiwi, please cite the following report.
 
-[OpenKiwi: An Open Source Framework for Quality Estimation](https://arxiv.org/abs/1902.08646)
+[OpenKiwi: An Open Source Framework for Quality Estimation](https://www.aclweb.org/anthology/P19-3020)
 
 ```
-@misc{openkiwi,
+@inproceedings{openkiwi,
     author = {Fábio Kepler and
               Jonay Trénous and
               Marcos Treviso and
@@ -93,8 +96,12 @@ If you use OpenKiwi, please cite the following report.
               André F. T. Martins},
     title  = {Open{K}iwi: An Open Source Framework for Quality Estimation},
     year   = {2019},
-    url    = {https://arxiv.org/abs/1902.08646},
-    Eprint = {arXiv:1902.08646},
+    booktitle = {Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics--System Demonstrations},
+    pages  = {117--122},
+    month  = {July},
+    address = {Florence, Italy},
+    url    = {https://www.aclweb.org/anthology/P19-3020},
+    organization = {Association for Computational Linguistics},
 }
 ```
 
