@@ -289,6 +289,7 @@
 <span class="kn">import</span> <span class="nn">kiwi</span>
 <span class="kn">from</span> <span class="nn">kiwi</span> <span class="k">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">const</span>
 <span class="kn">from</span> <span class="nn">kiwi.data</span> <span class="k">import</span> <span class="n">utils</span>
+<span class="kn">from</span> <span class="nn">kiwi.models.utils</span> <span class="k">import</span> <span class="n">load_torch_file</span>
 
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
@@ -471,14 +472,19 @@
 
 <div class="viewcode-block" id="Model.create_from_file"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.model.Model.create_from_file">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">create_from_file</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-        <span class="n">model_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">map_location</span><span class="o">=</span><span class="k">lambda</span> <span class="n">storage</span><span class="p">,</span> <span class="n">loc</span><span class="p">:</span> <span class="n">storage</span>
-        <span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">model_dict</span> <span class="o">=</span> <span class="n">load_torch_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+            <span class="c1"># If no model is found</span>
+            <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span>
+                <span class="s1">&#39;No valid model data found in </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+            <span class="p">)</span>
+
         <span class="k">for</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">Model</span><span class="o">.</span><span class="n">subclasses</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">model_name</span> <span class="ow">in</span> <span class="n">model_dict</span><span class="p">:</span>
                 <span class="n">model</span> <span class="o">=</span> <span class="n">Model</span><span class="o">.</span><span class="n">subclasses</span><span class="p">[</span><span class="n">model_name</span><span class="p">]</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">model_dict</span><span class="p">)</span>
-                <span class="k">return</span> <span class="n">model</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+                <span class="k">return</span> <span class="n">model</span></div>
 
 <div class="viewcode-block" id="Model.from_file"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.model.Model.from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>

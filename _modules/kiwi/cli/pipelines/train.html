@@ -378,8 +378,9 @@
         <span class="n">const</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">help</span><span class="o">=</span><span class="s1">&#39;Resume training a previous run. &#39;</span>
-        <span class="s1">&#39;The --run-uuid (and possibly --experiment-name) &#39;</span>
-        <span class="s1">&#39;option must be specified. Files are then searched &#39;</span>
+        <span class="s1">&#39;If --output-dir is not none, Kiwi will load from a checkpoint folder &#39;</span>
+        <span class="s1">&#39;in that location. If --output-dir is not specified, &#39;</span>
+        <span class="s1">&#39;then the --run-uuid option must be set. Files are then searched &#39;</span>
         <span class="s1">&#39;under the &quot;runs&quot; directory. If not found, they are &#39;</span>
         <span class="s1">&#39;downloaded from the MLflow server &#39;</span>
         <span class="s1">&#39;(check the --mlflow-tracking-uri option).&#39;</span><span class="p">,</span>

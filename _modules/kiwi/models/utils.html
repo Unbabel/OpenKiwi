@@ -280,6 +280,9 @@
 <span class="c1">#  along with this program.  If not, see &lt;https://www.gnu.org/licenses/&gt;.</span>
 <span class="c1">#</span>
 
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
@@ -287,6 +290,10 @@
 <span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="k">import</span> <span class="n">Function</span>
 <span class="kn">from</span> <span class="nn">torch.nn.utils.rnn</span> <span class="k">import</span> <span class="n">pack_padded_sequence</span> <span class="k">as</span> <span class="n">pack</span>
 <span class="kn">from</span> <span class="nn">torch.nn.utils.rnn</span> <span class="k">import</span> <span class="n">pad_packed_sequence</span> <span class="k">as</span> <span class="n">unpack</span>
+
+<span class="kn">from</span> <span class="nn">kiwi</span> <span class="k">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">const</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="unroll"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.utils.unroll">[docs]</a><span class="k">def</span> <span class="nf">unroll</span><span class="p">(</span><span class="n">list_of_lists</span><span class="p">):</span>
@@ -476,6 +483,27 @@
     <span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">nb_classes</span><span class="p">)</span>
     <span class="n">weights</span><span class="p">[</span><span class="n">target_idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
     <span class="k">return</span> <span class="n">weights</span></div>
+
+
+<div class="viewcode-block" id="load_torch_file"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.utils.load_torch_file">[docs]</a><span class="k">def</span> <span class="nf">load_torch_file</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">file_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">FileNotFoundError</span><span class="p">(</span><span class="s1">&#39;Torch file not found: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+
+    <span class="n">file_dict</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span>
+        <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">),</span> <span class="n">map_location</span><span class="o">=</span><span class="k">lambda</span> <span class="n">storage</span><span class="p">,</span> <span class="n">loc</span><span class="p">:</span> <span class="n">storage</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_dict</span><span class="p">,</span> <span class="n">Path</span><span class="p">):</span>
+        <span class="c1"># Resolve cases where file is just a link to another torch file</span>
+        <span class="n">linked_path</span> <span class="o">=</span> <span class="n">file_dict</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">linked_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">relative_path</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">file_path</span><span class="o">.</span><span class="n">with_name</span><span class="p">(</span><span class="n">file_dict</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">/</span> <span class="n">const</span><span class="o">.</span><span class="n">MODEL_FILE</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">relative_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">linked_path</span> <span class="o">=</span> <span class="n">relative_path</span>
+        <span class="k">return</span> <span class="n">load_torch_file</span><span class="p">(</span><span class="n">linked_path</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">file_dict</span></div>
 
 
 <div class="viewcode-block" id="GradientMul"><a class="viewcode-back" href="../../../source/kiwi.models.html#kiwi.models.utils.GradientMul">[docs]</a><span class="k">class</span> <span class="nc">GradientMul</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>

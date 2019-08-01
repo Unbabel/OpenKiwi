@@ -286,6 +286,8 @@
 <span class="kn">import</span> <span class="nn">threading</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
 
+<span class="kn">import</span> <span class="nn">torch</span>
+
 <span class="kn">from</span> <span class="nn">kiwi</span> <span class="k">import</span> <span class="n">constants</span> <span class="k">as</span> <span class="n">const</span>
 <span class="kn">from</span> <span class="nn">kiwi.data.utils</span> <span class="k">import</span> <span class="n">save_predicted_probabilities</span>
 
@@ -345,6 +347,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">stats_summary_history</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_last_saved</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validation_epoch</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_best_checkpoint_path</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="Checkpoint.must_eval"><a class="viewcode-back" href="../../../source/kiwi.trainers.html#kiwi.trainers.callbacks.Checkpoint.must_eval">[docs]</a>    <span class="k">def</span> <span class="nf">must_eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">epoch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -353,13 +356,11 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">validation_steps</span> <span class="ow">and</span> <span class="n">step</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">validation_steps</span> <span class="o">==</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="Checkpoint.must_save"><a class="viewcode-back" href="../../../source/kiwi.trainers.html#kiwi.trainers.callbacks.Checkpoint.must_save">[docs]</a>    <span class="k">def</span> <span class="nf">must_save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">:</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validation_epoch</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keep_only_best</span><span class="p">:</span>
-                <span class="k">return</span> <span class="kc">True</span>
-            <span class="k">elif</span> <span class="n">stats</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">worst_stats</span><span class="p">():</span>
-                <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="kc">False</span></div>
+<div class="viewcode-block" id="Checkpoint.must_save_best"><a class="viewcode-back" href="../../../source/kiwi.trainers.html#kiwi.trainers.callbacks.Checkpoint.must_save_best">[docs]</a>    <span class="k">def</span> <span class="nf">must_save_best</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stats</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validation_epoch</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">keep_only_best</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">stats</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">worst_stats</span><span class="p">():</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
 
 <div class="viewcode-block" id="Checkpoint.early_stopping"><a class="viewcode-back" href="../../../source/kiwi.trainers.html#kiwi.trainers.callbacks.Checkpoint.early_stopping">[docs]</a>    <span class="k">def</span> <span class="nf">early_stopping</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">no_improvement</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validation_epoch</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_last_saved</span>
@@ -388,15 +389,23 @@
                 <span class="p">)</span>
 
 <div class="viewcode-block" id="Checkpoint.check_in"><a class="viewcode-back" href="../../../source/kiwi.trainers.html#kiwi.trainers.callbacks.Checkpoint.check_in">[docs]</a>    <span class="k">def</span> <span class="nf">check_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">stats</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Saves stat summary and handles checkpoint saving.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_validation_epoch</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">stats_summary_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stats</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">must_save</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_last_saved</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validation_epoch</span>
-            <span class="n">output_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_output_path</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
-            <span class="n">path_to_remove</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_to_heap</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">output_path</span><span class="p">)</span>
-            <span class="n">event</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">path_to_remove</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">remove_snapshot</span><span class="p">(</span><span class="n">path_to_remove</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">must_save_best</span><span class="p">(</span><span class="n">stats</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_last_saved</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_validation_epoch</span>
+                <span class="n">output_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_output_path</span><span class="p">(</span><span class="n">epoch</span><span class="o">=</span><span class="n">epoch</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+                <span class="n">path_to_remove</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">push_to_heap</span><span class="p">(</span><span class="n">stats</span><span class="p">,</span> <span class="n">output_path</span><span class="p">)</span>
+                <span class="n">event</span> <span class="o">=</span> <span class="n">trainer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_best_checkpoint_path</span> <span class="o">=</span> <span class="n">output_path</span>
+                <span class="k">if</span> <span class="n">path_to_remove</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">remove_snapshot</span><span class="p">(</span><span class="n">path_to_remove</span><span class="p">,</span> <span class="n">event</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">save_latest</span><span class="p">(</span><span class="n">trainer</span><span class="p">,</span> <span class="n">saved_best</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">output_path</span>
+
+            <span class="n">output_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_latest</span><span class="p">(</span><span class="n">trainer</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">output_path</span>
         <span class="k">return</span> <span class="kc">None</span></div>
 
@@ -432,13 +441,13 @@
             <span class="k">if</span> <span class="n">event</span><span class="p">:</span>
                 <span class="n">event</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+            <span class="c1"># ignores directory not empty error</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">path</span><span class="p">),</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">event</span><span class="p">:</span>
                 <span class="n">event</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 
-        <span class="n">removal_message</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="s1">&#39;Removing previous snapshot because it is worse: &#39;</span>
-            <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path_to_remove</span><span class="p">)</span>
+        <span class="n">removal_message</span> <span class="o">=</span> <span class="s1">&#39;Removing previous snapshot: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">path_to_remove</span>
         <span class="p">)</span>
 
         <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span>
@@ -448,6 +457,7 @@
         <span class="p">)</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">t</span>
         <span class="k">except</span> <span class="ne">FileNotFoundError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span></div>
 
@@ -476,6 +486,38 @@
         <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
             <span class="k">return</span> <span class="n">path</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_iteration_path</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Checkpoint.last_model_path"><a class="viewcode-back" href="../../../source/kiwi.trainers.html#kiwi.trainers.callbacks.Checkpoint.last_model_path">[docs]</a>    <span class="k">def</span> <span class="nf">last_model_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generates the path where the latest model should be saved.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_directory</span> <span class="o">/</span> <span class="n">const</span><span class="o">.</span><span class="n">LAST_CHECKPOINT_FOLDER</span>
+        <span class="n">temp_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_directory</span> <span class="o">/</span> <span class="n">const</span><span class="o">.</span><span class="n">TEMP_LAST_CHECKPOINT_FOLDER</span>
+        <span class="k">return</span> <span class="n">path</span><span class="p">,</span> <span class="n">temp_path</span></div>
+
+<div class="viewcode-block" id="Checkpoint.save_latest"><a class="viewcode-back" href="../../../source/kiwi.trainers.html#kiwi.trainers.callbacks.Checkpoint.save_latest">[docs]</a>    <span class="k">def</span> <span class="nf">save_latest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trainer</span><span class="p">,</span> <span class="n">saved_best</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Saves latest checkpoint of the current model.</span>
+<span class="sd">        In case a model was just saved due to being the best validation, saves a</span>
+<span class="sd">        pointer instead of the full model. Returns path of saved model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">output_path</span><span class="p">,</span> <span class="n">temp_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_model_path</span><span class="p">()</span>
+        <span class="c1"># if best was saved, there&#39;s no need to save the entire model twice</span>
+        <span class="k">if</span> <span class="n">saved_best</span><span class="p">:</span>
+            <span class="n">temp_path</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Saving training state to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">temp_path</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_best_checkpoint_path</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">):</span>
+                <span class="n">file_path</span> <span class="o">=</span> <span class="n">temp_path</span> <span class="o">/</span> <span class="n">file</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">file_path</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">trainer</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">temp_path</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">output_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove_snapshot</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
+            <span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Moving </span><span class="si">{}</span><span class="s1"> to </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">temp_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">))</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">temp_path</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">output_path</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">output_path</span></div>
 
 <div class="viewcode-block" id="Checkpoint.check_out"><a class="viewcode-back" href="../../../source/kiwi.trainers.html#kiwi.trainers.callbacks.Checkpoint.check_out">[docs]</a>    <span class="k">def</span> <span class="nf">check_out</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">best_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">best_iteration_path</span><span class="p">()</span>
