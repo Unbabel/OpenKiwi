@@ -148,9 +148,8 @@ class MLflowLogger:
         experiment_id = self._retrieve_mlflow_experiment_id(
             experiment_name, create=create_experiment
         )
-
         return mlflow.start_run(
-            run_uuid=run_uuid, experiment_id=experiment_id, nested=nest_run
+            run_uuid, experiment_id=experiment_id, nested=nest_run
         )
 
     def start_nested_run(self, run_name=None):
