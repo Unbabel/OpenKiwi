@@ -201,7 +201,9 @@ class Model(nn.Module):
         for pad in possible_padding:
             pad_id = self.vocabs[side].stoi.get(pad)
             if pad_id is not None and pad_id != unk_id:
-                mask &= input_tensor != pad_id
+                mask &= torch.as_tensor(
+                    input_tensor != pad_id, dtype=torch.uint8
+                )
 
         return mask
 
