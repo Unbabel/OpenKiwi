@@ -148,14 +148,9 @@ class MLflowLogger:
         experiment_id = self._retrieve_mlflow_experiment_id(
             experiment_name, create=create_experiment
         )
-        try:
-            return mlflow.start_run(
-                run_id=run_uuid, experiment_id=experiment_id, nested=nest_run
-            )
-        except TypeError:
-            return mlflow.start_run(
-                run_uuid=run_uuid, experiment_id=experiment_id, nested=nest_run
-            )
+        return mlflow.start_run(
+            run_uuid, experiment_id=experiment_id, nested=nest_run
+        )
 
     def start_nested_run(self, run_name=None):
         return mlflow.start_run(run_name=run_name, nested=True)
