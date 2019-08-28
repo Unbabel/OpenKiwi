@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>kiwi.loggers &mdash; openkiwi 0.1.1 documentation</title>
+  <title>kiwi.loggers &mdash; openkiwi 0.1.2 documentation</title>
   
 
   
@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                0.1.1
+                0.1.2
               </div>
             
           
@@ -413,9 +413,8 @@
         <span class="n">experiment_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retrieve_mlflow_experiment_id</span><span class="p">(</span>
             <span class="n">experiment_name</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="n">create_experiment</span>
         <span class="p">)</span>
-
         <span class="k">return</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">(</span>
-            <span class="n">run_uuid</span><span class="o">=</span><span class="n">run_uuid</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="n">nest_run</span>
+            <span class="n">run_uuid</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="n">nest_run</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="MLflowLogger.start_nested_run"><a class="viewcode-back" href="../../source/kiwi.html#kiwi.loggers.MLflowLogger.start_nested_run">[docs]</a>    <span class="k">def</span> <span class="nf">start_nested_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
