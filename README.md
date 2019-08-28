@@ -2,10 +2,11 @@
 
 --------------------------------------------------------------------------------
 
-[![PyPI version](https://badge.fury.io/py/openkiwi.svg)](https://badge.fury.io/py/openkiwi)
-[![python versions](https://img.shields.io/pypi/pyversions/openkiwi.svg)](https://pypi.org/project/openkiwi/)
-[![CircleCI](https://circleci.com/gh/Unbabel/OpenKiwi/tree/master.svg?style=shield)](https://circleci.com/gh/Unbabel/OpenKiwi/tree/master)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/1910f04383c401e1c5f3/test_coverage)](https://codeclimate.com/github/Unbabel/OpenKiwi/test_coverage)
+[![PyPI version](https://img.shields.io/pypi/v/openkiwi?color=%236ecfbd&label=pypi%20package&style=flat-square)](https://pypi.org/project/openkiwi/)
+[![python versions](https://img.shields.io/pypi/pyversions/openkiwi.svg?style=flat-square)](https://pypi.org/project/openkiwi/)
+[![CircleCI](https://img.shields.io/circleci/build/github/Unbabel/OpenKiwi/master?style=flat-square)](https://circleci.com/gh/Unbabel/OpenKiwi/tree/master)
+[![Code Climate coverage](https://img.shields.io/codeclimate/coverage/Unbabel/OpenKiwi?style=flat-square)](https://codeclimate.com/github/Unbabel/OpenKiwi/test_coverage)
+![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)
 
 **Open-Source Machine Translation Quality Estimation in PyTorch**
 
@@ -13,7 +14,11 @@ Quality estimation (QE) is one of the missing pieces of machine translation: its
 
 ## News
 
-We have been nominated for the [Best Demo Paper at ACL 2019](http://www.acl2019.org/EN/nominations-for-acl-2019-best-paper-awards.xhtml)! Check out the [published paper](https://www.aclweb.org/anthology/P19-3020). We will later post the web interface we've put in place for the live presentation at ACL.
+Following our nomination in early July, we are happy to announce we won the [Best Demo Paper at ACL 2019](http://www.acl2019.org/EN/winners-of-acl-2019-best-paper-awards.xhtml)! Congratulations to the whole team and huge thanks for supporters and issue reporters.
+
+Check out the [published paper](https://www.aclweb.org/anthology/P19-3020).
+
+We are going to release the web interface we had put in place for the live demo presentation at ACL.
 
 ## Features
 
