@@ -2,6 +2,9 @@
 
 model: estimator
 
+# Model Files will be saved here
+output-dir: runs/estimator
+
 #### MODEL SPECIFIC OPTS ####
 
 ## ESTIMATOR ##
@@ -50,10 +53,6 @@ source-bad-weight: 2.5
 predict-gaps: false
 target-bad-weight: 2.5
 
-### GENERAL OPTS ###
-
-# Do not set or set to negative number for CPU
-gpu-id: 0
 
 ### TRAIN OPTS ###
 epochs: 10
@@ -113,3 +112,11 @@ valid-source: data/WMT17/word_level/dev.src
 valid-target: data/WMT17/word_level/dev.mt
 valid-pe: data/WMT17/word_level/dev.pe
 valid-target-tags: data/WMT17/word_level/dev.tags
+
+
+### GENERAL OPTS ###
+
+# Experiment Name for MLFlow
+experiment-name: EN-DE Train Estimator
+# Do not set or set to negative number for CPU
+gpu-id: 0
