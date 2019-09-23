@@ -20,6 +20,8 @@ Check out the [published paper](https://www.aclweb.org/anthology/P19-3020).
 
 We are going to release the web interface we had put in place for the live demo presentation at ACL.
 
+We have released the OpenKiwi [tutorial](https://github.com/Unbabel/KiwiCutter) we presented at MT Marathon 2019.
+
 ## Features
 
 * Framework for training QE models and using pre-trained models for evaluating MT.

@@ -3,6 +3,8 @@
 
 This document gives a quick overview of how to use OpenKiwi with the provided example configuration file.
 
+**New:** We have released a tutorial that presents basic usage of OpenKiwi. It is available [here](https://github.com/Unbabel/KiwiCutter).
+
 To be able to run the examples, download the [WMT17 En-DE Word Level Quality Estimation data](https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11372/LRT-1974/task2_en-de_training-dev.tar.gz) (you will need to provide your email address to receive a download link) and extract its contents into `data/WMT17`. To be able to pretrain the `predictor` model, additionally download the [English-German in-domain Corpus](https://www.quest.dcs.shef.ac.uk/wmt18_files_qe/corpus_en-de.tar.gz) provided by WMT and extract its contents into `data/WMT18`.
 
 
