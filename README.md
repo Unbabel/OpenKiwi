@@ -80,7 +80,7 @@ You can easily reproduce our numbers in the WMT 2018 word- and sentence-level ta
 ## Contributing
 
 We welcome contributions to improve OpenKiwi.
-Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for quick instructions or to [contributing instructions](https://unbabel.github.io/OpenKiwi/contributing/contributing.html) for more detailed instructions on how to set up your development environment.
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for quick instructions or to [contributing instructions](https://unbabel.github.io/OpenKiwi/contributing.html) for more detailed instructions on how to set up your development environment.
 
 
 ## License
