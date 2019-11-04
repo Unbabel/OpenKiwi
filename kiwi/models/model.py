@@ -202,7 +202,9 @@ class Model(nn.Module):
             pad_id = self.vocabs[side].stoi.get(pad)
             if pad_id is not None and pad_id != unk_id:
                 mask &= torch.as_tensor(
-                    input_tensor != pad_id, dtype=torch.uint8
+                    input_tensor != pad_id,
+                    device=mask.device,
+                    dtype=torch.uint8,
                 )
 
         return mask
