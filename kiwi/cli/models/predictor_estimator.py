@@ -358,13 +358,13 @@ def add_training_options(training_parser):
         '--load-pred-source',
         type=PathType(exists=True),
         help='If set, model architecture and vocabulary parameters are '
-        'ignored. Load pretrained predictor src->tgt.',
+        'ignored. Load pretrained predictor tgt->src.',
     )
     group.add_argument(
         '--load-pred-target',
         type=PathType(exists=True),
         help='If set, model architecture and vocabulary parameters are '
-        'ignored. Load pretrained predictor tgt->src.',
+        'ignored. Load pretrained predictor src->tgt.',
     )
 
     group.add_argument(
