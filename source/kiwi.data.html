@@ -385,7 +385,7 @@ load_vocab: Path to existing vocab file</p>
 <dl class="class">
 <dt id="kiwi.data.corpus.Corpus">
 <em class="property">class </em><code class="descclassname">kiwi.data.corpus.</code><code class="descname">Corpus</code><span class="sig-paren">(</span><em>fields_examples=None</em>, <em>dataset_fields=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/corpus.html#Corpus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.corpus.Corpus" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="kiwi.data.corpus.Corpus.examples_per_field">
 <code class="descname">examples_per_field</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/data/corpus.html#Corpus.examples_per_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.data.corpus.Corpus.examples_per_field" title="Permalink to this definition">¶</a></dt>
@@ -477,16 +477,16 @@ every field in fields should correspond to some column.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>split_ratio</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>List of floats</em>) – a number [0, 1] denoting the amount
+<li><strong>split_ratio</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a><em> or </em><em>List of floats</em>) – a number [0, 1] denoting the amount
 of data to be used for the training split (rest is used for validation),
 or a list of numbers denoting the relative sizes of train, test and valid
 splits respectively. If the relative size for valid is missing, only the
 train-test split is returned. Default is 0.7 (for the train set).</li>
-<li><strong>stratified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – whether the sampling should be stratified.
+<li><strong>stratified</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – whether the sampling should be stratified.
 Default is False.</li>
-<li><strong>strata_field</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – name of the examples Field stratified over.
+<li><strong>strata_field</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – name of the examples Field stratified over.
 Default is ‘label’ for the conventional label field.</li>
-<li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.7)"><em>tuple</em></a>) – the random seed used for shuffling.
+<li><strong>random_state</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.8)"><em>tuple</em></a>) – the random seed used for shuffling.
 A return value of <cite>random.getstate()</cite>.</li>
 </ul>
 </td>
@@ -628,8 +628,8 @@ ignored.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Path</em>) – directory where to save the datasets pickle.</li>
-<li><strong>named_datasets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – mapping of name and respective dataset.</li>
+<li><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><em>Path</em>) – directory where to save the datasets pickle.</li>
+<li><strong>named_datasets</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – mapping of name and respective dataset.</li>
 </ul>
 </td>
 </tr>

@@ -400,7 +400,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>load_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – A path to the saved model file.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>load_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – A path to the saved model file.</td>
 </tr>
 </tbody>
 </table>
@@ -435,7 +435,7 @@ and creates the model’s predictions for all data received.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>ModelClass</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.7)"><em>type</em></a>) – Python Type of the Model to train</li>
+<li><strong>ModelClass</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#type" title="(in Python v3.8)"><em>type</em></a>) – Python Type of the Model to train</li>
 <li><strong>output_dir</strong> – Directory to save predictions</li>
 <li><strong>pipeline_options</strong> (<em>Namespace</em>) – Generic predict Options
 batch_size: Max batch size for predicting</li>
@@ -446,7 +446,7 @@ batch_size: Max batch size for predicting</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Dictionary with format {‘target’:predictions}</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Predictions (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)">dict</a>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Predictions (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)">dict</a>)</p>
 </td>
 </tr>
 </tbody>
@@ -467,7 +467,7 @@ directory, random seeds and the device where predictions are run.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Path to output directory</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">output_dir(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">output_dir(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a>)</td>
 </tr>
 </tbody>
 </table>
@@ -516,7 +516,7 @@ directory, random seeds and the device where predictions are run.</p>
 <dl class="class">
 <dt id="kiwi.lib.train.TrainRunInfo">
 <em class="property">class </em><code class="descclassname">kiwi.lib.train.</code><code class="descname">TrainRunInfo</code><span class="sig-paren">(</span><em>trainer</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/lib/train.html#TrainRunInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.lib.train.TrainRunInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Encapsulates relevant information on training runs.</p>
 <p>Can be instantiated with a trainer object.</p>
 <dl class="attribute">
@@ -548,12 +548,12 @@ directory, random seeds and the device where predictions are run.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to directory where experiment files should be
+<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Path to directory where experiment files should be
 saved.</li>
 <li><strong>config_options</strong> (<em>Namespace</em>) – Namespace representing all configuration
 options.</li>
-<li><strong>config_file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Filename of the config file</li>
-<li><strong>save_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Path</em>) – Boolean stating if you should save a
+<li><strong>config_file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Filename of the config file</li>
+<li><strong>save_config</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><em>Path</em>) – Boolean stating if you should save a
 configuration file.</li>
 </ul>
 </td>
@@ -587,7 +587,7 @@ load_data (str): Input directory for loading preprocessed data</p>
 </dl>
 </li>
 <li><strong>model_options</strong> (<em>Namespace</em>) – Model specific options.</li>
-<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Path to directory where experiment files should be
+<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Path to directory where experiment files should be
 saved.</li>
 </ul>
 </td>
@@ -639,10 +639,10 @@ learning_rate_decay_start (int): Start decay after epoch <cite>x</cite>.
 log_interval (int): Log after <cite>k</cite> batches.</p>
 </li>
 <li><strong>model_options</strong> (<em>Namespace</em>) – Model specific options.</li>
-<li><strong>vocabs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><em>dict</em></a>) – Vocab dictionary.</li>
-<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>Path</em>) – Output directory for models and stats
+<li><strong>vocabs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – Vocab dictionary.</li>
+<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em> or </em><em>Path</em>) – Output directory for models and stats
 concerning training.</li>
-<li><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The gpu id to be used in training. Set to negative
+<li><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The gpu id to be used in training. Set to negative
 to use cpu.</li>
 </ul>
 </td>
@@ -698,10 +698,10 @@ device(s) where training is run.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>output_dir</strong> – Path to directory to use or None, in which case one is
 created automatically.</li>
-<li><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Random seed for all random engines (Python, PyTorch, NumPy).</li>
-<li><strong>gpu_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – GPU number to use or <cite>None</cite> to use the CPU.</li>
-<li><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to increase the verbosity of output messages.</li>
-<li><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Whether to decrease the verbosity of output messages.
+<li><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Random seed for all random engines (Python, PyTorch, NumPy).</li>
+<li><strong>gpu_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – GPU number to use or <cite>None</cite> to use the CPU.</li>
+<li><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to increase the verbosity of output messages.</li>
+<li><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Whether to decrease the verbosity of output messages.
 Takes precedence over <cite>debug</cite>.</li>
 </ul>
 </td>
@@ -709,7 +709,7 @@ Takes precedence over <cite>debug</cite>.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Path to output directory</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">output_dir(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)">str</a>)</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">output_dir(<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a>)</p>
 </td>
 </tr>
 </tbody>
@@ -738,7 +738,7 @@ Takes precedence over <cite>debug</cite>.</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – filename of the configuration file</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – filename of the configuration file</td>
 </tr>
 </tbody>
 </table>
@@ -772,7 +772,7 @@ being used.</td>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gpu_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The id of the gpu to be used</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>gpu_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – The id of the gpu to be used</td>
 </tr>
 </tbody>
 </table>
@@ -790,8 +790,8 @@ and output directory of logging.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>output_dir</strong> – The directory where log output will be stored.
 Defaults to None.</li>
-<li><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Change logging level to debug.</li>
-<li><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Change logging level to warning to supress info logs.</li>
+<li><strong>debug</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Change logging level to debug.</li>
+<li><strong>quiet</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Change logging level to warning to supress info logs.</li>
 </ul>
 </td>
 </tr>
@@ -808,7 +808,7 @@ These include: random, numpy, torch and torch.cuda</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – the random seed to be set</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>seed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – the random seed to be set</td>
 </tr>
 </tbody>
 </table>
@@ -851,7 +851,7 @@ options.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the file where the args should
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The name of the file where the args should
 be saved in.</td>
 </tr>
 </tbody>
@@ -870,7 +870,7 @@ Calls <cite>save_args_to_file</cite>.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>options</strong> (<em>Namespace</em>) – Namespace with all configuration options
 that should be saved.</li>
-<li><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – Name of the output configuration file.</li>
+<li><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Name of the output configuration file.</li>
 </ul>
 </td>
 </tr>
@@ -889,10 +889,10 @@ are created using the run and experiment ids.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The target output directory</li>
+<li><strong>output_dir</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – The target output directory</li>
 <li><strong>run_uuid</strong> – The current hash of the current run.</li>
 <li><strong>experiment_id</strong> – The id of the current experiment</li>
-<li><strong>create</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Boolean indicating whether to create a new folder.</li>
+<li><strong>create</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Boolean indicating whether to create a new folder.</li>
 </ul>
 </td>
 </tr>

@@ -283,7 +283,7 @@
 <dl class="class">
 <dt id="kiwi.models.linear.label_dictionary.LabelDictionary">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.label_dictionary.</code><code class="descname">LabelDictionary</code><span class="sig-paren">(</span><em>label_names=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/label_dictionary.html#LabelDictionary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.label_dictionary.LabelDictionary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 <p>This class implements a dictionary of labels. Labels as mapped to
 integers, and it is efficient to retrieve the label name from its
 integer representation, and vice-versa.</p>
@@ -326,7 +326,7 @@ integer representation, and vice-versa.</p>
 <dl class="class">
 <dt id="kiwi.models.linear.linear_model.LinearModel">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_model.</code><code class="descname">LinearModel</code><a class="reference internal" href="../_modules/kiwi/models/linear/linear_model.html#LinearModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_model.LinearModel" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>An abstract linear model.</p>
 <dl class="method">
 <dt id="kiwi.models.linear.linear_model.LinearModel.clear">
@@ -394,7 +394,7 @@ This is a no-op if use_average=False.</p>
 <dl class="class">
 <dt id="kiwi.models.linear.linear_trainer.LinearTrainer">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_trainer.</code><code class="descname">LinearTrainer</code><span class="sig-paren">(</span><em>classifier</em>, <em>checkpointer</em>, <em>algorithm='svm_mira'</em>, <em>regularization_constant=1000000000000.0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_trainer.html#LinearTrainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_trainer.LinearTrainer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="kiwi.models.linear.linear_trainer.LinearTrainer.run">
 <code class="descname">run</code><span class="sig-paren">(</span><em>train_iterator</em>, <em>valid_iterator</em>, <em>epochs=50</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_trainer.html#LinearTrainer.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_trainer.LinearTrainer.run" title="Permalink to this definition">¶</a></dt>
@@ -517,7 +517,7 @@ Example: bins = [50, 40, 30, 25, 20, 18, 16, 14, 12, 10].</p>
 <dl class="class">
 <dt id="kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_word_qe_sentence.</code><code class="descname">LinearWordQESentence</code><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_sentence.html#LinearWordQESentence"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Represents a sentence (word features and their labels).</p>
 <dl class="method">
 <dt id="kiwi.models.linear.linear_word_qe_sentence.LinearWordQESentence.create_from_sentence_pair">
@@ -543,7 +543,7 @@ information.</p>
 <dl class="class">
 <dt id="kiwi.models.linear.linear_word_qe_sentence.LinearWordQETokenFeatures">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.linear_word_qe_sentence.</code><code class="descname">LinearWordQETokenFeatures</code><span class="sig-paren">(</span><em>stacked_features=None</em>, <em>source_token_count=-1</em>, <em>target_token_count=-1</em>, <em>source_target_token_count_ratio=0.0</em>, <em>token=''</em>, <em>left_context=''</em>, <em>right_context=''</em>, <em>first_aligned_token=''</em>, <em>left_alignment=''</em>, <em>right_alignment=''</em>, <em>is_stopword=False</em>, <em>is_punctuation=False</em>, <em>is_proper_noun=False</em>, <em>is_digit=False</em>, <em>highest_order_ngram_left=-1</em>, <em>highest_order_ngram_right=-1</em>, <em>backoff_behavior_left=0.0</em>, <em>backoff_behavior_middle=0.0</em>, <em>backoff_behavior_right=0.0</em>, <em>source_highest_order_ngram_left=-1</em>, <em>source_highest_order_ngram_right=-1</em>, <em>pseudo_reference=False</em>, <em>target_pos=''</em>, <em>target_morph=''</em>, <em>target_head=-1</em>, <em>target_deprel=''</em>, <em>aligned_source_pos_list=''</em>, <em>polysemy_count_source=0</em>, <em>polysemy_count_target=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/linear_word_qe_sentence.html#LinearWordQETokenFeatures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.linear_word_qe_sentence.LinearWordQETokenFeatures" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 </dd></dl>
 
 </div>
@@ -552,7 +552,7 @@ information.</p>
 <dl class="class">
 <dt id="kiwi.models.linear.sequence_parts.SequenceBigramPart">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.sequence_parts.</code><code class="descname">SequenceBigramPart</code><span class="sig-paren">(</span><em>index</em>, <em>label</em>, <em>previous_label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sequence_parts.html#SequenceBigramPart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sequence_parts.SequenceBigramPart" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A part for bigrams (two labels at consecutive words position).
 Necessary for the model to be sequential.</p>
 </dd></dl>
@@ -560,7 +560,7 @@ Necessary for the model to be sequential.</p>
 <dl class="class">
 <dt id="kiwi.models.linear.sequence_parts.SequenceUnigramPart">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.sequence_parts.</code><code class="descname">SequenceUnigramPart</code><span class="sig-paren">(</span><em>index</em>, <em>label</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sequence_parts.html#SequenceUnigramPart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sequence_parts.SequenceUnigramPart" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A part for unigrams (a single label at a word position).</p>
 </dd></dl>
 
@@ -571,7 +571,7 @@ Necessary for the model to be sequential.</p>
 <dl class="class">
 <dt id="kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.sparse_feature_vector.</code><code class="descname">SparseBinaryFeatureVector</code><span class="sig-paren">(</span><em>feature_indices=None</em>, <em>save_to_cache=False</em>, <em>load_from_cache=False</em>, <em>cached_features_file=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_feature_vector.html#SparseBinaryFeatureVector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
 <p>A generic class for a sparse binary feature vector.</p>
 <dl class="method">
 <dt id="kiwi.models.linear.sparse_feature_vector.SparseBinaryFeatureVector.add_binary_feature">
@@ -651,7 +651,7 @@ feature.</p>
 <dl class="class">
 <dt id="kiwi.models.linear.sparse_vector.SparseVector">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.sparse_vector.</code><code class="descname">SparseVector</code><a class="reference internal" href="../_modules/kiwi/models/linear/sparse_vector.html#SparseVector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.sparse_vector.SparseVector" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
 <p>Implementation of a sparse vector using a dictionary.</p>
 <dl class="method">
 <dt id="kiwi.models.linear.sparse_vector.SparseVector.add">
@@ -726,7 +726,7 @@ vector.dot_product(self) if that is beneficial.</p>
 <dl class="class">
 <dt id="kiwi.models.linear.structured_classifier.StructuredClassifier">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.structured_classifier.</code><code class="descname">StructuredClassifier</code><a class="reference internal" href="../_modules/kiwi/models/linear/structured_classifier.html#StructuredClassifier"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_classifier.StructuredClassifier" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>An abstract structured classifier.</p>
 <dl class="method">
 <dt id="kiwi.models.linear.structured_classifier.StructuredClassifier.compute_scores">
@@ -806,7 +806,7 @@ information.</p>
 <dl class="class">
 <dt id="kiwi.models.linear.structured_decoder.StructuredDecoder">
 <em class="property">class </em><code class="descclassname">kiwi.models.linear.structured_decoder.</code><code class="descname">StructuredDecoder</code><a class="reference internal" href="../_modules/kiwi/models/linear/structured_decoder.html#StructuredDecoder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.models.linear.structured_decoder.StructuredDecoder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>An abstract decoder for structured prediction.</p>
 <dl class="method">
 <dt id="kiwi.models.linear.structured_decoder.StructuredDecoder.decode">

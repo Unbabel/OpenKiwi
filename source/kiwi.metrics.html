@@ -442,7 +442,7 @@ WMT QE task 1.</p>
 <dl class="class">
 <dt id="kiwi.metrics.metrics.Metric">
 <em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">Metric</code><span class="sig-paren">(</span><em>target_name=None</em>, <em>metric_name=None</em>, <em>PAD=None</em>, <em>STOP=None</em>, <em>prefix=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="kiwi.metrics.metrics.Metric.get_name">
 <code class="descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#Metric.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.Metric.get_name" title="Permalink to this definition">¶</a></dt>
@@ -538,7 +538,7 @@ Initialize the threshold s.t. all examples are classified as
 <dl class="class">
 <dt id="kiwi.metrics.metrics.MovingMetric">
 <em class="property">class </em><code class="descclassname">kiwi.metrics.metrics.</code><code class="descname">MovingMetric</code><a class="reference internal" href="../_modules/kiwi/metrics/metrics.html#MovingMetric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Class to compute the changes in one metric as a function of a second metric.
 Example: F1 score vs. Classification Threshold, Quality vs Skips</p>
 <dl class="method">
@@ -825,7 +825,7 @@ are provided, pass labels_higher_is_better=True.</li>
 <dl class="class">
 <dt id="kiwi.metrics.stats.Stats">
 <em class="property">class </em><code class="descclassname">kiwi.metrics.stats.</code><code class="descname">Stats</code><span class="sig-paren">(</span><em>metrics</em>, <em>main_metric=None</em>, <em>main_metric_ordering=&lt;built-in function max&gt;</em>, <em>log_interval=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#Stats"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.Stats" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="kiwi.metrics.stats.Stats.log">
 <code class="descname">log</code><span class="sig-paren">(</span><em>step=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#Stats.log"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.Stats.log" title="Permalink to this definition">¶</a></dt>
@@ -856,7 +856,7 @@ are provided, pass labels_higher_is_better=True.</li>
 <dl class="class">
 <dt id="kiwi.metrics.stats.StatsSummary">
 <em class="property">class </em><code class="descclassname">kiwi.metrics.stats.</code><code class="descname">StatsSummary</code><span class="sig-paren">(</span><em>prefix=None</em>, <em>main_metric=None</em>, <em>ordering=&lt;built-in function max&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#StatsSummary"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.StatsSummary" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a></p>
 <dl class="method">
 <dt id="kiwi.metrics.stats.StatsSummary.better_than">
 <code class="descname">better_than</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/metrics/stats.html#StatsSummary.better_than"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.metrics.stats.StatsSummary.better_than" title="Permalink to this definition">¶</a></dt>
