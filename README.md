@@ -6,7 +6,8 @@
 [![python versions](https://img.shields.io/pypi/pyversions/openkiwi.svg?style=flat-square)](https://pypi.org/project/openkiwi/)
 [![CircleCI](https://img.shields.io/circleci/build/github/Unbabel/OpenKiwi/master?style=flat-square)](https://circleci.com/gh/Unbabel/OpenKiwi/tree/master)
 [![Code Climate coverage](https://img.shields.io/codeclimate/coverage/Unbabel/OpenKiwi?style=flat-square)](https://codeclimate.com/github/Unbabel/OpenKiwi/test_coverage)
-![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)
+[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square)](https://github.com/psf/black)
+[![GitHub last commit](https://img.shields.io/github/last-commit/unbabel/openkiwi?style=flat-square)](https://github.com/Unbabel/OpenKiwi/commits/master)
 
 **Open-Source Machine Translation Quality Estimation in PyTorch**
 
