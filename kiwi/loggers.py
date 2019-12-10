@@ -40,7 +40,8 @@ class TrackingLogger:
         self._active_run_uuids = []
 
     def configure(
-        self, run_uuid, experiment_name, nest_run=True, *args, **kwargs
+        self, run_uuid, experiment_name,
+        run_name=None, nest_run=True, *args, **kwargs
     ):
         if len(self._active_run_uuids) > 0 and not nest_run:
             raise Exception(
@@ -52,6 +53,7 @@ class TrackingLogger:
         if not self._active_run_uuids:
             self._experiment_name = experiment_name
             self._experiment_id = 0
+            self._run_name = run_name
         if run_uuid is None:
             self._active_run_uuids.append(uuid.uuid4().hex)
         else:
@@ -78,6 +80,10 @@ class TrackingLogger:
     @property
     def experiment_name(self):
         return self._experiment_name
+
+    @property
+    def run_name(self):
+        return self._run_name
 
     def should_log_artifacts(self):
         return False
@@ -114,12 +120,14 @@ class MLflowLogger:
     def __init__(self):
         self.always_log_artifacts = False
         self._experiment_name = None
+        self._run_name = None
 
     def configure(
         self,
         run_uuid,
         experiment_name,
         tracking_uri,
+        run_name=None,
         always_log_artifacts=False,
         create_run=True,
         create_experiment=True,
@@ -131,6 +139,7 @@ class MLflowLogger:
 
         self.always_log_artifacts = always_log_artifacts
         self._experiment_name = experiment_name
+        self._run_name = run_name
 
         # MLflow specific
         if tracking_uri:
@@ -149,7 +158,8 @@ class MLflowLogger:
             experiment_name, create=create_experiment
         )
         return mlflow.start_run(
-            run_uuid, experiment_id=experiment_id, nested=nest_run
+            run_uuid, experiment_id=experiment_id,
+            run_name=run_name, nested=nest_run
         )
 
     def start_nested_run(self, run_name=None):
