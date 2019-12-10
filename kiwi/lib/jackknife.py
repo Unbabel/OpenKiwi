@@ -47,6 +47,7 @@ def run_from_options(options):
     tracking_run = tracking_logger.configure(
         run_uuid=pipeline_options.run_uuid,
         experiment_name=pipeline_options.experiment_name,
+        run_name=pipeline_options.run_name,
         tracking_uri=pipeline_options.mlflow_tracking_uri,
         always_log_artifacts=pipeline_options.mlflow_always_log_artifacts,
     )

@@ -106,6 +106,12 @@ def logging_opts(parser):
         'in the UI. It will also be used in some messages and files.',
     )
     group.add_argument(
+        '--run-name',
+        required=False,
+        help='If using MLflow, it will log this run under this run '
+        'name, which appears as a separate item in the experiment.',
+    )
+    group.add_argument(
         '--run-uuid',
         required=False,
         help='If specified, MLflow/Default Logger will log metrics and params '
