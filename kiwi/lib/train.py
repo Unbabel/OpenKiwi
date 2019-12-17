@@ -187,7 +187,9 @@ def run(ModelClass, output_dir, pipeline_options, model_options):
 
     logger.info(str(trainer.model))
     logger.info("{} parameters".format(trainer.model.num_parameters()))
-    tracking_logger.log_param("model_parameters", trainer.model.num_parameters())
+    tracking_logger.log_param(
+        "model_parameters", trainer.model.num_parameters()
+    )
 
     # Dataset iterators
     train_iter = build_bucket_iterator(
