@@ -10,7 +10,7 @@ jobs:
                   command: |
                       sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev
                       sudo pip install poetry
-                      poetry config settings.virtualenvs.create false
+                      export POETRY_VIRTUALENVS_CREATE=false
                       sudo pip install tox
             - run: tox -e lint
     test:
@@ -25,7 +25,7 @@ jobs:
                   command: |
                       sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev
                       sudo pip install poetry
-                      poetry config settings.virtualenvs.create false
+                      export POETRY_VIRTUALENVS_CREATE=false
                       sudo pip install tox
             - run:
                   name: CodeClimate before-build
@@ -55,7 +55,7 @@ jobs:
                   command: |
                       sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
                       sudo pip install poetry
-                      poetry config settings.virtualenvs.create false
+                      export POETRY_VIRTUALENVS_CREATE=false
                       sudo pip install tox
             - run:
                   name: Retrieve GH pages
