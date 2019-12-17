@@ -371,7 +371,8 @@ They are divided into three different categories, general, IO and save/load.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">kiwi</span> <span class="o">&lt;</span><span class="n">pipeline</span><span class="o">&gt;</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">interval</span> <span class="n">LOG_INTERVAL</span><span class="p">]</span>
                        <span class="p">[</span><span class="o">--</span><span class="n">mlflow</span><span class="o">-</span><span class="n">tracking</span><span class="o">-</span><span class="n">uri</span> <span class="n">MLFLOW_TRACKING_URI</span><span class="p">]</span>
                        <span class="p">[</span><span class="o">--</span><span class="n">experiment</span><span class="o">-</span><span class="n">name</span> <span class="n">EXPERIMENT_NAME</span><span class="p">]</span>
-                       <span class="p">[</span><span class="o">--</span><span class="n">run</span><span class="o">-</span><span class="n">uuid</span> <span class="n">RUN_UUID</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">dir</span> <span class="n">OUTPUT_DIR</span><span class="p">]</span>
+                       <span class="p">[</span><span class="o">--</span><span class="n">run</span><span class="o">-</span><span class="n">name</span> <span class="n">RUN_NAME</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">run</span><span class="o">-</span><span class="n">uuid</span> <span class="n">RUN_UUID</span><span class="p">]</span>
+                       <span class="p">[</span><span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="nb">dir</span> <span class="n">OUTPUT_DIR</span><span class="p">]</span>
                        <span class="p">[</span><span class="o">--</span><span class="n">mlflow</span><span class="o">-</span><span class="n">always</span><span class="o">-</span><span class="n">log</span><span class="o">-</span><span class="n">artifacts</span> <span class="p">[</span><span class="n">MLFLOW_ALWAYS_LOG_ARTIFACTS</span><span class="p">]]</span>
 </pre></div>
 </div>
@@ -396,6 +397,9 @@ They are divided into three different categories, general, IO and save/load.</p>
 <kbd>--experiment-name</kbd></td>
 </tr>
 <tr><td>&#160;</td><td>If using MLflow, it will log this run under this experiment name, which appears as a separate sectionin the UI. It will also be used in some messages and files.</td></tr>
+<tr><td class="option-group">
+<kbd>--run-name</kbd></td>
+<td>If using MLflow, it will log this run under this run name, which appears as a separate item in the experiment.</td></tr>
 <tr><td class="option-group">
 <kbd>--run-uuid</kbd></td>
 <td>If specified, MLflow/Default Logger will log metrics and params under this ID. If it exists, the run status will change to running. This ID is also used for creating this run’s output directory. (Run ID must be a 32-character hex string)</td></tr>

@@ -305,7 +305,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_active_run_uuids</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="TrackingLogger.configure"><a class="viewcode-back" href="../../source/kiwi.html#kiwi.loggers.TrackingLogger.configure">[docs]</a>    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">,</span> <span class="n">nest_run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">run_uuid</span><span class="p">,</span> <span class="n">experiment_name</span><span class="p">,</span>
+        <span class="n">run_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nest_run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
     <span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_active_run_uuids</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">nest_run</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
@@ -317,6 +318,7 @@
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_active_run_uuids</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_experiment_name</span> <span class="o">=</span> <span class="n">experiment_name</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_experiment_id</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_run_name</span> <span class="o">=</span> <span class="n">run_name</span>
         <span class="k">if</span> <span class="n">run_uuid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_active_run_uuids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
@@ -343,6 +345,10 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">experiment_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_experiment_name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">run_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_name</span>
 
 <div class="viewcode-block" id="TrackingLogger.should_log_artifacts"><a class="viewcode-back" href="../../source/kiwi.html#kiwi.loggers.TrackingLogger.should_log_artifacts">[docs]</a>    <span class="k">def</span> <span class="nf">should_log_artifacts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="kc">False</span></div>
@@ -379,12 +385,14 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">always_log_artifacts</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_experiment_name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_name</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="MLflowLogger.configure"><a class="viewcode-back" href="../../source/kiwi.html#kiwi.loggers.MLflowLogger.configure">[docs]</a>    <span class="k">def</span> <span class="nf">configure</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">run_uuid</span><span class="p">,</span>
         <span class="n">experiment_name</span><span class="p">,</span>
         <span class="n">tracking_uri</span><span class="p">,</span>
+        <span class="n">run_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">always_log_artifacts</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
         <span class="n">create_run</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">create_experiment</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
@@ -396,6 +404,7 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">always_log_artifacts</span> <span class="o">=</span> <span class="n">always_log_artifacts</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_experiment_name</span> <span class="o">=</span> <span class="n">experiment_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_run_name</span> <span class="o">=</span> <span class="n">run_name</span>
 
         <span class="c1"># MLflow specific</span>
         <span class="k">if</span> <span class="n">tracking_uri</span><span class="p">:</span>
@@ -414,7 +423,8 @@
             <span class="n">experiment_name</span><span class="p">,</span> <span class="n">create</span><span class="o">=</span><span class="n">create_experiment</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">mlflow</span><span class="o">.</span><span class="n">start_run</span><span class="p">(</span>
-            <span class="n">run_uuid</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="n">nest_run</span>
+            <span class="n">run_uuid</span><span class="p">,</span> <span class="n">experiment_id</span><span class="o">=</span><span class="n">experiment_id</span><span class="p">,</span>
+            <span class="n">run_name</span><span class="o">=</span><span class="n">run_name</span><span class="p">,</span> <span class="n">nested</span><span class="o">=</span><span class="n">nest_run</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="MLflowLogger.start_nested_run"><a class="viewcode-back" href="../../source/kiwi.html#kiwi.loggers.MLflowLogger.start_nested_run">[docs]</a>    <span class="k">def</span> <span class="nf">start_nested_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">run_name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>

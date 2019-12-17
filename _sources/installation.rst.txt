@@ -81,5 +81,5 @@ MLflow integration
 
 **Or** in case you have installed OpenKiwi as a local package, you should add mlflow to your env with::
    
-   poetry install -e mlflow
+   poetry install -E mlflow
 

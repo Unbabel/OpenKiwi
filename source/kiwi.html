@@ -430,7 +430,7 @@
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="method">
 <dt id="kiwi.loggers.MLflowLogger.configure">
-<code class="descname">configure</code><span class="sig-paren">(</span><em>run_uuid</em>, <em>experiment_name</em>, <em>tracking_uri</em>, <em>always_log_artifacts=False</em>, <em>create_run=True</em>, <em>create_experiment=True</em>, <em>nest_run=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.configure" title="Permalink to this definition">¶</a></dt>
+<code class="descname">configure</code><span class="sig-paren">(</span><em>run_uuid</em>, <em>experiment_name</em>, <em>tracking_uri</em>, <em>run_name=None</em>, <em>always_log_artifacts=False</em>, <em>create_run=True</em>, <em>create_experiment=True</em>, <em>nest_run=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#MLflowLogger.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.MLflowLogger.configure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -507,7 +507,7 @@
 
 <dl class="method">
 <dt id="kiwi.loggers.TrackingLogger.configure">
-<code class="descname">configure</code><span class="sig-paren">(</span><em>run_uuid</em>, <em>experiment_name</em>, <em>nest_run=True</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.configure" title="Permalink to this definition">¶</a></dt>
+<code class="descname">configure</code><span class="sig-paren">(</span><em>run_uuid</em>, <em>experiment_name</em>, <em>run_name=None</em>, <em>nest_run=True</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.configure" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="staticmethod">
@@ -553,6 +553,11 @@
 <dl class="staticmethod">
 <dt id="kiwi.loggers.TrackingLogger.log_param">
 <em class="property">static </em><code class="descname">log_param</code><span class="sig-paren">(</span><em>key</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/kiwi/loggers.html#TrackingLogger.log_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#kiwi.loggers.TrackingLogger.log_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="kiwi.loggers.TrackingLogger.run_name">
+<code class="descname">run_name</code><a class="headerlink" href="#kiwi.loggers.TrackingLogger.run_name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
