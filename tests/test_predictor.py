@@ -64,7 +64,7 @@ def test_train_predictor(temp_output_dir, predictor_opts, train_opts, atol):
 
     trainer = train.run(Predictor, temp_output_dir, train_opts, predictor_opts)
     stats = trainer.stats_summary_history[-1]
-    np.testing.assert_allclose(stats['target_PERP'], 440.262493, atol=atol)
+    np.testing.assert_allclose(stats['target_PERP'], 440.951923, atol=atol)
 
     # Testing predictor with pickled data
     epoch_dir = 'epoch_{}'.format(train_opts.epochs)
@@ -72,7 +72,7 @@ def test_train_predictor(temp_output_dir, predictor_opts, train_opts, atol):
 
     trainer = train.run(Predictor, temp_output_dir, train_opts, predictor_opts)
     stats = trainer.stats_summary_history[-1]
-    np.testing.assert_allclose(stats['target_PERP'], 420.706878, atol=atol)
+    np.testing.assert_allclose(stats['target_PERP'], 421.018286, atol=atol)
 
 
 if __name__ == '__main__':  # pragma: no cover

@@ -18,7 +18,7 @@
 from kiwi.lib.train import train_from_file as train  # NOQA
 from kiwi.lib.predict import load_model  # NOQA
 
-__version__ = '0.1.2'
+__version__ = '0.1.3'
 __copyright__ = (
     '2019 Unbabel. All rights reserved. '
     'Source code available under the AGPL-3.0.'
