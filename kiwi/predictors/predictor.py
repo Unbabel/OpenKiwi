@@ -43,6 +43,16 @@ class Predicter:
         # Will break in Multi GPU mode
         self._device = next(model.parameters()).device
 
+    def to(self, device):
+        """Method to mode Predicter object to other device. e.g: "cuda"
+
+        Args:
+          device (str): Device to which the model should be move to.
+        """
+
+        self._device = device
+        self.model.to(device)
+
     def predict(self, examples, batch_size=1):
         """Create Predictions for a list of examples.
 
