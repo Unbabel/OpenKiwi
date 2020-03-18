@@ -66,9 +66,9 @@ class Predicter:
              >>> src = ['a b c', 'd e f g']
              >>> tgt = ['q w e r', 't y']
              >>> align = ['0-0 1-1 1-2', '1-1 3-0']
-             >>> examples = [kiwi.constants.SOURCE: src,
+             >>> examples = {kiwi.constants.SOURCE: src,
                              kiwi.constants.TARGET: tgt,
-                             kiwi.constants.ALIGNMENTS: align]
+                             kiwi.constants.ALIGNMENTS: align}
              >>> predictor.predict(examples)
              {'tags': [[0.4760947525501251,
                 0.47569847106933594,
