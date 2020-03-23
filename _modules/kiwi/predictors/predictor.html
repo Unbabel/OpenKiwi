@@ -308,6 +308,16 @@
         <span class="c1"># Will break in Multi GPU mode</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span><span class="o">.</span><span class="n">device</span>
 
+<div class="viewcode-block" id="Predicter.to"><a class="viewcode-back" href="../../../source/kiwi.predictors.html#kiwi.predictors.predictor.Predicter.to">[docs]</a>    <span class="k">def</span> <span class="nf">to</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">device</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Method to mode Predicter object to other device. e.g: &quot;cuda&quot;</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          device (str): Device to which the model should be move to.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span></div>
+
 <div class="viewcode-block" id="Predicter.predict"><a class="viewcode-back" href="../../../source/kiwi.predictors.html#kiwi.predictors.predictor.Predicter.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">examples</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Create Predictions for a list of examples.</span>
 
@@ -331,9 +341,9 @@
 <span class="sd">             &gt;&gt;&gt; src = [&#39;a b c&#39;, &#39;d e f g&#39;]</span>
 <span class="sd">             &gt;&gt;&gt; tgt = [&#39;q w e r&#39;, &#39;t y&#39;]</span>
 <span class="sd">             &gt;&gt;&gt; align = [&#39;0-0 1-1 1-2&#39;, &#39;1-1 3-0&#39;]</span>
-<span class="sd">             &gt;&gt;&gt; examples = [kiwi.constants.SOURCE: src,</span>
+<span class="sd">             &gt;&gt;&gt; examples = {kiwi.constants.SOURCE: src,</span>
 <span class="sd">                             kiwi.constants.TARGET: tgt,</span>
-<span class="sd">                             kiwi.constants.ALIGNMENTS: align]</span>
+<span class="sd">                             kiwi.constants.ALIGNMENTS: align}</span>
 <span class="sd">             &gt;&gt;&gt; predictor.predict(examples)</span>
 <span class="sd">             {&#39;tags&#39;: [[0.4760947525501251,</span>
 <span class="sd">                0.47569847106933594,</span>
