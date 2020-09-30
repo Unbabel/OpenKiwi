@@ -1,5 +1,19 @@
 #  OpenKiwi: Open-Source Machine Translation Quality Estimation
-#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#  Copyright (C) 2020 Unbabel <openkiwi@unbabel.com>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published
+#  by the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published
@@ -18,16 +32,22 @@
 import numpy as np
 import pytest
 
-from kiwi.metrics.functions import confusion_matrix, f1_product, fscore
+from kiwi.metrics.functions import (
+    confusion_matrix,
+    f1_product,
+    fscore,
+    matthews_correlation_coefficient,
+)
 
 
-def test_fscore():
+@pytest.fixture
+def labels():
     n_class = 2
     y_gold = np.array(
         [
             np.array([1, 1, 0, 1]),
             np.array([1, 1, 0, 1, 1, 1, 1, 0]),
-            np.array([1, 1, 1, 0, 1, 1, 1, 0, 0, 1]),
+            np.array([1, 1, 1, 0, 1, 1, 0, 0, 0, 1]),
         ]
     )
     y_hat = np.array(
@@ -37,7 +57,11 @@ def test_fscore():
             np.array([1, 1, 1, 0, 1, 1, 1, 0, 0, 0]),
         ]
     )
+    return y_gold, y_hat, n_class
 
+
+def test_fscore(labels, atol):
+    y_gold, y_hat, n_class = labels
     cnfm = confusion_matrix(y_hat, y_gold, n_class)
     f1_orig_prod_micro = f1_product(y_hat, y_gold)
     f1_prod_macro = 0
@@ -68,8 +92,20 @@ def test_fscore():
     f1_prod_macro = f1_prod_macro / y_gold.shape[0]
     f1_orig_prod_macro = f1_orig_prod_macro / y_gold.shape[0]
 
-    np.testing.assert_allclose(f1_prod_micro, f1_orig_prod_micro, atol=1e-6)
-    np.testing.assert_allclose(f1_prod_macro, f1_orig_prod_macro, atol=1e-6)
+    np.testing.assert_allclose(f1_prod_micro, f1_orig_prod_micro, atol=atol)
+    np.testing.assert_allclose(f1_prod_macro, f1_orig_prod_macro, atol=atol)
+
+
+def test_matthews(labels, atol):
+    y_gold, y_hat, n_class = labels
+    matthews = matthews_correlation_coefficient(y_hat, y_gold)
+    np.testing.assert_allclose(matthews, 0.70082555, atol=atol)
+    n1 = matthews_correlation_coefficient(y_hat, 1 - y_gold)
+    n2 = matthews_correlation_coefficient(1 - y_hat, y_gold)
+    nn = matthews_correlation_coefficient(1 - y_hat, 1 - y_gold)
+    assert n1 == n2
+    assert nn == matthews
+    assert n1 == -matthews
 
 
 if __name__ == '__main__':  # pragma: no cover

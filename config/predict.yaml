@@ -1,0 +1,25 @@
+use_gpu: true
+
+run:
+    output_dir: tmp-test
+    predict_on_data_partition: valid
+
+defaults:
+    - data: wmt19.qe.en_de
+
+system:
+    load: trained-models/tickets/en-it/production_model.torch
+
+    batch_size: 16
+    num_data_workers: 0
+
+    model:
+        outputs:
+            word_level:
+                target: true
+                gaps: true
+                source: false
+            sentence_level:
+                hter: true
+                use_distribution: true
+                binary: true

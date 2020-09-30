@@ -1,0 +1,76 @@
+run:
+    experiment_name: NuQE WMT19 Target en_de.nmt
+    seed: 42
+    mlflow_tracking_uri: mlruns/
+    use_mlflow: true
+    # output_dir: null  # mlflow will create one if this is null
+
+trainer:
+    gpus: -1
+    log_interval: 10
+    epochs: 2
+    # gradient_accumulation_steps: 2
+
+    main_metric:
+        - WMT19_F1_MULT
+        - PEARSON
+
+    checkpoint:
+        validation_steps: 100
+        early_stop_patience: 10
+
+defaults:
+    - data: wmt19.qe.en_de
+
+system:
+    class_name: NuQE
+
+    batch_size: 64
+    num_data_workers: 4
+
+    model:
+        encoder:
+            window_size: 3
+            embeddings:
+                source:
+                    dim: 50
+                    dropout: 0.5
+                    freeze: false
+                target:
+                    dim: 50
+                    dropout: 0.5
+                    freeze: false
+
+        decoder:
+            source:
+                hidden_sizes: [400, 200, 100, 50]
+                dropout: 0.
+            target:
+                hidden_sizes: [400, 200, 100, 50]
+                dropout: 0.
+
+        outputs:
+            word_level:
+                target: true
+                gaps: true
+                source: false
+                class_weights:
+                    target_tags:
+                        BAD: 3.0
+                    gap_tags:
+                        BAD: 5.0
+                    source_tags:
+                        BAD: 3.0
+            sentence_level:
+                hter: true
+                use_distribution: true
+                binary: false
+
+    data_processing:
+        share_input_fields_encoders: false
+        vocab:
+            min_frequency: 2
+
+    optimizer:
+        class_name: dense_sparse_adam
+        learning_rate: 0.001

@@ -1,5 +1,5 @@
 #  OpenKiwi: Open-Source Machine Translation Quality Estimation
-#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#  Copyright (C) 2020 Unbabel <openkiwi@unbabel.com>
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published
@@ -14,9 +14,8 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-
 import math
-import time
+from abc import ABC
 from collections import OrderedDict
 
 import numpy as np
@@ -24,330 +23,329 @@ import torch
 from scipy.stats.stats import pearsonr, spearmanr
 from torch import nn
 
-from kiwi import constants as const
-from kiwi.metrics.functions import fscore, precision_recall_fscore_support
-from kiwi.models.utils import replace_token
+from kiwi.metrics.functions import (
+    fscore,
+    matthews_correlation_coefficient,
+    precision_recall_fscore_support,
+)
 
 
 class Metric:
-    def __init__(
-        self,
-        target_name=None,
-        metric_name=None,
-        PAD=None,
-        STOP=None,
-        prefix=None,
-    ):
-        super().__init__()
-        self.reset()
+    _name = None
+    best_ordering = 'max'
+
+    def __init__(self, *targets, prefix=None):
+        self.targets = targets
+
+        if prefix is None:
+            prefix = f'{self.targets[0]}_'
         self.prefix = prefix
-        self.target_name = target_name
-        self.metric_name = metric_name
-        self.PAD = PAD
-        self.STOP = STOP
 
-    def update(self, **kwargs):
+    def step(self, model_out, batch, losses):
         raise NotImplementedError
 
-    def reset(self):
+    def compute(self, steps, prefix=''):
         raise NotImplementedError
 
-    def summarize(self, **kwargs):
-        raise NotImplementedError
+    @property
+    def name(self):
+        return f'{self.prefix}{self._name}'
 
-    def get_name(self):
-        return self._prefix(self.metric_name)
-
-    def _prefix_keys(self, summary):
-        if self.prefix:
-            summary = OrderedDict(
-                {self._prefix(key): value for key, value in summary.items()}
-            )
-        return summary
-
-    def _prefix(self, key):
-        if self.prefix:
-            return '{}_{}'.format(self.prefix, key)
-        return key
-
-    def token_mask(self, batch):
-        target = self.get_target(batch)
-        if self.PAD is not None:
-            return target != self.PAD
-        else:
-            return torch.ones(
-                target.shape, dtype=torch.uint8, device=target.device
-            )
-
-    def get_target(self, batch):
-        target = getattr(batch, self.target_name)
-        if self.STOP is not None:
-            target = replace_token(target[:, 1:-1], self.STOP, self.PAD)
-        return target
-
-    def get_token_indices(self, batch):
-        mask = self.token_mask(batch)
-        return mask.view(-1).nonzero().squeeze()
-
-    def get_predictions(self, model_out):
-        predictions = model_out[self.target_name]
-        return predictions
-
-    def get_target_flat(self, batch):
-        target_flat = self.get_target(batch).contiguous().view(-1)
-        token_indices = self.get_token_indices(batch)
-        return target_flat[token_indices]
-
-    def get_predictions_flat(self, model_out, batch):
-        predictions = self.get_predictions(model_out).contiguous()
-        predictions_flat = predictions.view(-1, predictions.shape[-1]).squeeze()
-        token_indices = self.get_token_indices(batch)
-        return predictions_flat[token_indices]
-
-    def get_tokens(self, batch):
-        return self.token_mask(batch).sum().item()
+    def num_tokens(self, batch, *targets):
+        if not targets:
+            targets = self.targets
+        return sum([batch[target].strict_masks.sum().item() for target in targets])
 
 
 class NLLMetric(Metric):
-    def __init__(self, **kwargs):
-        super().__init__(metric_name='NLL', **kwargs)
+    _name = 'NLL'
+    best_ordering = 'min'
 
-    def update(self, loss, batch, **kwargs):
-        self.tokens += self.get_tokens(batch)
-        self.nll += loss[self.target_name].item()
+    def step(self, model_out, batch, losses):
+        nll = sum(losses[target].item() for target in self.targets)
+        nr_tokens = self.num_tokens(batch)
+        return nll, nr_tokens
 
-    def summarize(self):
-        summary = {self.metric_name: self.nll / self.tokens}
-        return self._prefix_keys(summary)
+    def compute(self, steps, prefix=''):
+        if not steps:
+            return {}
+        nll, nr_tokens = zip(*steps)
+        nll = torch.cat(nll).sum()
+        nr_tokens = torch.cat(nr_tokens).sum()
 
-    def reset(self):
-        self.nll = 0.0
-        self.tokens = 0
+        summary = {f'{prefix}{self.name}': nll / nr_tokens}
+        return summary
+
+
+class LabeledMetric(Metric, ABC):
+    def __init__(self, *args, labels=None, **kwargs):
+        assert labels is not None
+        super().__init__(*args, **kwargs)
+        self.labels = labels
+
+    def step(self, model_out, batch, losses):
+        logits = self.get_predictions_flat(model_out, batch)
+        _, y_hat = logits.max(-1)
+        target = self.get_target_flat(batch)
+        return y_hat, target
+
+    def get_target_flat(self, batch):
+        targets = [batch[target].tensor for target in self.targets]
+        masks = [batch[target].strict_masks for target in self.targets]
+        targets = torch.cat(targets, dim=1)
+        masks = torch.cat(masks, dim=1)
+        return targets[masks]  # this flattens out the tensor
+
+    def get_predictions_flat(self, model_out, batch):
+        predictions = [model_out[target] for target in self.targets]
+        masks = [batch[target].strict_masks for target in self.targets]
+        predictions = torch.cat(predictions, dim=1)
+        masks = torch.cat(masks, dim=1)
+        # In QESystems, predictions don't contain BOS/EOS, neither their batch fields.
+        #  We rely on this consistent behaviour, i.e., the model will output according
+        #  to the batched target (either both have BOS/EOS, or neither does).
+        return predictions[masks]  # this flattens out the tensor
+
+
+# Word-level metrics
+
+
+class CorrectMetric(LabeledMetric):
+    _name = 'CORRECT'
+
+    def step(self, model_out, batch, losses):
+        predictions = model_out[self.targets[0]]
+        if len(predictions.shape) > 2:
+            logits = self.get_predictions_flat(model_out, batch)
+            _, y_hat = logits.max(-1)
+            target = self.get_target_flat(batch)
+        else:
+            _, y_hat = predictions.max(-1)
+            target = batch[self.targets[0]]
+        return y_hat, target
+
+    def compute(self, steps, prefix=''):
+        if not steps:
+            return {}
+        y_hat, y = zip(*steps)
+        y_hat = torch.cat(y_hat)
+        y = torch.cat(y)
+
+        correct = y_hat == y
+        correct_count = correct.sum(dtype=torch.float)
+        summary = {f'{prefix}{self.name}': correct_count / len(y)}
+        return summary
+
+
+class F1MultMetric(LabeledMetric):
+    _name = 'F1_MULT'
+
+    def compute(self, steps, prefix=''):
+        if not steps:
+            return {}
+        y_hat, y = zip(*steps)
+        y_hat = torch.cat(y_hat)
+        y = torch.cat(y)
+
+        _, _, f1, _ = precision_recall_fscore_support(y_hat, y, labels=self.labels)
+        summary = OrderedDict()
+        summary[f'{prefix}{self.name}'] = np.prod(f1)
+        for i, label in enumerate(self.labels):
+            summary[f'{prefix}F1_{label}'] = torch.tensor(f1[i])
+        return summary
+
+
+class MatthewsMetric(LabeledMetric):
+    _name = 'MCC'
+
+    def compute(self, steps, prefix=''):
+        if not steps:
+            return {}
+        y_hat, y = zip(*steps)
+        y_hat = torch.cat(y_hat)
+        y = torch.cat(y)
+
+        matthews = matthews_correlation_coefficient(y_hat, y)
+        summary = {f'{prefix}{self.name}': torch.tensor(matthews)}
+        return summary
+
+
+# Sentence-level metrics
+
+
+class SentenceMetric(Metric, ABC):
+    def step(self, model_out, batch, losses):
+        y_hat = []
+        for target in self.targets:
+            out = model_out[target]
+            if isinstance(out, tuple):
+                # Output that returns extra info; by convention, first element must be
+                #  the score.
+                out = out[0]
+            y_hat.append(out.detach().cpu())
+        y_hat = torch.cat(y_hat)
+        y = torch.cat([batch[target].detach().cpu() for target in self.targets])
+        return y_hat, y
+
+
+class PearsonMetric(SentenceMetric):
+    _name = 'PEARSON'
+
+    def compute(self, steps, prefix=''):
+        if not steps:
+            return {}
+        y_hat, y = zip(*steps)
+        y_hat = torch.cat(y_hat)
+        y = torch.cat(y)
+
+        pearson, _ = pearsonr(y_hat, y)
+        summary = {f'{prefix}{self.name}': torch.tensor(pearson)}
+        return summary
+
+
+class SpearmanMetric(SentenceMetric):
+    _name = 'SPEARMAN'
+
+    def compute(self, steps, prefix=''):
+        if not steps:
+            return {}
+        y_hat, y = zip(*steps)
+        y_hat = torch.cat(y_hat)
+        y = torch.cat(y)
+
+        spearman, *_ = spearmanr(y_hat.numpy(), y.numpy())
+        summary = {f'{prefix}{self.name}': torch.tensor(spearman)}
+        return summary
+
+
+class RMSEMetric(SentenceMetric):
+    _name = 'RMSE'
+    best_ordering = 'min'
+
+    def compute(self, steps, prefix=''):
+        if not steps:
+            return {}
+        y_hat, y = zip(*steps)
+        y_hat = torch.cat(y_hat)
+        y = torch.cat(y)
+
+        rmse = (((y_hat - y) ** 2).sum() / len(y)) ** (1 / 2)
+        summary = {f'{prefix}{self.name}': rmse}
+        return summary
+
+
+# TLM metrics
 
 
 class PerplexityMetric(Metric):
-    def __init__(self, **kwargs):
-        super().__init__(metric_name='PERP', **kwargs)
+    _name = 'PERP'
+    best_ordering = 'min'
 
-    def reset(self):
-        self.tokens = 0
-        self.nll = 0.0
+    def step(self, model_out, batch, losses):
+        # TODO: is this the right way of calculating perplexity?
+        nll = sum(losses[target].item() for target in self.targets)
+        nr_tokens = self.num_tokens(batch, 'target')
+        return nll, nr_tokens
 
-    def update(self, loss, batch, **kwargs):
-        self.tokens += self.get_tokens(batch)
-        self.nll += loss[self.target_name].item()
+    def compute(self, steps, prefix=''):
+        if not steps:
+            return {}
+        nll, nr_tokens = zip(*steps)
+        nll = sum(nll)
+        nr_tokens = sum(nr_tokens)
 
-    def summarize(self):
-        summary = {self.metric_name: math.e ** (self.nll / self.tokens)}
-        return self._prefix_keys(summary)
-
-
-class CorrectMetric(Metric):
-    def __init__(self, **kwargs):
-        super().__init__(metric_name='CORRECT', **kwargs)
-
-    def update(self, model_out, batch, **kwargs):
-        self.tokens += self.get_tokens(batch)
-        logits = self.get_predictions_flat(model_out, batch)
-        target = self.get_target_flat(batch)
-        _, pred = logits.max(-1)
-        correct = target == pred
-        correct_count = correct.sum().item()
-        self.correct += correct_count
-
-    def summarize(self):
-        summary = {self.metric_name: float(self.correct) / self.tokens}
-        return self._prefix_keys(summary)
-
-    def reset(self):
-        self.correct = 0
-        self.tokens = 0
+        perplexity = math.e ** (nll / nr_tokens)
+        summary = {f'{prefix}{self.name}': perplexity}
+        return summary
 
 
-class F1Metric(Metric):
-    def __init__(self, labels, **kwargs):
-        super().__init__(metric_name='F1_MULT', **kwargs)
-        self.labels = labels
+class ExpectedErrorMetric(LabeledMetric):
+    _name = 'ExpErr'
+    best_ordering = 'min'
 
-    def update(self, model_out, batch, **kwargs):
-        logits = self.get_predictions_flat(model_out, batch)
-        target = self.get_target_flat(batch)
-        _, y_hat = logits.max(-1)
-        self.Y_HAT += y_hat.tolist()
-        self.Y += target.tolist()
-
-    def summarize(self):
-        summary = OrderedDict()
-        _, _, f1, _ = precision_recall_fscore_support(self.Y_HAT, self.Y)
-        summary[self.metric_name] = np.prod(f1)
-        for i, label in enumerate(self.labels):
-            summary['F1_' + label] = f1[i]
-        return self._prefix_keys(summary)
-
-    def reset(self):
-        self.Y = []
-        self.Y_HAT = []
-
-
-class PearsonMetric(Metric):
-    def __init__(self, **kwargs):
-        super().__init__(metric_name='PEARSON', **kwargs)
-
-    def reset(self):
-        self.predictions = []
-        self.target = []
-
-    def update(self, model_out, batch, **kwargs):
-        target = self.get_target_flat(batch)
-        predictions = self.get_predictions_flat(model_out, batch)
-        self.predictions += predictions.tolist()
-        self.target += target.tolist()
-
-    def summarize(self):
-        pearson = pearsonr(self.predictions, self.target)[0]
-        summary = {self.metric_name: pearson}
-        return self._prefix_keys(summary)
-
-
-class SpearmanMetric(Metric):
-    def __init__(self, **kwargs):
-        super().__init__(metric_name='SPEARMAN', **kwargs)
-
-    def reset(self):
-        self.predictions = []
-        self.target = []
-
-    def update(self, model_out, batch, **kwargs):
-        target = self.get_target_flat(batch)
-        predictions = self.get_predictions_flat(model_out, batch)
-        self.predictions += predictions.tolist()
-        self.target += target.tolist()
-
-    def summarize(self):
-        spearman = spearmanr(self.predictions, self.target)[0]
-        summary = {self.metric_name: spearman}
-        return self._prefix_keys(summary)
-
-
-class ExpectedErrorMetric(Metric):
-    def __init__(self, **kwargs):
-        super().__init__(metric_name='ExpErr', **kwargs)
-
-    def update(self, model_out, batch, **kwargs):
+    def step(self, model_out, batch, losses):
         logits = self.get_predictions_flat(model_out, batch)
         target = self.get_target_flat(batch)
         probs = nn.functional.softmax(logits, -1)
         probs = probs.gather(-1, target.unsqueeze(-1)).squeeze()
         errors = 1.0 - probs
-        self.tokens += self.get_tokens(batch)
-        self.expected_error += errors.sum().item()
+        tokens = self.num_tokens(batch)
+        expected_error = errors.sum().item()
+        return expected_error, tokens
 
-    def summarize(self):
-        summary = {self.metric_name: self.expected_error / self.tokens}
-        return self._prefix_keys(summary)
+    def compute(self, steps, prefix=''):
+        if not steps:
+            return {}
+        e_err, nr_tokens = zip(*steps)
+        e_err = sum(e_err)
+        nr_tokens = sum(nr_tokens)
 
-    def reset(self):
-        self.expected_error = 0.0
-        self.tokens = 0
-
-
-class TokPerSecMetric(Metric):
-    def __init__(self, **kwargs):
-        super().__init__(metric_name='TokPerSec', **kwargs)
-
-    def update(self, batch, **kwargs):
-        self.tokens += self.get_tokens(batch)
-
-    def summarize(self):
-        summary = {self.metric_name: self.tokens / (time.time() - self.time)}
-        return self._prefix_keys(summary)
-
-    def reset(self):
-        self.tokens = 0
-        self.time = time.time()
+        expected_error = e_err / nr_tokens
+        summary = {f'{prefix}{self.name}': expected_error}
+        return summary
 
 
-class LogMetric(Metric):
-    """Logs averages of values in loss, model or batch.
-    """
-
-    def __init__(self, targets, metric_name=None, **kwargs):
-        self.targets = targets
-        metric_name = metric_name or self._format(*targets[0])
-        super().__init__(metric_name=metric_name, **kwargs)
-
-    def update(self, **kwargs):
-        self.steps += 1
-        for side, target in self.targets:
-            key = self._format(side, target)
-            self.log[key] += kwargs[side][target].mean().item()
-
-    def summarize(self):
-        summary = {
-            key: value / float(self.steps) for key, value in self.log.items()
-        }
-        return self._prefix_keys(summary)
-
-    def reset(self):
-        self.log = {
-            self._format(side, target): 0.0 for side, target in self.targets
-        }
-        self.steps = 0
-
-    def _format(self, side, target):
-        return '{}_{}'.format(side, target)
+# Other metrics
 
 
-class RMSEMetric(Metric):
-    def __init__(self, **kwargs):
-        super().__init__(metric_name='RMSE', **kwargs)
+# class TokPerSecMetric(Metric):
+#     _name = 'TokPerSec'
+#     best_ordering = 'min'
+#
+#     def step(self, model_out, batch, losses):
+#         nr_tokens = self.num_tokens(batch, 'target')
+#         timestamp = time.time()
+#         return nr_tokens, timestamp
+#
+#     def compute(self, steps, prefix=''):
+#         if not steps:
+#             return {}
+#         nr_tokens, timestamps = zip(*steps)
+#         nr_tokens = torch.cat(nr_tokens).sum().item()
+#         delta_time = (time.time() - timestamps[0])
+#         summary = {f'{prefix}{self.name}': nr_tokens / delta_time}
+#         return summary
 
-    def update(self, batch, model_out, **kwargs):
-        predictions = self.get_predictions_flat(model_out, batch)
-        target = self.get_target_flat(batch)
-        self.squared_error += ((predictions - target) ** 2).sum().item()
-        self.tokens += self.get_tokens(batch)
 
-    def summarize(self):
-        rmse = math.sqrt(self.squared_error / self.tokens)
-        summary = {self.metric_name: rmse}
-        return self._prefix_keys(summary)
-
-    def reset(self):
-        self.squared_error = 0.0
-        self.tokens = 0
-
-
-class TokenMetric(Metric):
-    def __init__(self, target_token=const.UNK_ID, token_name='UNK', **kwargs):
-        self.target_token = target_token
-        super().__init__(metric_name='UNKS', **kwargs)
-
-    def update(self, batch, **kwargs):
-        target = self.get_target_flat(batch)
-        self.targets += (target == self.target_token).sum().item()
-        self.tokens += self.get_tokens(batch)
-
-    def summarize(self):
-        summary = {}
-        if self.tokens:
-            summary = {self.metric_name: self.targets / self.tokens}
-        return self._prefix_keys(summary)
-
-    def reset(self):
-        self.tokens = 0
-        self.targets = 0
+# class LogMetric(Metric):
+#     """Logs averages of values in loss, model or batch.
+#     """
+#
+#     def __init__(self, log_targets, name=None, **kwargs):
+#         self.log_targets = log_targets
+#         name = name or self._format(*log_targets[0])
+#         super().__init__(name=name, **kwargs)
+#
+#     def update(self, **kwargs):
+#         self.steps += 1
+#         for side, target in self.log_targets:
+#             key = self._format(side, target)
+#             self.log[key] += kwargs[side][target].mean().item()
+#
+#     def summarize(self):
+#         summary = {key: value / float(self.steps) for key, value in self.log.items()}
+#         return self._prefix_keys(summary)
+#
+#     def reset(self):
+#         self.log = {
+#             self._format(side, target): 0.0 for side, target in self.log_targets
+#         }
+#         self.steps = 0
+#
+#     def _format(self, side, target):
+#         return '{}_{}'.format(side, target)
 
 
 class ThresholdCalibrationMetric(Metric):
-    def __init__(self, **kwargs):
-        super().__init__(metric_name='F1_CAL', **kwargs)
+    def __init__(self, target_id=0, **kwargs):
+        self.target_id = target_id
+        super().__init__(name='F1_CAL', **kwargs)
 
     def update(self, model_out, batch, **kwargs):
         logits = self.get_predictions_flat(model_out, batch)
-        bad_probs = nn.functional.softmax(logits, -1)[:, const.BAD_ID]
+        probs = nn.functional.softmax(logits, -1)[:, self.target_id]
         target = self.get_target_flat(batch)
-        self.scores += bad_probs.tolist()
+        self.probs += probs.tolist()
         self.Y += target.tolist()
 
     def summarize(self):
@@ -356,37 +354,38 @@ class ThresholdCalibrationMetric(Metric):
         if mid:
             perm = np.random.permutation(len(self.Y))
             self.Y = [self.Y[idx] for idx in perm]
-            self.scores = [self.scores[idx] for idx in perm]
+            self.probs = [self.probs[idx] for idx in perm]
             m = MovingF1()
-            fscore, threshold = m.choose(
-                m.eval(self.scores[:mid], self.Y[:mid])
-            )
-            predictions = [
-                const.BAD_ID if score >= threshold else const.OK_ID
-                for score in self.scores[mid:]
-            ]
-            _, _, f1, _ = precision_recall_fscore_support(
-                predictions, self.Y[mid:]
-            )
+            fscore, threshold = m.choose(m.eval(self.probs[:mid], self.Y[:mid]))
+
+            predictions = []
+            for prob in self.probs[mid:]:
+                if prob >= threshold:
+                    predictions.append(self.target_id)
+                else:
+                    predictions.append(max(0, 1 - self.target_id))
+            _, _, f1, _ = precision_recall_fscore_support(predictions, self.Y[mid:])
             f1_mult = np.prod(f1)
-            summary = {self.metric_name: f1_mult}
+            summary = {self.name: f1_mult}
         return self._prefix_keys(summary)
 
     def reset(self):
-        self.scores = []
+        self.probs = []
         self.Y = []
 
 
 class MovingMetric:
     """Class to compute the changes in one metric as a function of a second metric.
+
        Example: F1 score vs. Classification Threshold, Quality vs Skips
     """
 
     def eval(self, scores, labels):
-        """Compute the graph metric1 vs metric2
-        Args:
-           Scores: Model Outputs
-           Labels: Corresponding Labels
+        """Compute the graph metric1 vs metric2.
+
+        Arguments:
+           scores: model outputs.
+           labels: corresponding labels.
         """
         self.init(scores, labels)
         scores, labels = self.sort(scores, labels)
@@ -398,41 +397,36 @@ class MovingMetric:
         return thresholds
 
     def init(self, scores, labels):
-        """Initialize the Metric for threshold < min(scores)
-        """
+        """Initialize the Metric for threshold < min(scores)."""
         return scores, labels
 
     def sort(self, scores, labels):
-        """Sort List of labels and scores.
-        """
+        """Sort List of labels and scores."""
         return zip(*sorted(zip(scores, labels)))
 
     def update(self, score, label):
-        """Move the threshold past score
-        """
+        """Move the threshold past score."""
         return None
 
     def compute(self):
-        """Compute the current Value of the metric
-        """
+        """Compute the current value of the metric."""
         pass
 
     def choose(self, thresholds):
-        """Choose the best (threshold, metric) tuple from an iterable.
-        """
+        """Choose the best (threshold, metric) tuple from an iterable."""
         pass
 
 
 class MovingF1(MovingMetric):
     def init(self, scores, labels, class_idx=1):
-        """
-        Compute F1 Mult for all decision thresholds over (scores, labels)
-        Initialize the threshold s.t. all examples are classified as
-        `class_idx`.
-        Args:
-           scores: Likelihood scores for class index
-           Labels: Gold Truth classes in {0,1}
-           class_index: ID of class
+        """Compute F1-Mult for all decision thresholds over (scores, labels).
+
+        Initialize the threshold s.t. all examples are classified as `class_idx`.
+
+        Arguments:
+           scores: likelihood scores for class index.
+           labels: gold truth classes in {0,1}.
+           class_idx: ID of class.
         """
         # -1 if class_idx == 0 , 1 if class_idx == 1
         self.sign = 2 * class_idx - 1
@@ -444,8 +438,7 @@ class MovingF1(MovingMetric):
         self.tp_one = class_idx * class_one
 
     def update(self, score, label):
-        """Move the decision threshold.
-        """
+        """Move the decision threshold."""
         self.tp_zero += self.sign * (1 - label)
         self.fp_zero += self.sign * label
         self.tp_one -= self.sign * label
@@ -461,39 +454,35 @@ class MovingF1(MovingMetric):
 
 
 class MovingSkipsAtQuality(MovingMetric):
-    """Computes Quality of skipped examples vs fraction of skips.
-    """
+    def __init__(self, scores_higher_is_better=False, labels_higher_is_better=False):
+        """Compute Quality of skipped examples vs fraction of skips.
 
-    def __init__(
-        self, scores_higher_is_better=False, labels_higher_is_better=False
-    ):
-        """
-          Args:
-          scores_higher_is_better:
-              If True, higher model outputs indicate higher quality.
-          labels_higher_is_better:
-              If True, higher label values indicate higher quality.
+        Arguments:
+            scores_higher_is_better: whether higher model outputs indicate higher
+                                     quality.
+            labels_higher_is_better: whether higher label values indicate higher
+                                     quality.
         """
         self.scores_higher_is_better = scores_higher_is_better
         self.labels_higher_is_better = labels_higher_is_better
 
     def eval(self, scores, labels):
         """
-         Args:
-          scores: Model output quality or error scores. If quality scores
-              are provided, pass scores_higher_is_better=True.
-          labels: Ground truth quality or error scores. If quality scores
-              are provided, pass labels_higher_is_better=True.
+        Arguments:
+            scores: model output quality or error scores. If quality scores
+                    are provided, pass ``scores_higher_is_better=True``.
+            labels: ground truth quality or error scores. If quality scores
+                    are provided, pass ``labels_higher_is_better=True``.
         """
         return super().eval(scores, labels)
 
     def init(self, scores, labels):
         """
-         Args:
-          scores: Model output quality or error scores. If quality scores
-              are provided, pass scores_higher_is_better=True.
-          labels: Ground truth quality or error scores. If quality scores
-              are provided, pass labels_higher_is_better=True.
+        Arguments:
+            scores: model output quality or error scores. If quality scores are
+                    provided, pass ``scores_higher_is_better=True``.
+            labels: ground truth quality or error scores. If quality scores are
+                    provided, pass ``labels_higher_is_better=True``.
         """
         self.cumulative_qual = 0.0
         self.skipped = 0
@@ -506,14 +495,11 @@ class MovingSkipsAtQuality(MovingMetric):
     def compute(self):
         if not self.skipped:
             return None, 0.0
-        return (
-            self.skipped / self.data_size,
-            self.cumulative_qual / self.skipped,
-        )
+        return (self.skipped / self.data_size, self.cumulative_qual / self.skipped)
 
     def choose(self, thresholds, target_qual):
-        """Chooses the smallest threshold such that
-           avg. quality  is greater than or equal to target_qual
+        """Choose the smallest threshold such that average quality is greater than or
+        equal to target_qual.
         """
         best = None
         sign = 1 if self.labels_higher_is_better else -1
@@ -531,6 +517,4 @@ class MovingSkipsAtQuality(MovingMetric):
         return best
 
     def sort(self, scores, labels):
-        return zip(
-            *sorted(zip(scores, labels), reverse=self.scores_higher_is_better)
-        )
+        return zip(*sorted(zip(scores, labels), reverse=self.scores_higher_is_better))

@@ -1,5 +1,5 @@
 #  OpenKiwi: Open-Source Machine Translation Quality Estimation
-#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#  Copyright (C) 2020 Unbabel <openkiwi@unbabel.com>
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published
@@ -14,439 +14,448 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-
 import logging
+import uuid
+from dataclasses import dataclass
 from pathlib import Path
 from pprint import pformat
+from typing import Any, Dict, List, Optional, Tuple, Type, Union
 
+import pytorch_lightning as pl
 import torch
+from pydantic import PositiveInt, validator
+from pydantic.types import confloat, conint
+from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
+from typing_extensions import Literal
 
-from kiwi import constants as const
-from kiwi.cli.pipelines.train import build_parser
-from kiwi.data import builders, utils
-from kiwi.data.iterators import build_bucket_iterator
-from kiwi.data.utils import (
-    save_training_datasets,
-    save_vocabularies_from_datasets,
-)
+from kiwi.data.datasets.wmt_qe_dataset import WMTQEDataset
+from kiwi.lib import evaluate
+from kiwi.lib.predict import load_system
 from kiwi.lib.utils import (
     configure_logging,
     configure_seed,
-    merge_namespaces,
-    save_args_to_file,
-    setup_output_directory,
+    load_config,
+    save_config_to_file,
 )
-from kiwi.loggers import tracking_logger
-from kiwi.models.linear_word_qe_classifier import LinearWordQEClassifier
-from kiwi.models.model import Model
-from kiwi.trainers.callbacks import Checkpoint
-from kiwi.trainers.linear_word_qe_trainer import LinearWordQETrainer
-from kiwi.trainers.trainer import Trainer
-from kiwi.trainers.utils import optimizer_class
+from kiwi.loggers import MLFlowTrackingLogger
+from kiwi.systems.qe_system import QESystem
+from kiwi.systems.tlm_system import TLMSystem
+from kiwi.training.callbacks import BestMetricsInfo
+from kiwi.utils.io import BaseConfig, save_predicted_probabilities
 
 logger = logging.getLogger(__name__)
 
 
+@dataclass
 class TrainRunInfo:
+    """Encapsulate relevant information on training runs."""
+
+    model: QESystem
+    """The last model when training finished."""
+
+    best_metrics: Dict[str, Any]
+    """Mapping of metrics of the best model."""
+
+    best_model_path: Optional[Path] = None
+    """Path of the best model, if it was saved to disk."""
+
+
+class RunConfig(BaseConfig):
+    """Options for each run."""
+
+    seed: int = 42
+    """Random seed"""
+
+    experiment_name: str = 'default'
+    """If using MLflow, it will log this run under this experiment name, which appears
+    as a separate section in the UI. It will also be used in some messages and files."""
+
+    output_dir: Path = None
+    """Output several files for this run under this directory.
+    If not specified, a directory under "./runs/" is created or reused based on the
+    ``run_id``. Files might also be sent to MLflow depending on the
+    ``mlflow_always_log_artifacts`` option."""
+
+    run_id: str = None
+    """If specified, MLflow/Default Logger will log metrics and params
+    under this ID. If it exists, the run status will change to running.
+    This ID is also used for creating this run's output directory if
+    ``output_dir`` is not specified (Run ID must be a 32-character hex string)."""
+
+    use_mlflow: bool = False
+    """Whether to use MLflow for tracking this run. If not installed, a message
+    is shown"""
+
+    mlflow_tracking_uri: str = 'mlruns/'
+    """If using MLflow, logs model parameters, training metrics, and
+    artifacts (files) to this MLflow server. Uses the localhost by
+    default. """
+
+    mlflow_always_log_artifacts: bool = False
+    """If using MLFlow, always log (send) artifacts (files) to MLflow
+    artifacts URI. By default (false), artifacts are only logged if
+    MLflow is a remote server (as specified by --mlflow-tracking-uri
+    option).All generated files are always saved in --output-dir, so it
+    might be considered redundant to copy them to a local MLflow
+    server. If this is not the case, set this option to true."""
+
+
+class CheckpointsConfig(BaseConfig):
+    validation_steps: Union[confloat(gt=0.0, le=1.0), PositiveInt] = 1.0
+    """How often within one training epoch to check the validation set.
+    If float, % of training epoch. If int, check every n batches."""
+
+    save_top_k: int = 1
+    """Save and keep only ``k`` best models according to main metric;
+    -1 will keep all; 0 will never save a model."""
+
+    early_stop_patience: conint(ge=0) = 0
+    """Stop training if evaluation metrics do not improve after X validations;
+    0 disables this."""
+
+
+class GPUConfig(BaseConfig):
+    gpus: Union[int, List[int]] = 0
+    """Use the number of GPUs specified if int, where 0 is no GPU. -1 is all GPUs.
+    Alternatively, if a list, uses the GPU-ids specified (e.g., [0, 2])."""
+
+    precision: Literal[16, 32] = 32
+    """The floating point precision to be used while training the model. Available
+    options are 32 or 16 bits."""
+
+    amp_level: Literal['O0', 'O1', 'O2', 'O3'] = 'O0'
+    """The automatic-mixed-precision level to use. O0 is FP32 training. 01 is mixed
+    precision training as popularized by NVIDIA Apex. O2 casts the model weights to FP16
+     but keeps certain master weights and batch norm in FP32 without patching Torch
+    functions. 03 is full FP16 training."""
+
+    @validator('gpus', pre=False, always=True)
+    def setup_gpu_ids(cls, v):
+        """If asking to use CPU, let it be, outputting a warning if GPUs are available.
+        If asking to use any GPU but none are available, fall back to CPU and warn user.
+        """
+        import torch
+
+        if v == 0:
+            if torch.cuda.is_available():
+                logger.info(
+                    f'Using CPU for training but there are {torch.cuda.device_count()} '
+                    f'GPUs available; set `trainer.gpus=-1` to use them.'
+                )
+        else:
+            if not torch.cuda.is_available():
+                logger.warning(
+                    f'Asked to use GPUs for training but none are available; '
+                    f'falling back to CPU (configuration was `trainer.gpus={v}`).'
+                )
+                v = 0
+
+        return v
+
+    @validator('amp_level', always=True)
+    def setup_amp_level(cls, v, values):
+        """If precision is set to 16, amp_level needs to be greater than O0.
+        Following the same logic, if amp_level is set to greater than O0, precision
+        needs to be set to 16."""
+
+        if values.get('precision') == 16 and v == ['O0']:
+            logger.warning(
+                'Precision set to FP16 but AMP_level set to O0. Setting to '
+                'O1 mixed precision training.'
+            )
+            return 'O1'
+        elif v in ['O1', 'O2', 'O3'] and values.get('precision') == 32:
+            logger.warning(
+                f'Precision set to FP32 but AMP_level set to {v}. Setting to '
+                'O0 full precision training.'
+            )
+            return 'O0'
+        return v
+
+
+class TrainerConfig(GPUConfig):
+    resume: bool = False
+    """Resume training a previous run.
+    The `run.run_id` (and possibly `run.experiment_name`) option must be specified.
+    Files are then searched under the "runs" directory. If not found, they are
+    downloaded from the MLflow server (check the `mlflow_tracking_uri` option)."""
+
+    epochs: int = 50
+    """Number of epochs for training."""
+
+    gradient_accumulation_steps: int = 1
+    """Accumulate gradients for the given number of steps (batches) before
+        back-propagating."""
+
+    gradient_max_norm: float = 0.0
+    """Clip gradients with norm above this value; by default (0.0), do not clip."""
+
+    main_metric: Union[str, List[str]] = None
+    """Choose Primary Metric for this run."""
+
+    log_interval: int = 100
+    """Log every k batches."""
+
+    log_save_interval: int = 100
+    """Save accumulated log every k batches (does not seem to
+    matter to MLflow logging)."""
+
+    checkpoint: CheckpointsConfig = CheckpointsConfig()
+
+    deterministic: bool = True
+    """If true enables cudnn.deterministic. Might make training slower, but ensures
+     reproducibility."""
+
+
+class Configuration(BaseConfig):
+    run: RunConfig
+    """Options specific to each run"""
+
+    trainer: TrainerConfig
+    data: WMTQEDataset.Config
+    system: QESystem.Config
+
+    debug: bool = False
+    """Run training in `fast_dev` mode; only one batch is used for training and
+    validation. This is useful to test out new models."""
+
+    verbose: bool = False
+    quiet: bool = False
+
+
+def train_from_file(filename) -> TrainRunInfo:
+    """Load options from a config file and calls the training procedure.
+
+    Arguments:
+        filename: of the configuration file.
+
+    Return:
+        an object with training information.
     """
-    Encapsulates relevant information on training runs.
+    config = load_config(filename)
+    return train_from_configuration(config)
 
-    Can be instantiated with a trainer object.
 
-    Attributes:
-        stats: Stats of the best model so far
-        model_path: Path of the best model so far
-        run_uuid: Unique identifier of the current run
+def train_from_configuration(configuration_dict) -> TrainRunInfo:
+    """Run the entire training pipeline using the configuration options received.
+
+    Arguments:
+        configuration_dict: dictionary with options.
+
+    Return: object with training information.
     """
+    config = Configuration(**configuration_dict)
 
-    def __init__(self, trainer):
-        # FIXME: linear trainer not yet supported here
-        #   (no full support to checkpointer)
-        self.stats = trainer.checkpointer.best_stats()
-        self.model_path = trainer.checkpointer.best_model_path()
-        self.run_uuid = tracking_logger.run_uuid
-
-
-def train_from_file(filename):
-    """
-    Loads options from a config file and calls the training procedure.
-
-    Args:
-        filename (str): filename of the configuration file
-    """
-    parser = build_parser()
-    options = parser.parse_config_file(filename)
-    return train_from_options(options)
-
-
-def train_from_options(options):
-    """
-    Runs the entire training pipeline using the configuration options received.
-
-    These options include the pipeline and model options plus the model's API.
-
-    Args:
-        options (Namespace): All the configuration options retrieved
-            from either a config file or input flags and the model
-            being used.
-    """
-    if options is None:
-        return
-
-    pipeline_options = options.pipeline
-    model_options = options.model
-    ModelClass = options.model_api
-
-    tracking_run = tracking_logger.configure(
-        run_uuid=pipeline_options.run_uuid,
-        experiment_name=pipeline_options.experiment_name,
-        run_name=pipeline_options.run_name,
-        tracking_uri=pipeline_options.mlflow_tracking_uri,
-        always_log_artifacts=pipeline_options.mlflow_always_log_artifacts,
-    )
-
-    with tracking_run:
-        output_dir = setup(
-            output_dir=pipeline_options.output_dir,
-            seed=pipeline_options.seed,
-            gpu_id=pipeline_options.gpu_id,
-            debug=pipeline_options.debug,
-            quiet=pipeline_options.quiet,
-        )
-
-        all_options = merge_namespaces(pipeline_options, model_options)
-        log(
-            output_dir,
-            config_options=vars(all_options),
-            save_config=pipeline_options.save_config,
-        )
-
-        trainer = run(ModelClass, output_dir, pipeline_options, model_options)
-        train_info = TrainRunInfo(trainer)
-
-    teardown(pipeline_options)
+    train_info = run(config)
 
     return train_info
 
 
-def run(ModelClass, output_dir, pipeline_options, model_options):
-    """
-    Implements the main logic of the training module.
+def setup_run(
+    config: RunConfig, debug=False, quiet=False, anchor_dir: Path = None
+) -> Tuple[Path, Optional[MLFlowTrackingLogger]]:
+    """Prepare for running the training pipeline.
 
-    Instantiates the dataset, model class and sets their attributes according
-    to the pipeline options received. Loads or creates a trainer and runs it.
+    This includes setting up the output directory, random seeds, and loggers.
 
-    Args:
-        ModelClass (Model): Python Type of the Model to train
-        output_dir: Directory to save models
-        pipeline_options (Namespace): Generic Train Options
-            load_model: load pre-trained predictor model
-            resume: load trainer state and resume training
-            gpu_id: Set to non-negative integer to train on GPU
-            train_batch_size: Batch Size for training
-            valid_batch_size: Batch size for validation
+    Arguments:
+        config: configuration options.
+        quiet: whether to suppress info log messages.
+        debug: whether to additionally log debug messages
+               (:param:`quiet` has precedence)
+        anchor_dir: directory to use as root for paths.
 
-        model_options(Namespace): Model Specific options
-
-    Returns:
-        The trainer object
-    """
-    model_name = getattr(ModelClass, "title", ModelClass.__name__)
-    logger.info("Training the {} model".format(model_name))
-    # FIXME: make sure all places use output_dir
-    # del pipeline_options.output_dir
-    pipeline_options.output_dir = None
-
-    # Data step
-    fieldset = ModelClass.fieldset(
-        wmt18_format=model_options.__dict__.get("wmt18_format")
-    )
-
-    datasets = retrieve_datasets(
-        fieldset, pipeline_options, model_options, output_dir
-    )
-    save_vocabularies_from_datasets(output_dir, *datasets)
-    if pipeline_options.save_data:
-        save_training_datasets(pipeline_options.save_data, *datasets)
-
-    # Trainer step
-    device_id = None
-    if pipeline_options.gpu_id is not None and pipeline_options.gpu_id >= 0:
-        device_id = pipeline_options.gpu_id
-
-    vocabs = utils.fields_to_vocabs(datasets[0].fields)
-
-    trainer = retrieve_trainer(
-        ModelClass,
-        pipeline_options,
-        model_options,
-        vocabs,
-        output_dir,
-        device_id,
-    )
-
-    logger.info(str(trainer.model))
-    logger.info("{} parameters".format(trainer.model.num_parameters()))
-    tracking_logger.log_param(
-        "model_parameters", trainer.model.num_parameters()
-    )
-
-    # Dataset iterators
-    train_iter = build_bucket_iterator(
-        datasets[0],
-        batch_size=pipeline_options.train_batch_size,
-        is_train=True,
-        device=device_id,
-    )
-    valid_iter = build_bucket_iterator(
-        datasets[1],
-        batch_size=pipeline_options.valid_batch_size,
-        is_train=False,
-        device=device_id,
-    )
-
-    trainer.run(train_iter, valid_iter, epochs=pipeline_options.epochs)
-
-    return trainer
-
-
-def retrieve_trainer(
-    ModelClass, pipeline_options, model_options, vocabs, output_dir, device_id
-):
-    """
-    Creates a Trainer object with an associated model.
-
-    This object encapsulates the logic behind training the model and
-    checkpointing. This method uses the received pipeline options to
-    instantiate a Trainer object with the the requested model and
-    hyperparameters.
-
-    Args:
-        ModelClass
-        pipeline_options (Namespace): Generic training options
-            resume (bool): Set to true if resuming an existing run.
-            load_model (str): Directory containing model.torch for loading
-                pre-created model.
-            checkpoint_save (bool): Boolean indicating if snapshots should be
-                saved after validation runs. warning: if false, will never save
-                the model.
-            checkpoint_keep_only_best (int): Indicates kiwi to keep the best
-                `n` models.
-            checkpoint_early_stop_patience (int): Stops training if metrics
-                don't improve after `n` validation runs.
-            checkpoint_validation_steps (int): Perform validation every `n`
-                training steps.
-            optimizer (string): The optimizer to be used in training.
-            learning_rate (float): Starting learning rate.
-            learning_rate_decay (float): Factor of learning rate decay.
-            learning_rate_decay_start (int): Start decay after epoch `x`.
-            log_interval (int): Log after `k` batches.
-        model_options (Namespace): Model specific options.
-        vocabs (dict): Vocab dictionary.
-        output_dir (str or Path): Output directory for models and stats
-            concerning training.
-        device_id (int): The gpu id to be used in training. Set to negative
-            to use cpu.
-    Returns:
-        Trainer
-
+    Return:
+         a tuple with the resolved path to the output directory and the experiment
+         logger (``None`` if not configured).
     """
 
-    if pipeline_options.resume:
-        return Trainer.resume(local_path=output_dir, device_id=device_id)
-
-    if pipeline_options.load_model:
-        model = Model.create_from_file(pipeline_options.load_model)
+    # Setup tracking logger
+    if config.use_mlflow:
+        tracking_logger = MLFlowTrackingLogger(
+            experiment_name=config.experiment_name,
+            run_id=config.run_id,
+            tracking_uri=config.mlflow_tracking_uri,
+            always_log_artifacts=config.mlflow_always_log_artifacts,
+        )
+        experiment_id = tracking_logger.experiment_id
+        run_id = tracking_logger.run_id
     else:
-        model = ModelClass.from_options(vocabs=vocabs, opts=model_options)
+        tracking_logger = None
+        experiment_id = 0
+        run_id = config.run_id or uuid.uuid4().hex  # Create hash if needed
 
-    checkpointer = Checkpoint(
-        output_dir,
-        pipeline_options.checkpoint_save,
-        pipeline_options.checkpoint_keep_only_best,
-        pipeline_options.checkpoint_early_stop_patience,
-        pipeline_options.checkpoint_validation_steps,
-    )
+    # Setup output directory
+    output_dir = config.output_dir
+    if not output_dir:
+        output_dir = Path('runs') / str(experiment_id) / run_id
+        if anchor_dir:
+            output_dir = anchor_dir / output_dir
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    if isinstance(model, LinearWordQEClassifier):
-        trainer = LinearWordQETrainer(
-            model,
-            model_options.training_algorithm,
-            model_options.regularization_constant,
-            checkpointer,
-        )
-    else:
-        # Set GPU or CPU; has to be before instantiating the optimizer
-        model.to(device_id)
+    configure_logging(output_dir=output_dir, verbose=debug, quiet=quiet)
+    configure_seed(config.seed)
 
-        # Optimizer
-        OptimizerClass = optimizer_class(pipeline_options.optimizer)
-        optimizer = OptimizerClass(
-            model.parameters(), lr=pipeline_options.learning_rate
-        )
-        scheduler = None
-        if 0.0 < pipeline_options.learning_rate_decay < 1.0:
-            scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-                optimizer,
-                factor=pipeline_options.learning_rate_decay,
-                patience=pipeline_options.learning_rate_decay_start,
-                verbose=True,
-                mode="max",
-            )
-
-        trainer = Trainer(
-            model,
-            optimizer,
-            checkpointer,
-            log_interval=pipeline_options.log_interval,
-            scheduler=scheduler,
-        )
-    return trainer
-
-
-def retrieve_datasets(fieldset, pipeline_options, model_options, output_dir):
-    """
-    Creates `Dataset` objects for the training and validation sets.
-
-    Parses files according to pipeline and model options.
-
-    Args:
-        fieldset
-        pipeline_options (Namespace): Generic training options
-            load_data (str): Input directory for loading preprocessed data
-                files.
-            load_model (str): Directory containing model.torch for loading
-                pre-created model.
-            resume (boolean): Indicates if you should resume training from a
-                previous run.
-            load_vocab (str): Directory containing vocab.torch file to be
-                loaded.
-        model_options (Namespace): Model specific options.
-        output_dir (str): Path to directory where experiment files should be
-            saved.
-
-    Returns:
-        datasets (Dataset): Training and validation datasets
-    """
-    if pipeline_options.load_data:
-        datasets = utils.load_training_datasets(
-            pipeline_options.load_data, fieldset
-        )
-    else:
-        load_vocab = None
-
-        if pipeline_options.resume:
-            load_vocab = Path(output_dir, const.VOCAB_FILE)
-        elif pipeline_options.load_model:
-            load_vocab = pipeline_options.load_model
-        elif model_options.__dict__.get("load_pred_source"):
-            load_vocab = model_options.load_pred_source
-        elif model_options.__dict__.get("load_pred_target"):
-            load_vocab = model_options.load_pred_target
-        elif pipeline_options.load_vocab:
-            load_vocab = pipeline_options.load_vocab
-
-        datasets = builders.build_training_datasets(
-            fieldset, load_vocab=load_vocab, **vars(model_options)
-        )
-    return datasets
-
-
-def setup(output_dir, seed=42, gpu_id=None, debug=False, quiet=False):
-    """
-    Analyzes pipeline options and sets up requirements for running the training
-    pipeline.
-
-    This includes setting up the output directory, random seeds and the
-    device(s) where training is run.
-
-    Args:
-        output_dir: Path to directory to use or None, in which case one is
-            created automatically.
-        seed (int): Random seed for all random engines (Python, PyTorch, NumPy).
-        gpu_id (int): GPU number to use or `None` to use the CPU.
-        debug (bool): Whether to increase the verbosity of output messages.
-        quiet (bool): Whether to decrease the verbosity of output messages.
-            Takes precedence over `debug`.
-
-    Returns:
-        output_dir(str): Path to output directory
-    """
-    output_dir = setup_output_directory(
-        output_dir,
-        tracking_logger.run_uuid,
-        tracking_logger.experiment_id,
-        create=True,
-    )
-    configure_logging(output_dir=output_dir, debug=debug, quiet=quiet)
-    configure_seed(seed)
-
-    logging.info("This is run ID: {}".format(tracking_logger.run_uuid))
+    logging.info(f'This is run ID: {run_id}')
     logging.info(
-        "Inside experiment ID: {} ({})".format(
-            tracking_logger.experiment_id, tracking_logger.experiment_name
-        )
+        f'Inside experiment ID: ' f'{experiment_id} ({config.experiment_name})'
     )
-    logging.info("Local output directory is: {}".format(output_dir))
-    logging.info(
-        "Logging execution to MLflow at: {}".format(
-            tracking_logger.get_tracking_uri()
-        )
-    )
+    logging.info(f'Local output directory is: {output_dir}')
 
-    if gpu_id is not None and gpu_id >= 0:
-        torch.cuda.set_device(gpu_id)
-        logging.info("Using GPU: {}".format(gpu_id))
-    else:
-        logging.info("Using CPU")
+    if tracking_logger:
+        logging.info(f'Logging execution to MLFlow at: {tracking_logger.tracking_uri}')
+        logging.info(f'Artifacts location: {tracking_logger.get_artifact_uri()}')
 
-    logging.info(
-        "Artifacts location: {}".format(tracking_logger.get_artifact_uri())
-    )
-
-    return output_dir
+    return output_dir, tracking_logger
 
 
-def teardown(options):
-    """
-    Tears down after executing prediction pipeline.
+def run(
+    config: Configuration,
+    system_type: Union[Type[TLMSystem], Type[QESystem]] = QESystem,
+) -> TrainRunInfo:
+    """Instantiate the system according to the configuration and train it.
+
+    Load or create a trainer for doing it.
 
     Args:
-        options(Namespace): Pipeline specific options
+        config: generic training options.
+        system_type: class of system being used.
+
+    Return:
+        an object with training information.
     """
-    pass
+    output_dir, tracking_logger = setup_run(
+        config.run, debug=config.verbose, quiet=config.quiet,
+    )
 
+    # Log configuration options for the current training run
+    logging.debug(pformat(config.dict()))
+    config_file = output_dir / 'train_config.yaml'
+    save_config_to_file(config, config_file)
+    if tracking_logger:
+        tracking_logger.log_artifact(config_file)
+        tracking_logger.log_param('output_dir', output_dir)
+        tracking_logger.log_hyperparams(config.dict())
 
-def log(
-    output_dir,
-    config_options,
-    config_file_name="train_config.yml",
-    save_config=None,
-):
-    """
-    Logs configuration options for the current training run.
+    # Instantiate system (i.e., model)
+    system = system_type.from_config(config.system, data_config=config.data)
 
-    Args:
-        output_dir (str): Path to directory where experiment files should be
-            saved.
-        config_options (Namespace): Namespace representing all configuration
-            options.
-        config_file_name (str): Filename of the config file
-        save_config (str or Path): Boolean stating if you should save a
-            configuration file.
+    logging.info(f'Training the {config.system.class_name} model')
+    logging.info(str(system))
+    logging.info(f'{system.num_parameters()} parameters')
+    if tracking_logger:
+        model_description = (
+            f"## Number of parameters: {system.num_parameters()}\n\n"
+            f"## Model architecture\n"
+            f"```\n{system}\n```\n"
+        )
+        tracking_logger.log_tag('mlflow.note.content', model_description)
 
-    """
-    logging.debug(pformat(config_options))
-    config_file_copy = Path(output_dir, config_file_name)
-    save_args_to_file(config_file_copy, **config_options)
-    if tracking_logger.should_log_artifacts():
-        tracking_logger.log_artifact(str(config_file_copy))
+    metric_name, metric_ordering = system.main_metric(config.trainer.main_metric)
+    metric_name = f'val_{metric_name}'
+    checkpoint_callback = ModelCheckpoint(
+        filepath=str(
+            output_dir / f'checkpoints/model_{{epoch:02d}}-{{{metric_name}:.2f}}'
+        ),
+        monitor=metric_name,
+        mode=metric_ordering,
+        save_top_k=config.trainer.checkpoint.save_top_k,
+        save_weights_only=True,
+        verbose=True,
+        period=0,  # Always allow saving checkpoint even within the same epoch
+    )
+    early_stop_callback = EarlyStopping(
+        monitor=metric_name,
+        mode=metric_ordering,
+        patience=config.trainer.checkpoint.early_stop_patience,
+        verbose=True,
+    )
+    best_metrics_callback = BestMetricsInfo(monitor=metric_name, mode=metric_ordering)
 
-    if save_config:
-        save_args_to_file(save_config, output_dir=output_dir, **config_options)
+    trainer = pl.Trainer(
+        logger=tracking_logger or False,
+        checkpoint_callback=checkpoint_callback,
+        early_stop_callback=early_stop_callback,
+        callbacks=[best_metrics_callback],
+        gpus=config.trainer.gpus,
+        #
+        max_epochs=config.trainer.epochs,
+        min_epochs=1,
+        #
+        check_val_every_n_epoch=1,
+        val_check_interval=config.trainer.checkpoint.validation_steps,
+        #
+        accumulate_grad_batches=config.trainer.gradient_accumulation_steps,
+        gradient_clip_val=config.trainer.gradient_max_norm,
+        #
+        progress_bar_refresh_rate=logger.isEnabledFor(logging.INFO),
+        log_save_interval=config.trainer.log_save_interval,
+        row_log_interval=config.trainer.log_interval,
+        # Debugging and informative flags
+        log_gpu_memory='min_max',
+        weights_summary=(None if config.quiet else 'full'),
+        #
+        num_sanity_val_steps=5,
+        deterministic=config.trainer.deterministic,
+        fast_dev_run=config.debug,
+        # For eventual extra performance
+        amp_level=config.trainer.amp_level,
+        precision=config.trainer.precision,
+        #
+    )
+    trainer.fit(system)
 
-    # Log parameters
-    tracking_logger.log_param("output_dir", output_dir)
-    tracking_logger.log_param("save_config", save_config)
-    for param, value in config_options.items():
-        tracking_logger.log_param(param, value)
+    # Get best model path in case there have been checkpoints saved
+    best_model_path = checkpoint_callback.best_model_path
+    if not best_model_path:
+        logger.warning(
+            'No checkpoint was saved. Exiting gracefully and returning training info.'
+        )
+        run_info = TrainRunInfo(
+            model=trainer.model,
+            best_metrics=best_metrics_callback.best_metrics,
+            best_model_path=None,
+        )
+        return run_info
+
+    if tracking_logger:
+        # Send best model file to logger
+        tracking_logger.log_model(best_model_path)
+
+    # Load best model and predict
+    if system_type == QESystem:
+        # TLMSystems don't need to create predictions over the validation set
+        logger.info(
+            'Finished training. Using best checkpoint to make predictions on the '
+            'validation set (and test set, if configured).'
+        )
+        runner = load_system(
+            best_model_path,
+            gpu_id=None if config.trainer.gpus == 0 else torch.cuda.current_device(),
+        )
+        data_config = config.data.copy()
+        data_config.train = None  # Avoid loading the train dataset
+        runner.system.set_config_options(data_config=data_config)
+
+        # Get and save predictions on the validation set
+        predictions = runner.run(runner.system.val_dataloader())
+        save_predicted_probabilities(output_dir, predictions)
+        # Run evaluation and report it
+        eval_config = evaluate.Configuration(
+            gold_files=config.data.valid.output, predicted_dir=output_dir,
+        )
+        metrics = evaluate.run(eval_config)
+        logger.info(f'Evaluation on the validation set:\n{metrics}')
+
+        if config.data.test:
+            logger.info('Predicting on the test set...')
+            predictions = runner.run(runner.system.test_dataloader())
+            save_predicted_probabilities(output_dir / 'test', predictions)
+
+    run_info = TrainRunInfo(
+        model=trainer.model,
+        best_metrics=best_metrics_callback.best_metrics,
+        best_model_path=best_model_path,
+    )
+
+    return run_info

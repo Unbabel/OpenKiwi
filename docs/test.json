@@ -1,0 +1,590 @@
+{
+  "title": "Configuration",
+  "type": "object",
+  "properties": {
+    "run": {
+      "$ref": "#/definitions/RunConfig"
+    },
+    "trainer": {
+      "$ref": "#/definitions/TrainerConfig"
+    },
+    "data": {
+      "$ref": "#/definitions/kiwi__data__datasets__wmt_qe_dataset__Config"
+    },
+    "system": {
+      "$ref": "#/definitions/kiwi__systems__qe_system__Config"
+    },
+    "debug": {
+      "title": "Debug",
+      "default": false,
+      "type": "boolean"
+    },
+    "verbose": {
+      "title": "Verbose",
+      "default": false,
+      "type": "boolean"
+    },
+    "quiet": {
+      "title": "Quiet",
+      "default": false,
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "run",
+    "trainer",
+    "data",
+    "system"
+  ],
+  "definitions": {
+    "RunConfig": {
+      "title": "RunConfig",
+      "description": "Options for each run",
+      "type": "object",
+      "properties": {
+        "seed": {
+          "title": "Seed",
+          "default": 42,
+          "type": "integer"
+        },
+        "experiment_name": {
+          "title": "Experiment Name",
+          "default": "default",
+          "type": "string"
+        },
+        "output_dir": {
+          "title": "Output Dir",
+          "type": "string",
+          "format": "path"
+        },
+        "run_id": {
+          "title": "Run Id",
+          "type": "string"
+        },
+        "use_mlflow": {
+          "title": "Use Mlflow",
+          "default": false,
+          "type": "boolean"
+        },
+        "mlflow_tracking_uri": {
+          "title": "Mlflow Tracking Uri",
+          "default": "mlruns/",
+          "type": "string"
+        },
+        "mlflow_always_log_artifacts": {
+          "title": "Mlflow Always Log Artifacts",
+          "default": false,
+          "type": "boolean"
+        }
+      }
+    },
+    "CheckpointsConfig": {
+      "title": "CheckpointsConfig",
+      "type": "object",
+      "properties": {
+        "validation_steps": {
+          "title": "Validation Steps",
+          "default": 1.0,
+          "anyOf": [
+            {
+              "type": "number",
+              "exclusiveMinimum": 0.0,
+              "maximum": 1.0
+            },
+            {
+              "type": "integer",
+              "exclusiveMinimum": 0
+            }
+          ]
+        },
+        "save_top_k": {
+          "title": "Save Top K",
+          "default": 1,
+          "type": "integer"
+        },
+        "early_stop_patience": {
+          "title": "Early Stop Patience",
+          "default": 0,
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "TrainerConfig": {
+      "title": "TrainerConfig",
+      "type": "object",
+      "properties": {
+        "gpus": {
+          "title": "Gpus",
+          "default": 0,
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
+            }
+          ]
+        },
+        "resume": {
+          "title": "Resume",
+          "default": false,
+          "type": "boolean"
+        },
+        "epochs": {
+          "title": "Epochs",
+          "default": 50,
+          "type": "integer"
+        },
+        "gradient_accumulation_steps": {
+          "title": "Gradient Accumulation Steps",
+          "default": 1,
+          "type": "integer"
+        },
+        "gradient_max_norm": {
+          "title": "Gradient Max Norm",
+          "default": 0.0,
+          "type": "number"
+        },
+        "main_metric": {
+          "title": "Main Metric",
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          ]
+        },
+        "log_interval": {
+          "title": "Log Interval",
+          "default": 100,
+          "type": "integer"
+        },
+        "log_save_interval": {
+          "title": "Log Save Interval",
+          "default": 100,
+          "type": "integer"
+        },
+        "checkpoint": {
+          "title": "Checkpoint",
+          "default": {
+            "validation_steps": 1.0,
+            "save_top_k": 1,
+            "early_stop_patience": 0
+          },
+          "allOf": [
+            {
+              "$ref": "#/definitions/CheckpointsConfig"
+            }
+          ]
+        }
+      }
+    },
+    "InputConfig": {
+      "title": "InputConfig",
+      "type": "object",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string",
+          "format": "file-path"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string",
+          "format": "file-path"
+        },
+        "alignments": {
+          "title": "Alignments",
+          "type": "string",
+          "format": "file-path"
+        },
+        "post_edit": {
+          "title": "Post Edit",
+          "type": "string",
+          "format": "file-path"
+        },
+        "source_pos": {
+          "title": "Source Pos",
+          "type": "string",
+          "format": "file-path"
+        },
+        "target_pos": {
+          "title": "Target Pos",
+          "type": "string",
+          "format": "file-path"
+        }
+      },
+      "required": [
+        "source",
+        "target"
+      ]
+    },
+    "OutputConfig": {
+      "title": "OutputConfig",
+      "type": "object",
+      "properties": {
+        "target_tags": {
+          "title": "Target Tags",
+          "type": "string",
+          "format": "file-path"
+        },
+        "source_tags": {
+          "title": "Source Tags",
+          "type": "string",
+          "format": "file-path"
+        },
+        "sentence_scores": {
+          "title": "Sentence Scores",
+          "type": "string",
+          "format": "file-path"
+        }
+      }
+    },
+    "TrainingConfig": {
+      "title": "TrainingConfig",
+      "type": "object",
+      "properties": {
+        "input": {
+          "$ref": "#/definitions/InputConfig"
+        },
+        "output": {
+          "$ref": "#/definitions/OutputConfig"
+        }
+      },
+      "required": [
+        "input",
+        "output"
+      ]
+    },
+    "TestConfig": {
+      "title": "TestConfig",
+      "type": "object",
+      "properties": {
+        "input": {
+          "$ref": "#/definitions/InputConfig"
+        }
+      },
+      "required": [
+        "input"
+      ]
+    },
+    "kiwi__data__datasets__wmt_qe_dataset__Config": {
+      "title": "Config",
+      "type": "object",
+      "properties": {
+        "lazy_loading": {
+          "title": "Lazy Loading",
+          "default": false,
+          "type": "boolean"
+        },
+        "buffer_size": {
+          "title": "Buffer Size",
+          "type": "integer"
+        },
+        "train": {
+          "$ref": "#/definitions/TrainingConfig"
+        },
+        "valid": {
+          "$ref": "#/definitions/TrainingConfig"
+        },
+        "test": {
+          "$ref": "#/definitions/TestConfig"
+        },
+        "split": {
+          "title": "Split",
+          "type": "number",
+          "exclusiveMinimum": 0.0,
+          "exclusiveMaximum": 1.0
+        }
+      }
+    },
+    "InputFields_PositiveInt_": {
+      "title": "InputFields[PositiveInt]",
+      "type": "object",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "target": {
+          "title": "Target",
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "source",
+        "target"
+      ]
+    },
+    "InputFields_typing.Union_pydantic.types.PositiveInt__NoneType__": {
+      "title": "InputFields[typing.Union[pydantic.types.PositiveInt, NoneType]]",
+      "type": "object",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "target": {
+          "title": "Target",
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "source",
+        "target"
+      ]
+    },
+    "VocabularyConfig": {
+      "title": "VocabularyConfig",
+      "type": "object",
+      "properties": {
+        "min_frequency": {
+          "title": "Min Frequency",
+          "default": 1,
+          "allOf": [
+            {
+              "$ref": "#/definitions/InputFields_PositiveInt_"
+            }
+          ]
+        },
+        "max_size": {
+          "$ref": "#/definitions/InputFields_typing.Union_pydantic.types.PositiveInt__NoneType__"
+        },
+        "keep_rare_words_with_embeddings": {
+          "title": "Keep Rare Words With Embeddings",
+          "default": false,
+          "type": "boolean"
+        },
+        "add_embeddings_vocab": {
+          "title": "Add Embeddings Vocab",
+          "default": false,
+          "type": "boolean"
+        }
+      }
+    },
+    "EmbeddingsConfig": {
+      "title": "EmbeddingsConfig",
+      "description": "Paths to word embeddings file for each input field.",
+      "type": "object",
+      "properties": {
+        "source": {
+          "title": "Source",
+          "type": "string",
+          "format": "path"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string",
+          "format": "path"
+        },
+        "post_edit": {
+          "title": "Post Edit",
+          "type": "string",
+          "format": "path"
+        },
+        "source_pos": {
+          "title": "Source Pos",
+          "type": "string",
+          "format": "path"
+        },
+        "target_pos": {
+          "title": "Target Pos",
+          "type": "string",
+          "format": "path"
+        },
+        "format": {
+          "title": "Format",
+          "default": "polyglot",
+          "anyOf": [
+            {
+              "const": "polyglot",
+              "type": "string"
+            },
+            {
+              "const": "word2vec",
+              "type": "string"
+            },
+            {
+              "const": "fasttext",
+              "type": "string"
+            },
+            {
+              "const": "glove",
+              "type": "string"
+            },
+            {
+              "const": "text",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "kiwi__data__encoders__wmt_qe_data_encoder__Config": {
+      "title": "Config",
+      "type": "object",
+      "properties": {
+        "share_input_fields_encoders": {
+          "title": "Share Input Fields Encoders",
+          "default": false,
+          "type": "boolean"
+        },
+        "vocab": {
+          "title": "Vocab",
+          "default": {
+            "min_frequency": {
+              "source": 1,
+              "target": 1
+            },
+            "max_size": {
+              "source": null,
+              "target": null
+            },
+            "keep_rare_words_with_embeddings": false,
+            "add_embeddings_vocab": false
+          },
+          "allOf": [
+            {
+              "$ref": "#/definitions/VocabularyConfig"
+            }
+          ]
+        },
+        "embeddings": {
+          "$ref": "#/definitions/EmbeddingsConfig"
+        }
+      }
+    },
+    "OptimizerConfig": {
+      "title": "OptimizerConfig",
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "title": "Class Name",
+          "type": "string"
+        },
+        "learning_rate": {
+          "title": "Learning Rate",
+          "type": "number"
+        },
+        "warmup_steps": {
+          "title": "Warmup Steps",
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "integer"
+            }
+          ]
+        },
+        "training_steps": {
+          "title": "Training Steps",
+          "type": "integer"
+        },
+        "learning_rate_decay": {
+          "title": "Learning Rate Decay",
+          "default": 1.0,
+          "type": "number"
+        },
+        "learning_rate_decay_start": {
+          "title": "Learning Rate Decay Start",
+          "default": 2,
+          "type": "integer"
+        },
+        "load": {
+          "title": "Load",
+          "type": "string",
+          "format": "path"
+        }
+      },
+      "required": [
+        "class_name",
+        "learning_rate"
+      ]
+    },
+    "BatchSizeConfig": {
+      "title": "BatchSizeConfig",
+      "type": "object",
+      "properties": {
+        "train": {
+          "title": "Train",
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "valid": {
+          "title": "Valid",
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "test": {
+          "title": "Test",
+          "type": "integer",
+          "exclusiveMinimum": 0
+        }
+      }
+    },
+    "kiwi__systems__qe_system__Config": {
+      "title": "Config",
+      "description": "System configuration base class.",
+      "type": "object",
+      "properties": {
+        "class_name": {
+          "title": "Class Name",
+          "type": "string"
+        },
+        "load": {
+          "title": "Load",
+          "type": "string",
+          "format": "path"
+        },
+        "load_encoder": {
+          "title": "Load Encoder",
+          "type": "string",
+          "format": "path"
+        },
+        "load_vocabs": {
+          "title": "Load Vocabs",
+          "type": "string",
+          "format": "path"
+        },
+        "model": {
+          "title": "Model",
+          "type": "object"
+        },
+        "data_processing": {
+          "$ref": "#/definitions/kiwi__data__encoders__wmt_qe_data_encoder__Config"
+        },
+        "optimizer": {
+          "$ref": "#/definitions/OptimizerConfig"
+        },
+        "batch_size": {
+          "title": "Batch Size",
+          "default": 1,
+          "allOf": [
+            {
+              "$ref": "#/definitions/BatchSizeConfig"
+            }
+          ]
+        },
+        "num_data_workers": {
+          "title": "Num Data Workers",
+          "default": 4,
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

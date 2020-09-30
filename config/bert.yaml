@@ -1,0 +1,102 @@
+run:
+    ###################################################
+    # Generic configurations options related to
+    #  handling of experiments
+
+    experiment_name: BERT-Estimator WMT19 Target en_de.nmt
+    seed: 42
+    mlflow_tracking_uri: mlruns/
+    # output_dir: null  # mlflow will create one if this is null
+    use_mlflow: false
+
+trainer:
+    ###################################################
+    # Generic options related to the training process
+    #  that apply to all models
+
+    gpus: -1
+    log_interval: 100
+    epochs: 10
+
+    main_metric:
+        - PEARSON
+        - WMT19_F1_MULT
+
+    checkpoint:
+        validation_steps: 250
+        early_stop_patience: 20
+
+    gradient_max_norm: 1.
+
+defaults:
+    ###################################################
+    # Example of composition of configuration files
+    #  this config is sourced from /config/data/wmt19.qe.en_de.yaml
+
+    - data: wmt19.qe.en_de
+
+system:
+    ###################################################
+    # System configs are responsible for all the system
+    #  specific configurations. From model settings to
+    #  optimizers and specific processing options.
+
+    # All configs must have either `class_name` or `load`
+    class_name: Bert
+
+    batch_size: 12
+    num_data_workers: 4
+
+    model:
+        ################################################
+        # Modeling options. These can change a lot about
+        #  the architecture of the system. With many configuration
+        #  options adding (or removing) layers.
+
+        encoder:
+            model_name: bert-base-multilingual-cased
+            # model_name: data/trained_models/bert/finetuned_simple_en_de_indomain
+            interleave_input: false
+            freeze: false
+            use_mismatch_features: false
+            use_predictor_features: false
+            encode_source: false
+
+        decoder:
+            hidden_size: 250
+            dropout: 0.0
+
+        outputs:
+            ####################################################
+            # Output options configure the downstream tasks the
+            #  model will be trained on by adding specific layers
+            #  responsible for transforming decoder features into
+            #  predictions.
+            word_level:
+                target: true
+                gaps: true
+                source: false
+                class_weights:
+                    target_tags:
+                        BAD: 3.0
+                    gap_tags:
+                        BAD: 5.0
+                    source_tags:
+                        BAD: 3.0
+            sentence_level:
+                hter: true
+                use_distribution: true
+                binary: false
+            sentence_loss_weight: 1
+
+        tlm_outputs:
+            fine_tune: false
+
+    optimizer:
+        class_name: adamw
+        learning_rate: 0.00001
+        warmup_steps: 0.1
+        training_steps: 12000
+
+    data_processing:
+        share_input_fields_encoders: true

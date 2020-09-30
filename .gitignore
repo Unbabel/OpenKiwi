@@ -116,7 +116,6 @@ venv.bak/
 # Data Folder
 /data/
 
-
 # Logs Folder
 log/
 
@@ -146,3 +145,10 @@ runners/
 
 #vim files
 *.swp
+
+# Generated docs
+/docs/html/
+/docs/.doctrees
+
+# Wheel Metadata
+pip-wheel-metadata/

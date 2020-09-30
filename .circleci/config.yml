@@ -3,12 +3,11 @@ version: 2
 jobs:
     lint:
         docker:
-            - image: circleci/python:3.6-stretch
+            - image: circleci/python:3.7.9
         steps:
             - checkout
             - run:
                   command: |
-                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev
                       sudo pip install poetry
                       export POETRY_VIRTUALENVS_CREATE=false
                       sudo pip install tox
@@ -17,13 +16,12 @@ jobs:
 #        environment:
 #            CC_TEST_REPORTER_ID: CIRCLECI_CC_TEST_REPORTER_ID
         docker:
-            - image: circleci/python:3.6-stretch
+            - image: circleci/python:3.7.9
         steps:
             - checkout
             - run:
                   name: Prepare system
                   command: |
-                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev
                       sudo pip install poetry
                       export POETRY_VIRTUALENVS_CREATE=false
                       sudo pip install tox
@@ -35,7 +33,7 @@ jobs:
                       ./cc-test-reporter before-build
             - run:
                   name: Run Python tests
-                  command: tox -e py
+                  command: tox -e test
             - run:
                   name: CodeClimate combine and upload coverage
                   command: |
@@ -44,7 +42,7 @@ jobs:
                       ./cc-test-reporter upload-coverage || true
     pages:
         docker:
-            - image: circleci/python:3.6-stretch
+            - image: circleci/python:3.7.9
         steps:
             - add_ssh_keys:
                   fingerprints:
@@ -53,7 +51,6 @@ jobs:
             - run:
                   name: Prepare system
                   command: |
-                      sudo apt-get update && sudo apt-get install -y --no-install-recommends libpython3.5-dev python3.5-dev openssh-client
                       sudo pip install poetry
                       export POETRY_VIRTUALENVS_CREATE=false
                       sudo pip install tox
@@ -76,7 +73,7 @@ jobs:
                       git push git@github.com:Unbabel/OpenKiwi.git gh-pages
     pypi:
         docker:
-            - image: circleci/python:3.6-stretch
+            - image: circleci/python:3.7.9
         steps:
             - checkout
             - run:
