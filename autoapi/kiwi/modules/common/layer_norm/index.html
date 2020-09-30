@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.modules.common.layer_norm &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="kiwi.modules.common.positional_encoding" href="../positional_encoding/index.html" />
+    <link rel="prev" title="kiwi.modules.common.distributions" href="../distributions/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../../index.html">
+      <img src="../../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.modules.common.layer_norm.LayerNorm" class="nav-link">LayerNorm</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.layer_norm.LayerNorm.forward" class="nav-link">forward</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.modules.common.layer_norm.TFLayerNorm" class="nav-link">TFLayerNorm</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.layer_norm.TFLayerNorm.forward" class="nav-link">forward</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.modules.common.layer_norm">
+<span id="kiwi-modules-common-layer-norm"></span><h1><a class="reference internal" href="#module-kiwi.modules.common.layer_norm" title="kiwi.modules.common.layer_norm"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.layer_norm</span></code></a><a class="headerlink" href="#module-kiwi.modules.common.layer_norm" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.modules.common.layer_norm.LayerNorm" title="kiwi.modules.common.layer_norm.LayerNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LayerNorm</span></code></a></p></td>
+<td><p>Construct a layer normalization module.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.modules.common.layer_norm.TFLayerNorm" title="kiwi.modules.common.layer_norm.TFLayerNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TFLayerNorm</span></code></a></p></td>
+<td><p>Construct a layer normalization module with epsilon inside the</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="kiwi.modules.common.layer_norm.LayerNorm">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.modules.common.layer_norm.</code><code class="sig-name descname">LayerNorm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hidden_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em>, <em class="sig-param"><span class="n">eps</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span> <span class="o">=</span> <span class="default_value">1e-12</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.layer_norm.LayerNorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
+<p>Construct a layer normalization module.</p>
+<p>It normalizes the outputs of neurons for a given layer:
+<span class="math notranslate nohighlight">\(out = (\gamma * (x - x.mean(-1)) / (x.std(-1) + \epsilon)) + \beta\)</span></p>
+<p class="rubric">References</p>
+<p><a class="reference external" href="https://arxiv.org/abs/1607.06450">https://arxiv.org/abs/1607.06450</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hidden_size</strong> – number of neurons in the layer x.</p></li>
+<li><p><strong>eps</strong> – factor to prevent division by zero.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="kiwi.modules.common.layer_norm.LayerNorm.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.layer_norm.LayerNorm.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.modules.common.layer_norm.TFLayerNorm">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.modules.common.layer_norm.</code><code class="sig-name descname">TFLayerNorm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hidden_size</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.layer_norm.TFLayerNorm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
+<p>Construct a layer normalization module with epsilon inside the
+square root (tensorflow style).</p>
+<p>This is equivalent to HuggingFace’s BertLayerNorm module.</p>
+<dl class="py method">
+<dt id="kiwi.modules.common.layer_norm.TFLayerNorm.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.layer_norm.TFLayerNorm.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../distributions/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.distributions</span></code></a>
+    <a class='right-next' id="next-link" href="../positional_encoding/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.positional_encoding</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,431 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.runner &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="prev" title="kiwi.loggers" href="../loggers/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../index.html">
+      <img src="../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.runner.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.runner.Predictions" class="nav-link">Predictions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Predictions.sentences_hter" class="nav-link">sentences_hter</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Predictions.target_tags_BAD_probabilities" class="nav-link">target_tags_BAD_probabilities</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Predictions.target_tags_labels" class="nav-link">target_tags_labels</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Predictions.source_tags_BAD_probabilities" class="nav-link">source_tags_BAD_probabilities</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Predictions.source_tags_labels" class="nav-link">source_tags_labels</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Predictions.gap_tags_BAD_probabilities" class="nav-link">gap_tags_BAD_probabilities</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Predictions.gap_tags_labels" class="nav-link">gap_tags_labels</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.runner.Runner" class="nav-link">Runner</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Runner.configure_outputs" class="nav-link">configure_outputs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Runner.wrap_predictions" class="nav-link">wrap_predictions</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Runner.predict" class="nav-link">predict</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Runner.run" class="nav-link">run</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Runner.remove_empty_sentences" class="nav-link">remove_empty_sentences</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.runner.Runner.insert_dummy_outputs_for_empty_sentences" class="nav-link">insert_dummy_outputs_for_empty_sentences</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.runner">
+<span id="kiwi-runner"></span><h1><a class="reference internal" href="#module-kiwi.runner" title="kiwi.runner"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.runner</span></code></a><a class="headerlink" href="#module-kiwi.runner" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.runner.Predictions" title="kiwi.runner.Predictions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Predictions</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.runner.Runner" title="kiwi.runner.Runner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Runner</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.runner.logger">
+<code class="sig-prename descclassname">kiwi.runner.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.runner.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.runner.Predictions">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.runner.</code><code class="sig-name descname">Predictions</code><a class="headerlink" href="#kiwi.runner.Predictions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt id="kiwi.runner.Predictions.sentences_hter">
+<code class="sig-name descname">sentences_hter</code><em class="property"> :List[float]</em><a class="headerlink" href="#kiwi.runner.Predictions.sentences_hter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.runner.Predictions.target_tags_BAD_probabilities">
+<code class="sig-name descname">target_tags_BAD_probabilities</code><em class="property"> :List[List[float]]</em><a class="headerlink" href="#kiwi.runner.Predictions.target_tags_BAD_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.runner.Predictions.target_tags_labels">
+<code class="sig-name descname">target_tags_labels</code><em class="property"> :List[List[str]]</em><a class="headerlink" href="#kiwi.runner.Predictions.target_tags_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.runner.Predictions.source_tags_BAD_probabilities">
+<code class="sig-name descname">source_tags_BAD_probabilities</code><em class="property"> :List[List[float]]</em><a class="headerlink" href="#kiwi.runner.Predictions.source_tags_BAD_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.runner.Predictions.source_tags_labels">
+<code class="sig-name descname">source_tags_labels</code><em class="property"> :List[List[str]]</em><a class="headerlink" href="#kiwi.runner.Predictions.source_tags_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.runner.Predictions.gap_tags_BAD_probabilities">
+<code class="sig-name descname">gap_tags_BAD_probabilities</code><em class="property"> :List[List[float]]</em><a class="headerlink" href="#kiwi.runner.Predictions.gap_tags_BAD_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.runner.Predictions.gap_tags_labels">
+<code class="sig-name descname">gap_tags_labels</code><em class="property"> :List[List[str]]</em><a class="headerlink" href="#kiwi.runner.Predictions.gap_tags_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.runner.Runner">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.runner.</code><code class="sig-name descname">Runner</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">system</span><span class="p">:</span> <span class="n">QESystem</span></em>, <em class="sig-param"><span class="n">device</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.runner.Runner" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="kiwi.runner.Runner.configure_outputs">
+<code class="sig-name descname">configure_outputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">output_config</span><span class="p">:</span> <span class="n">QEOutputs.Config</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.runner.Runner.configure_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.runner.Runner.wrap_predictions">
+<em class="property">static </em><code class="sig-name descname">wrap_predictions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#kiwi.runner.Predictions" title="kiwi.runner.Predictions">Predictions</a><a class="headerlink" href="#kiwi.runner.Runner.wrap_predictions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.runner.Runner.predict">
+<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">source</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">target</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">alignments</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">1</span></em>, <em class="sig-param"><span class="n">num_data_workers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">0</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#kiwi.runner.Predictions" title="kiwi.runner.Predictions">Predictions</a><a class="headerlink" href="#kiwi.runner.Runner.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create predictions for a list of examples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source</strong> – a list of sentences on a source language.</p></li>
+<li><p><strong>target</strong> – a list of (translated) sentences on a target language.</p></li>
+<li><p><strong>alignments</strong> – optional list of source-target alignments required only by the
+NuQE model.</p></li>
+<li><p><strong>batch_size</strong> – how large to build a batch (default: 1).</p></li>
+<li><p><strong>num_data_workers</strong> – how many subprocesses to use for data loading.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A <code class="docutils literal notranslate"><span class="pre">Predictions</span></code> object with predicted outputs for each example in the
+inputs. If input <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">target</span></code> are all empty, returned object
+has all attributes as <code class="docutils literal notranslate"><span class="pre">None</span></code>. If there are aligned empty sentences at
+both <code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">target</span></code>, the corresponding returned prediction will
+contain empty/zero values (empty list for word level outputs, 0.0 for
+sentence level outputs).</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.8)"><strong>Exception</strong></a> – <p>If an example has an empty string as <cite>source</cite> xor <cite>target</cite></p>
+<p>field (not both at the same time).</p>
+</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><code class="docutils literal notranslate"><span class="pre">source</span></code> and <code class="docutils literal notranslate"><span class="pre">target</span></code> lenghts must match.</p>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">kiwi.lib</span> <span class="kn">import</span> <span class="n">predict</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">runner</span> <span class="o">=</span> <span class="n">predict</span><span class="o">.</span><span class="n">load_system</span><span class="p">(</span><span class="s1">&#39;../tests/toy-data/models/nuqe.ckpt&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">source</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a b c&#39;</span><span class="p">,</span> <span class="s1">&#39;d e f g&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">target</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;q w e r&#39;</span><span class="p">,</span> <span class="s1">&#39;t y&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">alignments</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;0-0 1-1 1-2&#39;</span><span class="p">,</span> <span class="s1">&#39;1-1 3-0&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">alignments</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">predictions</span><span class="o">.</span><span class="n">target_tags_BAD_probabilities</span>  
+<span class="go">[[0.49699464440345764, 0.49956727027893066, ...], [..., 0.5013138651847839]]</span>
+</pre></div>
+</div>
+<dl>
+<dt>Predictions(</dt><dd><p>sentences_hter=[0.2668147683143616, 0.26675286889076233],
+target_tags_BAD_probabilities=[</p>
+<blockquote>
+<div><dl class="simple">
+<dt>[</dt><dd><p>0.49699464440345764,
+0.49956727027893066,
+0.5025501847267151,
+0.5057167410850525,</p>
+</dd>
+</dl>
+<p>],
+[0.4967852830886841, 0.5013138651847839],</p>
+</div></blockquote>
+<p>],
+target_tags_labels=[[‘OK’, ‘OK’, ‘BAD’, ‘BAD’], [‘OK’, ‘BAD’]],
+source_tags_BAD_probabilities=None,
+source_tags_labels=None,
+gap_tags_BAD_probabilities=[</p>
+<blockquote>
+<div><dl class="simple">
+<dt>[</dt><dd><p>0.42644527554512024,
+0.42096763849258423,
+0.41709718108177185,
+0.4157106280326843,
+0.41496342420578003,</p>
+</dd>
+</dl>
+<p>],
+[0.42876192927360535, 0.4251120686531067, 0.4210476577281952],</p>
+</div></blockquote>
+<p>],
+gap_tags_labels=[[‘OK’, ‘OK’, ‘OK’, ‘OK’, ‘OK’], [‘OK’, ‘OK’, ‘OK’]],</p>
+</dd>
+</dl>
+<p>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.runner.Runner.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">iterator</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">]</span><a class="headerlink" href="#kiwi.runner.Runner.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.runner.Runner.remove_empty_sentences">
+<em class="property">static </em><code class="sig-name descname">remove_empty_sentences</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">columns</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.runner.Runner.remove_empty_sentences" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.runner.Runner.insert_dummy_outputs_for_empty_sentences">
+<em class="property">static </em><code class="sig-name descname">insert_dummy_outputs_for_empty_sentences</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">indices_of_empties</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">]</span><a class="headerlink" href="#kiwi.runner.Runner.insert_dummy_outputs_for_empty_sentences" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../loggers/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.loggers</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

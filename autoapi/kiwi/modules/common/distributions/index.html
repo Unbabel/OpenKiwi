@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.modules.common.distributions &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="kiwi.modules.common.layer_norm" href="../layer_norm/index.html" />
+    <link rel="prev" title="kiwi.modules.common.attention" href="../attention/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../../index.html">
+      <img src="../../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal" class="nav-link">TruncatedNormal</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.arg_constraints" class="nav-link">arg_constraints</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.support" class="nav-link">support</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.has_rsample" class="nav-link">has_rsample</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.partition_function" class="nav-link">partition_function</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.scale" class="nav-link">scale</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.mean" class="nav-link">mean</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.variance" class="nav-link">variance</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.log_prob" class="nav-link">log_prob</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.cdf" class="nav-link">cdf</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.modules.common.distributions.TruncatedNormal.icdf" class="nav-link">icdf</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.modules.common.distributions">
+<span id="kiwi-modules-common-distributions"></span><h1><a class="reference internal" href="#module-kiwi.modules.common.distributions" title="kiwi.modules.common.distributions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.distributions</span></code></a><a class="headerlink" href="#module-kiwi.modules.common.distributions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.modules.common.distributions.TruncatedNormal" title="kiwi.modules.common.distributions.TruncatedNormal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TruncatedNormal</span></code></a></p></td>
+<td><p>Extension of the Distribution class, which applies a sequence of Transforms</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.modules.common.distributions.</code><code class="sig-name descname">TruncatedNormal</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">loc</span></em>, <em class="sig-param"><span class="n">scale</span></em>, <em class="sig-param"><span class="n">lower_bound</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">upper_bound</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">validate_args</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.distributions.TransformedDistribution</span></code></p>
+<p>Extension of the Distribution class, which applies a sequence of Transforms
+to a base distribution.  Let f be the composition of transforms applied:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">~</span> <span class="n">BaseDistribution</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">~</span> <span class="n">TransformedDistribution</span><span class="p">(</span><span class="n">BaseDistribution</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="n">log</span> <span class="n">p</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span> <span class="o">=</span> <span class="n">log</span> <span class="n">p</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">log</span> <span class="o">|</span><span class="n">det</span> <span class="p">(</span><span class="n">dX</span><span class="o">/</span><span class="n">dY</span><span class="p">)</span><span class="o">|</span>
+</pre></div>
+</div>
+<p>Note that the <code class="docutils literal notranslate"><span class="pre">.event_shape</span></code> of a <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformedDistribution</span></code> is the
+maximum shape of its base distribution and its transforms, since transforms
+can introduce correlations among events.</p>
+<p>An example for the usage of <code class="xref py py-class docutils literal notranslate"><span class="pre">TransformedDistribution</span></code> would be:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Building a Logistic Distribution</span>
+<span class="c1"># X ~ Uniform(0, 1)</span>
+<span class="c1"># f = a + b * logit(X)</span>
+<span class="c1"># Y ~ f(X) ~ Logistic(a, b)</span>
+<span class="n">base_distribution</span> <span class="o">=</span> <span class="n">Uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">transforms</span> <span class="o">=</span> <span class="p">[</span><span class="n">SigmoidTransform</span><span class="p">()</span><span class="o">.</span><span class="n">inv</span><span class="p">,</span> <span class="n">AffineTransform</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">b</span><span class="p">)]</span>
+<span class="n">logistic</span> <span class="o">=</span> <span class="n">TransformedDistribution</span><span class="p">(</span><span class="n">base_distribution</span><span class="p">,</span> <span class="n">transforms</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>For more examples, please look at the implementations of
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.gumbel.Gumbel" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gumbel</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.half_cauchy.HalfCauchy" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">HalfCauchy</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.half_normal.HalfNormal" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">HalfNormal</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.log_normal.LogNormal" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogNormal</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.pareto.Pareto" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pareto</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.weibull.Weibull" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weibull</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.relaxed_bernoulli.RelaxedBernoulli" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelaxedBernoulli</span></code></a> and
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.relaxed_categorical.RelaxedOneHotCategorical" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelaxedOneHotCategorical</span></code></a></p>
+<dl class="py attribute">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.arg_constraints">
+<code class="sig-name descname">arg_constraints</code><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.arg_constraints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.support">
+<code class="sig-name descname">support</code><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.support" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.has_rsample">
+<code class="sig-name descname">has_rsample</code><em class="property"> = True</em><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.has_rsample" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.partition_function">
+<code class="sig-name descname">partition_function</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.partition_function" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.scale">
+<em class="property">property </em><code class="sig-name descname">scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.mean">
+<em class="property">property </em><code class="sig-name descname">mean</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p><span class="math notranslate nohighlight">\(pdf = f(x; \mu, \sigma, a, b) = \frac{\phi(\xi)}{\sigma Z}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\xi=\frac{x-\mu}{\sigma}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\alpha=\frac{a-\mu}{\sigma}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\beta=\frac{b-\mu}{\sigma}\)</span></p>
+<p><span class="math notranslate nohighlight">\(Z=\Phi(\beta)-\Phi(\alpha)\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><span class="math notranslate nohighlight">\(\mu +  \frac{\phi(\alpha)-\phi(\beta)}{Z}\sigma\)</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.variance">
+<em class="property">property </em><code class="sig-name descname">variance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the variance of the distribution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.log_prob">
+<code class="sig-name descname">log_prob</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.log_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scores the sample by inverting the transform(s) and computing the score
+using the score of the base distribution and the log abs det jacobian.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.cdf">
+<code class="sig-name descname">cdf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the cumulative distribution function by inverting the
+transform(s) and computing the score of the base distribution.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.modules.common.distributions.TruncatedNormal.icdf">
+<code class="sig-name descname">icdf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.icdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the inverse cumulative distribution function using
+transform(s) and computing the score of the base distribution.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../attention/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.attention</span></code></a>
+    <a class='right-next' id="next-link" href="../layer_norm/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.layer_norm</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

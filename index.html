@@ -1,272 +1,208 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>Welcome to OpenKiwi’s documentation! &mdash; openkiwi 0.1.3 documentation</title>
-  
 
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/unbabel.css" type="text/css" />
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UnbabelKiwi’s documentation &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/openkiwi-logo-icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
-   
-  <div class="wy-grid-for-nav">
+    <link rel="next" title="Installation" href="installation.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
 
-          
-            <a href="#" class="icon icon-home"> openkiwi
-          
+    
+    <a class="navbar-brand" href="#">
+      <img src="_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-          
-            
-            <img src="_static/openkiwi-logo-icon-dark.svg" class="logo" alt="Logo"/>
-          
-          </a>
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="autoapi/index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
 
-          
-            
-            
-              <div class="version">
-                0.1.3
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Getting Started</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#with-pip">With pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#as-local-package">As local package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#mlflow-integration">MLflow integration</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#train-pipeline">Train Pipeline</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#estimator-model">Estimator Model</a></li>
-<li class="toctree-l3"><a class="reference internal" href="quickstart.html#nuqe-model">NuQE Model</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#predict">Predict</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#evaluate">Evaluate</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="reproduce.html">Using pre-trained models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to OpenKiwi</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#installing">Installing</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html#contribution-guide">Contribution guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#basic-guidelines">Basic guidelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing">Contributing</a></li>
-</ul>
-</li>
-</ul>
-<p class="caption"><span class="caption-text">Configuration Options</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">OpenKiwi Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="CLI.html">Command Line Interface</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="CLI.html#Named Arguments">Named Arguments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="CLI.html#Pipelines">Pipelines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="CLI.html#Sub-commands:">Sub-commands:</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="CLI.html#train">train</a></li>
-<li class="toctree-l4"><a class="reference internal" href="CLI.html#predict">predict</a></li>
-<li class="toctree-l4"><a class="reference internal" href="CLI.html#jackknife">jackknife</a></li>
-<li class="toctree-l4"><a class="reference internal" href="CLI.html#evaluate">evaluate</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="flags.html">Configuration Options</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="cli/train.html">Train Interface</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cli/train_nuqe.html">NuQE training</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor.html">Predictor training</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/train_predictor_estimator.html">Predictor-Estimator training</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/train_quetch.html">QUETCH training</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/train_linear.html">Linear training</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training">training</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-optimization">training-optimization</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/train.html#training-save-load">training-save-load</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="cli/predict.html">Predict Interface</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cli/predict_nuqe.html">NuQE predicting</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/predict_predictor_estimator.html">Predictor-Estimator predicting</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/predict_quetch.html">QUETCH predicting</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/predict_linear.html">Linear predicting</a></li>
-<li class="toctree-l4"><a class="reference internal" href="cli/predict.html#predicting">predicting</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="cli/jackknife.html">jackknife Interface</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cli/jackknife.html#jackknifing">jackknifing</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="cli/evaluate.html">Evaluate Interface</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="cli/evaluate.html#Evaluation of WMT Quality Estimation">Evaluation of WMT Quality Estimation</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="flags.html#general-options">General Options</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="flags.html#random">random</a></li>
-<li class="toctree-l4"><a class="reference internal" href="flags.html#gpu">gpu</a></li>
-<li class="toctree-l4"><a class="reference internal" href="flags.html#I/O">I/O</a></li>
-<li class="toctree-l4"><a class="reference internal" href="flags.html#save-load">save-load</a></li>
-<li class="toctree-l4"><a class="reference internal" href="flags.html#Logging">Logging</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p class="caption"><span class="caption-text">Library Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="source/modules.html">kiwi</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="source/kiwi.html">kiwi package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="source/kiwi.cli.html">kiwi.cli package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="source/kiwi.data.html">kiwi.data package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="source/kiwi.lib.html">kiwi.lib package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="source/kiwi.metrics.html">kiwi.metrics package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="source/kiwi.models.html">kiwi.models package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="source/kiwi.predictors.html">kiwi.predictors package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="source/kiwi.trainers.html">kiwi.trainers package</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.constants">kiwi.constants module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi.loggers">kiwi.loggers module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="source/kiwi.html#module-kiwi">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" aria-label="top navigation">
+
+      <ul class="navbar-nav">
         
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">openkiwi</a>
         
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="#">Docs</a> &raquo;</li>
-        
-      <li>Welcome to OpenKiwi’s documentation!</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
-          
-        
-      </li>
-    
-  </ul>
-
-  
-  <hr/>
+      </ul>
+    </div>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-            
-  <div class="section" id="welcome-to-openkiwi-s-documentation">
-<h1>Welcome to OpenKiwi’s documentation!<a class="headerlink" href="#welcome-to-openkiwi-s-documentation" title="Permalink to this headline">¶</a></h1>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#news" class="nav-link">News</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#features" class="nav-link">Features</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#quick-installation" class="nav-link">Quick Installation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#getting-started" class="nav-link">Getting Started</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#contributing" class="nav-link">Contributing</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#license" class="nav-link">License</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#citation" class="nav-link">Citation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#references" class="nav-link">References</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#id13" class="nav-link">[1] Kreutzer et al. (2015): QUality Estimation from ScraTCH (QUETCH): Deep Learning for Word-level Translation Quality Estimation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#id15" class="nav-link">[2] Martins et al. (2016): Unbabel’s Participation in the WMT16 Word-Level Translation Quality Estimation Shared Task</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#id17" class="nav-link">[3] Martins et al. (2017): Pushing the Limits of Translation Quality Estimation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#id19" class="nav-link">[4] Kim et al. (2017): Predictor-Estimator using Multilevel Task Learning with Stack Propagation for Neural Quality Estimation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#id21" class="nav-link">[5] Wang et al. (2018): Alibaba Submission for WMT18 Quality Estimation Task</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#id23" class="nav-link">[6] Kepler et al. (2019): Unbabel’s Participation in the WMT19 Translation Quality Estimation Shared Task</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#documentation" class="nav-link">Documentation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#indices-and-tables" class="nav-link">Indices and tables</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="unbabelkiwi-s-documentation">
+<h1>UnbabelKiwi’s documentation<a class="headerlink" href="#unbabelkiwi-s-documentation" title="Permalink to this headline">¶</a></h1>
 <a class="reference internal image-reference" href="_images/openkiwi-logo-horizontal.svg"><img alt="OpenKiwi by Unbabel" src="_images/openkiwi-logo-horizontal.svg" width="400" /></a>
 <hr class="docutils" />
 <a class="reference external image-reference" href="https://pypi.org/project/openkiwi/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/openkiwi?color=%236ecfbd&amp;label=pypi%20package&amp;style=flat-square" /></a>
@@ -279,116 +215,24 @@
 <p>Quality estimation (QE) is one of the missing pieces of machine translation: its goal is to evaluate a translation system’s quality without access to reference translations. We present <strong>OpenKiwi</strong>, a Pytorch-based open-source framework that implements the best QE systems from WMT 2015-18 shared tasks, making it easy to experiment with these models under the same framework. Using OpenKiwi and a stacked combination of these models we have achieved state-of-the-art results on word-level QE on the WMT 2018 English-German dataset.</p>
 <div class="section" id="news">
 <h2>News<a class="headerlink" href="#news" title="Permalink to this headline">¶</a></h2>
+<p>A new major version (2.0.0) of OpenKiwi has been released. Introducing HuggingFace Transformers support and adoption of Pytorch-lightning.
+For a condensed view of changed, check the <a class="reference external" href="CHANGELOG.md">changelog</a></p>
 <p>Following our nomination in early July, we are happy to announce we won the <a class="reference external" href="http://www.acl2019.org/EN/winners-of-acl-2019-best-paper-awards.xhtml">Best Demo Paper at ACL 2019</a>! Congratulations to the whole team and huge thanks for supporters and issue reporters.</p>
 <p>Check out the <a class="reference external" href="https://www.aclweb.org/anthology/P19-3020">published paper</a>.</p>
-<p>We are going to release the web interface we had put in place for the live demo presentation at ACL.</p>
 <p>We have released the OpenKiwi <a class="reference external" href="https://github.com/Unbabel/KiwiCutter">tutorial</a> we presented at MT Marathon 2019.</p>
 </div>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Framework for training QE models and using pre-trained models for evaluating MT.</li>
-<li>Supports both word and sentence-level Quality estimation.</li>
-<li>Implementation of five QE systems in Pytorch: QUETCH [<a class="reference external" href="#1-kreutzer-et-al-2015-quality-estimation-from-scratch-quetch-deep-learning-for-word-level-translation-quality-estimation">1</a>], NuQE [<a class="reference external" href="#2-martins-et-al-2016-unbabels-participation-in-the-wmt16-word-level-translation-quality-estimation-shared-task">2</a>, <a class="reference external" href="#3-martins-et-al-2017-pushing-the-limits-of-translation-quality-estimation">3</a>], predictor-estimator [<a class="reference external" href="#4-kim-et-al-2017-predictor-estimator-using-multilevel-task-learning-with-stack-propagation-for-neural-quality-estimation">4</a>, <a class="reference external" href="#5-wang-et-al-2018-alibaba-submission-for-wmt18-quality-estimation-task">5</a>], APE-QE [<a class="reference external" href="#3-martins-et-al-2017-pushing-the-limits-of-translation-quality-estimation">3</a>], and a stacked ensemble with a linear system [<a class="reference external" href="#2-martins-et-al-2016-unbabels-participation-in-the-wmt16-word-level-translation-quality-estimation-shared-task">2</a>, <a class="reference external" href="#3-martins-et-al-2017-pushing-the-limits-of-translation-quality-estimation">3</a>].</li>
-<li>Easy to use API. Import it as a package in other projects or run from the command line.</li>
-<li>Provides scripts to run pre-trained QE models on data from the WMT 2018 campaign.</li>
-<li>Easy to track and reproduce experiments via yaml configuration files.</li>
+<li><p>Framework for training QE models and using pre-trained models for evaluating MT.</p></li>
+<li><p>Supports both word and sentence-level (HTER or z-score) Quality estimation.</p></li>
+<li><p>Implementation of five QE systems in Pytorch: NuQE [<a class="reference external" href="#2-martins-et-al-2016-unbabels-participation-in-the-wmt16-word-level-translation-quality-estimation-shared-task">2</a>, <a class="reference external" href="#3-martins-et-al-2017-pushing-the-limits-of-translation-quality-estimation">3</a>], predictor-estimator [<a class="reference external" href="#4-kim-et-al-2017-predictor-estimator-using-multilevel-task-learning-with-stack-propagation-for-neural-quality-estimation">4</a>, <a class="reference external" href="#5-wang-et-al-2018-alibaba-submission-for-wmt18-quality-estimation-task">5</a>], BERT-Estimator [<a class="reference external" href="#6-kepler-et-al-2019-unbabels-participation-in-the-wmt19-translation-quality-estimation-shared-task">6</a>], XLM-Estimator [<a class="reference external" href="#6-kepler-et-al-2019-unbabels-participation-in-the-wmt19-translation-quality-estimation-shared-task">6</a>] and XLMR-Estimator</p></li>
+<li><p>Older systems only supported in versions &lt;=2.0.0: QUETCH [<a class="reference external" href="#1-kreutzer-et-al-2015-quality-estimation-from-scratch-quetch-deep-learning-for-word-level-translation-quality-estimation">1</a>], APE-QE [<a class="reference external" href="#3-martins-et-al-2017-pushing-the-limits-of-translation-quality-estimation">3</a>] and a stacked ensemble with a linear system [<a class="reference external" href="#2-martins-et-al-2016-unbabels-participation-in-the-wmt16-word-level-translation-quality-estimation-shared-task">2</a>, <a class="reference external" href="#3-martins-et-al-2017-pushing-the-limits-of-translation-quality-estimation">3</a>].</p></li>
+<li><p>Easy to use API. Import it as a package in other projects or run from the command line.</p></li>
+<li><p>Easy to track and reproduce experiments via yaml configuration files.</p></li>
+<li><p>Based on Pytorch-Lightning making the code easier to scale, use and keep up-do-date with engineering advances.</p></li>
+<li><p>Implemented using HuggingFace Transformers library to allow easy access to state-of-the-art pre-trained models.</p></li>
 </ul>
-</div>
-<div class="section" id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h2>
-<p>Results for the <a class="reference external" href="http://www.statmt.org/wmt18/quality-estimation-task.html#results">WMT18 Quality Estimation shared task</a>, for <a class="reference external" href="https://competitions.codalab.org/competitions/19306#results">word level</a> <em>and</em> <a class="reference external" href="https://competitions.codalab.org/competitions/19316#results">sentence level</a> on the test set.</p>
-<table border="1" class="docutils">
-<colgroup>
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-<col width="9%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Model</th>
-<th class="head">En-De SMT</th>
-<th class="head">&#160;</th>
-<th class="head">&#160;</th>
-<th class="head">&#160;</th>
-<th class="head">&#160;</th>
-<th class="head">En-De NMT</th>
-<th class="head">&#160;</th>
-<th class="head">&#160;</th>
-<th class="head">&#160;</th>
-<th class="head">&#160;</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>&#160;</td>
-<td>MT</td>
-<td>gaps</td>
-<td>source</td>
-<td>r</td>
-<td>⍴</td>
-<td>MT</td>
-<td>gaps</td>
-<td>source</td>
-<td>r</td>
-<td>⍴</td>
-</tr>
-<tr class="row-odd"><td>OpenKiwi</td>
-<td><strong>62.70</strong></td>
-<td><strong>52.14</strong></td>
-<td><strong>48.88</strong></td>
-<td>71.08</td>
-<td>72.70</td>
-<td><strong>44.77</strong></td>
-<td><strong>22.89</strong></td>
-<td><strong>36.53</strong></td>
-<td>46.72</td>
-<td>58.51</td>
-</tr>
-<tr class="row-even"><td>Wang2018</td>
-<td>62.46</td>
-<td>49.99</td>
-<td>–</td>
-<td><strong>73.97</strong></td>
-<td><strong>75.43</strong></td>
-<td>43.61</td>
-<td>–</td>
-<td>–</td>
-<td>50.12</td>
-<td>60.49</td>
-</tr>
-<tr class="row-odd"><td>UNQE</td>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-<td>70.00</td>
-<td>72.44</td>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-<td><strong>51.29</strong></td>
-<td><strong>60.52</strong></td>
-</tr>
-<tr class="row-even"><td>deepQUEST</td>
-<td>42.98</td>
-<td>28.24</td>
-<td>33.97</td>
-<td>48.72</td>
-<td>50.97</td>
-<td>30.31</td>
-<td>11.93</td>
-<td>28.59</td>
-<td>38.08</td>
-<td>48.00</td>
-</tr>
-</tbody>
-</table>
 </div>
 <div class="section" id="quick-installation">
 <h2>Quick Installation<a class="headerlink" href="#quick-installation" title="Permalink to this headline">¶</a></h2>
@@ -405,18 +249,13 @@
 </pre></div>
 </div>
 <p><strong>Optionally</strong>, if you’d like to take advantage of our <a class="reference external" href="https://mlflow.org/">MLflow</a> integration, simply install it in the same virtualenv as OpenKiwi:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install mlflow
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install openkiwi<span class="o">[</span>mlflow<span class="o">]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <p>Detailed usage examples and instructions can be found in the <a class="reference external" href="https://unbabel.github.io/OpenKiwi/index.html">Full Documentation</a>.</p>
-</div>
-<div class="section" id="pre-trained-models">
-<h2>Pre-trained models<a class="headerlink" href="#pre-trained-models" title="Permalink to this headline">¶</a></h2>
-<p>We provide pre-trained models with the corresponding pre-processed datasets and configuration files.
-You can easily reproduce our numbers in the WMT 2018 word- and sentence-level tasks by following the <a class="reference external" href="https://unbabel.github.io/OpenKiwi/reproduce.html">reproduce instructions in the documentation</a>.</p>
 </div>
 <div class="section" id="contributing">
 <h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
@@ -430,152 +269,179 @@ Please refer to <a class="reference external" href="CONTRIBUTING.md">CONTRIBUTIN
 <div class="section" id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
 <p>If you use OpenKiwi, please cite the following paper: <a class="reference external" href="https://www.aclweb.org/anthology/P19-3020">OpenKiwi: An Open Source Framework for Quality Estimation</a>.</p>
-<div class="highlight-guess notranslate"><div class="highlight"><pre><span></span>@inproceedings{openkiwi,
-    author = {Fábio Kepler and
-              Jonay Trénous and
-              Marcos Treviso and
-              Miguel Vera and
-              André F. T. Martins},
-    title  = {Open{K}iwi: An Open Source Framework for Quality Estimation},
-    year   = {2019},
-    booktitle = {Proceedings of the 57th Annual Meeting of the Association for Computational Linguistics--System Demonstrations},
-    pages  = {117--122},
-    month  = {July},
-    address = {Florence, Italy},
-    url    = {https://www.aclweb.org/anthology/P19-3020},
-    organization = {Association for Computational Linguistics},
-}
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@inproceedings</span><span class="p">{</span><span class="n">openkiwi</span><span class="p">,</span>
+    <span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="n">Fábio</span> <span class="n">Kepler</span> <span class="ow">and</span>
+              <span class="n">Jonay</span> <span class="n">Trénous</span> <span class="ow">and</span>
+              <span class="n">Marcos</span> <span class="n">Treviso</span> <span class="ow">and</span>
+              <span class="n">Miguel</span> <span class="n">Vera</span> <span class="ow">and</span>
+              <span class="n">André</span> <span class="n">F</span><span class="o">.</span> <span class="n">T</span><span class="o">.</span> <span class="n">Martins</span><span class="p">},</span>
+    <span class="n">title</span>  <span class="o">=</span> <span class="p">{</span><span class="n">Open</span><span class="p">{</span><span class="n">K</span><span class="p">}</span><span class="n">iwi</span><span class="p">:</span> <span class="n">An</span> <span class="n">Open</span> <span class="n">Source</span> <span class="n">Framework</span> <span class="k">for</span> <span class="n">Quality</span> <span class="n">Estimation</span><span class="p">},</span>
+    <span class="n">year</span>   <span class="o">=</span> <span class="p">{</span><span class="mi">2019</span><span class="p">},</span>
+    <span class="n">booktitle</span> <span class="o">=</span> <span class="p">{</span><span class="n">Proceedings</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">57</span><span class="n">th</span> <span class="n">Annual</span> <span class="n">Meeting</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Association</span> <span class="k">for</span> <span class="n">Computational</span> <span class="n">Linguistics</span><span class="o">--</span><span class="n">System</span> <span class="n">Demonstrations</span><span class="p">},</span>
+    <span class="n">pages</span>  <span class="o">=</span> <span class="p">{</span><span class="mi">117</span><span class="o">--</span><span class="mi">122</span><span class="p">},</span>
+    <span class="n">month</span>  <span class="o">=</span> <span class="p">{</span><span class="n">July</span><span class="p">},</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="p">{</span><span class="n">Florence</span><span class="p">,</span> <span class="n">Italy</span><span class="p">},</span>
+    <span class="n">url</span>    <span class="o">=</span> <span class="p">{</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">aclweb</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">anthology</span><span class="o">/</span><span class="n">P19</span><span class="o">-</span><span class="mi">3020</span><span class="p">},</span>
+    <span class="n">organization</span> <span class="o">=</span> <span class="p">{</span><span class="n">Association</span> <span class="k">for</span> <span class="n">Computational</span> <span class="n">Linguistics</span><span class="p">},</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="id11">
-<h3>[<a class="reference external" href="#1-kreutzer-et-al-2015-quality-estimation-from-scratch-quetch-deep-learning-for-word-level-translation-quality-estimation">1</a>] <a class="reference external" href="http://aclweb.org/anthology/W15-3037">Kreutzer et al. (2015): QUality Estimation from ScraTCH (QUETCH): Deep Learning for Word-level Translation Quality Estimation</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
-</div>
 <div class="section" id="id13">
-<h3>[<a class="reference external" href="#2-martins-et-al-2016-unbabels-participation-in-the-wmt16-word-level-translation-quality-estimation-shared-task">2</a>] <a class="reference external" href="http://www.aclweb.org/anthology/W16-2387">Martins et al. (2016): Unbabel’s Participation in the WMT16 Word-Level Translation Quality Estimation Shared Task</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<h3>[<a class="reference external" href="#1-kreutzer-et-al-2015-quality-estimation-from-scratch-quetch-deep-learning-for-word-level-translation-quality-estimation">1</a>] <a class="reference external" href="http://aclweb.org/anthology/W15-3037">Kreutzer et al. (2015): QUality Estimation from ScraTCH (QUETCH): Deep Learning for Word-level Translation Quality Estimation</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id15">
-<h3>[<a class="reference external" href="#3-martins-et-al-2017-pushing-the-limits-of-translation-quality-estimation">3</a>] <a class="reference external" href="http://www.aclweb.org/anthology/Q17-1015">Martins et al. (2017): Pushing the Limits of Translation Quality Estimation</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<h3>[<a class="reference external" href="#2-martins-et-al-2016-unbabels-participation-in-the-wmt16-word-level-translation-quality-estimation-shared-task">2</a>] <a class="reference external" href="http://www.aclweb.org/anthology/W16-2387">Martins et al. (2016): Unbabel’s Participation in the WMT16 Word-Level Translation Quality Estimation Shared Task</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id17">
-<h3>[<a class="reference external" href="#4-kim-et-al-2017-predictor-estimator-using-multilevel-task-learning-with-stack-propagation-for-neural-quality-estimation">4</a>] <a class="reference external" href="http://www.aclweb.org/anthology/W17-4763">Kim et al. (2017): Predictor-Estimator using Multilevel Task Learning with Stack Propagation for Neural Quality Estimation</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<h3>[<a class="reference external" href="#3-martins-et-al-2017-pushing-the-limits-of-translation-quality-estimation">3</a>] <a class="reference external" href="http://www.aclweb.org/anthology/Q17-1015">Martins et al. (2017): Pushing the Limits of Translation Quality Estimation</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="id19">
-<h3>[<a class="reference external" href="#5-wang-et-al-2018-alibaba-submission-for-wmt18-quality-estimation-task">5</a>] <a class="reference external" href="http://statmt.org/wmt18/pdf/WMT093.pdf">Wang et al. (2018): Alibaba Submission for WMT18 Quality Estimation Task</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<h3>[<a class="reference external" href="#4-kim-et-al-2017-predictor-estimator-using-multilevel-task-learning-with-stack-propagation-for-neural-quality-estimation">4</a>] <a class="reference external" href="http://www.aclweb.org/anthology/W17-4763">Kim et al. (2017): Predictor-Estimator using Multilevel Task Learning with Stack Propagation for Neural Quality Estimation</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id21">
+<h3>[<a class="reference external" href="#5-wang-et-al-2018-alibaba-submission-for-wmt18-quality-estimation-task">5</a>] <a class="reference external" href="http://statmt.org/wmt18/pdf/WMT093.pdf">Wang et al. (2018): Alibaba Submission for WMT18 Quality Estimation Task</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id23">
+<h3>[<a class="reference external" href="#6-kepler-et-al-2019-unbabels-participation-in-the-wmt19-translation-quality-estimation-shared-task">6</a>] <a class="reference external" href="https://www.aclweb.org/anthology/W19-5406.pdf">Kepler et al. (2019): Unbabel’s Participation in the WMT19 Translation Quality Estimation Shared Task</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Getting Started</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#with-pip">With pip</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#as-local-package">As local package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#as-a-library">As a library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#as-a-local-package">As a local package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#mlflow-integration">MLflow integration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#train-pipeline">Train Pipeline</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#predict">Predict</a></li>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html#evaluate">Evaluate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#training-and-pretraining">Training and pretraining</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#predicting">Predicting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#evaluating">Evaluating</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="reproduce.html">Using pre-trained models</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="reproduce.html#reproducing-benchmark-values">Reproducing benchmark values</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration/index.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html#cli-overrides">CLI overrides</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration/index.html#configuration-composing">Configuration Composing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="systems/index.html">Systems</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="systems/index.html#qe-kiwi-systems-qe-system">QE — <code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.qe_system</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/index.html#tlm-kiwi-systems-tlm-system">TLM — <code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.tlm_system</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="autoapi/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="autoapi/kiwi/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/kiwi/index.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/data/index.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/data/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/lib/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/lib/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/metrics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.metrics</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/metrics/index.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/metrics/index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/modules/index.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/modules/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/systems/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/systems/index.html#subpackages">Subpackages</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/systems/index.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/systems/index.html#package-contents">Package Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/training/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.training</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/training/index.html#submodules">Submodules</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/utils/index.html#submodules">Submodules</a></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contributing to OpenKiwi</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing to OpenKiwi</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#installing">Installing</a></li>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/kiwi/index.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/__main__/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.__main__</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/__main__/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html#contribution-guide">Contribution guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#overview">Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#basic-guidelines">Basic guidelines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing">Contributing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/cli/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.cli</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/cli/index.html#kiwi-runner">Quality Estimation toolkit.</a></li>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/cli/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Configuration Options</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">OpenKiwi Configuration</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="CLI.html">Command Line Interface</a></li>
-<li class="toctree-l2"><a class="reference internal" href="flags.html">Configuration Options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/constants/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.constants</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/constants/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/loggers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.loggers</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/loggers/index.html#module-contents">Module Contents</a></li>
 </ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Library Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="source/modules.html">kiwi</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="source/kiwi.html">kiwi package</a></li>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/runner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.runner</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="autoapi/kiwi/runner/index.html#module-contents">Module Contents</a></li>
 </ul>
 </li>
 </ul>
-</div>
-</div>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="autoapi/kiwi/index.html#package-contents">Package Contents</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/index.html#kiwi.__version__">__version__</a></li>
+<li class="toctree-l4"><a class="reference internal" href="autoapi/kiwi/index.html#kiwi.__copyright__">__copyright__</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
+</div>
 </div>
 
 
-           </div>
-           
-          </div>
-          <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='right-next' id="next-link" href="installation.html" title="next page">Installation</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
     </div>
-  
 
-  <hr/>
-
-  <div role="contentinfo">
+    <script src="_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
     <p>
-        &copy; Copyright 2019 Unbabel. All rights reserved. Source code available under the AGPL-3.0.
-
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
-
 </footer>
-
-        </div>
-      </div>
-
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
-    
-   
-
-</body>
+  </body>
 </html>

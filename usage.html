@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Usage &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configuration/index.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="index.html">
+      <img src="_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="autoapi/index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+        
+      
+      
+      
+      
+      
+      
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#training-and-pretraining" class="nav-link">Training and pretraining</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#predicting" class="nav-link">Predicting</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#evaluating" class="nav-link">Evaluating</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<p>Kiwi’s functionality is split in <code class="docutils literal notranslate"><span class="pre">pipelines</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">,</span> <span class="n">pretrain</span><span class="p">,</span> <span class="n">predict</span><span class="p">,</span> <span class="n">evaluate</span>
+</pre></div>
+</div>
+<p>Currently supported models are:</p>
+<ul class="simple">
+<li><p>NuQE (<a class="reference external" href="http://www.aclweb.org/anthology/Q17-1015">http://www.aclweb.org/anthology/Q17-1015</a>)</p></li>
+<li><p>PredictorEstimator (<a class="reference external" href="http://www.aclweb.org/anthology/W17-4763">http://www.aclweb.org/anthology/W17-4763</a>)</p></li>
+<li><p>BERT</p></li>
+<li><p>XLM</p></li>
+<li><p>XLM-Roberta</p></li>
+</ul>
+<p>All pipelines and models are configured via:</p>
+<ul class="simple">
+<li><p>YAML files, for CLI or API usage</p></li>
+<li><p>a dictionary, for API usage</p></li>
+</ul>
+<p>The predicting pipeline additionally provides a simplified interface with explicit arguments.</p>
+<p>For CLI usage, the general command is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="p">(</span><span class="n">train</span><span class="o">|</span><span class="n">pretrain</span><span class="o">|</span><span class="n">predict</span><span class="o">|</span><span class="n">evaluate</span><span class="p">)</span> <span class="n">CONFIG_FILE</span>
+</pre></div>
+</div>
+<p>Example configuration files can be found in <code class="docutils literal notranslate"><span class="pre">config/</span></code>. Details are covered in
+<a class="reference internal" href="configuration/index.html#configuration"><span class="std std-ref">Configuration</span></a>, including how to override options in the CLI.</p>
+<div class="section" id="training-and-pretraining">
+<h2>Training and pretraining<a class="headerlink" href="#training-and-pretraining" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">PredictorEstimator</span></code> requires pretraining the Predictor model with parallel data.
+This type of model is called a <cite>TLM model</cite>, for “Translation Language Model”.</p>
+<p>The BERT-based models are already pretrained. However, they can be fine-tuned before being
+used for QE. To do so, it is currently necessary to use the original scripts, which can be
+found in <code class="docutils literal notranslate"><span class="pre">scripts/pre_finetuning_transformers</span></code>.</p>
+<p>Examples of how to call Kiwi to train BERT for QE:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi train config/bert.yaml
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.train</span> <span class="kn">import</span> <span class="n">train_from_file</span>
+
+<span class="n">run_info</span> <span class="o">=</span> <span class="n">train_from_file</span><span class="p">(</span><span class="s1">&#39;config/bert.yaml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.train</span> <span class="kn">import</span> <span class="n">train_from_configuration</span>
+<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">load_config</span>
+
+<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;config/bert.yaml&#39;</span><span class="p">)</span>
+<span class="n">run_info</span> <span class="o">=</span> <span class="n">train_from_configuration</span><span class="p">(</span><span class="n">configuration_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">configuration_dict</span></code> is only validated inside <code class="docutils literal notranslate"><span class="pre">train_from_configuration</span></code>, which
+means other file formats can be used. In fact, <code class="docutils literal notranslate"><span class="pre">load_config</span></code> also supports JSON files
+(but that is a not well known fact, as YAML is preferred).</p>
+<p>Pretraining the <code class="docutils literal notranslate"><span class="pre">Predictor</span></code> can be down by calling:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi pretrain config/predictor.yaml
+</pre></div>
+</div>
+</div>
+<div class="section" id="predicting">
+<h2>Predicting<a class="headerlink" href="#predicting" title="Permalink to this headline">¶</a></h2>
+<p>The predict pipeline takes a trained  QE model as input and uses it to evaluate the quality of machine translations.</p>
+<p>The API provides  which returns a
+<a class="reference external" href="source/kiwi.predictors.html#module-kiwi.predictors.predictor">Predictor</a>  object that can be used to generate predictions.</p>
+<p>To predict the quality of a set of machine translation dataset via the CLI, use a
+<code class="docutils literal notranslate"><span class="pre">yaml</span></code> file specifying model path, output directory, source and target data, etc.
+(details are explained in <a class="reference internal" href="configuration/index.html#configuration"><span class="std std-ref">Configuration</span></a>), and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="n">predict</span> <span class="n">config</span><span class="o">/</span><span class="n">predict</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
+<p>As a package, there a few alternatives, depending on the use.</p>
+<p>To load a trained model and produce predictions on a full dataset, use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.predict</span> <span class="kn">import</span> <span class="n">predict_from_configuration</span>
+<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">load_config</span>
+
+<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;config/predict.yaml&#39;</span><span class="p">)</span>
+<span class="n">predictions</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">predict_from_configuration</span><span class="p">(</span><span class="n">configuration_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>To load a trained model and keep it in memory for predicting on-demand, use:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.predict</span> <span class="kn">import</span> <span class="n">load_system</span>
+
+<span class="n">runner</span> <span class="o">=</span> <span class="n">load_system</span><span class="p">(</span><span class="s1">&#39;trained_models/model.ckpt&#39;</span><span class="p">)</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">runner</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+    <span class="n">source</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Aqui vai um exemplo de texto&#39;</span><span class="p">],</span>
+    <span class="n">target</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Here is an example text&#39;</span><span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">predictions</span></code> object will contain one or more of the following attributes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sentences_hter</span>
+<span class="n">target_tags_BAD_probabilities</span>
+<span class="n">target_tags_labels</span>
+<span class="n">source_tags_BAD_probabilities</span>
+<span class="n">source_tags_labels</span>
+<span class="n">gap_tags_BAD_probabilities</span>
+<span class="n">gap_tags_labels</span>
+</pre></div>
+</div>
+<p>More details can be found in the code <a class="reference external" href="https://docs.python.org/3/distutils/commandref.html#reference" title="(in Python v3.8)"><span>Command Reference</span></a>.</p>
+</div>
+<div class="section" id="evaluating">
+<h2>Evaluating<a class="headerlink" href="#evaluating" title="Permalink to this headline">¶</a></h2>
+<p>The evaluate pipeline takes predictions of a trained model and a reference (gold) file
+and evaluates the performance based on several metrics.</p>
+<p>To evaluate one of your models via the CLI, create a <code class="docutils literal notranslate"><span class="pre">yaml</span></code> file specifying the format
+of predictions, format of reference and the location of these files, and run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi evaluate config/predict.yaml
+</pre></div>
+</div>
+<p>Or alternatively:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.evaluate</span> <span class="kn">import</span> <span class="n">evaluate_from_configuration</span>
+<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">load_config</span>
+
+<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;config/evaluate.yaml&#39;</span><span class="p">)</span>
+<span class="n">report</span> <span class="o">=</span> <span class="n">evaluate_from_configuration</span><span class="p">(</span><span class="n">configuration_dict</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can check all the configuration options in <a class="reference internal" href="configuration/index.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="installation.html" title="previous page">Installation</a>
+    <a class='right-next' id="next-link" href="configuration/index.html" title="next page">Configuration</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

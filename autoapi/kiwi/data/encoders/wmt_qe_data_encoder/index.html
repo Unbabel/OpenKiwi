@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.data.encoders.wmt_qe_data_encoder &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="kiwi.data.batch" href="../../batch/index.html" />
+    <link rel="prev" title="kiwi.data.encoders.parallel_data_encoder" href="../parallel_data_encoder/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../../index.html">
+      <img src="../../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.T" class="nav-link">T</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.InputFields" class="nav-link">InputFields</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.InputFields.source" class="nav-link">source</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.InputFields.target" class="nav-link">target</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig" class="nav-link">EmbeddingsConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.source" class="nav-link">source</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.target" class="nav-link">target</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.post_edit" class="nav-link">post_edit</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.source_pos" class="nav-link">source_pos</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.target_pos" class="nav-link">target_pos</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.format" class="nav-link">format</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig" class="nav-link">VocabularyConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.min_frequency" class="nav-link">min_frequency</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.max_size" class="nav-link">max_size</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.keep_rare_words_with_embeddings" class="nav-link">keep_rare_words_with_embeddings</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.add_embeddings_vocab" class="nav-link">add_embeddings_vocab</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.check_nested_options" class="nav-link">check_nested_options</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder" class="nav-link">WMTQEDataEncoder</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config" class="nav-link">Config</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.share_input_fields_encoders" class="nav-link">share_input_fields_encoders</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.vocab" class="nav-link">vocab</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.embeddings" class="nav-link">embeddings</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.warn_missing_feature" class="nav-link">warn_missing_feature</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.fit_vocabularies" class="nav-link">fit_vocabularies</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.load_vocabularies" class="nav-link">load_vocabularies</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.vocabularies_from_dict" class="nav-link">vocabularies_from_dict</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.vocabularies" class="nav-link">vocabularies</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.collate_fn" class="nav-link">collate_fn</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.data.encoders.wmt_qe_data_encoder">
+<span id="kiwi-data-encoders-wmt-qe-data-encoder"></span><h1><a class="reference internal" href="#module-kiwi.data.encoders.wmt_qe_data_encoder" title="kiwi.data.encoders.wmt_qe_data_encoder"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders.wmt_qe_data_encoder</span></code></a><a class="headerlink" href="#module-kiwi.data.encoders.wmt_qe_data_encoder" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.data.encoders.wmt_qe_data_encoder.InputFields" title="kiwi.data.encoders.wmt_qe_data_encoder.InputFields"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InputFields</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig" title="kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EmbeddingsConfig</span></code></a></p></td>
+<td><p>Paths to word embeddings file for each input field.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig" title="kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VocabularyConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder" title="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WMTQEDataEncoder</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.logger">
+<code class="sig-prename descclassname">kiwi.data.encoders.wmt_qe_data_encoder.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.T">
+<code class="sig-prename descclassname">kiwi.data.encoders.wmt_qe_data_encoder.</code><code class="sig-name descname">T</code><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.T" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.InputFields">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.wmt_qe_data_encoder.</code><code class="sig-name descname">InputFields</code><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.InputFields" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.generics.GenericModel</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Generic[T]</span></code></p>
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.InputFields.source">
+<code class="sig-name descname">source</code><em class="property"> :T</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.InputFields.source" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.InputFields.target">
+<code class="sig-name descname">target</code><em class="property"> :T</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.InputFields.target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.wmt_qe_data_encoder.</code><code class="sig-name descname">EmbeddingsConfig</code><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Paths to word embeddings file for each input field.</p>
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.source">
+<code class="sig-name descname">source</code><em class="property"> :Optional[Path]</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.source" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.target">
+<code class="sig-name descname">target</code><em class="property"> :Optional[Path]</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.target" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.post_edit">
+<code class="sig-name descname">post_edit</code><em class="property"> :Optional[Path]</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.post_edit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.source_pos">
+<code class="sig-name descname">source_pos</code><em class="property"> :Optional[Path]</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.source_pos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.target_pos">
+<code class="sig-name descname">target_pos</code><em class="property"> :Optional[Path]</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.target_pos" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.format">
+<code class="sig-name descname">format</code><em class="property"> :Literal['polyglot', 'word2vec', 'fasttext', 'glove', 'text'] = polyglot</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.EmbeddingsConfig.format" title="Permalink to this definition">¶</a></dt>
+<dd><p>Word embeddings format. See README for specific formatting instructions.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.wmt_qe_data_encoder.</code><code class="sig-name descname">VocabularyConfig</code><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.min_frequency">
+<code class="sig-name descname">min_frequency</code><em class="property"> :InputFields[PositiveInt] = 1</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.min_frequency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only add to vocabulary words that occur more than this number of times in the
+training dataset (doesn’t apply to loaded or pretrained vocabularies).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.max_size">
+<code class="sig-name descname">max_size</code><em class="property"> :InputFields[Optional[PositiveInt]]</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.max_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only create vocabulary with up to this many words (doesn’t apply to loaded or
+pretrained vocabularies).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.keep_rare_words_with_embeddings">
+<code class="sig-name descname">keep_rare_words_with_embeddings</code><em class="property"> = False</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.keep_rare_words_with_embeddings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep words that occur less then min-frequency but are in embeddings vocabulary</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.add_embeddings_vocab">
+<code class="sig-name descname">add_embeddings_vocab</code><em class="property"> = False</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.add_embeddings_vocab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add words from embeddings vocabulary to source/target vocabulary</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.check_nested_options">
+<code class="sig-name descname">check_nested_options</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.check_nested_options" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.wmt_qe_data_encoder.</code><code class="sig-name descname">WMTQEDataEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">field_encoders</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>TextEncoder<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../base/index.html#kiwi.data.encoders.base.DataEncoders" title="kiwi.data.encoders.base.DataEncoders"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.data.encoders.base.DataEncoders</span></code></a></p>
+<dl class="py class">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config">
+<em class="property">class </em><code class="sig-name descname">Config</code><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.share_input_fields_encoders">
+<code class="sig-name descname">share_input_fields_encoders</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.share_input_fields_encoders" title="Permalink to this definition">¶</a></dt>
+<dd><p>Share encoding/vocabs between source and target fields.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.vocab">
+<code class="sig-name descname">vocab</code><em class="property"> :VocabularyConfig</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.vocab" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.embeddings">
+<code class="sig-name descname">embeddings</code><em class="property"> :Optional[EmbeddingsConfig]</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.embeddings" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.warn_missing_feature">
+<code class="sig-name descname">warn_missing_feature</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config.warn_missing_feature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.fit_vocabularies">
+<code class="sig-name descname">fit_vocabularies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">dataset</span><span class="p">:</span> <span class="n">WMTQEDataset</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.fit_vocabularies" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.load_vocabularies">
+<code class="sig-name descname">load_vocabularies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">load_vocabs_from</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.load_vocabularies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load serialized Vocabularies from disk into fields.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.vocabularies_from_dict">
+<code class="sig-name descname">vocabularies_from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">vocabs_dict</span><span class="p">:</span> <span class="n">Dict</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.vocabularies_from_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.vocabularies">
+<em class="property">property </em><code class="sig-name descname">vocabularies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.vocabularies" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the vocabularies for all encoders that have one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict mapping encoder names to Vocabulary instances.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.collate_fn">
+<code class="sig-name descname">collate_fn</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">samples</span></em>, <em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.collate_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../parallel_data_encoder/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders.parallel_data_encoder</span></code></a>
+    <a class='right-next' id="next-link" href="../../batch/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.batch</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

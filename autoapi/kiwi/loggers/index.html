@@ -1,0 +1,427 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.loggers &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="kiwi.runner" href="../runner/index.html" />
+    <link rel="prev" title="kiwi.constants" href="../constants/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../index.html">
+      <img src="../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.loggers.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.loggers._INVALID_PARAM_AND_METRIC_CHARACTERS" class="nav-link">_INVALID_PARAM_AND_METRIC_CHARACTERS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.loggers.normalize_metric_key" class="nav-link">normalize_metric_key</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.loggers.validate_metric_value" class="nav-link">validate_metric_value</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger" class="nav-link">MLFlowTrackingLogger</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.tracking_uri" class="nav-link">tracking_uri</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.log_param" class="nav-link">log_param</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.log_hyperparams" class="nav-link">log_hyperparams</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.log_metrics" class="nav-link">log_metrics</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.log_artifact" class="nav-link">log_artifact</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.log_artifacts" class="nav-link">log_artifacts</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.get_artifact_uri" class="nav-link">get_artifact_uri</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.log_model" class="nav-link">log_model</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.log_tag" class="nav-link">log_tag</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.loggers.MLFlowTrackingLogger.log_tags" class="nav-link">log_tags</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.loggers">
+<span id="kiwi-loggers"></span><h1><a class="reference internal" href="#module-kiwi.loggers" title="kiwi.loggers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.loggers</span></code></a><a class="headerlink" href="#module-kiwi.loggers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.loggers.MLFlowTrackingLogger" title="kiwi.loggers.MLFlowTrackingLogger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MLFlowTrackingLogger</span></code></a></p></td>
+<td><p>Log using <a class="reference external" href="https://mlflow.org">MLflow</a>. Install it with pip:</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.loggers.normalize_metric_key" title="kiwi.loggers.normalize_metric_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_metric_key</span></code></a>(key)</p></td>
+<td><p>Normalize key name for MLflow.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.loggers.validate_metric_value" title="kiwi.loggers.validate_metric_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_metric_value</span></code></a>(value)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.loggers.logger">
+<code class="sig-prename descclassname">kiwi.loggers.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.loggers.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.loggers._INVALID_PARAM_AND_METRIC_CHARACTERS">
+<code class="sig-prename descclassname">kiwi.loggers.</code><code class="sig-name descname">_INVALID_PARAM_AND_METRIC_CHARACTERS</code><a class="headerlink" href="#kiwi.loggers._INVALID_PARAM_AND_METRIC_CHARACTERS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.loggers.normalize_metric_key">
+<code class="sig-prename descclassname">kiwi.loggers.</code><code class="sig-name descname">normalize_metric_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.normalize_metric_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>Normalize key name for MLflow.</p>
+<p>mlflow.exceptions.MlflowException: Invalid metric name: ‘WMT19_F1_MULT+PEARSON’.
+Names may only contain alphanumerics, underscores (_), dashes (-), periods (.),
+spaces ( ), and slashes (/).</p>
+<p>This is raised by matching against <code class="docutils literal notranslate"><span class="pre">r&quot;^[/\w.\-</span> <span class="pre">]*$&quot;</span></code>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.loggers.validate_metric_value">
+<code class="sig-prename descclassname">kiwi.loggers.</code><code class="sig-name descname">validate_metric_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.validate_metric_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.loggers.MLFlowTrackingLogger">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.loggers.</code><code class="sig-name descname">MLFlowTrackingLogger</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">experiment_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span> <span class="o">=</span> <span class="default_value">'default'</span></em>, <em class="sig-param"><span class="n">run_id</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tracking_uri</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">tags</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Any<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">save_dir</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">always_log_artifacts</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pytorch_lightning.loggers.MLFlowLogger</span></code></p>
+<p>Log using <a class="reference external" href="https://mlflow.org">MLflow</a>. Install it with pip:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install mlflow
+</pre></div>
+</div>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytorch_lightning</span> <span class="kn">import</span> <span class="n">Trainer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytorch_lightning.loggers</span> <span class="kn">import</span> <span class="n">MLFlowLogger</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mlf_logger</span> <span class="o">=</span> <span class="n">MLFlowLogger</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">experiment_name</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">tracking_uri</span><span class="o">=</span><span class="s2">&quot;file:./ml-runs&quot;</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">mlf_logger</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Use the logger anywhere in you <code class="xref py py-class docutils literal notranslate"><span class="pre">LightningModule</span></code> as follows:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pytorch_lightning</span> <span class="kn">import</span> <span class="n">LightningModule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">LitModel</span><span class="p">(</span><span class="n">LightningModule</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">training_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">batch</span><span class="p">,</span> <span class="n">batch_idx</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="c1"># example</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">whatever_ml_flow_supports</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">... </span>    <span class="k">def</span> <span class="nf">any_lightning_module_function_or_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">experiment</span><span class="o">.</span><span class="n">whatever_ml_flow_supports</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>experiment_name</strong> – The name of the experiment</p></li>
+<li><p><strong>tracking_uri</strong> – Address of local or remote tracking server.
+If not provided, defaults to <cite>file:&lt;save_dir&gt;</cite>.</p></li>
+<li><p><strong>tags</strong> – A dictionary tags for the experiment.</p></li>
+<li><p><strong>save_dir</strong> – A path to a local directory where the MLflow runs get saved.
+Defaults to <cite>./mlflow</cite> if <cite>tracking_uri</cite> is not provided.
+Has no effect if <cite>tracking_uri</cite> is provided.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.tracking_uri">
+<em class="property">property </em><code class="sig-name descname">tracking_uri</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.tracking_uri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.log_param">
+<code class="sig-name descname">log_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.log_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.log_hyperparams">
+<code class="sig-name descname">log_hyperparams</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">params</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.log_hyperparams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Record hyperparameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> – <a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.Namespace" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Namespace</span></code></a> containing the hyperparameters</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.log_metrics">
+<code class="sig-name descname">log_metrics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">metrics</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">step</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.8)">None</a><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.log_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Records metrics.
+This method logs metrics as as soon as it received them. If you want to aggregate
+metrics for one specific <cite>step</cite>, use the
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">agg_and_log_metrics()</span></code> method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metrics</strong> – Dictionary with metric names as keys and measured quantities as values</p></li>
+<li><p><strong>step</strong> – Step number at which the metrics should be recorded</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.log_artifact">
+<code class="sig-name descname">log_artifact</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">local_path</span></em>, <em class="sig-param"><span class="n">artifact_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.log_artifact" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.log_artifacts">
+<code class="sig-name descname">log_artifacts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">local_dir</span></em>, <em class="sig-param"><span class="n">artifact_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.log_artifacts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.get_artifact_uri">
+<code class="sig-name descname">get_artifact_uri</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.get_artifact_uri" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.log_model">
+<code class="sig-name descname">log_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">local_file</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.log_model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.log_tag">
+<code class="sig-name descname">log_tag</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">value</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.log_tag" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.loggers.MLFlowTrackingLogger.log_tags">
+<code class="sig-name descname">log_tags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">tags</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.loggers.MLFlowTrackingLogger.log_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../constants/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.constants</span></code></a>
+    <a class='right-next' id="next-link" href="../runner/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.runner</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

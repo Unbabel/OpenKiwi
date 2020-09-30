@@ -1,0 +1,481 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.training.optimizers &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="kiwi.utils" href="../../utils/index.html" />
+    <link rel="prev" title="kiwi.training.callbacks" href="../callbacks/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../index.html">
+      <img src="../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.training.optimizers.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.training.optimizers.OptimizerConfig" class="nav-link">OptimizerConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.training.optimizers.OptimizerConfig.class_name" class="nav-link">class_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.training.optimizers.OptimizerConfig.learning_rate" class="nav-link">learning_rate</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.training.optimizers.OptimizerConfig.encoder_learning_rate" class="nav-link">encoder_learning_rate</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.training.optimizers.OptimizerConfig.warmup_steps" class="nav-link">warmup_steps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.training.optimizers.OptimizerConfig.training_steps" class="nav-link">training_steps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.training.optimizers.OptimizerConfig.learning_rate_decay" class="nav-link">learning_rate_decay</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.training.optimizers.OptimizerConfig.learning_rate_decay_start" class="nav-link">learning_rate_decay_start</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.training.optimizers.OptimizerConfig.load" class="nav-link">load</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.training.optimizers.DenseSparseAdam" class="nav-link">DenseSparseAdam</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.training.optimizers.DenseSparseAdam.step" class="nav-link">step</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.training.optimizers.get_noam_decay_schedule" class="nav-link">get_noam_decay_schedule</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.training.optimizers.OPTIMIZERS_MAPPING" class="nav-link">OPTIMIZERS_MAPPING</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.training.optimizers.optimizer_class" class="nav-link">optimizer_class</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.training.optimizers.optimizer_name" class="nav-link">optimizer_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.training.optimizers.from_config" class="nav-link">from_config</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.training.optimizers">
+<span id="kiwi-training-optimizers"></span><h1><a class="reference internal" href="#module-kiwi.training.optimizers" title="kiwi.training.optimizers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.training.optimizers</span></code></a><a class="headerlink" href="#module-kiwi.training.optimizers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.training.optimizers.OptimizerConfig" title="kiwi.training.optimizers.OptimizerConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OptimizerConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.training.optimizers.DenseSparseAdam" title="kiwi.training.optimizers.DenseSparseAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DenseSparseAdam</span></code></a></p></td>
+<td><p>Adam optimizer combining its dense and sparse versions.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.training.optimizers.get_noam_decay_schedule" title="kiwi.training.optimizers.get_noam_decay_schedule"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_noam_decay_schedule</span></code></a>(optimizer: Optimizer, num_warmup_steps: int, model_size: int)</p></td>
+<td><p>Create a schedule with the learning rate decay strategy from the AIAYN paper.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.training.optimizers.optimizer_class" title="kiwi.training.optimizers.optimizer_class"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimizer_class</span></code></a>(name)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.training.optimizers.optimizer_name" title="kiwi.training.optimizers.optimizer_name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optimizer_name</span></code></a>(cls)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.training.optimizers.from_config" title="kiwi.training.optimizers.from_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_config</span></code></a>(config: OptimizerConfig, parameters: Iterator[Parameter], model_size: int = None, training_data_size: int = None) → Union[Optimizer, List[Optimizer], Tuple[List[Optimizer], List[Any]]]</p></td>
+<td><p><dl class="field-list simple">
+<dt class="field-odd">param config</dt>
+<dd class="field-odd"><p>common options shared by most optimizers</p>
+</dd>
+</dl>
+</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.training.optimizers.logger">
+<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.training.optimizers.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.training.optimizers.OptimizerConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">OptimizerConfig</code><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.training.optimizers.OptimizerConfig.class_name">
+<code class="sig-name descname">class_name</code><em class="property"> :str</em><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.class_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.training.optimizers.OptimizerConfig.learning_rate">
+<code class="sig-name descname">learning_rate</code><em class="property"> :float</em><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starting learning rate. Recommended settings:
+sgd = 1, adagrad = 0.1, adadelta = 1, adam = 0.001</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.training.optimizers.OptimizerConfig.encoder_learning_rate">
+<code class="sig-name descname">encoder_learning_rate</code><em class="property"> :float</em><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.encoder_learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Different learning rate for the encoder. If set, the encoder will use a different
+learning rate from the rest of the parameters.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.training.optimizers.OptimizerConfig.warmup_steps">
+<code class="sig-name descname">warmup_steps</code><em class="property"> :Union[float, int]</em><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.warmup_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Increase the learning rate until X steps. Integer steps for <cite>noam</cite> optimizer and
+<cite>adamw</cite>. If float, use it as portion of <code class="docutils literal notranslate"><span class="pre">training_steps</span></code>.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.training.optimizers.OptimizerConfig.training_steps">
+<code class="sig-name descname">training_steps</code><em class="property"> :int</em><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.training_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Total number of training steps. Used for the <cite>adamw</cite> optimizer. If not specified,
+use training dataset size.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.training.optimizers.OptimizerConfig.learning_rate_decay">
+<code class="sig-name descname">learning_rate_decay</code><em class="property"> :float = 1.0</em><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.learning_rate_decay" title="Permalink to this definition">¶</a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">new_lr</span> <span class="pre">=</span> <span class="pre">lr</span> <span class="pre">*</span> <span class="pre">factor</span></code>.
+Scheduler is only used if this is greater than 0.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>Factor by which the learning rate will be reduced</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.training.optimizers.OptimizerConfig.learning_rate_decay_start">
+<code class="sig-name descname">learning_rate_decay_start</code><em class="property"> :int = 2</em><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.learning_rate_decay_start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of epochs with no improvement after which learning rate will be reduced.
+Only applicable if <code class="docutils literal notranslate"><span class="pre">learning_rate_decay</span></code> is greater than 0.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.training.optimizers.OptimizerConfig.load">
+<code class="sig-name descname">load</code><em class="property"> :Path</em><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.load" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.training.optimizers.DenseSparseAdam">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">DenseSparseAdam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">lr</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span> <span class="o">=</span> <span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">betas</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.9, 0.999</span></em>, <em class="sig-param"><span class="n">eps</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span> <span class="o">=</span> <span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.DenseSparseAdam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.optimizer.Optimizer</span></code></p>
+<p>Adam optimizer combining its dense and sparse versions.</p>
+<p>This class has been copied from AllenNLP:
+<a class="reference external" href="https://github.com/allenai/allennlp/blob/v0.7.2/allennlp/training/optimizers.py">https://github.com/allenai/allennlp/blob/v0.7.2/allennlp/training/optimizers.py</a></p>
+<p>NOTE: This class has been copied verbatim from the separate Dense and
+Sparse versions of Adam in Pytorch.
+Implements Adam algorithm with dense &amp; sparse gradients.
+It has been proposed in Adam: A Method for Stochastic Optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>iterable</em>) – iterable of parameters to optimize or dicts defining
+parameter groups.</p></li>
+<li><p><strong>lr</strong> – the learning rate.</p></li>
+<li><p><strong>betas</strong> – coefficients used for computing running averages of gradient and its
+square.</p></li>
+<li><p><strong>eps</strong> – A term added to the denominator to improve numerical stability.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="kiwi.training.optimizers.DenseSparseAdam.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">closure</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.DenseSparseAdam.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a single optimization step.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>closure</strong> – a closure that reevaluates the model and returns the loss.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.training.optimizers.get_noam_decay_schedule">
+<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">get_noam_decay_schedule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimizer</span><span class="p">:</span> <span class="n">Optimizer</span></em>, <em class="sig-param"><span class="n">num_warmup_steps</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em>, <em class="sig-param"><span class="n">model_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.get_noam_decay_schedule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a schedule with the learning rate decay strategy from the AIAYN paper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimizer</strong> – wrapped optimizer.</p></li>
+<li><p><strong>num_warmup_steps</strong> – the number of steps to linearly increase the learning rate.</p></li>
+<li><p><strong>model_size</strong> – the hidden size parameter which dominates the number of
+parameters in your model.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.training.optimizers.OPTIMIZERS_MAPPING">
+<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">OPTIMIZERS_MAPPING</code><a class="headerlink" href="#kiwi.training.optimizers.OPTIMIZERS_MAPPING" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.training.optimizers.optimizer_class">
+<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">optimizer_class</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.optimizer_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.training.optimizers.optimizer_name">
+<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">optimizer_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.optimizer_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.training.optimizers.from_config">
+<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">from_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.training.optimizers.OptimizerConfig" title="kiwi.training.optimizers.OptimizerConfig">OptimizerConfig</a></span></em>, <em class="sig-param"><span class="n">parameters</span><span class="p">:</span> <span class="n">Iterator<span class="p">[</span>Parameter<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">model_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">training_data_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>Optimizer<span class="p">, </span>List<span class="p">[</span>Optimizer<span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span>List<span class="p">[</span>Optimizer<span class="p">]</span><span class="p">, </span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.training.optimizers.from_config" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – common options shared by most optimizers</p></li>
+<li><p><strong>parameters</strong> – model parameters</p></li>
+<li><p><strong>model_size</strong> – required for the Noam LR schedule; if not provided, the mode of all
+parameters’ last dimension is used</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Return: for compatibility with PyTorch-Lightning, any of these 3 options:</dt><dd><ul class="simple">
+<li><p>Single optimizer</p></li>
+<li><p>List or Tuple - List of optimizers</p></li>
+<li><dl class="simple">
+<dt>Tuple of Two lists - The first with multiple optimizers, the second with</dt><dd><p>learning-rate schedulers</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>We currently never return multiple optimizers or schedulers, so option 2 above
+is not taking place yet. Option 3 returns a single optimizer and scheduler
+inside lists.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../callbacks/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.training.callbacks</span></code></a>
+    <a class='right-next' id="next-link" href="../../utils/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

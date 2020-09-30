@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.lib.utils &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="kiwi.metrics" href="../../metrics/index.html" />
+    <link rel="prev" title="kiwi.lib.train" href="../train/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../index.html">
+      <img src="../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.utils.configure_seed" class="nav-link">configure_seed</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.utils.configure_logging" class="nav-link">configure_logging</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.utils.save_config_to_file" class="nav-link">save_config_to_file</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.utils.setup_output_directory" class="nav-link">setup_output_directory</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.utils.load_config" class="nav-link">load_config</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.lib.utils">
+<span id="kiwi-lib-utils"></span><h1><a class="reference internal" href="#module-kiwi.lib.utils" title="kiwi.lib.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.utils</span></code></a><a class="headerlink" href="#module-kiwi.lib.utils" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.utils.configure_seed" title="kiwi.lib.utils.configure_seed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">configure_seed</span></code></a>(seed: int)</p></td>
+<td><p>Configure the random seed for all relevant packages.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.utils.configure_logging" title="kiwi.lib.utils.configure_logging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">configure_logging</span></code></a>(output_dir: Path = None, verbose: bool = False, quiet: bool = False)</p></td>
+<td><p>Configure the output logger.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.utils.save_config_to_file" title="kiwi.lib.utils.save_config_to_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_config_to_file</span></code></a>(config: BaseConfig, file_name: Union[str, Path])</p></td>
+<td><p>Save a configuration object to file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.utils.setup_output_directory" title="kiwi.lib.utils.setup_output_directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_output_directory</span></code></a>(output_dir, run_uuid=None, experiment_id=None, create=True) → str</p></td>
+<td><p>Set up the output directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.utils.load_config" title="kiwi.lib.utils.load_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_config</span></code></a>(config_file: Path) → Dict</p></td>
+<td><p>Load configuration options from a YAML or JSON file.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="kiwi.lib.utils.configure_seed">
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">configure_seed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils.configure_seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the random seed for all relevant packages.</p>
+<p>These include: random, numpy, torch, torch.cuda and PYTHONHASHSEED.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>seed</strong> – the random seed to be set.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.utils.configure_logging">
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">configure_logging</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils.configure_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the output logger.</p>
+<p>Set up the log format, logging level, and output directory of logging.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_dir</strong> – the directory where log output will be stored; defaults to None.</p></li>
+<li><p><strong>verbose</strong> – change logging level to debug.</p></li>
+<li><p><strong>quiet</strong> – change logging level to warning to suppress info logs.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.utils.save_config_to_file">
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">save_config_to_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">BaseConfig</span></em>, <em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Path<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils.save_config_to_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a configuration object to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_name</strong> – where to saved the configuration.</p></li>
+<li><p><strong>config</strong> – a pydantic configuration object.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.utils.setup_output_directory">
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">setup_output_directory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_dir</span></em>, <em class="sig-param"><span class="n">run_uuid</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">create</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><a class="headerlink" href="#kiwi.lib.utils.setup_output_directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up the output directory.</p>
+<p>This means either creating one, or verifying that the provided directory exists.
+Output directories are created using the run and experiment ids.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_dir</strong> – the target output directory.</p></li>
+<li><p><strong>run_uuid</strong> – the hash of the current run.</p></li>
+<li><p><strong>experiment_id</strong> – the id of the current experiment.</p></li>
+<li><p><strong>create</strong> – whether to create the directory.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the path to the resolved output directory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.utils.load_config">
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">load_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config_file</span><span class="p">:</span> <span class="n">Path</span></em><span class="sig-paren">)</span> &#x2192; Dict<a class="headerlink" href="#kiwi.lib.utils.load_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load configuration options from a YAML or JSON file.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../train/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.train</span></code></a>
+    <a class='right-next' id="next-link" href="../../metrics/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.metrics</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,321 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="kiwi.data" href="data/index.html" />
+    <link rel="prev" title="API Reference" href="../index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../index.html">
+      <img src="../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#subpackages" class="nav-link">Subpackages</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#submodules" class="nav-link">Submodules</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#package-contents" class="nav-link">Package Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.__version__" class="nav-link">__version__</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.__copyright__" class="nav-link">__copyright__</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi">
+<span id="kiwi"></span><h1><a class="reference internal" href="#module-kiwi" title="kiwi"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi</span></code></a><a class="headerlink" href="#module-kiwi" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="data/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="data/datasets/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.datasets</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data/datasets/parallel_dataset/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.datasets.parallel_dataset</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="data/datasets/wmt_qe_dataset/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.datasets.wmt_qe_dataset</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data/encoders/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="data/encoders/base/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders.base</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="data/encoders/field_encoders/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders.field_encoders</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="data/encoders/parallel_data_encoder/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders.parallel_data_encoder</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="data/encoders/wmt_qe_data_encoder/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders.wmt_qe_data_encoder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="data/batch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.batch</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/tokenizers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.tokenizers</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="data/vocabulary/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.vocabulary</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lib/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lib/evaluate/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.evaluate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib/predict/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.predict</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib/pretrain/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.pretrain</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib/train/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.train</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lib/utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.utils</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="metrics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.metrics</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="metrics/functions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.metrics.functions</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics/metrics/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.metrics.metrics</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules/common/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="modules/common/activations/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.activations</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/common/attention/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.attention</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/common/distributions/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.distributions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/common/layer_norm/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.layer_norm</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/common/positional_encoding/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.positional_encoding</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/common/scalar_mix/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.scalar_mix</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="modules/common/scorer/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.scorer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="modules/sentence_level_output/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.sentence_level_output</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/token_embeddings/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.token_embeddings</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules/word_level_output/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.word_level_output</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="systems/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="systems/decoders/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.decoders</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="systems/decoders/estimator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.decoders.estimator</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="systems/decoders/linear/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.decoders.linear</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="systems/decoders/nuqe/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.decoders.nuqe</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="systems/encoders/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.encoders</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="systems/encoders/bert/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.encoders.bert</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="systems/encoders/predictor/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.encoders.predictor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="systems/encoders/quetch/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.encoders.quetch</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="systems/encoders/xlm/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.encoders.xlm</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="systems/encoders/xlmroberta/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.encoders.xlmroberta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="systems/outputs/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.outputs</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="systems/outputs/quality_estimation/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.outputs.quality_estimation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="systems/outputs/translation_language_model/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.outputs.translation_language_model</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="systems/_meta_module/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems._meta_module</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/bert/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.bert</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/nuqe/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.nuqe</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/predictor/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.predictor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/predictor_estimator/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.predictor_estimator</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/qe_system/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.qe_system</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/tlm_system/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.tlm_system</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/xlm/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.xlm</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="systems/xlmroberta/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.xlmroberta</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="training/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.training</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="training/callbacks/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.training.callbacks</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="training/optimizers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.training.optimizers</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="utils/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="utils/data_structures/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils.data_structures</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils/io/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils.io</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils/tensors/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils.tensors</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="__main__/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.__main__</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.cli</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.constants</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="loggers/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.loggers</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="runner/index.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.runner</span></code></a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="py data">
+<dt id="kiwi.__version__">
+<code class="sig-prename descclassname">kiwi.</code><code class="sig-name descname">__version__</code><em class="property"> = 2.0.0</em><a class="headerlink" href="#kiwi.__version__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.__copyright__">
+<code class="sig-prename descclassname">kiwi.</code><code class="sig-name descname">__copyright__</code><em class="property"> = 2019-2020 Unbabel. All rights reserved.</em><a class="headerlink" href="#kiwi.__copyright__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">API Reference</a>
+    <a class='right-next' id="next-link" href="data/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

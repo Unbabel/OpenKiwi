@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.constants &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="kiwi.loggers" href="../loggers/index.html" />
+    <link rel="prev" title="kiwi.cli" href="../cli/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../index.html">
+      <img src="../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.UNK" class="nav-link">UNK</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.PAD" class="nav-link">PAD</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.START" class="nav-link">START</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.STOP" class="nav-link">STOP</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.UNALIGNED" class="nav-link">UNALIGNED</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.OK" class="nav-link">OK</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.BAD" class="nav-link">BAD</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.LABELS" class="nav-link">LABELS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.SOURCE" class="nav-link">SOURCE</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.TARGET" class="nav-link">TARGET</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.PE" class="nav-link">PE</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.TARGET_TAGS" class="nav-link">TARGET_TAGS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.SOURCE_TAGS" class="nav-link">SOURCE_TAGS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.GAP_TAGS" class="nav-link">GAP_TAGS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.TARGETGAPS_TAGS" class="nav-link">TARGETGAPS_TAGS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.SOURCE_LOGITS" class="nav-link">SOURCE_LOGITS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.TARGET_LOGITS" class="nav-link">TARGET_LOGITS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.TARGET_SENTENCE" class="nav-link">TARGET_SENTENCE</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.PE_LOGITS" class="nav-link">PE_LOGITS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.SENTENCE_SCORES" class="nav-link">SENTENCE_SCORES</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.BINARY" class="nav-link">BINARY</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.ALIGNMENTS" class="nav-link">ALIGNMENTS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.SOURCE_POS" class="nav-link">SOURCE_POS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.TARGET_POS" class="nav-link">TARGET_POS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.LOSS" class="nav-link">LOSS</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.VOCAB" class="nav-link">VOCAB</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.CONFIG" class="nav-link">CONFIG</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#kiwi.constants.STATE_DICT" class="nav-link">STATE_DICT</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.constants">
+<span id="kiwi-constants"></span><h1><a class="reference internal" href="#module-kiwi.constants" title="kiwi.constants"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.constants</span></code></a><a class="headerlink" href="#module-kiwi.constants" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<dl class="py data">
+<dt id="kiwi.constants.UNK">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">UNK</code><em class="property"> = &lt;unk&gt;</em><a class="headerlink" href="#kiwi.constants.UNK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.PAD">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">PAD</code><em class="property"> = &lt;pad&gt;</em><a class="headerlink" href="#kiwi.constants.PAD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.START">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">START</code><em class="property"> = &lt;bos&gt;</em><a class="headerlink" href="#kiwi.constants.START" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.STOP">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">STOP</code><em class="property"> = &lt;eos&gt;</em><a class="headerlink" href="#kiwi.constants.STOP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.UNALIGNED">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">UNALIGNED</code><em class="property"> = &lt;unaligned&gt;</em><a class="headerlink" href="#kiwi.constants.UNALIGNED" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.OK">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">OK</code><em class="property"> = OK</em><a class="headerlink" href="#kiwi.constants.OK" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.BAD">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">BAD</code><em class="property"> = BAD</em><a class="headerlink" href="#kiwi.constants.BAD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.LABELS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">LABELS</code><a class="headerlink" href="#kiwi.constants.LABELS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.SOURCE">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">SOURCE</code><em class="property"> = source</em><a class="headerlink" href="#kiwi.constants.SOURCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.TARGET">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">TARGET</code><em class="property"> = target</em><a class="headerlink" href="#kiwi.constants.TARGET" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.PE">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">PE</code><em class="property"> = pe</em><a class="headerlink" href="#kiwi.constants.PE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.TARGET_TAGS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">TARGET_TAGS</code><em class="property"> = target_tags</em><a class="headerlink" href="#kiwi.constants.TARGET_TAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.SOURCE_TAGS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">SOURCE_TAGS</code><em class="property"> = source_tags</em><a class="headerlink" href="#kiwi.constants.SOURCE_TAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.GAP_TAGS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">GAP_TAGS</code><em class="property"> = gap_tags</em><a class="headerlink" href="#kiwi.constants.GAP_TAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.TARGETGAPS_TAGS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">TARGETGAPS_TAGS</code><em class="property"> = targetgaps_tags</em><a class="headerlink" href="#kiwi.constants.TARGETGAPS_TAGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.SOURCE_LOGITS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">SOURCE_LOGITS</code><em class="property"> = source_logits</em><a class="headerlink" href="#kiwi.constants.SOURCE_LOGITS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.TARGET_LOGITS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">TARGET_LOGITS</code><em class="property"> = target_logits</em><a class="headerlink" href="#kiwi.constants.TARGET_LOGITS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.TARGET_SENTENCE">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">TARGET_SENTENCE</code><em class="property"> = target_sentence</em><a class="headerlink" href="#kiwi.constants.TARGET_SENTENCE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.PE_LOGITS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">PE_LOGITS</code><em class="property"> = pe_logits</em><a class="headerlink" href="#kiwi.constants.PE_LOGITS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.SENTENCE_SCORES">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">SENTENCE_SCORES</code><em class="property"> = sentence_scores</em><a class="headerlink" href="#kiwi.constants.SENTENCE_SCORES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.BINARY">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">BINARY</code><em class="property"> = binary</em><a class="headerlink" href="#kiwi.constants.BINARY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.ALIGNMENTS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">ALIGNMENTS</code><em class="property"> = alignments</em><a class="headerlink" href="#kiwi.constants.ALIGNMENTS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.SOURCE_POS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">SOURCE_POS</code><em class="property"> = source_pos</em><a class="headerlink" href="#kiwi.constants.SOURCE_POS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.TARGET_POS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">TARGET_POS</code><em class="property"> = target_pos</em><a class="headerlink" href="#kiwi.constants.TARGET_POS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.LOSS">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">LOSS</code><em class="property"> = loss</em><a class="headerlink" href="#kiwi.constants.LOSS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.VOCAB">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">VOCAB</code><em class="property"> = vocab</em><a class="headerlink" href="#kiwi.constants.VOCAB" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.CONFIG">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">CONFIG</code><em class="property"> = config</em><a class="headerlink" href="#kiwi.constants.CONFIG" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.constants.STATE_DICT">
+<code class="sig-prename descclassname">kiwi.constants.</code><code class="sig-name descname">STATE_DICT</code><em class="property"> = state_dict</em><a class="headerlink" href="#kiwi.constants.STATE_DICT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../cli/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.cli</span></code></a>
+    <a class='right-next' id="next-link" href="../loggers/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.loggers</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

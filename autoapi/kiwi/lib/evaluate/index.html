@@ -1,0 +1,647 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.lib.evaluate &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="kiwi.lib.predict" href="../predict/index.html" />
+    <link rel="prev" title="kiwi.lib" href="../index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../index.html">
+      <img src="../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.OutputConfig" class="nav-link">OutputConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.OutputConfig.gap_tags" class="nav-link">gap_tags</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.OutputConfig.targetgaps_tags" class="nav-link">targetgaps_tags</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.Configuration" class="nav-link">Configuration</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.Configuration.gold_files" class="nav-link">gold_files</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.Configuration.predicted_files" class="nav-link">predicted_files</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.Configuration.predicted_dir" class="nav-link">predicted_dir</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.Configuration.ensure_list" class="nav-link">ensure_list</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.Configuration.check_consistency" class="nav-link">check_consistency</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.MetricsReport" class="nav-link">MetricsReport</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.MetricsReport.word_scores" class="nav-link">word_scores</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.MetricsReport.sentence_scores" class="nav-link">sentence_scores</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.MetricsReport.add_word_level_scores" class="nav-link">add_word_level_scores</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.MetricsReport.add_sentence_level_scores" class="nav-link">add_sentence_level_scores</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.MetricsReport.print_scores_table" class="nav-link">print_scores_table</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.MetricsReport.__str__" class="nav-link">__str__</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.MetricsReport._scores_str" class="nav-link">_scores_str</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.evaluate_from_configuration" class="nav-link">evaluate_from_configuration</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.run" class="nav-link">run</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.retrieve_gold_standard" class="nav-link">retrieve_gold_standard</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.normalize_prediction_files" class="nav-link">normalize_prediction_files</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.split_wmt18_tags" class="nav-link">split_wmt18_tags</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.read_sentence_scores_file" class="nav-link">read_sentence_scores_file</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.to_numeric_values" class="nav-link">to_numeric_values</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.to_numeric_binary_labels" class="nav-link">to_numeric_binary_labels</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.report_lengths_mismatch" class="nav-link">report_lengths_mismatch</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.lengths_match" class="nav-link">lengths_match</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.word_level_scores" class="nav-link">word_level_scores</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.eval_word_level" class="nav-link">eval_word_level</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.sentence_level_scores" class="nav-link">sentence_level_scores</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate.eval_sentence_level" class="nav-link">eval_sentence_level</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.evaluate._extract_path_prefix" class="nav-link">_extract_path_prefix</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.lib.evaluate">
+<span id="kiwi-lib-evaluate"></span><h1><a class="reference internal" href="#module-kiwi.lib.evaluate" title="kiwi.lib.evaluate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.evaluate</span></code></a><a class="headerlink" href="#module-kiwi.lib.evaluate" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.OutputConfig" title="kiwi.lib.evaluate.OutputConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.Configuration" title="kiwi.lib.evaluate.Configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Configuration</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.MetricsReport" title="kiwi.lib.evaluate.MetricsReport"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MetricsReport</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.evaluate_from_configuration" title="kiwi.lib.evaluate.evaluate_from_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">evaluate_from_configuration</span></code></a>(configuration_dict: Dict[str, Any])</p></td>
+<td><p>Evaluate a model’s predictions based on the flags received from the configuration</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.run" title="kiwi.lib.evaluate.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(config: Configuration) → MetricsReport</p></td>
+<td><p>Runs the evaluation pipeline for evaluating a model’s predictions. Essentially</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.retrieve_gold_standard" title="kiwi.lib.evaluate.retrieve_gold_standard"><code class="xref py py-obj docutils literal notranslate"><span class="pre">retrieve_gold_standard</span></code></a>(config: OutputConfig)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.normalize_prediction_files" title="kiwi.lib.evaluate.normalize_prediction_files"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normalize_prediction_files</span></code></a>(predicted_files_config: List[OutputConfig], predicted_dir_config: List[Path])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.split_wmt18_tags" title="kiwi.lib.evaluate.split_wmt18_tags"><code class="xref py py-obj docutils literal notranslate"><span class="pre">split_wmt18_tags</span></code></a>(tags: List[List[Any]])</p></td>
+<td><p>Split tags list of lists in WMT18 format into target and gap tags.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.read_sentence_scores_file" title="kiwi.lib.evaluate.read_sentence_scores_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_sentence_scores_file</span></code></a>(sent_file)</p></td>
+<td><p>Read file with numeric scores for sentences.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.to_numeric_values" title="kiwi.lib.evaluate.to_numeric_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_numeric_values</span></code></a>(predictions: Union[str, List[str], List[List[str]]]) → Union[int, float, List[int], List[float], List[List[int]], List[List[float]]]</p></td>
+<td><p>Convert text labels or string probabilities (for BAD) to int or float values,</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.to_numeric_binary_labels" title="kiwi.lib.evaluate.to_numeric_binary_labels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_numeric_binary_labels</span></code></a>(predictions: Union[str, float, List[str], List[List[str]], List[float], List[List[float]]], threshold: float = 0.5)</p></td>
+<td><p>Generate numeric labels from text labels or probabilities (for BAD).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.report_lengths_mismatch" title="kiwi.lib.evaluate.report_lengths_mismatch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">report_lengths_mismatch</span></code></a>(gold, prediction)</p></td>
+<td><p>Checks if the number of gold and predictions labels match. Prints a warning and</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.lengths_match" title="kiwi.lib.evaluate.lengths_match"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lengths_match</span></code></a>(gold, prediction)</p></td>
+<td><p>Checks if the number of gold and predictions labels match. Returns false if they</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.word_level_scores" title="kiwi.lib.evaluate.word_level_scores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">word_level_scores</span></code></a>(true_targets, predicted_targets, labels=const.LABELS)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.eval_word_level" title="kiwi.lib.evaluate.eval_word_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eval_word_level</span></code></a>(true_targets, predictions: Dict[str, List[List[int]]]) → np.ndarray</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.sentence_level_scores" title="kiwi.lib.evaluate.sentence_level_scores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sentence_level_scores</span></code></a>(true_targets: List[float], predicted_targets: List[float]) → Tuple[Tuple, Tuple]</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.evaluate.eval_sentence_level" title="kiwi.lib.evaluate.eval_sentence_level"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eval_sentence_level</span></code></a>(true_targets, predictions: Dict[str, List[float]]) → Tuple[np.ndarray, np.ndarray]</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.evaluate._extract_path_prefix" title="kiwi.lib.evaluate._extract_path_prefix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_extract_path_prefix</span></code></a>(file_names)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.lib.evaluate.logger">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.lib.evaluate.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.evaluate.OutputConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">OutputConfig</code><a class="headerlink" href="#kiwi.lib.evaluate.OutputConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../data/datasets/wmt_qe_dataset/index.html#kiwi.data.datasets.wmt_qe_dataset.OutputConfig" title="kiwi.data.datasets.wmt_qe_dataset.OutputConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.data.datasets.wmt_qe_dataset.OutputConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.evaluate.OutputConfig.gap_tags">
+<code class="sig-name descname">gap_tags</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.lib.evaluate.OutputConfig.gap_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to label file for gaps (only for predictions)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.evaluate.OutputConfig.targetgaps_tags">
+<code class="sig-name descname">targetgaps_tags</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.lib.evaluate.OutputConfig.targetgaps_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to label file for target+gaps (only for predictions)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.evaluate.Configuration">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">Configuration</code><a class="headerlink" href="#kiwi.lib.evaluate.Configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.evaluate.Configuration.gold_files">
+<code class="sig-name descname">gold_files</code><em class="property"> :wmt_qe_dataset.OutputConfig</em><a class="headerlink" href="#kiwi.lib.evaluate.Configuration.gold_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.evaluate.Configuration.predicted_files">
+<code class="sig-name descname">predicted_files</code><em class="property"> :Optional[List[OutputConfig]]</em><a class="headerlink" href="#kiwi.lib.evaluate.Configuration.predicted_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.evaluate.Configuration.predicted_dir">
+<code class="sig-name descname">predicted_dir</code><em class="property"> :Optional[List[Path]]</em><a class="headerlink" href="#kiwi.lib.evaluate.Configuration.predicted_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>One or more directories from where to read predicted files (using standard output
+names.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.evaluate.Configuration.ensure_list">
+<code class="sig-name descname">ensure_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.Configuration.ensure_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.evaluate.Configuration.check_consistency">
+<code class="sig-name descname">check_consistency</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.Configuration.check_consistency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.evaluate.MetricsReport">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">MetricsReport</code><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt id="kiwi.lib.evaluate.MetricsReport.word_scores">
+<code class="sig-name descname">word_scores</code><em class="property"> :Dict[str, np.ndarray]</em><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.word_scores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.evaluate.MetricsReport.sentence_scores">
+<code class="sig-name descname">sentence_scores</code><em class="property"> :Dict[str, np.ndarray]</em><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.sentence_scores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.evaluate.MetricsReport.add_word_level_scores">
+<code class="sig-name descname">add_word_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">scores</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.add_word_level_scores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.evaluate.MetricsReport.add_sentence_level_scores">
+<code class="sig-name descname">add_sentence_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">scores</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.add_sentence_level_scores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.evaluate.MetricsReport.print_scores_table">
+<code class="sig-name descname">print_scores_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.print_scores_table" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.evaluate.MetricsReport.__str__">
+<code class="sig-name descname">__str__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.__str__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return str(self).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.evaluate.MetricsReport._scores_str">
+<em class="property">static </em><code class="sig-name descname">_scores_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scores</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport._scores_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.evaluate_from_configuration">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">evaluate_from_configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configuration_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.evaluate_from_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate a model’s predictions based on the flags received from the configuration
+files.</p>
+<p>Refer to configuration for a list of available configuration flags for the evaluate
+pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>configuration_dict</strong> – options read from file or CLI</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.run">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.lib.evaluate.Configuration" title="kiwi.lib.evaluate.Configuration">Configuration</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#kiwi.lib.evaluate.MetricsReport" title="kiwi.lib.evaluate.MetricsReport">MetricsReport</a><a class="headerlink" href="#kiwi.lib.evaluate.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the evaluation pipeline for evaluating a model’s predictions. Essentially
+calculating metrics using <cite>gold_targets</cite> and <cite>prediction_files</cite>.</p>
+<p>Refer to configuration for a list of available options for this pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> – Configuration Namespace</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Object with information for both word and sentence level metrics</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#kiwi.lib.evaluate.MetricsReport" title="kiwi.lib.evaluate.MetricsReport">MetricsReport</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.retrieve_gold_standard">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">retrieve_gold_standard</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.lib.evaluate.OutputConfig" title="kiwi.lib.evaluate.OutputConfig">OutputConfig</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.retrieve_gold_standard" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.normalize_prediction_files">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">normalize_prediction_files</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predicted_files_config</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="#kiwi.lib.evaluate.OutputConfig" title="kiwi.lib.evaluate.OutputConfig">OutputConfig</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">predicted_dir_config</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Path<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.normalize_prediction_files" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.split_wmt18_tags">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">split_wmt18_tags</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tags</span><span class="p">:</span> <span class="n">List<span class="p">[</span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.split_wmt18_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split tags list of lists in WMT18 format into target and gap tags.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.read_sentence_scores_file">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">read_sentence_scores_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sent_file</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.read_sentence_scores_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read file with numeric scores for sentences.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.to_numeric_values">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">to_numeric_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.lib.evaluate.to_numeric_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert text labels or string probabilities (for BAD) to int or float values,
+respectively.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.to_numeric_binary_labels">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">to_numeric_binary_labels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">threshold</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span> <span class="o">=</span> <span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.to_numeric_binary_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate numeric labels from text labels or probabilities (for BAD).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.report_lengths_mismatch">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">report_lengths_mismatch</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gold</span></em>, <em class="sig-param"><span class="n">prediction</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.report_lengths_mismatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if the number of gold and predictions labels match. Prints a warning and
+returns false if they do not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gold</strong> – list of gold labels</p></li>
+<li><p><strong>prediction</strong> – list of predicted labels</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if all lenghts match, False if not</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.lengths_match">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">lengths_match</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gold</span></em>, <em class="sig-param"><span class="n">prediction</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.lengths_match" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Checks if the number of gold and predictions labels match. Returns false if they</dt><dd><p>do not.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gold</strong> – list of gold labels</p></li>
+<li><p><strong>prediction</strong> – list of predicted labels</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if all lenghts match, False if not</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.word_level_scores">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">word_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span></em>, <em class="sig-param"><span class="n">predicted_targets</span></em>, <em class="sig-param"><span class="n">labels</span><span class="o">=</span><span class="default_value">const.LABELS</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.word_level_scores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.eval_word_level">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">eval_word_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span></em>, <em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; np.ndarray<a class="headerlink" href="#kiwi.lib.evaluate.eval_word_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.sentence_level_scores">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">sentence_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">predicted_targets</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tuple<span class="p">, </span>Tuple<span class="p">]</span><a class="headerlink" href="#kiwi.lib.evaluate.sentence_level_scores" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate.eval_sentence_level">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">eval_sentence_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span></em>, <em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>np.ndarray<span class="p">, </span>np.ndarray<span class="p">]</span><a class="headerlink" href="#kiwi.lib.evaluate.eval_sentence_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.evaluate._extract_path_prefix">
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">_extract_path_prefix</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_names</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate._extract_path_prefix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib</span></code></a>
+    <a class='right-next' id="next-link" href="../predict/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.predict</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

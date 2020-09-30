@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.utils.tensors &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="kiwi.__main__" href="../../__main__/index.html" />
+    <link rel="prev" title="kiwi.utils.io" href="../io/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../index.html">
+      <img src="../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.pad_zeros_around_timesteps" class="nav-link">pad_zeros_around_timesteps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.unroll" class="nav-link">unroll</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.convolve_tensor" class="nav-link">convolve_tensor</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.apply_packed_sequence" class="nav-link">apply_packed_sequence</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.replace_token" class="nav-link">replace_token</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.make_classes_loss_weights" class="nav-link">make_classes_loss_weights</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.clones" class="nav-link">clones</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.subsequent_mask" class="nav-link">subsequent_mask</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.sequence_mask" class="nav-link">sequence_mask</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.unmask" class="nav-link">unmask</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.unsqueeze_as" class="nav-link">unsqueeze_as</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.make_mergeable_tensors" class="nav-link">make_mergeable_tensors</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.GradientMul" class="nav-link">GradientMul</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.utils.tensors.GradientMul.forward" class="nav-link">forward</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.utils.tensors.GradientMul.backward" class="nav-link">backward</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.gradient_mul" class="nav-link">gradient_mul</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.feedforward" class="nav-link">feedforward</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.retrieve_tokens_mask" class="nav-link">retrieve_tokens_mask</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.select_positions" class="nav-link">select_positions</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.tensors.pieces_to_tokens" class="nav-link">pieces_to_tokens</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.utils.tensors">
+<span id="kiwi-utils-tensors"></span><h1><a class="reference internal" href="#module-kiwi.utils.tensors" title="kiwi.utils.tensors"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils.tensors</span></code></a><a class="headerlink" href="#module-kiwi.utils.tensors" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.tensors.GradientMul" title="kiwi.utils.tensors.GradientMul"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GradientMul</span></code></a></p></td>
+<td><p>Records operation history and defines formulas for differentiating ops.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.tensors.pad_zeros_around_timesteps" title="kiwi.utils.tensors.pad_zeros_around_timesteps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pad_zeros_around_timesteps</span></code></a>(batched_tensor: torch.Tensor) → torch.Tensor</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.tensors.unroll" title="kiwi.utils.tensors.unroll"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unroll</span></code></a>(list_of_lists)</p></td>
+<td><p>Argument:</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.tensors.convolve_tensor" title="kiwi.utils.tensors.convolve_tensor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convolve_tensor</span></code></a>(sequences, window_size, pad_value=0)</p></td>
+<td><p>Convolve a sequence and apply padding.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.tensors.apply_packed_sequence" title="kiwi.utils.tensors.apply_packed_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_packed_sequence</span></code></a>(rnn, padded_sequences, lengths)</p></td>
+<td><p>Run a forward pass of padded_sequences through an rnn using packed sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.tensors.replace_token" title="kiwi.utils.tensors.replace_token"><code class="xref py py-obj docutils literal notranslate"><span class="pre">replace_token</span></code></a>(target: torch.LongTensor, old: int, new: int)</p></td>
+<td><p>Replace old tokens with new.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.tensors.make_classes_loss_weights" title="kiwi.utils.tensors.make_classes_loss_weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_classes_loss_weights</span></code></a>(vocab: Vocabulary, label_weights: Dict[str, float])</p></td>
+<td><p>Create a loss weight vector for nn.CrossEntropyLoss.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.tensors.clones" title="kiwi.utils.tensors.clones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clones</span></code></a>(module, N)</p></td>
+<td><p>Produce N identical layers.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.tensors.subsequent_mask" title="kiwi.utils.tensors.subsequent_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subsequent_mask</span></code></a>(size: int)</p></td>
+<td><p>Mask out subsequent positions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.tensors.sequence_mask" title="kiwi.utils.tensors.sequence_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sequence_mask</span></code></a>(lengths: torch.LongTensor, max_len: Optional[int] = None)</p></td>
+<td><p>Create a boolean mask from sequence lengths.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.tensors.unmask" title="kiwi.utils.tensors.unmask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unmask</span></code></a>(tensor, mask)</p></td>
+<td><p>Unmask a tensor and convert it back to a list of lists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.tensors.unsqueeze_as" title="kiwi.utils.tensors.unsqueeze_as"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unsqueeze_as</span></code></a>(tensor, as_tensor, dim=-1)</p></td>
+<td><p>Expand new dimensions based on a template tensor along <cite>dim</cite> axis.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.tensors.make_mergeable_tensors" title="kiwi.utils.tensors.make_mergeable_tensors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_mergeable_tensors</span></code></a>(t1: torch.Tensor, t2: torch.Tensor)</p></td>
+<td><p>Expand a new dimension in t1 and t2 and expand them so that both</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.tensors.feedforward" title="kiwi.utils.tensors.feedforward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">feedforward</span></code></a>(in_dim, n_layers, shrink=2, out_dim=None, activation=nn.Tanh, final_activation=False, dropout=0.0)</p></td>
+<td><p>Constructor for FeedForward Layers</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.tensors.retrieve_tokens_mask" title="kiwi.utils.tensors.retrieve_tokens_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">retrieve_tokens_mask</span></code></a>(input_batch: BatchedSentence)</p></td>
+<td><p>Compute Mask of Tokens for side.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.tensors.select_positions" title="kiwi.utils.tensors.select_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">select_positions</span></code></a>(tensor, indices)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.tensors.pieces_to_tokens" title="kiwi.utils.tensors.pieces_to_tokens"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pieces_to_tokens</span></code></a>(features_tensor, batch, strategy='first')</p></td>
+<td><p>Join together pieces of a token back into the original token dimension.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt id="kiwi.utils.tensors.pad_zeros_around_timesteps">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">pad_zeros_around_timesteps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batched_tensor</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.7.0a0+125df29 ))">torch.Tensor</a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.7.0a0+125df29 ))">torch.Tensor</a><a class="headerlink" href="#kiwi.utils.tensors.pad_zeros_around_timesteps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.unroll">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">unroll</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_of_lists</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.unroll" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Argument:</dt><dd><p>list_of_lists: a list that contains lists.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a flattened list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.convolve_tensor">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">convolve_tensor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequences</span></em>, <em class="sig-param"><span class="n">window_size</span></em>, <em class="sig-param"><span class="n">pad_value</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.convolve_tensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convolve a sequence and apply padding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequences</strong> – nD tensor</p></li>
+<li><p><strong>window_size</strong> – filter length</p></li>
+<li><p><strong>pad_value</strong> – int value used as padding</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>(n+1)D tensor, where the last dimension has size window_size.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.apply_packed_sequence">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">apply_packed_sequence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rnn</span></em>, <em class="sig-param"><span class="n">padded_sequences</span></em>, <em class="sig-param"><span class="n">lengths</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.apply_packed_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a forward pass of padded_sequences through an rnn using packed sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rnn</strong> – The RNN that that we want to compute a forward pass with.</p></li>
+<li><p><strong>padded_sequences</strong> (<em>FloatTensor b x seq x dim</em>) – A batch of padded_sequences.</p></li>
+<li><p><strong>lengths</strong> (<em>LongTensor batch</em>) – The length of each sequence in the batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the output of the RNN <cite>rnn</cite> with input <cite>padded_sequences</cite></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>output</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.replace_token">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">replace_token</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target</span><span class="p">:</span> <span class="n">torch.LongTensor</span></em>, <em class="sig-param"><span class="n">old</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em>, <em class="sig-param"><span class="n">new</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.replace_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace old tokens with new.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> – </p></li>
+<li><p><strong>old</strong> – the token to be replaced by new.</p></li>
+<li><p><strong>new</strong> – the token used to replace old.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.make_classes_loss_weights">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">make_classes_loss_weights</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vocab</span><span class="p">:</span> <span class="n">Vocabulary</span></em>, <em class="sig-param"><span class="n">label_weights</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.make_classes_loss_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a loss weight vector for nn.CrossEntropyLoss.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vocab</strong> – vocabulary for classes.</p></li>
+<li><p><strong>label_weights</strong> – weight for specific classes (str); classes in vocab and not in
+this dict will get a weight of 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>weight Tensor of shape <cite>nb_classes</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>weights (FloatTensor)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.clones">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">clones</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em>, <em class="sig-param"><span class="n">N</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.clones" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce N identical layers.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.subsequent_mask">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">subsequent_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.subsequent_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mask out subsequent positions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>size</strong> – squared tensor size</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.sequence_mask">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">sequence_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">lengths</span><span class="p">:</span> <span class="n">torch.LongTensor</span></em>, <em class="sig-param"><span class="n">max_len</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.sequence_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a boolean mask from sequence lengths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lengths</strong> – lengths with shape (bs,)</p></li>
+<li><p><strong>max_len</strong> – max sequence length; if None it will be set to lengths.max()</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.unmask">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">unmask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em>, <em class="sig-param"><span class="n">mask</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.unmask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unmask a tensor and convert it back to a list of lists.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.unsqueeze_as">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">unsqueeze_as</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em>, <em class="sig-param"><span class="n">as_tensor</span></em>, <em class="sig-param"><span class="n">dim</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.unsqueeze_as" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expand new dimensions based on a template tensor along <cite>dim</cite> axis.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.make_mergeable_tensors">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">make_mergeable_tensors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">t1</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.7.0a0+125df29 ))">torch.Tensor</a></span></em>, <em class="sig-param"><span class="n">t2</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.7.0a0+125df29 ))">torch.Tensor</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.make_mergeable_tensors" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expand a new dimension in t1 and t2 and expand them so that both
+tensors will have the same number of timesteps.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>t1</strong> – tensor with shape (bs, …, m, d1)</p></li>
+<li><p><strong>t2</strong> – tensor with shape (bs, …, n, d2)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>tuple of</dt><dd><p>torch.Tensor: (bs, …, m, n, d1),
+torch.Tensor: (bs, …, m, n, d2)</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.utils.tensors.GradientMul">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">GradientMul</code><a class="headerlink" href="#kiwi.utils.tensors.GradientMul" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/autograd.html#torch.autograd.Function" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.autograd.Function</span></code></a></p>
+<p>Records operation history and defines formulas for differentiating ops.</p>
+<p>See the Note on extending the autograd engine for more details on how to use
+this class: <a class="reference external" href="https://pytorch.org/docs/stable/notes/extending.html#extending-torch-autograd">https://pytorch.org/docs/stable/notes/extending.html#extending-torch-autograd</a></p>
+<p>Every operation performed on <code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code> s creates a new function
+object, that performs the computation, and records that it happened.
+The history is retained in the form of a DAG of functions, with edges
+denoting data dependencies (<code class="docutils literal notranslate"><span class="pre">input</span> <span class="pre">&lt;-</span> <span class="pre">output</span></code>). Then, when backward is
+called, the graph is processed in the topological ordering, by calling
+<a class="reference internal" href="#kiwi.utils.tensors.GradientMul.backward" title="kiwi.utils.tensors.GradientMul.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code></a> methods of each <code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code> object, and passing
+returned gradients on to next <code class="xref py py-class docutils literal notranslate"><span class="pre">Function</span></code> s.</p>
+<p>Normally, the only way users interact with functions is by creating
+subclasses and defining new operations. This is a recommended way of
+extending torch.autograd.</p>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">Exp</span><span class="p">(</span><span class="n">Function</span><span class="p">):</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nd">@staticmethod</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">result</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">exp</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">ctx</span><span class="o">.</span><span class="n">save_for_backward</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="n">result</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="nd">@staticmethod</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="k">def</span> <span class="nf">backward</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">grad_output</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="n">result</span><span class="p">,</span> <span class="o">=</span> <span class="n">ctx</span><span class="o">.</span><span class="n">saved_tensors</span>
+<span class="gp">&gt;&gt;&gt; </span>        <span class="k">return</span> <span class="n">grad_output</span> <span class="o">*</span> <span class="n">result</span>
+<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#Use it by calling the apply method:</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output</span> <span class="o">=</span> <span class="n">Exp</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="kiwi.utils.tensors.GradientMul.forward">
+<em class="property">static </em><code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ctx</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">constant</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.GradientMul.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs the operation.</p>
+<p>This function is to be overridden by all subclasses.</p>
+<p>It must accept a context ctx as the first argument, followed by any
+number of arguments (tensors or other types).</p>
+<p>The context can be used to store tensors that can be then retrieved
+during the backward pass.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.utils.tensors.GradientMul.backward">
+<em class="property">static </em><code class="sig-name descname">backward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ctx</span></em>, <em class="sig-param"><span class="n">grad</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.GradientMul.backward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a formula for differentiating the operation.</p>
+<p>This function is to be overridden by all subclasses.</p>
+<p>It must accept a context <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx</span></code> as the first argument, followed by
+as many outputs did <a class="reference internal" href="#kiwi.utils.tensors.GradientMul.forward" title="kiwi.utils.tensors.GradientMul.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> return, and it should return as many
+tensors, as there were inputs to <a class="reference internal" href="#kiwi.utils.tensors.GradientMul.forward" title="kiwi.utils.tensors.GradientMul.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a>. Each argument is the
+gradient w.r.t the given output, and each returned value should be the
+gradient w.r.t. the corresponding input.</p>
+<p>The context can be used to retrieve tensors saved during the forward
+pass. It also has an attribute <code class="xref py py-attr docutils literal notranslate"><span class="pre">ctx.needs_input_grad</span></code> as a tuple
+of booleans representing whether each input needs gradient. E.g.,
+<a class="reference internal" href="#kiwi.utils.tensors.GradientMul.backward" title="kiwi.utils.tensors.GradientMul.backward"><code class="xref py py-func docutils literal notranslate"><span class="pre">backward()</span></code></a> will have <code class="docutils literal notranslate"><span class="pre">ctx.needs_input_grad[0]</span> <span class="pre">=</span> <span class="pre">True</span></code> if the
+first input to <a class="reference internal" href="#kiwi.utils.tensors.GradientMul.forward" title="kiwi.utils.tensors.GradientMul.forward"><code class="xref py py-func docutils literal notranslate"><span class="pre">forward()</span></code></a> needs gradient computated w.r.t. the
+output.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt id="kiwi.utils.tensors.gradient_mul">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">gradient_mul</code><a class="headerlink" href="#kiwi.utils.tensors.gradient_mul" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.feedforward">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">feedforward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">in_dim</span></em>, <em class="sig-param"><span class="n">n_layers</span></em>, <em class="sig-param"><span class="n">shrink</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">out_dim</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">activation</span><span class="o">=</span><span class="default_value">nn.Tanh</span></em>, <em class="sig-param"><span class="n">final_activation</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">dropout</span><span class="o">=</span><span class="default_value">0.0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.feedforward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor for FeedForward Layers</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.retrieve_tokens_mask">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">retrieve_tokens_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_batch</span><span class="p">:</span> <span class="n">BatchedSentence</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.retrieve_tokens_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute Mask of Tokens for side.</p>
+<p>Migrated from FieldEmbedder.get_mask()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_batch</strong> (<a class="reference internal" href="../../data/batch/index.html#kiwi.data.batch.BatchedSentence" title="kiwi.data.batch.BatchedSentence"><em>BatchedSentence</em></a>) – batch of tensors</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>mask tensor</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.select_positions">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">select_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span></em>, <em class="sig-param"><span class="n">indices</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.select_positions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.tensors.pieces_to_tokens">
+<code class="sig-prename descclassname">kiwi.utils.tensors.</code><code class="sig-name descname">pieces_to_tokens</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">features_tensor</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">strategy</span><span class="o">=</span><span class="default_value">'first'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.tensors.pieces_to_tokens" title="Permalink to this definition">¶</a></dt>
+<dd><p>Join together pieces of a token back into the original token dimension.</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../io/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils.io</span></code></a>
+    <a class='right-next' id="next-link" href="../../__main__/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.__main__</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

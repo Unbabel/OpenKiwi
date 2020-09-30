@@ -1,0 +1,786 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.lib.train &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="kiwi.lib.utils" href="../utils/index.html" />
+    <link rel="prev" title="kiwi.lib.pretrain" href="../pretrain/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../index.html">
+      <img src="../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.TrainRunInfo" class="nav-link">TrainRunInfo</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainRunInfo.model" class="nav-link">model</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainRunInfo.best_metrics" class="nav-link">best_metrics</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainRunInfo.best_model_path" class="nav-link">best_model_path</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.RunConfig" class="nav-link">RunConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.RunConfig.seed" class="nav-link">seed</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.RunConfig.experiment_name" class="nav-link">experiment_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.RunConfig.output_dir" class="nav-link">output_dir</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.RunConfig.run_id" class="nav-link">run_id</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.RunConfig.use_mlflow" class="nav-link">use_mlflow</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.RunConfig.mlflow_tracking_uri" class="nav-link">mlflow_tracking_uri</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.RunConfig.mlflow_always_log_artifacts" class="nav-link">mlflow_always_log_artifacts</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.CheckpointsConfig" class="nav-link">CheckpointsConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.CheckpointsConfig.validation_steps" class="nav-link">validation_steps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.CheckpointsConfig.save_top_k" class="nav-link">save_top_k</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.CheckpointsConfig.early_stop_patience" class="nav-link">early_stop_patience</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.GPUConfig" class="nav-link">GPUConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.GPUConfig.gpus" class="nav-link">gpus</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.GPUConfig.precision" class="nav-link">precision</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.GPUConfig.amp_level" class="nav-link">amp_level</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.GPUConfig.setup_gpu_ids" class="nav-link">setup_gpu_ids</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.GPUConfig.setup_amp_level" class="nav-link">setup_amp_level</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.TrainerConfig" class="nav-link">TrainerConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainerConfig.resume" class="nav-link">resume</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainerConfig.epochs" class="nav-link">epochs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainerConfig.gradient_accumulation_steps" class="nav-link">gradient_accumulation_steps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainerConfig.gradient_max_norm" class="nav-link">gradient_max_norm</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainerConfig.main_metric" class="nav-link">main_metric</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainerConfig.log_interval" class="nav-link">log_interval</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainerConfig.log_save_interval" class="nav-link">log_save_interval</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainerConfig.checkpoint" class="nav-link">checkpoint</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.TrainerConfig.deterministic" class="nav-link">deterministic</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.Configuration" class="nav-link">Configuration</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.Configuration.run" class="nav-link">run</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.Configuration.trainer" class="nav-link">trainer</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.Configuration.data" class="nav-link">data</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.Configuration.system" class="nav-link">system</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.Configuration.debug" class="nav-link">debug</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.Configuration.verbose" class="nav-link">verbose</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.train.Configuration.quiet" class="nav-link">quiet</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.train_from_file" class="nav-link">train_from_file</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.train_from_configuration" class="nav-link">train_from_configuration</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.setup_run" class="nav-link">setup_run</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.train.run" class="nav-link">run</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.lib.train">
+<span id="kiwi-lib-train"></span><h1><a class="reference internal" href="#module-kiwi.lib.train" title="kiwi.lib.train"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.train</span></code></a><a class="headerlink" href="#module-kiwi.lib.train" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.train.TrainRunInfo" title="kiwi.lib.train.TrainRunInfo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TrainRunInfo</span></code></a></p></td>
+<td><p>Encapsulate relevant information on training runs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.train.RunConfig" title="kiwi.lib.train.RunConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RunConfig</span></code></a></p></td>
+<td><p>Options for each run.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.train.CheckpointsConfig" title="kiwi.lib.train.CheckpointsConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CheckpointsConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.train.GPUConfig" title="kiwi.lib.train.GPUConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">GPUConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.train.TrainerConfig" title="kiwi.lib.train.TrainerConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TrainerConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.train.Configuration" title="kiwi.lib.train.Configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Configuration</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.train.train_from_file" title="kiwi.lib.train.train_from_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">train_from_file</span></code></a>(filename) → TrainRunInfo</p></td>
+<td><p>Load options from a config file and calls the training procedure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.train.train_from_configuration" title="kiwi.lib.train.train_from_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">train_from_configuration</span></code></a>(configuration_dict) → TrainRunInfo</p></td>
+<td><p>Run the entire training pipeline using the configuration options received.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.train.setup_run" title="kiwi.lib.train.setup_run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_run</span></code></a>(config: RunConfig, debug=False, quiet=False, anchor_dir: Path = None) → Tuple[Path, Optional[MLFlowTrackingLogger]]</p></td>
+<td><p>Prepare for running the training pipeline.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.train.run" title="kiwi.lib.train.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(config: Configuration, system_type: Union[Type[TLMSystem], Type[QESystem]] = QESystem) → TrainRunInfo</p></td>
+<td><p>Instantiate the system according to the configuration and train it.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.lib.train.logger">
+<code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.lib.train.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.train.TrainRunInfo">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">TrainRunInfo</code><a class="headerlink" href="#kiwi.lib.train.TrainRunInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encapsulate relevant information on training runs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainRunInfo.model">
+<code class="sig-name descname">model</code><em class="property"> :QESystem</em><a class="headerlink" href="#kiwi.lib.train.TrainRunInfo.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>The last model when training finished.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainRunInfo.best_metrics">
+<code class="sig-name descname">best_metrics</code><em class="property"> :Dict[str, Any]</em><a class="headerlink" href="#kiwi.lib.train.TrainRunInfo.best_metrics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mapping of metrics of the best model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainRunInfo.best_model_path">
+<code class="sig-name descname">best_model_path</code><em class="property"> :Optional[Path]</em><a class="headerlink" href="#kiwi.lib.train.TrainRunInfo.best_model_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path of the best model, if it was saved to disk.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.train.RunConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">RunConfig</code><a class="headerlink" href="#kiwi.lib.train.RunConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Options for each run.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.train.RunConfig.seed">
+<code class="sig-name descname">seed</code><em class="property"> :int = 42</em><a class="headerlink" href="#kiwi.lib.train.RunConfig.seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Random seed</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.RunConfig.experiment_name">
+<code class="sig-name descname">experiment_name</code><em class="property"> :str = default</em><a class="headerlink" href="#kiwi.lib.train.RunConfig.experiment_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>If using MLflow, it will log this run under this experiment name, which appears
+as a separate section in the UI. It will also be used in some messages and files.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.RunConfig.output_dir">
+<code class="sig-name descname">output_dir</code><em class="property"> :Path</em><a class="headerlink" href="#kiwi.lib.train.RunConfig.output_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output several files for this run under this directory.
+If not specified, a directory under “./runs/” is created or reused based on the
+<code class="docutils literal notranslate"><span class="pre">run_id</span></code>. Files might also be sent to MLflow depending on the
+<code class="docutils literal notranslate"><span class="pre">mlflow_always_log_artifacts</span></code> option.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.RunConfig.run_id">
+<code class="sig-name descname">run_id</code><em class="property"> :str</em><a class="headerlink" href="#kiwi.lib.train.RunConfig.run_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, MLflow/Default Logger will log metrics and params
+under this ID. If it exists, the run status will change to running.
+This ID is also used for creating this run’s output directory if
+<code class="docutils literal notranslate"><span class="pre">output_dir</span></code> is not specified (Run ID must be a 32-character hex string).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.RunConfig.use_mlflow">
+<code class="sig-name descname">use_mlflow</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.train.RunConfig.use_mlflow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether to use MLflow for tracking this run. If not installed, a message
+is shown</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.RunConfig.mlflow_tracking_uri">
+<code class="sig-name descname">mlflow_tracking_uri</code><em class="property"> :str = mlruns/</em><a class="headerlink" href="#kiwi.lib.train.RunConfig.mlflow_tracking_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>If using MLflow, logs model parameters, training metrics, and
+artifacts (files) to this MLflow server. Uses the localhost by
+default.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.RunConfig.mlflow_always_log_artifacts">
+<code class="sig-name descname">mlflow_always_log_artifacts</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.train.RunConfig.mlflow_always_log_artifacts" title="Permalink to this definition">¶</a></dt>
+<dd><p>If using MLFlow, always log (send) artifacts (files) to MLflow
+artifacts URI. By default (false), artifacts are only logged if
+MLflow is a remote server (as specified by –mlflow-tracking-uri
+option).All generated files are always saved in –output-dir, so it
+might be considered redundant to copy them to a local MLflow
+server. If this is not the case, set this option to true.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.train.CheckpointsConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">CheckpointsConfig</code><a class="headerlink" href="#kiwi.lib.train.CheckpointsConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.train.CheckpointsConfig.validation_steps">
+<code class="sig-name descname">validation_steps</code><em class="property"> :Union[confloat(gt=0.0, le=1.0), PositiveInt] = 1.0</em><a class="headerlink" href="#kiwi.lib.train.CheckpointsConfig.validation_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>How often within one training epoch to check the validation set.
+If float, % of training epoch. If int, check every n batches.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.CheckpointsConfig.save_top_k">
+<code class="sig-name descname">save_top_k</code><em class="property"> :int = 1</em><a class="headerlink" href="#kiwi.lib.train.CheckpointsConfig.save_top_k" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save and keep only <code class="docutils literal notranslate"><span class="pre">k</span></code> best models according to main metric;
+-1 will keep all; 0 will never save a model.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.CheckpointsConfig.early_stop_patience">
+<code class="sig-name descname">early_stop_patience</code><em class="property"> :conint(ge=0) = 0</em><a class="headerlink" href="#kiwi.lib.train.CheckpointsConfig.early_stop_patience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop training if evaluation metrics do not improve after X validations;
+0 disables this.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.train.GPUConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">GPUConfig</code><a class="headerlink" href="#kiwi.lib.train.GPUConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.train.GPUConfig.gpus">
+<code class="sig-name descname">gpus</code><em class="property"> :Union[int, List[int]] = 0</em><a class="headerlink" href="#kiwi.lib.train.GPUConfig.gpus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the number of GPUs specified if int, where 0 is no GPU. -1 is all GPUs.
+Alternatively, if a list, uses the GPU-ids specified (e.g., [0, 2]).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.GPUConfig.precision">
+<code class="sig-name descname">precision</code><em class="property"> :Literal[16, 32] = 32</em><a class="headerlink" href="#kiwi.lib.train.GPUConfig.precision" title="Permalink to this definition">¶</a></dt>
+<dd><p>The floating point precision to be used while training the model. Available
+options are 32 or 16 bits.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.GPUConfig.amp_level">
+<code class="sig-name descname">amp_level</code><em class="property"> :Literal['O0', 'O1', 'O2', 'O3'] = O0</em><a class="headerlink" href="#kiwi.lib.train.GPUConfig.amp_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>The automatic-mixed-precision level to use. O0 is FP32 training. 01 is mixed
+precision training as popularized by NVIDIA Apex. O2 casts the model weights to FP16</p>
+<blockquote>
+<div><p>but keeps certain master weights and batch norm in FP32 without patching Torch</p>
+</div></blockquote>
+<p>functions. 03 is full FP16 training.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.train.GPUConfig.setup_gpu_ids">
+<code class="sig-name descname">setup_gpu_ids</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.train.GPUConfig.setup_gpu_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>If asking to use CPU, let it be, outputting a warning if GPUs are available.
+If asking to use any GPU but none are available, fall back to CPU and warn user.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.train.GPUConfig.setup_amp_level">
+<code class="sig-name descname">setup_amp_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.train.GPUConfig.setup_amp_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>If precision is set to 16, amp_level needs to be greater than O0.
+Following the same logic, if amp_level is set to greater than O0, precision
+needs to be set to 16.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.train.TrainerConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">TrainerConfig</code><a class="headerlink" href="#kiwi.lib.train.TrainerConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.lib.train.GPUConfig" title="kiwi.lib.train.GPUConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.lib.train.GPUConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainerConfig.resume">
+<code class="sig-name descname">resume</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.train.TrainerConfig.resume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resume training a previous run.
+The <cite>run.run_id</cite> (and possibly <cite>run.experiment_name</cite>) option must be specified.
+Files are then searched under the “runs” directory. If not found, they are
+downloaded from the MLflow server (check the <cite>mlflow_tracking_uri</cite> option).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainerConfig.epochs">
+<code class="sig-name descname">epochs</code><em class="property"> :int = 50</em><a class="headerlink" href="#kiwi.lib.train.TrainerConfig.epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of epochs for training.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainerConfig.gradient_accumulation_steps">
+<code class="sig-name descname">gradient_accumulation_steps</code><em class="property"> :int = 1</em><a class="headerlink" href="#kiwi.lib.train.TrainerConfig.gradient_accumulation_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accumulate gradients for the given number of steps (batches) before
+back-propagating.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainerConfig.gradient_max_norm">
+<code class="sig-name descname">gradient_max_norm</code><em class="property"> :float = 0.0</em><a class="headerlink" href="#kiwi.lib.train.TrainerConfig.gradient_max_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clip gradients with norm above this value; by default (0.0), do not clip.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainerConfig.main_metric">
+<code class="sig-name descname">main_metric</code><em class="property"> :Union[str, List[str]]</em><a class="headerlink" href="#kiwi.lib.train.TrainerConfig.main_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose Primary Metric for this run.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainerConfig.log_interval">
+<code class="sig-name descname">log_interval</code><em class="property"> :int = 100</em><a class="headerlink" href="#kiwi.lib.train.TrainerConfig.log_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Log every k batches.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainerConfig.log_save_interval">
+<code class="sig-name descname">log_save_interval</code><em class="property"> :int = 100</em><a class="headerlink" href="#kiwi.lib.train.TrainerConfig.log_save_interval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save accumulated log every k batches (does not seem to
+matter to MLflow logging).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainerConfig.checkpoint">
+<code class="sig-name descname">checkpoint</code><em class="property"> :CheckpointsConfig</em><a class="headerlink" href="#kiwi.lib.train.TrainerConfig.checkpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.TrainerConfig.deterministic">
+<code class="sig-name descname">deterministic</code><em class="property"> :bool = True</em><a class="headerlink" href="#kiwi.lib.train.TrainerConfig.deterministic" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true enables cudnn.deterministic. Might make training slower, but ensures
+reproducibility.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.train.Configuration">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">Configuration</code><a class="headerlink" href="#kiwi.lib.train.Configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.train.Configuration.run">
+<code class="sig-name descname">run</code><em class="property"> :RunConfig</em><a class="headerlink" href="#kiwi.lib.train.Configuration.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Options specific to each run</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.Configuration.trainer">
+<code class="sig-name descname">trainer</code><em class="property"> :TrainerConfig</em><a class="headerlink" href="#kiwi.lib.train.Configuration.trainer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.Configuration.data">
+<code class="sig-name descname">data</code><em class="property"> :WMTQEDataset.Config</em><a class="headerlink" href="#kiwi.lib.train.Configuration.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.Configuration.system">
+<code class="sig-name descname">system</code><em class="property"> :QESystem.Config</em><a class="headerlink" href="#kiwi.lib.train.Configuration.system" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.Configuration.debug">
+<code class="sig-name descname">debug</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.train.Configuration.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run training in <cite>fast_dev</cite> mode; only one batch is used for training and
+validation. This is useful to test out new models.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.Configuration.verbose">
+<code class="sig-name descname">verbose</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.train.Configuration.verbose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.train.Configuration.quiet">
+<code class="sig-name descname">quiet</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.train.Configuration.quiet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.train.train_from_file">
+<code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">train_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#kiwi.lib.train.TrainRunInfo" title="kiwi.lib.train.TrainRunInfo">TrainRunInfo</a><a class="headerlink" href="#kiwi.lib.train.train_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load options from a config file and calls the training procedure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – of the configuration file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an object with training information.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.train.train_from_configuration">
+<code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">train_from_configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configuration_dict</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#kiwi.lib.train.TrainRunInfo" title="kiwi.lib.train.TrainRunInfo">TrainRunInfo</a><a class="headerlink" href="#kiwi.lib.train.train_from_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the entire training pipeline using the configuration options received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>configuration_dict</strong> – dictionary with options.</p>
+</dd>
+</dl>
+<p>Return: object with training information.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.train.setup_run">
+<code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">setup_run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.lib.train.RunConfig" title="kiwi.lib.train.RunConfig">RunConfig</a></span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">anchor_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Path<span class="p">, </span>Optional<span class="p">[</span>MLFlowTrackingLogger<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.lib.train.setup_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare for running the training pipeline.</p>
+<p>This includes setting up the output directory, random seeds, and loggers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – configuration options.</p></li>
+<li><p><strong>quiet</strong> – whether to suppress info log messages.</p></li>
+<li><p><strong>debug</strong> – whether to additionally log debug messages
+(<a href="#id1"><span class="problematic" id="id2">:param:`quiet`</span></a> has precedence)</p></li>
+<li><p><strong>anchor_dir</strong> – directory to use as root for paths.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a tuple with the resolved path to the output directory and the experiment
+logger (<code class="docutils literal notranslate"><span class="pre">None</span></code> if not configured).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.train.run">
+<code class="sig-prename descclassname">kiwi.lib.train.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.lib.train.Configuration" title="kiwi.lib.train.Configuration">Configuration</a></span></em>, <em class="sig-param"><span class="n">system_type</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Type<span class="p">[</span>TLMSystem<span class="p">]</span><span class="p">, </span>Type<span class="p">[</span>QESystem<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">QESystem</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#kiwi.lib.train.TrainRunInfo" title="kiwi.lib.train.TrainRunInfo">TrainRunInfo</a><a class="headerlink" href="#kiwi.lib.train.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate the system according to the configuration and train it.</p>
+<p>Load or create a trainer for doing it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – generic training options.</p></li>
+<li><p><strong>system_type</strong> – class of system being used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an object with training information.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../pretrain/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.pretrain</span></code></a>
+    <a class='right-next' id="next-link" href="../utils/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.utils</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

@@ -1,0 +1,1014 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.metrics.metrics &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="kiwi.modules" href="../../modules/index.html" />
+    <link rel="prev" title="kiwi.metrics.functions" href="../functions/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../index.html">
+      <img src="../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.Metric" class="nav-link">Metric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.Metric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.Metric.best_ordering" class="nav-link">best_ordering</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.Metric.step" class="nav-link">step</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.Metric.compute" class="nav-link">compute</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.Metric.name" class="nav-link">name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.Metric.num_tokens" class="nav-link">num_tokens</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.NLLMetric" class="nav-link">NLLMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.NLLMetric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.NLLMetric.best_ordering" class="nav-link">best_ordering</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.NLLMetric.step" class="nav-link">step</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.NLLMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.LabeledMetric" class="nav-link">LabeledMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.LabeledMetric.step" class="nav-link">step</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.LabeledMetric.get_target_flat" class="nav-link">get_target_flat</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.LabeledMetric.get_predictions_flat" class="nav-link">get_predictions_flat</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.CorrectMetric" class="nav-link">CorrectMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.CorrectMetric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.CorrectMetric.step" class="nav-link">step</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.CorrectMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.F1MultMetric" class="nav-link">F1MultMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.F1MultMetric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.F1MultMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.MatthewsMetric" class="nav-link">MatthewsMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MatthewsMetric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MatthewsMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.SentenceMetric" class="nav-link">SentenceMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.SentenceMetric.step" class="nav-link">step</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.PearsonMetric" class="nav-link">PearsonMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.PearsonMetric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.PearsonMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.SpearmanMetric" class="nav-link">SpearmanMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.SpearmanMetric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.SpearmanMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.RMSEMetric" class="nav-link">RMSEMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.RMSEMetric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.RMSEMetric.best_ordering" class="nav-link">best_ordering</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.RMSEMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.PerplexityMetric" class="nav-link">PerplexityMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.PerplexityMetric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.PerplexityMetric.best_ordering" class="nav-link">best_ordering</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.PerplexityMetric.step" class="nav-link">step</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.PerplexityMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.ExpectedErrorMetric" class="nav-link">ExpectedErrorMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.ExpectedErrorMetric._name" class="nav-link">_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.ExpectedErrorMetric.best_ordering" class="nav-link">best_ordering</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.ExpectedErrorMetric.step" class="nav-link">step</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.ExpectedErrorMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.ThresholdCalibrationMetric" class="nav-link">ThresholdCalibrationMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.ThresholdCalibrationMetric.update" class="nav-link">update</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.ThresholdCalibrationMetric.summarize" class="nav-link">summarize</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.ThresholdCalibrationMetric.reset" class="nav-link">reset</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.MovingMetric" class="nav-link">MovingMetric</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingMetric.eval" class="nav-link">eval</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingMetric.init" class="nav-link">init</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingMetric.sort" class="nav-link">sort</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingMetric.update" class="nav-link">update</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingMetric.compute" class="nav-link">compute</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingMetric.choose" class="nav-link">choose</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.MovingF1" class="nav-link">MovingF1</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingF1.init" class="nav-link">init</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingF1.update" class="nav-link">update</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingF1.compute" class="nav-link">compute</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingF1.choose" class="nav-link">choose</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.metrics.metrics.MovingSkipsAtQuality" class="nav-link">MovingSkipsAtQuality</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingSkipsAtQuality.eval" class="nav-link">eval</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingSkipsAtQuality.init" class="nav-link">init</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingSkipsAtQuality.update" class="nav-link">update</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingSkipsAtQuality.compute" class="nav-link">compute</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingSkipsAtQuality.choose" class="nav-link">choose</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.metrics.metrics.MovingSkipsAtQuality.sort" class="nav-link">sort</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.metrics.metrics">
+<span id="kiwi-metrics-metrics"></span><h1><a class="reference internal" href="#module-kiwi.metrics.metrics" title="kiwi.metrics.metrics"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.metrics.metrics</span></code></a><a class="headerlink" href="#module-kiwi.metrics.metrics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Metric</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.NLLMetric" title="kiwi.metrics.metrics.NLLMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NLLMetric</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.LabeledMetric" title="kiwi.metrics.metrics.LabeledMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LabeledMetric</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.CorrectMetric" title="kiwi.metrics.metrics.CorrectMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CorrectMetric</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.F1MultMetric" title="kiwi.metrics.metrics.F1MultMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">F1MultMetric</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.MatthewsMetric" title="kiwi.metrics.metrics.MatthewsMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MatthewsMetric</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.SentenceMetric" title="kiwi.metrics.metrics.SentenceMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SentenceMetric</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.PearsonMetric" title="kiwi.metrics.metrics.PearsonMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PearsonMetric</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.SpearmanMetric" title="kiwi.metrics.metrics.SpearmanMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SpearmanMetric</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.RMSEMetric" title="kiwi.metrics.metrics.RMSEMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RMSEMetric</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.PerplexityMetric" title="kiwi.metrics.metrics.PerplexityMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PerplexityMetric</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.ExpectedErrorMetric" title="kiwi.metrics.metrics.ExpectedErrorMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ExpectedErrorMetric</span></code></a></p></td>
+<td><p>Helper class that provides a standard way to create an ABC using</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.ThresholdCalibrationMetric" title="kiwi.metrics.metrics.ThresholdCalibrationMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThresholdCalibrationMetric</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.MovingMetric" title="kiwi.metrics.metrics.MovingMetric"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MovingMetric</span></code></a></p></td>
+<td><p>Class to compute the changes in one metric as a function of a second metric.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.MovingF1" title="kiwi.metrics.metrics.MovingF1"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MovingF1</span></code></a></p></td>
+<td><p>Class to compute the changes in one metric as a function of a second metric.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.metrics.metrics.MovingSkipsAtQuality" title="kiwi.metrics.metrics.MovingSkipsAtQuality"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MovingSkipsAtQuality</span></code></a></p></td>
+<td><p>Class to compute the changes in one metric as a function of a second metric.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.Metric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">Metric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">targets</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.Metric" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt id="kiwi.metrics.metrics.Metric._name">
+<code class="sig-name descname">_name</code><a class="headerlink" href="#kiwi.metrics.metrics.Metric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.Metric.best_ordering">
+<code class="sig-name descname">best_ordering</code><em class="property"> = max</em><a class="headerlink" href="#kiwi.metrics.metrics.Metric.best_ordering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.Metric.step">
+<em class="property">abstract </em><code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">losses</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.Metric.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.Metric.compute">
+<em class="property">abstract </em><code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.Metric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.Metric.name">
+<em class="property">property </em><code class="sig-name descname">name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.Metric.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.Metric.num_tokens">
+<code class="sig-name descname">num_tokens</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">targets</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.Metric.num_tokens" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.NLLMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">NLLMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">targets</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.NLLMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.NLLMetric._name">
+<code class="sig-name descname">_name</code><em class="property"> = NLL</em><a class="headerlink" href="#kiwi.metrics.metrics.NLLMetric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.NLLMetric.best_ordering">
+<code class="sig-name descname">best_ordering</code><em class="property"> = min</em><a class="headerlink" href="#kiwi.metrics.metrics.NLLMetric.best_ordering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.NLLMetric.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">losses</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.NLLMetric.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.NLLMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.NLLMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.LabeledMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">LabeledMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.LabeledMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.LabeledMetric.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">losses</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.LabeledMetric.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.LabeledMetric.get_target_flat">
+<code class="sig-name descname">get_target_flat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">batch</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.LabeledMetric.get_target_flat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.LabeledMetric.get_predictions_flat">
+<code class="sig-name descname">get_predictions_flat</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span></em>, <em class="sig-param"><span class="n">batch</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.LabeledMetric.get_predictions_flat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.CorrectMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">CorrectMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.CorrectMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.LabeledMetric" title="kiwi.metrics.metrics.LabeledMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.LabeledMetric</span></code></a></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.CorrectMetric._name">
+<code class="sig-name descname">_name</code><em class="property"> = CORRECT</em><a class="headerlink" href="#kiwi.metrics.metrics.CorrectMetric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.CorrectMetric.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">losses</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.CorrectMetric.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.CorrectMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.CorrectMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.F1MultMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">F1MultMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.F1MultMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.LabeledMetric" title="kiwi.metrics.metrics.LabeledMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.LabeledMetric</span></code></a></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.F1MultMetric._name">
+<code class="sig-name descname">_name</code><em class="property"> = F1_MULT</em><a class="headerlink" href="#kiwi.metrics.metrics.F1MultMetric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.F1MultMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.F1MultMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.MatthewsMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">MatthewsMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MatthewsMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.LabeledMetric" title="kiwi.metrics.metrics.LabeledMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.LabeledMetric</span></code></a></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.MatthewsMetric._name">
+<code class="sig-name descname">_name</code><em class="property"> = MCC</em><a class="headerlink" href="#kiwi.metrics.metrics.MatthewsMetric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MatthewsMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MatthewsMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.SentenceMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">SentenceMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">targets</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.SentenceMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABC" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></a></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.SentenceMetric.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">losses</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.SentenceMetric.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.PearsonMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">PearsonMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">targets</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.PearsonMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.SentenceMetric" title="kiwi.metrics.metrics.SentenceMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.SentenceMetric</span></code></a></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.PearsonMetric._name">
+<code class="sig-name descname">_name</code><em class="property"> = PEARSON</em><a class="headerlink" href="#kiwi.metrics.metrics.PearsonMetric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.PearsonMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.PearsonMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.SpearmanMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">SpearmanMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">targets</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.SpearmanMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.SentenceMetric" title="kiwi.metrics.metrics.SentenceMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.SentenceMetric</span></code></a></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.SpearmanMetric._name">
+<code class="sig-name descname">_name</code><em class="property"> = SPEARMAN</em><a class="headerlink" href="#kiwi.metrics.metrics.SpearmanMetric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.SpearmanMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.SpearmanMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.RMSEMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">RMSEMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">targets</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.RMSEMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.SentenceMetric" title="kiwi.metrics.metrics.SentenceMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.SentenceMetric</span></code></a></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.RMSEMetric._name">
+<code class="sig-name descname">_name</code><em class="property"> = RMSE</em><a class="headerlink" href="#kiwi.metrics.metrics.RMSEMetric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.RMSEMetric.best_ordering">
+<code class="sig-name descname">best_ordering</code><em class="property"> = min</em><a class="headerlink" href="#kiwi.metrics.metrics.RMSEMetric.best_ordering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.RMSEMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.RMSEMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.PerplexityMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">PerplexityMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">targets</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.PerplexityMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.PerplexityMetric._name">
+<code class="sig-name descname">_name</code><em class="property"> = PERP</em><a class="headerlink" href="#kiwi.metrics.metrics.PerplexityMetric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.PerplexityMetric.best_ordering">
+<code class="sig-name descname">best_ordering</code><em class="property"> = min</em><a class="headerlink" href="#kiwi.metrics.metrics.PerplexityMetric.best_ordering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.PerplexityMetric.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">losses</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.PerplexityMetric.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.PerplexityMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.PerplexityMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.ExpectedErrorMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">ExpectedErrorMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="n">labels</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.ExpectedErrorMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.LabeledMetric" title="kiwi.metrics.metrics.LabeledMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.LabeledMetric</span></code></a></p>
+<p>Helper class that provides a standard way to create an ABC using
+inheritance.</p>
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.ExpectedErrorMetric._name">
+<code class="sig-name descname">_name</code><em class="property"> = ExpErr</em><a class="headerlink" href="#kiwi.metrics.metrics.ExpectedErrorMetric._name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.metrics.metrics.ExpectedErrorMetric.best_ordering">
+<code class="sig-name descname">best_ordering</code><em class="property"> = min</em><a class="headerlink" href="#kiwi.metrics.metrics.ExpectedErrorMetric.best_ordering" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.ExpectedErrorMetric.step">
+<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="n">losses</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.ExpectedErrorMetric.step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.ExpectedErrorMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.ExpectedErrorMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.ThresholdCalibrationMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">ThresholdCalibrationMetric</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">target_id</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.ThresholdCalibrationMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.Metric" title="kiwi.metrics.metrics.Metric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.Metric</span></code></a></p>
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.ThresholdCalibrationMetric.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span></em>, <em class="sig-param"><span class="n">batch</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.ThresholdCalibrationMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.ThresholdCalibrationMetric.summarize">
+<code class="sig-name descname">summarize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.ThresholdCalibrationMetric.summarize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.ThresholdCalibrationMetric.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.ThresholdCalibrationMetric.reset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.MovingMetric">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">MovingMetric</code><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to compute the changes in one metric as a function of a second metric.</p>
+<p>Example: F1 score vs. Classification Threshold, Quality vs Skips</p>
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingMetric.eval">
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">labels</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.eval" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the graph metric1 vs metric2.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – model outputs.</p></li>
+<li><p><strong>labels</strong> – corresponding labels.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingMetric.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">labels</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the Metric for threshold &lt; min(scores).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingMetric.sort">
+<code class="sig-name descname">sort</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">labels</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort List of labels and scores.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingMetric.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">score</span></em>, <em class="sig-param"><span class="n">label</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the threshold past score.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingMetric.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the current value of the metric.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingMetric.choose">
+<code class="sig-name descname">choose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">thresholds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingMetric.choose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose the best (threshold, metric) tuple from an iterable.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.MovingF1">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">MovingF1</code><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.MovingMetric" title="kiwi.metrics.metrics.MovingMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.MovingMetric</span></code></a></p>
+<p>Class to compute the changes in one metric as a function of a second metric.</p>
+<p>Example: F1 score vs. Classification Threshold, Quality vs Skips</p>
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingF1.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">labels</span></em>, <em class="sig-param"><span class="n">class_idx</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1.init" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute F1-Mult for all decision thresholds over (scores, labels).</p>
+<p>Initialize the threshold s.t. all examples are classified as <cite>class_idx</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – likelihood scores for class index.</p></li>
+<li><p><strong>labels</strong> – gold truth classes in {0,1}.</p></li>
+<li><p><strong>class_idx</strong> – ID of class.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingF1.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">score</span></em>, <em class="sig-param"><span class="n">label</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the decision threshold.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingF1.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the current value of the metric.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingF1.choose">
+<code class="sig-name descname">choose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">thresholds</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingF1.choose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose the best (threshold, metric) tuple from an iterable.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.metrics.metrics.</code><code class="sig-name descname">MovingSkipsAtQuality</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scores_higher_is_better</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">labels_higher_is_better</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.metrics.metrics.MovingMetric" title="kiwi.metrics.metrics.MovingMetric"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.metrics.metrics.MovingMetric</span></code></a></p>
+<p>Class to compute the changes in one metric as a function of a second metric.</p>
+<p>Example: F1 score vs. Classification Threshold, Quality vs Skips</p>
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.eval">
+<code class="sig-name descname">eval</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">labels</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.eval" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – model output quality or error scores. If quality scores
+are provided, pass <code class="docutils literal notranslate"><span class="pre">scores_higher_is_better=True</span></code>.</p></li>
+<li><p><strong>labels</strong> – ground truth quality or error scores. If quality scores
+are provided, pass <code class="docutils literal notranslate"><span class="pre">labels_higher_is_better=True</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.init">
+<code class="sig-name descname">init</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">labels</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.init" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scores</strong> – model output quality or error scores. If quality scores are
+provided, pass <code class="docutils literal notranslate"><span class="pre">scores_higher_is_better=True</span></code>.</p></li>
+<li><p><strong>labels</strong> – ground truth quality or error scores. If quality scores are
+provided, pass <code class="docutils literal notranslate"><span class="pre">labels_higher_is_better=True</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">score</span></em>, <em class="sig-param"><span class="n">label</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move the threshold past score.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.compute">
+<code class="sig-name descname">compute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the current value of the metric.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.choose">
+<code class="sig-name descname">choose</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">thresholds</span></em>, <em class="sig-param"><span class="n">target_qual</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.choose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Choose the smallest threshold such that average quality is greater than or
+equal to target_qual.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.metrics.metrics.MovingSkipsAtQuality.sort">
+<code class="sig-name descname">sort</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">labels</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.metrics.metrics.MovingSkipsAtQuality.sort" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort List of labels and scores.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../functions/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.metrics.functions</span></code></a>
+    <a class='right-next' id="next-link" href="../../modules/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

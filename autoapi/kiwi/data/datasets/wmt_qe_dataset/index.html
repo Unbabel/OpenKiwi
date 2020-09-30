@@ -1,0 +1,581 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.data.datasets.wmt_qe_dataset &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="kiwi.data.encoders" href="../../encoders/index.html" />
+    <link rel="prev" title="kiwi.data.datasets.parallel_dataset" href="../parallel_dataset/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../../index.html">
+      <img src="../../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig" class="nav-link">InputConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.source" class="nav-link">source</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.target" class="nav-link">target</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.alignments" class="nav-link">alignments</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.post_edit" class="nav-link">post_edit</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.source_pos" class="nav-link">source_pos</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.target_pos" class="nav-link">target_pos</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.OutputConfig" class="nav-link">OutputConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.OutputConfig.target_tags" class="nav-link">target_tags</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.OutputConfig.source_tags" class="nav-link">source_tags</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.OutputConfig.sentence_scores" class="nav-link">sentence_scores</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.TrainingConfig" class="nav-link">TrainingConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.TrainingConfig.input" class="nav-link">input</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.TrainingConfig.output" class="nav-link">output</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.TestConfig" class="nav-link">TestConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.TestConfig.input" class="nav-link">input</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset" class="nav-link">WMTQEDataset</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config" class="nav-link">Config</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.buffer_size" class="nav-link">buffer_size</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.train" class="nav-link">train</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.valid" class="nav-link">valid</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.test" class="nav-link">test</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.split" class="nav-link">split</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.ensure_there_is_validation_data" class="nav-link">ensure_there_is_validation_data</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.build" class="nav-link">build</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__getitem__" class="nav-link">__getitem__</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__len__" class="nav-link">__len__</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__contains__" class="nav-link">__contains__</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.sort_key" class="nav-link">sort_key</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.datasets.wmt_qe_dataset.read_file" class="nav-link">read_file</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.data.datasets.wmt_qe_dataset">
+<span id="kiwi-data-datasets-wmt-qe-dataset"></span><h1><a class="reference internal" href="#module-kiwi.data.datasets.wmt_qe_dataset" title="kiwi.data.datasets.wmt_qe_dataset"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.datasets.wmt_qe_dataset</span></code></a><a class="headerlink" href="#module-kiwi.data.datasets.wmt_qe_dataset" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig" title="kiwi.data.datasets.wmt_qe_dataset.InputConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InputConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.OutputConfig" title="kiwi.data.datasets.wmt_qe_dataset.OutputConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OutputConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.TrainingConfig" title="kiwi.data.datasets.wmt_qe_dataset.TrainingConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TrainingConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.TestConfig" title="kiwi.data.datasets.wmt_qe_dataset.TestConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TestConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset" title="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WMTQEDataset</span></code></a></p></td>
+<td><p>An abstract class representing a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.read_file" title="kiwi.data.datasets.wmt_qe_dataset.read_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_file</span></code></a>(path, reader)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.logger">
+<code class="sig-prename descclassname">kiwi.data.datasets.wmt_qe_dataset.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.InputConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.datasets.wmt_qe_dataset.</code><code class="sig-name descname">InputConfig</code><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.InputConfig.source">
+<code class="sig-name descname">source</code><em class="property"> :FilePath</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to a corpus file in the source language</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.InputConfig.target">
+<code class="sig-name descname">target</code><em class="property"> :FilePath</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to a corpus file in the target language</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.InputConfig.alignments">
+<code class="sig-name descname">alignments</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.alignments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to alignments between source and target.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.InputConfig.post_edit">
+<code class="sig-name descname">post_edit</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.post_edit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to file containing post-edited target.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.InputConfig.source_pos">
+<code class="sig-name descname">source_pos</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.source_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to input file with POS tags for source</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.InputConfig.target_pos">
+<code class="sig-name descname">target_pos</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.InputConfig.target_pos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to input file with POS tags for source</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.OutputConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.datasets.wmt_qe_dataset.</code><code class="sig-name descname">OutputConfig</code><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.OutputConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.OutputConfig.target_tags">
+<code class="sig-name descname">target_tags</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.OutputConfig.target_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to label file for target</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.OutputConfig.source_tags">
+<code class="sig-name descname">source_tags</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.OutputConfig.source_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to label file for source</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.OutputConfig.sentence_scores">
+<code class="sig-name descname">sentence_scores</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.OutputConfig.sentence_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Path to file containing sentence level scores (HTER).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.TrainingConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.datasets.wmt_qe_dataset.</code><code class="sig-name descname">TrainingConfig</code><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.TrainingConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.TrainingConfig.input">
+<code class="sig-name descname">input</code><em class="property"> :InputConfig</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.TrainingConfig.input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.TrainingConfig.output">
+<code class="sig-name descname">output</code><em class="property"> :OutputConfig</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.TrainingConfig.output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.TestConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.datasets.wmt_qe_dataset.</code><code class="sig-name descname">TestConfig</code><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.TestConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.TestConfig.input">
+<code class="sig-name descname">input</code><em class="property"> :InputConfig</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.TestConfig.input" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.datasets.wmt_qe_dataset.</code><code class="sig-name descname">WMTQEDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">columns</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>Any<span class="p">, </span>Union<span class="p">[</span>Iterable<span class="p">, </span>List<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Dataset" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></a></p>
+<p>An abstract class representing a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
+<p>All datasets that represent a map from keys to data samples should subclass
+it. All subclasses should overwrite <a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__getitem__" title="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a>, supporting fetching a
+data sample for a given key. Subclasses could also optionally overwrite
+<a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__len__" title="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__len__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__len__()</span></code></a>, which is expected to return the size of the dataset by many
+<a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Sampler" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code></a> implementations and the default options
+of <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a>.</p>
+<div class="alert alert-info">
+<p class="admonition-title">Note</p>
+<p><a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> by default constructs a index
+sampler that yields integral indices.  To make it work with a map-style
+dataset with non-integral indices/keys, a custom sampler must be provided.</p>
+</div>
+<dl class="py class">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config">
+<em class="property">class </em><code class="sig-name descname">Config</code><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.buffer_size">
+<code class="sig-name descname">buffer_size</code><em class="property"> :int</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.buffer_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of consecutive instances to be temporarily stored in
+the buffer, which will be used later for batching/bucketing.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.train">
+<code class="sig-name descname">train</code><em class="property"> :TrainingConfig</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.train" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.valid">
+<code class="sig-name descname">valid</code><em class="property"> :TrainingConfig</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.test">
+<code class="sig-name descname">test</code><em class="property"> :TestConfig</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.test" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.split">
+<code class="sig-name descname">split</code><em class="property"> :Optional[confloat(gt=0.0, lt=1.0)]</em><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.split" title="Permalink to this definition">¶</a></dt>
+<dd><p>Split train dataset in case that no validation set is given.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.ensure_there_is_validation_data">
+<code class="sig-name descname">ensure_there_is_validation_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config.ensure_there_is_validation_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.build">
+<em class="property">static </em><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config" title="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config">Config</a></span></em>, <em class="sig-param"><span class="n">directory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">train</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">valid</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">test</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">split</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build training, validation, and test datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – configuration object with file paths and processing flags;
+check out the docs for <a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config" title="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.Config"><code class="xref py py-class docutils literal notranslate"><span class="pre">Config</span></code></a>.</p></li>
+<li><p><strong>directory</strong> – if provided and paths in configuration are not absolute, use it
+to anchor them.</p></li>
+<li><p><strong>train</strong> – whether to build the training dataset.</p></li>
+<li><p><strong>valid</strong> – whether to build the validation dataset.</p></li>
+<li><p><strong>test</strong> – whether to build the testing dataset.</p></li>
+<li><p><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – If no validation set is provided, randomly sample
+<span class="math notranslate nohighlight">\(1-split\)</span> of training examples as validation set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__getitem__">
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">index_or_field</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Any<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a row with data from all fields or all rows for a given field</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__len__">
+<code class="sig-name descname">__len__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__len__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__contains__">
+<code class="sig-name descname">__contains__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__contains__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.sort_key">
+<code class="sig-name descname">sort_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">field</span><span class="o">=</span><span class="default_value">'source'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.sort_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.data.datasets.wmt_qe_dataset.read_file">
+<code class="sig-prename descclassname">kiwi.data.datasets.wmt_qe_dataset.</code><code class="sig-name descname">read_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">reader</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.read_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../parallel_dataset/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.datasets.parallel_dataset</span></code></a>
+    <a class='right-next' id="next-link" href="../../encoders/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

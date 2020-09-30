@@ -1,0 +1,537 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.lib.predict &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="kiwi.lib.pretrain" href="../pretrain/index.html" />
+    <link rel="prev" title="kiwi.lib.evaluate" href="../evaluate/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../index.html">
+      <img src="../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.predict.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.predict.RunConfig" class="nav-link">RunConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.RunConfig.seed" class="nav-link">seed</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.RunConfig.run_id" class="nav-link">run_id</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.RunConfig.output_dir" class="nav-link">output_dir</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.RunConfig.predict_on_data_partition" class="nav-link">predict_on_data_partition</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.RunConfig.check_consistency" class="nav-link">check_consistency</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.predict.Configuration" class="nav-link">Configuration</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.run" class="nav-link">run</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.data" class="nav-link">data</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.system" class="nav-link">system</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.use_gpu" class="nav-link">use_gpu</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.gpu_id" class="nav-link">gpu_id</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.verbose" class="nav-link">verbose</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.quiet" class="nav-link">quiet</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.enforce_loading" class="nav-link">enforce_loading</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.setup_gpu" class="nav-link">setup_gpu</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.predict.Configuration.setup_gpu_id" class="nav-link">setup_gpu_id</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.predict.load_system" class="nav-link">load_system</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.predict.predict_from_configuration" class="nav-link">predict_from_configuration</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.predict.run" class="nav-link">run</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.predict.make_predictions" class="nav-link">make_predictions</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.predict.setup_run" class="nav-link">setup_run</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.lib.predict">
+<span id="kiwi-lib-predict"></span><h1><a class="reference internal" href="#module-kiwi.lib.predict" title="kiwi.lib.predict"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.predict</span></code></a><a class="headerlink" href="#module-kiwi.lib.predict" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.predict.RunConfig" title="kiwi.lib.predict.RunConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RunConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.predict.Configuration" title="kiwi.lib.predict.Configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Configuration</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.predict.load_system" title="kiwi.lib.predict.load_system"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_system</span></code></a>(system_path: Union[str, Path], gpu_id: Optional[int] = None)</p></td>
+<td><p>Load a pretrained system (model) into a <cite>Runner</cite> object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.predict.predict_from_configuration" title="kiwi.lib.predict.predict_from_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">predict_from_configuration</span></code></a>(configuration_dict: Dict[str, Any])</p></td>
+<td><p>Run the entire prediction pipeline using the configuration options received.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.predict.run" title="kiwi.lib.predict.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(config: Configuration, output_dir: Path) → Tuple[Dict[str, List], Optional[MetricsReport]]</p></td>
+<td><p>Run the prediction pipeline.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.predict.make_predictions" title="kiwi.lib.predict.make_predictions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_predictions</span></code></a>(output_dir: Path, best_model_path: Path, data_partition: Literal['train', 'valid', 'test'], data_config: WMTQEDataset.Config, outputs_config: QEOutputs.Config = None, batch_size: Union[int, BatchSizeConfig] = None, num_workers: int = 0, gpu_id: int = None)</p></td>
+<td><p>Make predictions over the validation set using the best model created during</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.predict.setup_run" title="kiwi.lib.predict.setup_run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_run</span></code></a>(config: RunConfig, quiet=False, debug=False, anchor_dir: Path = None) → Path</p></td>
+<td><p>Prepare for running the prediction pipeline.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.lib.predict.logger">
+<code class="sig-prename descclassname">kiwi.lib.predict.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.lib.predict.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.predict.RunConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.predict.</code><code class="sig-name descname">RunConfig</code><a class="headerlink" href="#kiwi.lib.predict.RunConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.RunConfig.seed">
+<code class="sig-name descname">seed</code><em class="property"> :int = 42</em><a class="headerlink" href="#kiwi.lib.predict.RunConfig.seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Random seed</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.RunConfig.run_id">
+<code class="sig-name descname">run_id</code><em class="property"> :str</em><a class="headerlink" href="#kiwi.lib.predict.RunConfig.run_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>If specified, MLflow/Default Logger will log metrics and params
+under this ID. If it exists, the run status will change to running.
+This ID is also used for creating this run’s output directory.
+(Run ID must be a 32-character hex string).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.RunConfig.output_dir">
+<code class="sig-name descname">output_dir</code><em class="property"> :Path</em><a class="headerlink" href="#kiwi.lib.predict.RunConfig.output_dir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output several files for this run under this directory.
+If not specified, a directory under “runs” is created or reused based on the
+Run UUID.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.RunConfig.predict_on_data_partition">
+<code class="sig-name descname">predict_on_data_partition</code><em class="property"> :Literal['train', 'valid', 'test'] = test</em><a class="headerlink" href="#kiwi.lib.predict.RunConfig.predict_on_data_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Name of the data partition to predict upon. File names are read from the
+corresponding <code class="docutils literal notranslate"><span class="pre">data</span></code> configuration field.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.predict.RunConfig.check_consistency">
+<code class="sig-name descname">check_consistency</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.predict.RunConfig.check_consistency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.predict.Configuration">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.predict.</code><code class="sig-name descname">Configuration</code><a class="headerlink" href="#kiwi.lib.predict.Configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.Configuration.run">
+<code class="sig-name descname">run</code><em class="property"> :RunConfig</em><a class="headerlink" href="#kiwi.lib.predict.Configuration.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.Configuration.data">
+<code class="sig-name descname">data</code><em class="property"> :WMTQEDataset.Config</em><a class="headerlink" href="#kiwi.lib.predict.Configuration.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.Configuration.system">
+<code class="sig-name descname">system</code><em class="property"> :QESystem.Config</em><a class="headerlink" href="#kiwi.lib.predict.Configuration.system" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.Configuration.use_gpu">
+<code class="sig-name descname">use_gpu</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.predict.Configuration.use_gpu" title="Permalink to this definition">¶</a></dt>
+<dd><p>If true and only if available, use the CUDA device specified in <code class="docutils literal notranslate"><span class="pre">gpu_id</span></code> or the
+first CUDA device. Otherwise, use the CPU.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.Configuration.gpu_id">
+<code class="sig-name descname">gpu_id</code><em class="property"> :Optional[int]</em><a class="headerlink" href="#kiwi.lib.predict.Configuration.gpu_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use CUDA on the listed device, only if <code class="docutils literal notranslate"><span class="pre">use_gpu</span></code> is true.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.Configuration.verbose">
+<code class="sig-name descname">verbose</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.predict.Configuration.verbose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.predict.Configuration.quiet">
+<code class="sig-name descname">quiet</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.predict.Configuration.quiet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.predict.Configuration.enforce_loading">
+<code class="sig-name descname">enforce_loading</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.predict.Configuration.enforce_loading" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.predict.Configuration.setup_gpu">
+<code class="sig-name descname">setup_gpu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.predict.Configuration.setup_gpu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.predict.Configuration.setup_gpu_id">
+<code class="sig-name descname">setup_gpu_id</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.predict.Configuration.setup_gpu_id" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.predict.load_system">
+<code class="sig-prename descclassname">kiwi.lib.predict.</code><code class="sig-name descname">load_system</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">system_path</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Path<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">gpu_id</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.predict.load_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a pretrained system (model) into a <cite>Runner</cite> object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>system_path</strong> – A path to the saved checkpoint file produced by a training run.</p></li>
+<li><p><strong>gpu_id</strong> – id of the gpu to load the model into (-1 or None to use CPU)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Throws:</dt><dd><p>Exception: If the path does not exist, or is not a valid system file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.predict.predict_from_configuration">
+<code class="sig-prename descclassname">kiwi.lib.predict.</code><code class="sig-name descname">predict_from_configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configuration_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.predict.predict_from_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the entire prediction pipeline using the configuration options received.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.predict.run">
+<code class="sig-prename descclassname">kiwi.lib.predict.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.lib.predict.Configuration" title="kiwi.lib.predict.Configuration">Configuration</a></span></em>, <em class="sig-param"><span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">]</span><span class="p">, </span>Optional<span class="p">[</span>MetricsReport<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.lib.predict.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the prediction pipeline.</p>
+<p>Load the model and necessary files and create the model’s predictions for the
+configured data partition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – validated configuration values for the (predict) pipeline.</p></li>
+<li><p><strong>output_dir</strong> – directory where to save predictions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary with format {‘target’: predictions}</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../../runner/index.html#kiwi.runner.Predictions" title="kiwi.runner.Predictions">Predictions</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.predict.make_predictions">
+<code class="sig-prename descclassname">kiwi.lib.predict.</code><code class="sig-name descname">make_predictions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span></em>, <em class="sig-param"><span class="n">best_model_path</span><span class="p">:</span> <span class="n">Path</span></em>, <em class="sig-param"><span class="n">data_partition</span><span class="p">:</span> <span class="n">Literal[‘train’, ‘valid’, ‘test’]</span></em>, <em class="sig-param"><span class="n">data_config</span><span class="p">:</span> <span class="n">WMTQEDataset.Config</span></em>, <em class="sig-param"><span class="n">outputs_config</span><span class="p">:</span> <span class="n">QEOutputs.Config</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">batch_size</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">, </span>BatchSizeConfig<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">num_workers</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">0</span></em>, <em class="sig-param"><span class="n">gpu_id</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.predict.make_predictions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make predictions over the validation set using the best model created during
+training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_dir</strong> – output Directory where predictions should be saved.</p></li>
+<li><p><strong>best_model_path</strong> – path pointing to the checkpoint with best performance.</p></li>
+<li><p><strong>data_partition</strong> – on which dataset to predict (one of ‘train’, ‘valid’, ‘test’).</p></li>
+<li><p><strong>data_config</strong> – configuration containing options for the <code class="docutils literal notranslate"><span class="pre">data_partition</span></code> set.</p></li>
+<li><p><strong>outputs_config</strong> – configuration specifying which outputs to activate.</p></li>
+<li><p><strong>batch_size</strong> – for predicting.</p></li>
+<li><p><strong>num_workers</strong> – number of parallel data loaders.</p></li>
+<li><p><strong>gpu_id</strong> – GPU to use for predicting; 0 for CPU.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>predictions}.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dictionary with predictions in the format {‘target’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.predict.setup_run">
+<code class="sig-prename descclassname">kiwi.lib.predict.</code><code class="sig-name descname">setup_run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.lib.predict.RunConfig" title="kiwi.lib.predict.RunConfig">RunConfig</a></span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">anchor_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Path<a class="headerlink" href="#kiwi.lib.predict.setup_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepare for running the prediction pipeline.</p>
+<p>This includes setting up the output directory, random seeds, and loggers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> – configuration options.</p></li>
+<li><p><strong>quiet</strong> – whether to suppress info log messages.</p></li>
+<li><p><strong>debug</strong> – whether to additionally log debug messages
+(<a href="#id1"><span class="problematic" id="id2">:param:`quiet`</span></a> has precedence)</p></li>
+<li><p><strong>anchor_dir</strong> – directory to use as root for paths.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the resolved path to the output directory.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../evaluate/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.evaluate</span></code></a>
+    <a class='right-next' id="next-link" href="../pretrain/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.pretrain</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

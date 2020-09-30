@@ -1,5 +1,5 @@
-Welcome to OpenKiwi's documentation!
-====================================
+UnbabelKiwi's documentation
+===========================
 
 .. image:: _static/img/openkiwi-logo-horizontal.svg
    :width: 400
@@ -10,34 +10,22 @@ Welcome to OpenKiwi's documentation!
 .. mdinclude:: ../README.md
    :start-line: 3
 
+Documentation
+-------------
+
 .. toctree::
-   :maxdepth: 2
-   :caption: Getting Started
+   :maxdepth: 5
 
    installation
-   quickstart.md
-   reproduce
+   usage
+   configuration/index
+   systems/index
+   autoapi/index
 
-.. toctree::
-   :maxdepth: 3
-   :caption: Contributing to OpenKiwi
-
-   contributing
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Configuration Options
-
-   configuration
-
-.. toctree::
-   :maxdepth: 2
-   :caption: Library Reference
-
-   source/modules
+..   code/index
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`

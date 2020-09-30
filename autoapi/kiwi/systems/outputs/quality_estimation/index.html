@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.systems.outputs.quality_estimation &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="kiwi.systems.outputs.translation_language_model" href="../translation_language_model/index.html" />
+    <link rel="prev" title="kiwi.systems.outputs" href="../index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../../index.html">
+      <img src="../../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.systems.outputs.quality_estimation.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig" class="nav-link">WordLevelConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig.target" class="nav-link">target</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig.gaps" class="nav-link">gaps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig.source" class="nav-link">source</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig.class_weights" class="nav-link">class_weights</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.systems.outputs.quality_estimation.SentenceLevelConfig" class="nav-link">SentenceLevelConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.SentenceLevelConfig.hter" class="nav-link">hter</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.SentenceLevelConfig.use_distribution" class="nav-link">use_distribution</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.SentenceLevelConfig.binary" class="nav-link">binary</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs" class="nav-link">QEOutputs</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config" class="nav-link">Config</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.word_level" class="nav-link">word_level</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.sentence_level" class="nav-link">sentence_level</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.sentence_loss_weight" class="nav-link">sentence_loss_weight</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.dropout" class="nav-link">dropout</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.last_activation" class="nav-link">last_activation</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.n_layers_output" class="nav-link">n_layers_output</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.forward" class="nav-link">forward</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.loss" class="nav-link">loss</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.word_losses" class="nav-link">word_losses</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.sentence_losses" class="nav-link">sentence_losses</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.metrics_step" class="nav-link">metrics_step</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.metrics_end" class="nav-link">metrics_end</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.metrics" class="nav-link">metrics</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.labels" class="nav-link">labels</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.decode_outputs" class="nav-link">decode_outputs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.decode_word_outputs" class="nav-link">decode_word_outputs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.systems.outputs.quality_estimation.QEOutputs.decode_sentence_outputs" class="nav-link">decode_sentence_outputs</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.systems.outputs.quality_estimation.tag_metrics" class="nav-link">tag_metrics</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.systems.outputs.quality_estimation">
+<span id="kiwi-systems-outputs-quality-estimation"></span><h1><a class="reference internal" href="#module-kiwi.systems.outputs.quality_estimation" title="kiwi.systems.outputs.quality_estimation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.outputs.quality_estimation</span></code></a><a class="headerlink" href="#module-kiwi.systems.outputs.quality_estimation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig" title="kiwi.systems.outputs.quality_estimation.WordLevelConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WordLevelConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.systems.outputs.quality_estimation.SentenceLevelConfig" title="kiwi.systems.outputs.quality_estimation.SentenceLevelConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SentenceLevelConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.systems.outputs.quality_estimation.QEOutputs" title="kiwi.systems.outputs.quality_estimation.QEOutputs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QEOutputs</span></code></a></p></td>
+<td><p>Base class for all neural network modules.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.systems.outputs.quality_estimation.tag_metrics" title="kiwi.systems.outputs.quality_estimation.tag_metrics"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tag_metrics</span></code></a>(*targets, prefix=None, labels=None)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.systems.outputs.quality_estimation.logger">
+<code class="sig-prename descclassname">kiwi.systems.outputs.quality_estimation.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.systems.outputs.quality_estimation.WordLevelConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.systems.outputs.quality_estimation.</code><code class="sig-name descname">WordLevelConfig</code><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.WordLevelConfig.target">
+<code class="sig-name descname">target</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig.target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train or predict target tags</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.WordLevelConfig.gaps">
+<code class="sig-name descname">gaps</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig.gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train or predict gap tags</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.WordLevelConfig.source">
+<code class="sig-name descname">source</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig.source" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train or predict source tags</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.WordLevelConfig.class_weights">
+<code class="sig-name descname">class_weights</code><em class="property"> :Dict[str, Dict[str, float]]</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.WordLevelConfig.class_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relative weight for labels on each output side.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.systems.outputs.quality_estimation.SentenceLevelConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.systems.outputs.quality_estimation.</code><code class="sig-name descname">SentenceLevelConfig</code><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.SentenceLevelConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.SentenceLevelConfig.hter">
+<code class="sig-name descname">hter</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.SentenceLevelConfig.hter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict Sentence Level Scores.
+Requires the appropriate input files (usually with HTER).</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.SentenceLevelConfig.use_distribution">
+<code class="sig-name descname">use_distribution</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.SentenceLevelConfig.use_distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use probabilistic Loss for sentence scores instead of squared error.
+If set (requires <cite>hter</cite> to also be set), the model will output mean and variance
+of a truncated Gaussian distribution over the interval [0, 1], and use the NLL
+of ground truth scores as the loss.
+This seems to improve performance, and gives you uncertainty
+estimates for sentence level predictions as a byproduct.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.SentenceLevelConfig.binary">
+<code class="sig-name descname">binary</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.SentenceLevelConfig.binary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Predict Binary Label for each sentence, indicating hter == 0.0.
+Requires the appropriate input files (usually with HTER).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.systems.outputs.quality_estimation.</code><code class="sig-name descname">QEOutputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inputs_dims</span></em>, <em class="sig-param"><span class="n">vocabs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Vocabulary<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../_meta_module/index.html#kiwi.systems._meta_module.MetaModule" title="kiwi.systems._meta_module.MetaModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.systems._meta_module.MetaModule</span></code></a></p>
+<p>Base class for all neural network modules.</p>
+<p>Your models should also subclass this class.</p>
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+
+<span class="k">class</span> <span class="nc">Model</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Model</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call <code class="xref py py-meth docutils literal notranslate"><span class="pre">to()</span></code>, etc.</p>
+<dl class="py class">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.Config">
+<em class="property">class </em><code class="sig-name descname">Config</code><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.Config.word_level">
+<code class="sig-name descname">word_level</code><em class="property"> :WordLevelConfig</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.word_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.Config.sentence_level">
+<code class="sig-name descname">sentence_level</code><em class="property"> :SentenceLevelConfig</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.sentence_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.Config.sentence_loss_weight">
+<code class="sig-name descname">sentence_loss_weight</code><em class="property"> :float = 1.0</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.sentence_loss_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Multiplier for sentence_level loss weight.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.Config.dropout">
+<code class="sig-name descname">dropout</code><em class="property"> :float = 0.0</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.dropout" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.Config.last_activation">
+<code class="sig-name descname">last_activation</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.last_activation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.Config.n_layers_output">
+<code class="sig-name descname">n_layers_output</code><em class="property"> :int = 3</em><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.Config.n_layers_output" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">features</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">batch_inputs</span><span class="p">:</span> <span class="n">MultiFieldBatch</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.forward" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.loss">
+<code class="sig-name descname">loss</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">MultiFieldBatch</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.loss" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.word_losses">
+<code class="sig-name descname">word_losses</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">batch_outputs</span><span class="p">:</span> <span class="n">MultiFieldBatch</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.word_losses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute sequence tagging loss.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.sentence_losses">
+<code class="sig-name descname">sentence_losses</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">batch_outputs</span><span class="p">:</span> <span class="n">MultiFieldBatch</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.sentence_losses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute sentence score loss.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.metrics_step">
+<code class="sig-name descname">metrics_step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">batch</span><span class="p">:</span> <span class="n">MultiFieldBatch</span></em>, <em class="sig-param"><span class="n">model_out</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">loss_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.metrics_step" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.metrics_end">
+<code class="sig-name descname">metrics_end</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">steps</span><span class="p">:</span> <span class="n">List<span class="p">[</span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.metrics_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.metrics">
+<em class="property">property </em><code class="sig-name descname">metrics</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>Metric<span class="p">]</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.labels">
+<code class="sig-name descname">labels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">field</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.decode_outputs">
+<code class="sig-name descname">decode_outputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">batch_inputs</span><span class="p">:</span> <span class="n">MultiFieldBatch</span></em>, <em class="sig-param"><span class="n">positive_class_label</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span> <span class="o">=</span> <span class="default_value">const.BAD</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">]</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.decode_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.decode_word_outputs">
+<code class="sig-name descname">decode_word_outputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">model_out</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">batch_inputs</span><span class="p">:</span> <span class="n">MultiFieldBatch</span></em>, <em class="sig-param"><span class="n">positive_class_label</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span> <span class="o">=</span> <span class="default_value">const.BAD</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">]</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.decode_word_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.systems.outputs.quality_estimation.QEOutputs.decode_sentence_outputs">
+<em class="property">static </em><code class="sig-name descname">decode_sentence_outputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model_out</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">]</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.QEOutputs.decode_sentence_outputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.systems.outputs.quality_estimation.tag_metrics">
+<code class="sig-prename descclassname">kiwi.systems.outputs.quality_estimation.</code><code class="sig-name descname">tag_metrics</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">targets</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">labels</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.outputs.quality_estimation.tag_metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.outputs</span></code></a>
+    <a class='right-next' id="next-link" href="../translation_language_model/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.systems.outputs.translation_language_model</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

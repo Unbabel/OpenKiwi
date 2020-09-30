@@ -1,0 +1,392 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.utils.io &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="kiwi.utils.tensors" href="../tensors/index.html" />
+    <link rel="prev" title="kiwi.utils.data_structures" href="../data_structures/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../index.html">
+      <img src="../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.BaseConfig" class="nav-link">BaseConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.utils.io.BaseConfig.Config" class="nav-link">Config</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h6">
+            <a href="#kiwi.utils.io.BaseConfig.Config.extra" class="nav-link">extra</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.default_map_location" class="nav-link">default_map_location</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.load_torch_file" class="nav-link">load_torch_file</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.save_file" class="nav-link">save_file</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.save_predicted_probabilities" class="nav-link">save_predicted_probabilities</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.read_file" class="nav-link">read_file</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.target_gaps_to_target" class="nav-link">target_gaps_to_target</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.target_gaps_to_gaps" class="nav-link">target_gaps_to_gaps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.convert_model_dict_if_needed" class="nav-link">convert_model_dict_if_needed</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.utils.io.generate_slug" class="nav-link">generate_slug</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.utils.io">
+<span id="kiwi-utils-io"></span><h1><a class="reference internal" href="#module-kiwi.utils.io" title="kiwi.utils.io"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils.io</span></code></a><a class="headerlink" href="#module-kiwi.utils.io" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BaseConfig</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.io.default_map_location" title="kiwi.utils.io.default_map_location"><code class="xref py py-obj docutils literal notranslate"><span class="pre">default_map_location</span></code></a>(storage, loc)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.io.load_torch_file" title="kiwi.utils.io.load_torch_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_torch_file</span></code></a>(file_path, map_location=None)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.io.save_file" title="kiwi.utils.io.save_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_file</span></code></a>(file_path, data, token_sep=' ', example_sep='\n')</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.io.save_predicted_probabilities" title="kiwi.utils.io.save_predicted_probabilities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_predicted_probabilities</span></code></a>(directory, predictions, prefix='')</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.io.read_file" title="kiwi.utils.io.read_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">read_file</span></code></a>(path)</p></td>
+<td><p>Read a file into a list of lists of words.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.io.target_gaps_to_target" title="kiwi.utils.io.target_gaps_to_target"><code class="xref py py-obj docutils literal notranslate"><span class="pre">target_gaps_to_target</span></code></a>(batch)</p></td>
+<td><p>Extract target tags from wmt18 format file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.io.target_gaps_to_gaps" title="kiwi.utils.io.target_gaps_to_gaps"><code class="xref py py-obj docutils literal notranslate"><span class="pre">target_gaps_to_gaps</span></code></a>(batch)</p></td>
+<td><p>Extract gap tags from wmt18 format file.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.utils.io.convert_model_dict_if_needed" title="kiwi.utils.io.convert_model_dict_if_needed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convert_model_dict_if_needed</span></code></a>(model_dict: Dict[str, Any]) → Dict[str, Any]</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.utils.io.generate_slug" title="kiwi.utils.io.generate_slug"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generate_slug</span></code></a>(text, delimiter='-')</p></td>
+<td><p>Convert text to a normalized “slug” without whitespace.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.utils.io.logger">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.utils.io.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.utils.io.BaseConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">BaseConfig</code><a class="headerlink" href="#kiwi.utils.io.BaseConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pydantic.BaseModel</span></code></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py class">
+<dt id="kiwi.utils.io.BaseConfig.Config">
+<em class="property">class </em><code class="sig-name descname">Config</code><a class="headerlink" href="#kiwi.utils.io.BaseConfig.Config" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py attribute">
+<dt id="kiwi.utils.io.BaseConfig.Config.extra">
+<code class="sig-name descname">extra</code><a class="headerlink" href="#kiwi.utils.io.BaseConfig.Config.extra" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.io.default_map_location">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">default_map_location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">storage</span></em>, <em class="sig-param"><span class="n">loc</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.io.default_map_location" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.io.load_torch_file">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">load_torch_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span></em>, <em class="sig-param"><span class="n">map_location</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.io.load_torch_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.io.save_file">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">save_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">token_sep</span><span class="o">=</span><span class="default_value">' '</span></em>, <em class="sig-param"><span class="n">example_sep</span><span class="o">=</span><span class="default_value">'\n'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.io.save_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.io.save_predicted_probabilities">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">save_predicted_probabilities</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span></em>, <em class="sig-param"><span class="n">predictions</span></em>, <em class="sig-param"><span class="n">prefix</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.io.save_predicted_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.io.read_file">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">read_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.io.read_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a file into a list of lists of words.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.io.target_gaps_to_target">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">target_gaps_to_target</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.io.target_gaps_to_target" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract target tags from wmt18 format file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.io.target_gaps_to_gaps">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">target_gaps_to_gaps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">batch</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.io.target_gaps_to_gaps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract gap tags from wmt18 format file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.io.convert_model_dict_if_needed">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">convert_model_dict_if_needed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">model_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Any<span class="p">]</span><a class="headerlink" href="#kiwi.utils.io.convert_model_dict_if_needed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.utils.io.generate_slug">
+<code class="sig-prename descclassname">kiwi.utils.io.</code><code class="sig-name descname">generate_slug</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">delimiter</span><span class="o">=</span><span class="default_value">'-'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.utils.io.generate_slug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert text to a normalized “slug” without whitespace.</p>
+<p>Borrowed from the nice <a class="reference external" href="https://humanfriendly.readthedocs.io">https://humanfriendly.readthedocs.io</a>, by Peter Odding.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> – the original text, for example <code class="docutils literal notranslate"><span class="pre">Some</span> <span class="pre">Random</span> <span class="pre">Text!</span></code>.</p></li>
+<li><p><strong>delimiter</strong> – the delimiter to use for separating words
+(defaults to the <code class="docutils literal notranslate"><span class="pre">-</span></code> character).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the slug text, for example <code class="docutils literal notranslate"><span class="pre">some-random-text</span></code>.</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – in an empty slug.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../data_structures/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils.data_structures</span></code></a>
+    <a class='right-next' id="next-link" href="../tensors/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.utils.tensors</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

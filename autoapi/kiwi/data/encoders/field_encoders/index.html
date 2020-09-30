@@ -1,0 +1,392 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.data.encoders.field_encoders &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
+    <script src="../../../../../_static/jquery.js"></script>
+    <script src="../../../../../_static/underscore.js"></script>
+    <script src="../../../../../_static/doctools.js"></script>
+    <script src="../../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../search.html" />
+    <link rel="next" title="kiwi.data.encoders.parallel_data_encoder" href="../parallel_data_encoder/index.html" />
+    <link rel="prev" title="kiwi.data.encoders.base" href="../base/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../../index.html">
+      <img src="../../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.field_encoders.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.field_encoders.TextEncoder" class="nav-link">TextEncoder</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.TextEncoder.fit_vocab" class="nav-link">fit_vocab</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.TextEncoder.vocabulary" class="nav-link">vocabulary</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.TextEncoder.padding_index" class="nav-link">padding_index</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.TextEncoder.encode" class="nav-link">encode</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.TextEncoder.batch_encode" class="nav-link">batch_encode</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.field_encoders.TagEncoder" class="nav-link">TagEncoder</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.field_encoders.InputEncoder" class="nav-link">InputEncoder</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.field_encoders.ScoreEncoder" class="nav-link">ScoreEncoder</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.ScoreEncoder.encode" class="nav-link">encode</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.ScoreEncoder.batch_encode" class="nav-link">batch_encode</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.field_encoders.BinaryScoreEncoder" class="nav-link">BinaryScoreEncoder</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.BinaryScoreEncoder.encode" class="nav-link">encode</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.data.encoders.field_encoders.AlignmentEncoder" class="nav-link">AlignmentEncoder</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.AlignmentEncoder.encode" class="nav-link">encode</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.data.encoders.field_encoders.AlignmentEncoder.batch_encode" class="nav-link">batch_encode</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.data.encoders.field_encoders">
+<span id="kiwi-data-encoders-field-encoders"></span><h1><a class="reference internal" href="#module-kiwi.data.encoders.field_encoders" title="kiwi.data.encoders.field_encoders"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders.field_encoders</span></code></a><a class="headerlink" href="#module-kiwi.data.encoders.field_encoders" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.data.encoders.field_encoders.TextEncoder" title="kiwi.data.encoders.field_encoders.TextEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TextEncoder</span></code></a></p></td>
+<td><p>Encode a field, handling vocabulary, tokenization and embeddings.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.data.encoders.field_encoders.TagEncoder" title="kiwi.data.encoders.field_encoders.TagEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TagEncoder</span></code></a></p></td>
+<td><p>Encode a field, handling vocabulary, tokenization and embeddings.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.data.encoders.field_encoders.InputEncoder" title="kiwi.data.encoders.field_encoders.InputEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InputEncoder</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.data.encoders.field_encoders.ScoreEncoder" title="kiwi.data.encoders.field_encoders.ScoreEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScoreEncoder</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.data.encoders.field_encoders.BinaryScoreEncoder" title="kiwi.data.encoders.field_encoders.BinaryScoreEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BinaryScoreEncoder</span></code></a></p></td>
+<td><p>Transform HTER score into binary OK/BAD label.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.data.encoders.field_encoders.AlignmentEncoder" title="kiwi.data.encoders.field_encoders.AlignmentEncoder"><code class="xref py py-obj docutils literal notranslate"><span class="pre">AlignmentEncoder</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.data.encoders.field_encoders.logger">
+<code class="sig-prename descclassname">kiwi.data.encoders.field_encoders.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.data.encoders.field_encoders.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.field_encoders.TextEncoder">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.field_encoders.</code><code class="sig-name descname">TextEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tokenize</span><span class="o">=</span><span class="default_value">tokenizers.tokenize</span></em>, <em class="sig-param"><span class="n">detokenize</span><span class="o">=</span><span class="default_value">tokenizers.detokenize</span></em>, <em class="sig-param"><span class="n">subtokenize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">pad_token</span><span class="o">=</span><span class="default_value">PAD</span></em>, <em class="sig-param"><span class="n">unk_token</span><span class="o">=</span><span class="default_value">UNK</span></em>, <em class="sig-param"><span class="n">bos_token</span><span class="o">=</span><span class="default_value">START</span></em>, <em class="sig-param"><span class="n">eos_token</span><span class="o">=</span><span class="default_value">STOP</span></em>, <em class="sig-param"><span class="n">unaligned_token</span><span class="o">=</span><span class="default_value">UNALIGNED</span></em>, <em class="sig-param"><span class="n">specials_first</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_lengths</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">include_bounds</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.TextEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Encode a field, handling vocabulary, tokenization and embeddings.</p>
+<p>Heavily inspired in torchtext and torchnlp.</p>
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.TextEncoder.fit_vocab">
+<code class="sig-name descname">fit_vocab</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">samples</span></em>, <em class="sig-param"><span class="n">vocab_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">vocab_min_freq</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">embeddings_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">keep_rare_words_with_embeddings</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">add_embeddings_vocab</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.TextEncoder.fit_vocab" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.TextEncoder.vocabulary">
+<em class="property">property </em><code class="sig-name descname">vocabulary</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.TextEncoder.vocabulary" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.TextEncoder.padding_index">
+<em class="property">property </em><code class="sig-name descname">padding_index</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.TextEncoder.padding_index" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.TextEncoder.encode">
+<code class="sig-name descname">encode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">example</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.TextEncoder.encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.TextEncoder.batch_encode">
+<code class="sig-name descname">batch_encode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">iterator</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.TextEncoder.batch_encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.field_encoders.TagEncoder">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.field_encoders.</code><code class="sig-name descname">TagEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tokenize</span><span class="o">=</span><span class="default_value">tokenizers.tokenize</span></em>, <em class="sig-param"><span class="n">detokenize</span><span class="o">=</span><span class="default_value">tokenizers.detokenize</span></em>, <em class="sig-param"><span class="n">pad_token</span><span class="o">=</span><span class="default_value">PAD</span></em>, <em class="sig-param"><span class="n">include_lengths</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.TagEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.data.encoders.field_encoders.TextEncoder" title="kiwi.data.encoders.field_encoders.TextEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.data.encoders.field_encoders.TextEncoder</span></code></a></p>
+<p>Encode a field, handling vocabulary, tokenization and embeddings.</p>
+<p>Heavily inspired in torchtext and torchnlp.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.field_encoders.InputEncoder">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.field_encoders.</code><code class="sig-name descname">InputEncoder</code><a class="headerlink" href="#kiwi.data.encoders.field_encoders.InputEncoder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.field_encoders.ScoreEncoder">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.field_encoders.</code><code class="sig-name descname">ScoreEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">torch.float</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.ScoreEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.data.encoders.field_encoders.InputEncoder" title="kiwi.data.encoders.field_encoders.InputEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.data.encoders.field_encoders.InputEncoder</span></code></a></p>
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.ScoreEncoder.encode">
+<code class="sig-name descname">encode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">example</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.ScoreEncoder.encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.ScoreEncoder.batch_encode">
+<code class="sig-name descname">batch_encode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">iterator</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.ScoreEncoder.batch_encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.field_encoders.BinaryScoreEncoder">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.field_encoders.</code><code class="sig-name descname">BinaryScoreEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">torch.float</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.BinaryScoreEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.data.encoders.field_encoders.ScoreEncoder" title="kiwi.data.encoders.field_encoders.ScoreEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.data.encoders.field_encoders.ScoreEncoder</span></code></a></p>
+<p>Transform HTER score into binary OK/BAD label.</p>
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.BinaryScoreEncoder.encode">
+<code class="sig-name descname">encode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">example</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.BinaryScoreEncoder.encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.data.encoders.field_encoders.AlignmentEncoder">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.field_encoders.</code><code class="sig-name descname">AlignmentEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">torch.int</span></em>, <em class="sig-param"><span class="n">account_for_bos_token</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">account_for_eos_token</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.AlignmentEncoder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#kiwi.data.encoders.field_encoders.InputEncoder" title="kiwi.data.encoders.field_encoders.InputEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.data.encoders.field_encoders.InputEncoder</span></code></a></p>
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.AlignmentEncoder.encode">
+<code class="sig-name descname">encode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">example</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.AlignmentEncoder.encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.data.encoders.field_encoders.AlignmentEncoder.batch_encode">
+<code class="sig-name descname">batch_encode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">iterator</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.field_encoders.AlignmentEncoder.batch_encode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../base/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders.base</span></code></a>
+    <a class='right-next' id="next-link" href="../parallel_data_encoder/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.data.encoders.parallel_data_encoder</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

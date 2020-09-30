@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuration &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Training configuration" href="train.html" />
+    <link rel="prev" title="Usage" href="../usage.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../index.html">
+      <img src="../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../autoapi/index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="">
+                  <a href="train.html">Training configuration</a>
+              </li>
+          
+        
+          
+              <li class="">
+                  <a href="predict.html">Prediction configuration</a>
+              </li>
+          
+        
+          
+              <li class="">
+                  <a href="evaluate.html">Evaluation configuration</a>
+              </li>
+          
+        
+      
+      
+      
+      
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#cli-overrides" class="nav-link">CLI overrides</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#configuration-composing" class="nav-link">Configuration Composing</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="configuration">
+<span id="id1"></span><h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<p>Kiwi can be configured essentially by using dictionaries. To persist configuration
+dictionaries, we recommend using YAML. You can find standard configuration files
+in <code class="docutils literal notranslate"><span class="pre">config/</span></code>.</p>
+<div class="section" id="cli-overrides">
+<h2>CLI overrides<a class="headerlink" href="#cli-overrides" title="Permalink to this headline">¶</a></h2>
+<p>To run Kiwi with a configuration file but overriding a value, use the format
+<code class="docutils literal notranslate"><span class="pre">key=value</span></code>, where nested keys can be encoded by using a dot notation.
+For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="n">train</span> <span class="n">config</span><span class="o">/</span><span class="n">bert</span><span class="o">.</span><span class="n">yaml</span> <span class="n">trainer</span><span class="o">.</span><span class="n">gpus</span><span class="o">=</span><span class="mi">0</span> <span class="n">system</span><span class="o">.</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">16</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration-composing">
+<h2>Configuration Composing<a class="headerlink" href="#configuration-composing" title="Permalink to this headline">¶</a></h2>
+<p>Kiwi uses Hydra/OmegaConf to compose configuration coming from different places.
+This makes it possible to split configuration across multiple files.</p>
+<p>In most files in <code class="docutils literal notranslate"><span class="pre">config/</span></code>, like <code class="docutils literal notranslate"><span class="pre">config/predict.yaml</span></code>, you’ll notice this:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">defaults</span><span class="p">:</span>
+ <span class="p p-Indicator">-</span> <span class="nt">data</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wmt19.qe.en_de</span>
+</pre></div>
+</div>
+<p>This means the file <code class="docutils literal notranslate"><span class="pre">config/data/wmt19.qe.en_de.yaml</span></code> will be loaded into the
+configuration found in <code class="docutils literal notranslate"><span class="pre">config/predict.yaml</span></code>. <strong>Notice</strong> that <code class="docutils literal notranslate"><span class="pre">wmt19.qe.en_de.yaml</span></code>
+must use fully qualified keys levels, that is, the full nesting of keys.</p>
+<p>The nice use case for this is allowing dynamically changing parts of the configuration.
+For example, we can use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="n">train</span> <span class="n">config</span><span class="o">/</span><span class="n">bert</span><span class="o">.</span><span class="n">yaml</span> <span class="n">data</span><span class="o">=</span><span class="n">unbabel</span><span class="o">.</span><span class="n">qe</span><span class="o">.</span><span class="n">en_pt</span>
+</pre></div>
+</div>
+<p>to use a different dataset (where <code class="docutils literal notranslate"><span class="pre">config/data/unbabel.qe.en_pt.yaml</span></code> contains the
+configuration for the data files).</p>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../usage.html" title="previous page">Usage</a>
+    <a class='right-next' id="next-link" href="train.html" title="next page">Training configuration</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
