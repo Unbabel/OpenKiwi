@@ -1,0 +1,77 @@
+run:
+    experiment_name: XLM-R WMT20 en_de
+    seed: 42
+    mlflow_tracking_uri: mlruns/
+    # output_dir: null  # mlflow will create one if this is null
+    use_mlflow: false
+
+trainer:
+    gpus: -1
+    log_interval: 100
+    epochs: 10
+
+    main_metric:
+        - PEARSON
+        - WMT19_MCC
+#        - WMT19_F1_MULT
+
+    checkpoint:
+        validation_steps: 200
+        early_stop_patience: 20
+
+    gradient_max_norm: 1.
+
+defaults:
+    - data: wmt19.qe.en_de
+
+system:
+    class_name: XLMRoberta
+
+    batch_size: 8
+    num_data_workers: 4
+
+    model:
+        encoder:
+            model_name: xlm-roberta-base
+            interleave_input: false
+            freeze: false
+            encode_source: false
+            use_mlp: false
+            hidden_size: 600
+            pooling: mixed
+#            dropout: 0.2
+#            freeze_for_number_of_steps: 2100
+
+        decoder:
+            hidden_size: 256
+            dropout: 0.2
+
+        outputs:
+            word_level:
+                target: true
+                gaps: true
+                source: false
+                class_weights:
+                    target_tags:
+                        BAD: 3.5
+                    gap_tags:
+                        BAD: 3.5
+                    source_tags:
+                        BAD: 3.5
+            sentence_level:
+                hter: true
+                use_distribution: true
+                binary: false
+            dropout: 0.2
+
+        tlm_outputs:
+            fine_tune: false
+
+    optimizer:
+        class_name: adamw
+        learning_rate: 1e-05
+        warmup_steps: 0.15
+        training_steps: 7000
+
+    data_processing:
+        share_input_fields_encoders: true

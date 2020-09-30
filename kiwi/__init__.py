@@ -1,5 +1,5 @@
 #  OpenKiwi: Open-Source Machine Translation Quality Estimation
-#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#  Copyright (C) 2020 Unbabel <openkiwi@unbabel.com>
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published
@@ -14,12 +14,8 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
+from kiwi.lib.train import train_from_file  # NOQA isort:skip
+from kiwi.lib.predict import load_system  # NOQA isort:skip
 
-from kiwi.lib.train import train_from_file as train  # NOQA
-from kiwi.lib.predict import load_model  # NOQA
-
-__version__ = '0.1.3'
-__copyright__ = (
-    '2019 Unbabel. All rights reserved. '
-    'Source code available under the AGPL-3.0.'
-)
+__version__ = '2.0.0'
+__copyright__ = '2019-2020 Unbabel. All rights reserved.'

@@ -1,0 +1,78 @@
+run:
+    experiment_name: XLM-Estimator WMT19 Target en_de.nmt
+    seed: 42
+    mlflow_tracking_uri: mlruns/
+    # output_dir: null  # mlflow will create one if this is null
+
+trainer:
+    gpus: -1
+    log_interval: 100
+    epochs: 10
+
+    main_metric:
+        - PEARSON
+        - WMT19_F1_MULT
+
+    checkpoint:
+        validation_steps: 100
+        early_stop_patience: 20
+
+    gradient_max_norm: 1.
+
+defaults:
+    - data: smallwmt19.qe.en_de
+
+system:
+    class_name: XLM
+
+    batch_size: 11
+    num_data_workers: 4
+
+    model:
+        encoder:
+            model_name: xlm-mlm-tlm-xnli15-1024  # this was the one originally used for the shared task
+            interleave_input: false
+            freeze: false
+            use_mismatch_features: false
+            use_predictor_features: false
+            encode_source: false
+            use_mlp: true
+
+        decoder:
+            hidden_size: 250
+            dropout: 0.0
+
+        outputs:
+            word_level:
+                target: true
+                gaps: true
+                source: false
+                class_weights:
+                    target_tags:
+                        BAD: 3.5
+                    gap_tags:
+                        BAD: 3.5
+                    source_tags:
+                        BAD: 3.5
+            sentence_level:
+                hter: true
+                use_distribution: true
+                binary: false
+            sentence_loss_weight: 2
+
+        tlm_outputs:
+            fine_tune: false
+
+    optimizer:
+        class_name: adamw
+        learning_rate: 1.0e-05
+        warmup_steps: 0.1
+        training_steps: 12000
+        learning_rate_decay: 1.0
+        learning_rate_decay_start: 0
+
+    data_processing:
+        share_input_fields_encoders: true
+        vocab:
+            min_frequency: 1
+            max_size: 95000

@@ -1,5 +1,5 @@
 #  OpenKiwi: Open-Source Machine Translation Quality Estimation
-#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#  Copyright (C) 2020 Unbabel <openkiwi@unbabel.com>
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published
@@ -14,251 +14,154 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-
 import logging
+import re
 import threading
-import uuid
+from typing import Any, Dict, Optional
+
+import torch
+from pytorch_lightning.loggers import MLFlowLogger
+from pytorch_lightning.utilities import rank_zero_only
+
+from kiwi.utils.io import generate_slug
 
 logger = logging.getLogger(__name__)
 
+_INVALID_PARAM_AND_METRIC_CHARACTERS = re.compile(r'[^/\w.\- ]')
 
-class TrackingLogger:
-    class ActiveRun:
-        def __init__(self, run_uuid, experiment_id):
-            self.run_uuid = run_uuid
-            self.experiment_name = experiment_id
 
-        def __enter__(self):
-            return self
+def normalize_metric_key(key):
+    """Normalize key name for MLflow.
 
-        def __exit__(self, exc_type, exc_val, exc_tb):
-            return exc_type is None
+    mlflow.exceptions.MlflowException: Invalid metric name: 'WMT19_F1_MULT+PEARSON'.
+    Names may only contain alphanumerics, underscores (_), dashes (-), periods (.),
+    spaces ( ), and slashes (/).
 
-    def __init__(self):
-        self._experiment_id = None
-        self._experiment_name = None
-        self._active_run_uuids = []
+    This is raised by matching against ``r"^[/\\w.\\- ]*$"``.
+    """
+    return _INVALID_PARAM_AND_METRIC_CHARACTERS.sub('-', key)
 
-    def configure(
+
+def validate_metric_value(value):
+    if torch.is_tensor(value):
+        return value.mean().item()
+    else:
+        try:
+            return float(value)
+        except TypeError:
+            return None
+
+
+class MLFlowTrackingLogger(MLFlowLogger):
+    def __init__(
         self,
-        run_uuid,
-        experiment_name,
-        run_name=None,
-        nest_run=True,
-        *args,
-        **kwargs
+        experiment_name: str = 'default',
+        run_id: Optional[str] = None,
+        tracking_uri: Optional[str] = None,
+        tags: Optional[Dict[str, Any]] = None,
+        save_dir: Optional[str] = None,
+        always_log_artifacts: bool = False,
     ):
-        if len(self._active_run_uuids) > 0 and not nest_run:
-            raise Exception(
-                (
-                    "A run is already active. To start a nested run, call "
-                    "start_nested_run(), or configure() with nest_run=True"
-                )
-            )
-        if not self._active_run_uuids:
-            self._experiment_name = experiment_name
-            self._experiment_id = 0
-            self._run_name = run_name
-        if run_uuid is None:
-            self._active_run_uuids.append(uuid.uuid4().hex)
-        else:
-            self._active_run_uuids.append(run_uuid)
-
-        return TrackingLogger.ActiveRun(
-            run_uuid=self._active_run_uuids[-1],
-            experiment_id=self._experiment_id,
+        super().__init__(
+            experiment_name=experiment_name,
+            tracking_uri=tracking_uri,
+            tags=tags,
+            save_dir=save_dir,
         )
-
-    def start_nested_run(self, run_name=None):
-        return self.configure(
-            run_uuid=run_name, experiment_name=None, nest_run=True
-        )
-
-    @property
-    def run_uuid(self):
-        return self._active_run_uuids[-1] if self._active_run_uuids else None
-
-    @property
-    def experiment_id(self):
-        return self._experiment_id
-
-    @property
-    def experiment_name(self):
-        return self._experiment_name
-
-    @property
-    def run_name(self):
-        return self._run_name
-
-    def should_log_artifacts(self):
-        return False
-
-    def get_tracking_uri(self):
-        return None
-
-    @staticmethod
-    def log_metric(key, value):
-        pass
-
-    @staticmethod
-    def log_param(key, value):
-        pass
-
-    @staticmethod
-    def log_artifact(local_path, artifact_path=None):
-        pass
-
-    @staticmethod
-    def log_artifacts(local_dir, artifact_path=None):
-        return None
-
-    @staticmethod
-    def get_artifact_uri():
-        return None
-
-    @staticmethod
-    def end_run():
-        pass
-
-
-class MLflowLogger:
-    def __init__(self):
-        self.always_log_artifacts = False
-        self._experiment_name = None
-        self._run_name = None
-
-    def configure(
-        self,
-        run_uuid,
-        experiment_name,
-        tracking_uri,
-        run_name=None,
-        always_log_artifacts=False,
-        create_run=True,
-        create_experiment=True,
-        nest_run=True,
-    ):
-        if mlflow.active_run() and not nest_run:
-            logger.info('Ending previous MLFlow run: {}.'.format(self.run_uuid))
-            mlflow.end_run()
-
         self.always_log_artifacts = always_log_artifacts
-        self._experiment_name = experiment_name
-        self._run_name = run_name
 
-        # MLflow specific
-        if tracking_uri:
-            mlflow.set_tracking_uri(tracking_uri)
-
-        if run_uuid:
-            existing_run = MlflowClient().get_run(run_uuid)
-            if not existing_run and not create_run:
-                raise FileNotFoundError(
-                    'Run ID {} not found under {}'.format(
-                        run_uuid, mlflow.get_tracking_uri()
-                    )
-                )
-
-        experiment_id = self._retrieve_mlflow_experiment_id(
-            experiment_name, create=create_experiment
-        )
-        return mlflow.start_run(
-            run_uuid,
-            experiment_id=experiment_id,
-            run_name=run_name,
-            nested=nest_run,
-        )
-
-    def start_nested_run(self, run_name=None):
-        return mlflow.start_run(run_name=run_name, nested=True)
+        if run_id:
+            run = self._mlflow_client.get_run(run_id)
+            self._run_id = run.info.run_id
+            self._experiment_id = run.info.experiment_id
+        else:
+            # Force creation of experiment and run
+            _ = self.run_id
 
     @property
-    def run_uuid(self):
-        return mlflow.tracking.fluent.active_run().info.run_uuid
+    def tracking_uri(self):
+        from mlflow import get_tracking_uri
 
-    @property
-    def experiment_id(self):
-        return mlflow.tracking.fluent.active_run().info.experiment_id
+        return get_tracking_uri()
+        # return self._mlflow_client._tracking_client.tracking_uri
 
-    @property
-    def experiment_name(self):
-        # return MlflowClient().get_experiment(self.experiment_id).name
-        return self._experiment_name
+    @rank_zero_only
+    def log_param(self, key, value):
+        self.experiment.log_param(self.run_id, key, value)
 
-    def should_log_artifacts(self):
-        return self.always_log_artifacts or self._is_remote()
+    @rank_zero_only
+    def log_hyperparams(self, params: Dict[str, Any]) -> None:
+        params = self._convert_params(params)
+        params = self._flatten_dict(params, delimiter='.')
+        for k, v in params.items():
+            self.experiment.log_param(self.run_id, k, v)
 
-    @staticmethod
-    def get_tracking_uri():
-        return mlflow.get_tracking_uri()
+    @rank_zero_only
+    def log_metrics(
+        self, metrics: Dict[str, float], step: Optional[int] = None, prefix=''
+    ) -> None:
+        # FIXME: do this in the background (non-blocking way)
+        normalized_metrics = {}
+        for key, value in metrics.items():
+            if prefix:
+                key = '{}_{}'.format(prefix, key)
+            key = normalize_metric_key(key)
+            value = validate_metric_value(value)
+            normalized_metrics[key] = value
+        super().log_metrics(metrics=normalized_metrics, step=step)
 
-    @staticmethod
-    def log_metric(key, value):
-        mlflow.log_metric(key, value)
-
-    @staticmethod
-    def log_param(key, value):
-        mlflow.log_param(key, value)
-
-    @staticmethod
-    def log_artifact(local_path, artifact_path=None):
+    @rank_zero_only
+    def log_artifact(self, local_path, artifact_path=None):
         t = threading.Thread(
-            target=mlflow.log_artifact,
-            args=(local_path,),
+            target=self.experiment.log_artifact,
+            args=(self.run_id, local_path),
             kwargs={'artifact_path': artifact_path},
             daemon=True,
         )
         t.start()
+        return t
 
-    @staticmethod
-    def log_artifacts(local_dir, artifact_path=None):
-        def send(dpath, e, path):
-            mlflow.log_artifacts(dpath, artifact_path=path)
+    @rank_zero_only
+    def log_artifacts(self, local_dir, artifact_path=None):
+        def send(e, run_id, dpath, path):
+            self.experiment.log_artifacts(run_id, dpath, artifact_path=path)
             e.set()
 
         event = threading.Event()
         t = threading.Thread(
-            target=send, args=(local_dir, event, artifact_path), daemon=True
+            target=send,
+            args=(event, self.run_id, local_dir, artifact_path),
+            daemon=True,
         )
         t.start()
         return event
 
-    @staticmethod
-    def get_artifact_uri():
-        return mlflow.get_artifact_uri()
+    def get_artifact_uri(self):
+        run = self.experiment.get_run(self.run_id)
+        return run.info.artifact_uri
 
-    @staticmethod
-    def end_run():
-        mlflow.end_run()
+    @rank_zero_only
+    def log_model(self, local_file, name=None):
+        from mlflow.exceptions import MlflowException
 
-    def _is_remote(self):
-        return not mlflow.tracking.utils._is_local_uri(
-            mlflow.get_tracking_uri()
-        )
+        if not name:
+            name = generate_slug(self._experiment_name)
 
-    @staticmethod
-    def _retrieve_mlflow_experiment_id(name, create=False):
-        experiment_id = None
-        if name:
-            existing_experiment = MlflowClient().get_experiment_by_name(name)
-            if existing_experiment:
-                experiment_id = existing_experiment.experiment_id
-            else:
-                if create:
-                    experiment_id = mlflow.create_experiment(name)
-                else:
-                    raise Exception(
-                        'Experiment "{}" not found in {}'.format(
-                            name, mlflow.get_tracking_uri()
-                        )
-                    )
-        return experiment_id
+        try:
+            self._mlflow_client.create_model_version(
+                name=name, source=local_file, run_id=self.run_id
+            )
+        except MlflowException as e:
+            logger.warning(e.message)
+            logger.info('Logging model as artifact instead')
+            thread = self.log_artifact(local_file, artifact_path='model')
+            thread.join()
 
+    @rank_zero_only
+    def log_tag(self, name: str, value: str):
+        self._mlflow_client.set_tag(self.run_id, name, value)
 
-try:
-    import mlflow
-    from mlflow.tracking import MlflowClient
-
-    tracking_logger = MLflowLogger()
-except ImportError:
-    tracking_logger = TrackingLogger()
+    @rank_zero_only
+    def log_tags(self, tags: Dict[str, str]):
+        for name, value in tags.items():
+            self.log_tag(name, value)

@@ -19,12 +19,13 @@
 
 # -- Project information -----------------------------------------------------
 
-# package data
+# import sphinx_autodoc_typehints
 import os
 import sys
 
 import toml
 
+from m2r import MdInclude
 # from recommonmark.transform import AutoStructify
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -46,7 +47,7 @@ about = metadata['tool']['poetry']
 
 project = about['name']
 copyright = (
-    '2019 Unbabel. All rights reserved. '
+    '2019-2020 Unbabel. All rights reserved. '
     'Source code available under the AGPL-3.0.'
 )
 author = '; '.join(about['authors'])
@@ -58,27 +59,28 @@ release = '%s' % (about['version'])
 
 # -- General configuration ---------------------------------------------------
 
-# If your documentation needs a minimal Sphinx version, state it here.
-#
-# needs_sphinx = '1.0'
-
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    'autoapi.extension',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.napoleon',
     'sphinx.ext.autodoc',
-    # 'sphinx.ext.doctest',
+    'sphinx_autodoc_typehints',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
-    'sphinx.ext.githubpages',
-    'sphinx.ext.napoleon',
-    'sphinxarg.ext',
-    'm2r',
+    'recommonmark',
+    # 'sphinx.ext.githubpages',
+    # 'sphinx_paramlinks',
     # 'sphinx-issues',
-    # 'pytest-sphinx',
+    # 'sphinx-pydantic',
+    # 'sphinx-jsonschema',
+    # 'sphinx_automodapi.automodapi',
+    # 'sphinx_automodapi.smart_resolver',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -86,13 +88,7 @@ templates_path = ['_templates']
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
-#
 source_suffix = ['.rst', '.md']
-# source_suffix = '.rst'
-
-# source_parsers = {
-#     '.md': 'recommonmark.parser.CommonMarkParser',
-# }
 
 # The master toctree document.
 master_doc = 'index'
@@ -102,7 +98,7 @@ master_doc = 'index'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -114,33 +110,29 @@ pygments_style = None
 
 # -- Options for HTML output -------------------------------------------------
 
-html_logo = '_static/img/openkiwi-logo-icon-dark.svg'
+html_logo = '_static/img/openkiwi-logo-horizontal.svg'
+html_favicon = '_static/img/openkiwi-logo-icon.ico'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'pydata_sphinx_theme'
 
 # Theme options are theme-specific and customize the look and feel of a theme
-# further.  For a list of options available for each theme, see the
-# documentation.
-#
-# html_theme_options = {
-#     'logo_only': True
-# }
+# further.  For a list of options available for each theme, see the documentation.
 html_theme_options = {
     # 'canonical_url': '',
     # 'analytics_id': 'UA-XXXXXXX-1',  #  Provided by Google in your dashboard
-    'logo_only': False,
-    'display_version': True,
+    # 'logo_only': False,
+    # 'display_version': True,
     # 'prev_next_buttons_location': 'bottom',
     # 'style_external_links': False,
     # 'vcs_pageview_mode': '',
     # 'style_nav_header_background': 'white',
     # Toc options
-    'collapse_navigation': False,
+    # 'collapse_navigation': False,
     # 'sticky_navigation': True,
-    'navigation_depth': 4,
+    # 'navigation_depth': 4,
     # 'includehidden': True,
     # 'titles_only': False
 }
@@ -166,34 +158,6 @@ html_static_path = ['_static']
 # Output file base name for HTML help builder.
 htmlhelp_basename = 'OpenKiwiDoc'
 
-# -- Options for LaTeX output ------------------------------------------------
-
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    #
-    # 'papersize': 'letterpaper',
-
-    # The font size ('10pt', '11pt' or '12pt').
-    #
-    # 'pointsize': '10pt',
-
-    # Additional stuff for the LaTeX preamble.
-    #
-    # 'preamble': '',
-
-    # Latex figure (float) alignment
-    #
-    # 'figure_align': 'htbp',
-}
-
-# Grouping the document tree into LaTeX files. List of tuples
-# (source start file, target name, title,
-#  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    (master_doc, 'OpenKiwi.tex', 'OpenKiwi Documentation',
-     'AI Tribe', 'manual'),
-]
-
 # -- Options for manual page output ------------------------------------------
 
 # One entry per manual page. List of tuples
@@ -203,39 +167,12 @@ man_pages = [
      [author], 1)
 ]
 
-# -- Options for Texinfo output ----------------------------------------------
-
-# Grouping the document tree into Texinfo files. List of tuples
-# (source start file, target name, title, author,
-#  dir menu entry, description, category)
-texinfo_documents = [
-    (master_doc, 'OpenKiwi', 'OpenKiwi Documentation',
-     author, 'OpenKiwi', 'One line description of project.',
-     'Miscellaneous'),
-]
-
-# -- Options for Epub output -------------------------------------------------
-
-# Bibliographic Dublin Core info.
-epub_title = project
-
-# The unique identifier of the text. This can be a ISBN number
-# or the project homepage.
-#
-# epub_identifier = ''
-
-# A unique identification for the text.
-#
-# epub_uid = ''
-
-# A list of files that should not be packed into the epub file.
-epub_exclude_files = ['search.html']
-
 # -- Extension configuration -------------------------------------------------
 
 # -- Options for intersphinx extension ---------------------------------------
 
 # Example configuration for intersphinx: refer to the Python standard library.
+# intersphinx_mapping = {'https://docs.python.org/': None}
 intersphinx_mapping = {
     'python': ('https://docs.python.org/3/', None),
     'torch': ('https://pytorch.org/docs/master/', None),
@@ -247,8 +184,59 @@ intersphinx_mapping = {
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
 
-# -- Options for Recommonmark
-# ---------------------------------------------------
+# -- Options for Recommonmark and m2r-----------------------------------------
+
+# -- Options for autodoc/autosummary/automodapi extensions ---------------------------------------
+
+# autodoc_typehints = 'description'  # For when sphinx 3.1 comes out
+autodoc_typehints = 'signature'
+
+autodoc_default_options = {
+    'members': True,
+    'member-order': 'bysource',
+    # 'special-members': '__init__',
+    'undoc-members': False,
+    'exclude-members': '__weakref__',
+    'inherited-members': False,
+    'show-inheritance': False,
+}
+
+autosummary_generate = True
+autosummary_imported_members = False
+
+# autodoc-typehints
+set_type_checking_flag = True
+always_document_param_types = True
+typehints_document_rtype = True
+
+napoleon_use_param = True
+
+autoapi_dirs = ['../kiwi']
+autoapi_generate_api_docs = True
+autoapi_keep_files = True
+autoapi_options = [
+    'show-module-summary',
+    'members',
+    'undoc-members',
+    'private-members',
+    'show-inheritance',
+    'special-members',
+]
+
 
 def setup(app):
-    app.add_stylesheet('css/unbabel.css')
+    # app.add_config_value('recommonmark_config', {
+    #     # 'url_resolver': lambda url: github_doc_root + url,
+    #     # 'auto_toc_tree_section': 'Contents',
+    #     'enable_eval_rst': True,
+    # }, True)
+    # app.add_transform(AutoStructify)
+
+    # from m2r to make `mdinclude` work
+    # https://github.com/life4/deal/commit/7f33cbc595ed31519cefdfaaf6f415dada5acd94
+    app.add_config_value('no_underscore_emphasis', False, 'env')
+    app.add_config_value('m2r_parse_relative_links', False, 'env')
+    app.add_config_value('m2r_anonymous_references', False, 'env')
+    app.add_config_value('m2r_disable_inline_math', False, 'env')
+    app.add_directive('mdinclude', MdInclude)
+    # app.add_stylesheet('css/unbabel.css')

@@ -15,35 +15,25 @@ Quality estimation (QE) is one of the missing pieces of machine translation: its
 
 ## News
 
+A new major version (2.0.0) of OpenKiwi has been released. Introducing HuggingFace Transformers support and adoption of Pytorch-lightning.
+For a condensed view of changed, check the [changelog](CHANGELOG.md)
+
 Following our nomination in early July, we are happy to announce we won the [Best Demo Paper at ACL 2019](http://www.acl2019.org/EN/winners-of-acl-2019-best-paper-awards.xhtml)! Congratulations to the whole team and huge thanks for supporters and issue reporters.
 
 Check out the [published paper](https://www.aclweb.org/anthology/P19-3020).
-
-We are going to release the web interface we had put in place for the live demo presentation at ACL.
 
 We have released the OpenKiwi [tutorial](https://github.com/Unbabel/KiwiCutter) we presented at MT Marathon 2019.
 
 ## Features
 
 * Framework for training QE models and using pre-trained models for evaluating MT.
-* Supports both word and sentence-level Quality estimation.
-* Implementation of five QE systems in Pytorch: QUETCH [[1]], NuQE [[2], [3]], predictor-estimator [[4], [5]], APE-QE [[3]], and a stacked ensemble with a linear system [[2], [3]]. 
+* Supports both word and sentence-level (HTER or z-score) Quality estimation.
+* Implementation of five QE systems in Pytorch: NuQE [[2], [3]], predictor-estimator [[4], [5]], BERT-Estimator [[6]], XLM-Estimator [[6]] and XLMR-Estimator
+*    Older systems only supported in versions <=2.0.0: QUETCH [[1]], APE-QE [[3]] and a stacked ensemble with a linear system [[2], [3]].
 * Easy to use API. Import it as a package in other projects or run from the command line.
-* Provides scripts to run pre-trained QE models on data from the WMT 2018 campaign.
 * Easy to track and reproduce experiments via yaml configuration files.
-
-## Results
-
-Results for the [WMT18 Quality Estimation shared task](http://www.statmt.org/wmt18/quality-estimation-task.html#results), for [word level](https://competitions.codalab.org/competitions/19306#results) *and* [sentence level](https://competitions.codalab.org/competitions/19316#results) on the test set.
-
-|   Model   | En-De SMT |           |           |           |           | En-De NMT |           |           |           |           |
-|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
-|           |     MT    |    gaps   |   source  |     r     |     ⍴     |     MT    |    gaps   |   source  |     r     |     ⍴     |
-|  OpenKiwi | **62.70** | **52.14** | **48.88** |   71.08   |   72.70   | **44.77** | **22.89** | **36.53** |   46.72   |   58.51   |
-|  Wang2018 |   62.46   |   49.99   |     --    | **73.97** | **75.43** |   43.61   |     --    |     --    |   50.12   |   60.49   |
-|    UNQE   |     --    |     --    |     --    |   70.00   |   72.44   |     --    |     --    |     --    | **51.29** | **60.52** |
-| deepQUEST |   42.98   |   28.24   |   33.97   |   48.72   |   50.97   |   30.31   |   11.93   |   28.59   |   38.08   |   48.00   |
-
+* Based on Pytorch-Lightning making the code easier to scale, use and keep up-do-date with engineering advances.
+* Implemented using HuggingFace Transformers library to allow easy access to state-of-the-art pre-trained models.
 
 ## Quick Installation
 
@@ -63,19 +53,13 @@ kiwi
 
 **Optionally**, if you'd like to take advantage of our [MLflow](https://mlflow.org/) integration, simply install it in the same virtualenv as OpenKiwi:
 ```bash
-pip install mlflow
+pip install openkiwi[mlflow]
 ```
 
 
 ## Getting Started
 
 Detailed usage examples and instructions can be found in the [Full Documentation](https://unbabel.github.io/OpenKiwi/index.html).
-
-
-## Pre-trained models
-
-We provide pre-trained models with the corresponding pre-processed datasets and configuration files.
-You can easily reproduce our numbers in the WMT 2018 word- and sentence-level tasks by following the [reproduce instructions in the documentation](https://unbabel.github.io/OpenKiwi/reproduce.html).
 
 
 ## Contributing
@@ -128,3 +112,6 @@ If you use OpenKiwi, please cite the following paper: [OpenKiwi: An Open Source 
 
 ##### [[5]] [Wang et al. (2018): Alibaba Submission for WMT18 Quality Estimation Task](http://statmt.org/wmt18/pdf/WMT093.pdf)
 [5]:#5-wang-et-al-2018-alibaba-submission-for-wmt18-quality-estimation-task
+
+##### [[6]] [Kepler et al. (2019): Unbabel’s Participation in the WMT19 Translation Quality Estimation Shared Task](https://www.aclweb.org/anthology/W19-5406.pdf)
+[6]:#6-kepler-et-al-2019-unbabels-participation-in-the-wmt19-translation-quality-estimation-shared-task

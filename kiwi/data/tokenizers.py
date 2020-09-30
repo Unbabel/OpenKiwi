@@ -1,5 +1,5 @@
 #  OpenKiwi: Open-Source Machine Translation Quality Estimation
-#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#  Copyright (C) 2020 Unbabel <openkiwi@unbabel.com>
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published
@@ -14,18 +14,24 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-
-
-def tokenizer(sentence):
+def tokenize(sentence):
     """Implement your own tokenize procedure."""
     return sentence.strip().split()
 
 
-def align_tokenizer(s):
+def detokenize(tokens):
+    return ' '.join(tokens)
+
+
+def align_tokenize(s):
     """Return a list of pair of integers for each sentence."""
     return [tuple(map(int, x.split('-'))) for x in s.strip().split()]
 
 
-def align_reversed_tokenizer(s):
-    """Return a list of pair of integers for each sentence."""
-    return [tuple(map(int, x.split('-')))[::-1] for x in s.strip().split()]
+# def align_reversed_tokenizer(s):
+#     """Return a list of pair of integers for each sentence."""
+#     return [tuple(map(int, x.split('-')))[::-1] for x in s.strip().split()]
+
+
+def bert_tokenizer(sentence):
+    raise NotImplementedError

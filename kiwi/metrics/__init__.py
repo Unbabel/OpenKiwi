@@ -1,5 +1,5 @@
 #  OpenKiwi: Open-Source Machine Translation Quality Estimation
-#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#  Copyright (C) 2020 Unbabel <openkiwi@unbabel.com>
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published
@@ -14,16 +14,14 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-
 from kiwi.metrics import metrics
 
-F1Metric = metrics.F1Metric
-LogMetric = metrics.LogMetric
+F1MultMetric = metrics.F1MultMetric
 ExpectedErrorMetric = metrics.ExpectedErrorMetric
 PerplexityMetric = metrics.PerplexityMetric
 CorrectMetric = metrics.CorrectMetric
 RMSEMetric = metrics.RMSEMetric
 PearsonMetric = metrics.PearsonMetric
 SpearmanMetric = metrics.SpearmanMetric
-TokenMetric = metrics.TokenMetric
-ThresholdCalibrationMetric = metrics.ThresholdCalibrationMetric
+MatthewsMetric = metrics.MatthewsMetric
+# ThresholdCalibrationMetric = metrics.ThresholdCalibrationMetric

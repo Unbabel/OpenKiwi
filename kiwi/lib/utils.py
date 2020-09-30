@@ -1,5 +1,5 @@
 #  OpenKiwi: Open-Source Machine Translation Quality Estimation
-#  Copyright (C) 2019 Unbabel <openkiwi@unbabel.com>
+#  Copyright (C) 2020 Unbabel <openkiwi@unbabel.com>
 #
 #  This program is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU Affero General Public License as published
@@ -14,130 +14,99 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-
-import argparse
+import json
 import logging
-import random
-from argparse import Namespace
 from pathlib import Path
 from time import gmtime
+from typing import Dict, Union
 
-import configargparse
-import numpy as np
-import torch
+import yaml
+from pytorch_lightning import seed_everything
+
+from kiwi.utils.io import BaseConfig
 
 
-def configure_seed(seed):
+def configure_seed(seed: int):
+    """Configure the random seed for all relevant packages.
+
+    These include: random, numpy, torch, torch.cuda and PYTHONHASHSEED.
+
+    Arguments:
+        seed: the random seed to be set.
     """
-    Configure the random seed for all relevant packages.
-    These include: random, numpy, torch and torch.cuda
-
-    Args:
-        seed (int): the random seed to be set
-    """
-    random.seed(seed)
-    np.random.seed(seed)
-    torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
+    seed_everything(seed)
 
 
-def configure_device(gpu_id):
-    """
-    Configure gpu to be used in computation.
+def configure_logging(
+    output_dir: Path = None, verbose: bool = False, quiet: bool = False
+):
+    """Configure the output logger.
 
-    Args:
-        gpu_id (int): The id of the gpu to be used
-    """
-    if gpu_id is not None:
-        torch.cuda.set_device(gpu_id)
+    Set up the log format, logging level, and output directory of logging.
 
-
-def configure_logging(output_dir=None, debug=False, quiet=False):
-    """
-    Configure the logger. Sets up the log format, logging level
-    and output directory of logging.
-
-    Args:
-        output_dir: The directory where log output will be stored.
-            Defaults to None.
-        debug (bool): Change logging level to debug.
-        quiet (bool): Change logging level to warning to supress info logs.
+    Arguments:
+        output_dir: the directory where log output will be stored; defaults to None.
+        verbose: change logging level to debug.
+        quiet: change logging level to warning to suppress info logs.
     """
     logging.Formatter.converter = gmtime
-    logging.Formatter.default_msec_format = '%s.%03d'
-    log_format = '%(asctime)s [%(name)s %(funcName)s:%(lineno)s] %(message)s'
+    date_format = '%Y-%m-%dT%H:%M:%SZ'
+    log_format = '%(asctime)s %(levelname)-8s %(name)24.24s:%(lineno)3.3s: %(message)s'
     if logging.getLogger().handlers:
-        log_formatter = logging.Formatter(log_format)
+        log_formatter = logging.Formatter(log_format, datefmt=date_format)
         for handler in logging.getLogger().handlers:
             handler.setFormatter(log_formatter)
     else:
-        logging.basicConfig(level=logging.INFO, format=log_format)
+        logging.basicConfig(level=logging.INFO, format=log_format, datefmt=date_format)
 
     log_level = logging.INFO
-    if debug:
+    if verbose:
         log_level = logging.DEBUG
     if quiet:
         log_level = logging.WARNING
-
     logging.getLogger().setLevel(log_level)
+
     if output_dir is not None:
-        fh = logging.FileHandler(str(Path(output_dir, 'output.log')))
+        fh = logging.FileHandler(str(output_dir / 'output.log'))
         fh.setLevel(log_level)
         logging.getLogger().addHandler(fh)
 
+    # Silence urllib3
+    logging.getLogger('urllib3').setLevel(logging.CRITICAL)
 
-def save_args_to_file(file_name, **kwargs):
+
+def save_config_to_file(config: BaseConfig, file_name: Union[str, Path]):
+    """Save a configuration object to file.
+
+    Arguments:
+        file_name: where to saved the configuration.
+        config: a pydantic configuration object.
     """
-    Saves `**kwargs` to a file.
-
-    Args:
-        file_name (str): The name of the file where the args should
-            be saved in.
-
-    """
-    options_to_save = {
-        k.replace('_', '-'): v for k, v in kwargs.items() if v is not None
-    }
-
-    content = configargparse.YAMLConfigFileParser().serialize(options_to_save)
-    Path(file_name).write_text(content)
-    logging.debug('Saved current options to config file: {}'.format(file_name))
-
-
-def save_config_file(options, file_name):
-    """
-    Saves a configuration file with OpenKiwi configuration options.
-    Calls `save_args_to_file`.
-
-    Args:
-        options (Namespace): Namespace with all configuration options
-            that should be saved.
-        file_name (str): Name of the output configuration file.
-    """
-    # parser.write_config_file(options, [file_name], exit_after=False)
-    save_args_to_file(file_name, **vars(options))
+    path = Path(file_name).with_suffix('.yaml')
+    yaml.dump(json.loads(config.json()), path.open('w'))
+    logging.debug(f'Saved current options to config file: {path}')
 
 
 def setup_output_directory(
     output_dir, run_uuid=None, experiment_id=None, create=True
-):
-    """
-    Sets up the output directory. This means either creating one, or
-    verifying that the provided directory exists. Output directories
-    are created using the run and experiment ids.
+) -> str:
+    """Set up the output directory.
 
-    Args:
-        output_dir (str): The target output directory
-        run_uuid : The current hash of the current run.
-        experiment_id: The id of the current experiment
-        create (bool): Boolean indicating whether to create a new folder.
+    This means either creating one, or verifying that the provided directory exists.
+    Output directories are created using the run and experiment ids.
+
+    Arguments:
+        output_dir: the target output directory.
+        run_uuid : the hash of the current run.
+        experiment_id: the id of the current experiment.
+        create: whether to create the directory.
+
+    Return:
+        the path to the resolved output directory.
     """
     if not output_dir:
         if experiment_id is None or run_uuid is None:
-            raise argparse.ArgumentError(
-                message='Please specify an output directory (--output-dir).',
-                argument=output_dir,
-            )
+            raise ValueError('No output directory or run_uuid have been specified.')
         output_path = Path('runs', str(experiment_id), str(run_uuid))
         output_dir = str(output_path)
 
@@ -151,39 +120,19 @@ def setup_output_directory(
     return output_dir
 
 
-def merge_namespaces(*args):
-    """
-    Utility function used to merge Namespaces. Useful for merging Argparse
-    options.
+def load_config(config_file: Path) -> Dict:
+    """Load configuration options from a YAML or JSON file."""
+    if not config_file.exists():
+        raise FileNotFoundError(f"'{config_file}' does not exist")
+    with config_file.open() as f:
+        if config_file.suffix == '.json':
+            import json
 
-    Args:
-        *args: Variable length list of Namespaces
-    """
-    if not args:
-        return None
-    options = {}
-    for arg in filter(None, args):
-        options.update(dict(vars(arg)))
-    return Namespace(**options)
+            config_dict = json.load(f)
+        elif config_file.suffix == '.yaml' or config_file.suffix == 'yml':
+            import yaml
 
-
-def parse_integer_with_positive_infinity(string):
-    """
-    Workaround to be able to pass both integers and infinity as CLAs.
-
-    Args:
-        string: A string representation of an integer, or infinity
-
-    """
-    try:
-        integer = int(string)
-        return integer
-    except ValueError:
-        infinity = float(string)
-        if infinity == float('inf'):
-            return infinity
-
-    raise ValueError(
-        'Could not parse argument "{}" as integer'
-        ' with positive infinity'.format(string)
-    )
+            config_dict = yaml.load(f, Loader=yaml.FullLoader)
+        else:
+            raise TypeError(f'Unsupported config file format: {config_file.suffix}')
+    return config_dict

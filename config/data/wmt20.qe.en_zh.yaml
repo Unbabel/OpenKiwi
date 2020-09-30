@@ -1,0 +1,30 @@
+data:
+    train:
+        input:
+            source: data/WMT20/task2/en-zh/train/train.src
+            target: data/WMT20/task2/en-zh/train/train.mt
+            alignments: data/WMT20/task2/en-zh/train/train.src-mt.alignments
+            post_edit: data/WMT20/task2/en-zh/train/train.pe
+
+        output:
+            target_tags: data/WMT20/task2/en-zh/train/train.tags
+            source_tags: data/WMT20/task2/en-zh/train/train.source_tags
+            sentence_scores: data/WMT20/task2/en-zh/train/train.hter
+
+    valid:
+        input:
+            source: data/WMT20/task2/en-zh/dev/dev.src
+            target: data/WMT20/task2/en-zh/dev/dev.mt
+            alignments: data/WMT20/task2/en-zh/dev/dev.src-mt.alignments
+            post_edit: data/WMT20/task2/en-zh/dev/dev.pe
+
+        output:
+            target_tags: data/WMT20/task2/en-zh/dev/dev.tags
+            source_tags: data/WMT20/task2/en-zh/dev/dev.source_tags
+            sentence_scores: data/WMT20/task2/en-zh/dev/dev.hter
+
+    test:
+        input:
+            source: data/WMT20/task2/en-zh/test-blind/test.src
+            target: data/WMT20/task2/en-zh/test-blind/test.mt
+            alignments: data/WMT20/task2/en-zh/test-blind/test.src-mt.alignments
