@@ -95,6 +95,7 @@ class Configuration(BaseConfig):
     experiment_name: str = None
     load_study: FilePath = None
     seed: int = 42
+    multivariate_tpe: bool = False
 
     verbose: bool = False
     quiet: bool = False
@@ -357,7 +358,9 @@ def run(config: Configuration) -> Study:
         logger.info('Initializing study')
         pruner = optuna.pruners.MedianPruner()
         study = optuna.create_study(
-            direction='maximize', pruner=pruner, sampler=TPESampler(seed=config.seed)
+            direction='maximize',
+            pruner=pruner,
+            sampler=TPESampler(seed=config.seed, multivariate=config.multivariate_tpe),
         )
 
     # Optimize the study
