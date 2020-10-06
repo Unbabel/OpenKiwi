@@ -1,0 +1,12 @@
+base_config: config/xlmroberta.yaml
+
+options:
+    sentence_loss_weight:
+        lower: 1
+        upper: 10
+    hidden_sizes:
+        - 768
+        - 324
+    search_mlp: true
+    search_word_level: true
+    search_sentence_loss_weight: true
