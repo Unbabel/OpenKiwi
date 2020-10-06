@@ -61,7 +61,7 @@ from hydra._internal.hydra import Hydra
 from omegaconf import OmegaConf
 
 from kiwi import __version__
-from kiwi.lib import evaluate, predict, pretrain, train, search
+from kiwi.lib import evaluate, predict, pretrain, search, train
 
 
 def arguments_to_configuration(arguments: Dict) -> Dict:

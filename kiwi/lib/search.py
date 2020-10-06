@@ -4,10 +4,12 @@ from functools import partial
 from pathlib import Path
 
 import joblib
+import optuna
+from optuna.samplers import TPESampler
+from optuna.study import Study
 from pydantic import FilePath
 from pydantic.dataclasses import dataclass
 
-import optuna
 from kiwi.lib import train
 from kiwi.lib.utils import (
     configure_logging,
@@ -16,8 +18,6 @@ from kiwi.lib.utils import (
     save_config_to_file,
 )
 from kiwi.utils.io import BaseConfig
-from optuna.samplers import TPESampler
-from optuna.study import Study
 
 logger = logging.getLogger(__name__)
 
