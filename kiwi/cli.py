@@ -23,7 +23,7 @@ Quality Estimation toolkit.
 Invoke as ``kiwi PIPELINE``.
 
 Usage:
-    kiwi [options] (train|pretrain|predict|evaluate) CONFIG_FILE [OVERWRITES ...]
+    kiwi [options] (train|pretrain|predict|evaluate|search) CONFIG_FILE [OVERWRITES ...]
     kiwi (-h | --help | --version | --example)
 
 Pipelines:

@@ -1,8 +1,26 @@
+#  OpenKiwi: Open-Source Machine Translation Quality Estimation
+#  Copyright (C) 2020 Unbabel <openkiwi@unbabel.com>
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Affero General Public License as published
+#  by the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Affero General Public License for more details.
+#
+#  You should have received a copy of the GNU Affero General Public License
+#  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
 import datetime
 import logging
 from functools import partial
 from pathlib import Path
+from typing import List
 
+import hydra
 import joblib
 import optuna
 from optuna.samplers import TPESampler
@@ -10,6 +28,7 @@ from optuna.study import Study
 from pydantic import FilePath
 from pydantic.dataclasses import dataclass
 
+import kiwi.cli
 from kiwi.lib import train
 from kiwi.lib.utils import (
     configure_logging,
@@ -23,13 +42,8 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class InputFiles:
-    config: FilePath
-
-
-@dataclass
 class OutputFiles:
-    directory: Path = 'optuna-runs'
+    directory: Path = 'optunaruns'
 
 
 class LearningRateRange(BaseConfig):
@@ -48,7 +62,7 @@ class WarmupRange(BaseConfig):
 
 
 class FreezeRange(BaseConfig):
-    lower: int = 4
+    lower: int = 0
     upper: int = 6
 
 
@@ -58,28 +72,31 @@ class SentenceWeightRange(BaseConfig):
 
 
 class SearchOptions(BaseConfig):
-    num_trials: int = 50
-    patience: int = 10
-    validation_steps: float = 0.2
-    search_hidden_size: bool = False
-    search_mlp: bool = False
-    search_hter: bool = False
-    search_word_level: bool = False
-    search_sentence_loss_weight: bool = False
     learning_rate: LearningRateRange = LearningRateRange()
     dropout: DropoutRange = DropoutRange()
     warmup_steps: WarmupRange = WarmupRange()
     freeze_epochs: FreezeRange = FreezeRange()
-    sentence_loss_weight: SentenceWeightRange = SentenceWeightRange()
+    sentence_loss_weight: SentenceWeightRange = None
+    patience: int = 10
+    validation_steps: float = 0.2
+    hidden_sizes: List[int] = None
+    search_mlp: bool = False
+    search_hter: bool = False
+    search_word_level: bool = False
+    search_sentence_loss_weight: bool = False
 
 
 class Configuration(BaseConfig):
-    input: InputFiles
+    base_config: FilePath
     output: OutputFiles = OutputFiles()
+    num_trials: int = 50
     options: SearchOptions = SearchOptions()
     experiment_name: str = None
     load_study: FilePath = None
     seed: int = 42
+
+    verbose: bool = False
+    quiet: bool = False
 
 
 def search_from_file(filename) -> Study:
@@ -145,8 +162,8 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
     )
 
     kiwi_config['system']['optimizer']['learning_rate'] = learning_rate
-    kiwi_config['system']['model']['encoder']['dropout'] = dropout
     kiwi_config['system']['model']['decoder']['dropout'] = dropout
+    kiwi_config['system']['model']['outputs']['dropout'] = dropout
     kiwi_config['system']['optimizer']['warmup_steps'] = warmup_steps
     kiwi_config['system']['model']['encoder']['freeze_for_number_of_steps'] = int(
         batches_per_epochs * freeze_epochs
@@ -156,8 +173,10 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
     names = ['learning_rate', 'dropout', 'warmup_steps', 'freeze_epochs']
     values = [learning_rate, dropout, warmup_steps, freeze_epochs]
 
-    if config.options.search_hidden_size:
-        hidden_size = trial.suggest_categorical('hidden_size', [384, 768])
+    if config.options.hidden_sizes is not None:
+        hidden_size = trial.suggest_categorical(
+            'hidden_size', config.options.hidden_sizes
+        )
         kiwi_config['system']['model']['encoder']['hidden_size'] = hidden_size
         kiwi_config['system']['model']['decoder']['hidden_size'] = hidden_size
         names.append('hidden_size')
@@ -234,6 +253,10 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
         names.append("sentence_loss_weight")
         values.append(sentence_loss_weight)
 
+    if kiwi_config['quiet'] is None:
+        kiwi_config['quiet'] = False
+    if kiwi_config['verbose'] is None:
+        kiwi_config['verbose'] = False
     trainconfig = train.Configuration(**kiwi_config)
 
     # ptl_callback = PyTorchLightningPruningCallback(trial, monitor='val_PEARSON')
@@ -298,11 +321,16 @@ def run(config: Configuration) -> Study:
 
     logger.info(f'Saving all Optuna results to: {output_dir}')
 
-    kiwi_config = configuration_to_dictionary(config.input.config)
+    # FIXME: this is not neat (but it does work)
+    hydra._internal.hydra.GlobalHydra().clear()
+    kiwi_config = kiwi.cli.arguments_to_configuration(
+        {'CONFIG_FILE': config.base_config}
+    )
+
     if not kiwi_config['run'].get('use_mlflow'):
         logger.warning(
             'You are not using MLflow logging but it is highly advised to do so; '
-            'set `run.use_mlflow=true` in the `input.config` file to enable MLflow'
+            'set `run.use_mlflow=true` in the `base_config` file to enable MLflow'
         )
 
     kiwi_config['trainer']['checkpoint'][
@@ -327,7 +355,7 @@ def run(config: Configuration) -> Study:
     try:
         study.optimize(
             partial(objective, config=config, kiwi_config=kiwi_config),
-            n_trials=config.options.num_trials,
+            n_trials=config.num_trials,
         )
     except Exception as e:
         logger.error(
