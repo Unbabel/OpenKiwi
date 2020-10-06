@@ -79,7 +79,8 @@ class SearchOptions(BaseConfig):
     sentence_loss_weight: SentenceWeightRange = None
     patience: int = 10
     validation_steps: float = 0.2
-    hidden_sizes: List[int] = None
+    hidden_size: List[int] = None
+    bottleneck_size: List[int] = None
     search_mlp: bool = False
     search_hter: bool = False
     search_word_level: bool = False
@@ -173,14 +174,22 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
     names = ['learning_rate', 'dropout', 'warmup_steps', 'freeze_epochs']
     values = [learning_rate, dropout, warmup_steps, freeze_epochs]
 
-    if config.options.hidden_sizes is not None:
+    if config.options.hidden_size is not None:
         hidden_size = trial.suggest_categorical(
-            'hidden_size', config.options.hidden_sizes
+            'hidden_size', config.options.hidden_size
         )
         kiwi_config['system']['model']['encoder']['hidden_size'] = hidden_size
         kiwi_config['system']['model']['decoder']['hidden_size'] = hidden_size
         names.append('hidden_size')
         values.append(hidden_size)
+
+    if config.options.bottleneck_size is not None:
+        bottleneck_size = trial.suggest_categorical(
+            'bottleneck_size', config.options.bottleneck_size
+        )
+        kiwi_config['system']['model']['decoder']['bottleneck_size'] = bottleneck_size
+        names.append('bottleneck_size')
+        values.append(bottleneck_size)
 
     if config.options.search_mlp:
         use_mlp = trial.suggest_categorical('mlp', [True, False])

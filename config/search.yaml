@@ -4,7 +4,10 @@ options:
     sentence_loss_weight:
         lower: 1
         upper: 10
-    hidden_sizes:
+    hidden_size:
+        - 768
+        - 324
+    bottleneck_size:
         - 768
         - 324
     search_mlp: true
