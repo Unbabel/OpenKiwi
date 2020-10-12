@@ -23,7 +23,7 @@ from typing import List
 import hydra
 import joblib
 from pydantic import FilePath
-from pydantic.dataclasses import dataclass
+from typing_extensions import Literal
 
 import kiwi.cli
 from kiwi.lib import train
@@ -38,61 +38,56 @@ from kiwi.utils.io import BaseConfig
 logger = logging.getLogger(__name__)
 
 
-@dataclass
-class OutputFiles:
-    directory: Path = 'optunaruns'
-
-
-class LearningRateRange(BaseConfig):
-    lower: float = 5e-7
-    upper: float = 1e-5
-
-
-class DropoutRange(BaseConfig):
-    lower: float = 0.0
-    upper: float = 0.25
-
-
-class WarmupRange(BaseConfig):
-    lower: float = 0.05
-    upper: float = 0.25
-
-
-class FreezeRange(BaseConfig):
-    lower: int = 0
-    upper: int = 6
-
-
-class SentenceWeightRange(BaseConfig):
-    lower: float = 1.0
-    upper: float = 5.0
+class RangeConfig(BaseConfig):
+    lower: float
+    upper: float
 
 
 class SearchOptions(BaseConfig):
-    learning_rate: LearningRateRange = LearningRateRange()
-    dropout: DropoutRange = DropoutRange()
-    warmup_steps: WarmupRange = WarmupRange()
-    freeze_epochs: FreezeRange = FreezeRange()
-    sentence_loss_weight: SentenceWeightRange = None
     patience: int = 10
     validation_steps: float = 0.2
-    hidden_size: List[int] = None
-    bottleneck_size: List[int] = None
+    """Rely on the Kiwi training options to eartly stop bad models."""
+
     search_mlp: bool = False
     search_hter: bool = False
     search_word_level: bool = False
     search_sentence_loss_weight: bool = False
+    """Binary search options. If ``search_sentence_loss_weight`` is false
+    then the range specified in ``sentence_loss_weight`` will be searched over."""
+
+    learning_rate: RangeConfig = RangeConfig(lower=5e-7, upper=5e-5)
+    dropout: RangeConfig = RangeConfig(lower=0.0, upper=0.3)
+    warmup_steps: RangeConfig = RangeConfig(lower=0.05, upper=0.4)
+    freeze_epochs: RangeConfig = RangeConfig(lower=0, upper=5)
+    sentence_loss_weight: RangeConfig = None
+    """Specify the range to search in."""
+
+    hidden_size: List[int] = None
+    bottleneck_size: List[int] = None
+    """List the integers to search over."""
+
+    search_method: Literal['random', 'tpe', 'multivariate_tpe'] = 'multivariate_tpe'
+    """Use random search or the (multivariate)
+    Tree-structured Parzen Estimator (TPE)."""
 
 
 class Configuration(BaseConfig):
     base_config: FilePath
-    output: OutputFiles = OutputFiles()
-    num_trials: int = 50
-    options: SearchOptions = SearchOptions()
-    search_name: str = None
-    load_study: FilePath = None
+    """Path to the Kiwi train configuration used as a base to configure the model."""
+
+    directory: Path = Path('optunaruns')
+    """Output directory."""
+
     seed: int = 42
-    use_multivariate_tpe: bool = False
+    search_name: str = None
+    num_trials: int = 50
+    """General configuration of the search."""
+
+    options: SearchOptions = SearchOptions()
+    """Configure the search method and parameter ranges."""
+
+    load_study: FilePath = None
+    """Continue from a previous saved study, i.e. from a ``study.pkl`` file."""
 
     verbose: bool = False
     quiet: bool = False
@@ -268,6 +263,7 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
         kiwi_config['verbose'] = False
     trainconfig = train.Configuration(**kiwi_config)
 
+    # TODO: integrate PTL trainer callback
     # ptl_callback = PyTorchLightningPruningCallback(trial, monitor='val_PEARSON')
     # train_info = train.run(trainconfig, ptl_callback=ptl_callback)
 
@@ -336,7 +332,7 @@ def run(config: Configuration):
         )
         exit()
 
-    output_dir = setup_run(config.output.directory, config.seed)
+    output_dir = setup_run(config.directory, config.seed)
 
     logger.info(f'Saving all Optuna results to: {output_dir}')
 
@@ -362,15 +358,23 @@ def run(config: Configuration):
         logger.info(f'Loading study to resume from {config.load_study}')
         study = joblib.load(config.load_study)
     else:
+        if config.options.search_method == 'tpe':
+            logger.info('Exploring parameters with TPE sampler')
+            sampler = optuna.samplers.TPESampler(seed=config.seed)
+        elif config.options.search_method == 'multivariate_tpe':
+            logger.info('Exploring parameters with multivariate TPE sampler')
+            sampler = optuna.samplers.TPESampler(seed=config.seed, multivariate=True)
+        else:
+            logger.info('Exploring parameters with random sampler')
+            sampler = optuna.samplers.RandomSampler(seed=config.seed)
+
         logger.info('Initializing study')
         pruner = optuna.pruners.MedianPruner()
         study = optuna.create_study(
             study_name=config.search_name,
             direction='maximize',
             pruner=pruner,
-            sampler=optuna.samplers.TPESampler(
-                seed=config.seed, multivariate=config.use_multivariate_tpe
-            ),
+            sampler=sampler,
         )
 
     # Optimize the study
@@ -421,7 +425,10 @@ def run(config: Configuration):
         logger.error(f'Failed to create plot ``parallel_coordinate``: {e}')
 
     try:
-        fig = optuna.visualization.plot_param_importances(study)
+        # Evaluator fits a random forest regression model using sklearn
+        fig = optuna.visualization.plot_param_importances(
+            study, evaluator=optuna.importance.FanovaImportanceEvaluator
+        )
         fig.write_html(str(output_dir / 'param_importances.html'))
     except Exception as e:
         logger.error(f'Failed to create plot ``param_importances``: {e}')
