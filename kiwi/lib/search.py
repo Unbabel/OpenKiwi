@@ -22,9 +22,6 @@ from typing import List
 
 import hydra
 import joblib
-import optuna
-from optuna.samplers import TPESampler
-from optuna.study import Study
 from pydantic import FilePath
 from pydantic.dataclasses import dataclass
 
@@ -92,16 +89,16 @@ class Configuration(BaseConfig):
     output: OutputFiles = OutputFiles()
     num_trials: int = 50
     options: SearchOptions = SearchOptions()
-    experiment_name: str = None
+    search_name: str = None
     load_study: FilePath = None
     seed: int = 42
-    multivariate_tpe: bool = False
+    use_multivariate_tpe: bool = False
 
     verbose: bool = False
     quiet: bool = False
 
 
-def search_from_file(filename) -> Study:
+def search_from_file(filename):
     """Load options from a config file and calls the training procedure.
 
     Arguments:
@@ -114,7 +111,7 @@ def search_from_file(filename) -> Study:
     return search_from_configuration(config)
 
 
-def search_from_configuration(configuration_dict) -> Study:
+def search_from_configuration(configuration_dict):
     """Run the entire training pipeline using the configuration options received.
 
     Arguments:
@@ -137,10 +134,12 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
         1 for _ in open(kiwi_config['data']['train']['input']['source'])
     )
     batch_size = kiwi_config['system']['batch_size']
-    batches_per_epochs = num_train_lines // batch_size
+    updates_per_epochs = num_train_lines // batch_size
+    if kiwi_config['trainer'].get('gradient_accumulation_steps'):
+        updates_per_epochs //= kiwi_config['trainer']['gradient_accumulation_steps']
 
     kiwi_config['system']['optimizer']['training_steps'] = (
-        num_train_lines / batch_size
+        updates_per_epochs
     ) * kiwi_config['trainer']['epochs']
 
     # Default searches
@@ -168,7 +167,7 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
     kiwi_config['system']['model']['outputs']['dropout'] = dropout
     kiwi_config['system']['optimizer']['warmup_steps'] = warmup_steps
     kiwi_config['system']['model']['encoder']['freeze_for_number_of_steps'] = int(
-        batches_per_epochs * freeze_epochs
+        updates_per_epochs * freeze_epochs
     )
 
     # Iterable printables
@@ -301,6 +300,7 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
 
 
 def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
+    # TODO: use MLFlow integration: optuna.integration.mlflow
     if not directory.exists():
         # Initialize a new folder with name '0'
         output_dir = directory / '0'
@@ -325,7 +325,16 @@ def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
     return output_dir
 
 
-def run(config: Configuration) -> Study:
+def run(config: Configuration):
+    try:
+        import optuna
+    except ImportError as e:
+        logger.error(
+            f'ImportError: {e}. Install the search dependencies with '
+            '``pip install -U openkiwi[search]`` or with ``poetry install -E search`` '
+            'when setting up for local development'
+        )
+        exit()
 
     output_dir = setup_run(config.output.directory, config.seed)
 
@@ -338,10 +347,8 @@ def run(config: Configuration) -> Study:
     )
 
     if not kiwi_config['run'].get('use_mlflow'):
-        logger.warning(
-            'You are not using MLflow logging but it is highly advised to do so; '
-            'set `run.use_mlflow=true` in the `base_config` file to enable MLflow'
-        )
+        logger.info('Setting ``run.use_mlflow=true``')
+        kiwi_config['run']['use_mlflow'] = True
 
     kiwi_config['trainer']['checkpoint'][
         'early_stop_patience'
@@ -358,24 +365,30 @@ def run(config: Configuration) -> Study:
         logger.info('Initializing study')
         pruner = optuna.pruners.MedianPruner()
         study = optuna.create_study(
+            study_name=config.search_name,
             direction='maximize',
             pruner=pruner,
-            sampler=TPESampler(seed=config.seed, multivariate=config.multivariate_tpe),
+            sampler=optuna.samplers.TPESampler(
+                seed=config.seed, multivariate=config.use_multivariate_tpe
+            ),
         )
 
     # Optimize the study
+    # TODO: keep only n best model checkpoints and remove the rest to free up space
+    mlflc = optuna.integration.MLflowCallback()
     try:
         study.optimize(
             partial(objective, config=config, kiwi_config=kiwi_config),
             n_trials=config.num_trials,
+            callbacks=[mlflc],
         )
+    except KeyboardInterrupt:
+        logger.info('Early stopping search caused by ctrl-C')
     except Exception as e:
         logger.error(
             f'Error occured during search: {e}; '
             f'current best params are {study.best_params}'
         )
-    except KeyboardInterrupt:
-        logger.info('Early stopping search caused by ctrl-C')
 
     logger.info(f"Saving study to {output_dir / 'study.pkl'}")
     joblib.dump(study, output_dir / 'study.pkl')
@@ -397,7 +410,7 @@ def run(config: Configuration) -> Study:
         fig = optuna.visualization.plot_optimization_history(study)
         fig.write_html(str(output_dir / 'optimization_history.html'))
     except Exception as e:
-        logger.error(f'Failed to create plot: {e}')
+        logger.error(f'Failed to create plot ``optimization_history``: {e}')
 
     try:
         fig = optuna.visualization.plot_parallel_coordinate(
@@ -405,12 +418,12 @@ def run(config: Configuration) -> Study:
         )
         fig.write_html(str(output_dir / 'parallel_coordinate.html'))
     except Exception as e:
-        logger.error(f'Failed to create plot: {e}')
+        logger.error(f'Failed to create plot ``parallel_coordinate``: {e}')
 
     try:
         fig = optuna.visualization.plot_param_importances(study)
         fig.write_html(str(output_dir / 'param_importances.html'))
     except Exception as e:
-        logger.error(f'Failed to create plot: {e}')
+        logger.error(f'Failed to create plot ``param_importances``: {e}')
 
     return study
