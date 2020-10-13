@@ -328,7 +328,7 @@ def run(config: Configuration):
     except ImportError as e:
         logger.error(
             f'ImportError: {e}. Install the search dependencies with '
-            '``pip install -U openkiwi[search]`` or with ``poetry install -E search`` '
+            '``pip install -U openkiwi[search]``, or with ``poetry install -E search`` '
             'when setting up for local development'
         )
         exit()
