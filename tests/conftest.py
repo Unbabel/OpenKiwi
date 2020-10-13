@@ -213,7 +213,6 @@ def search_config(train_config: dict):
             freeze_epochs=None,
             warmup_steps=None,
             search_hter=True,
-            search_sentence_loss_weight=True,
             sentence_loss_weight=dict(lower=0, upper=10),
         ),
     )
@@ -353,3 +352,42 @@ def check_computation(config, output_dir, output_name, expected_avg_probs, atol)
     min_prob = min(map(min, predictions))
     np.testing.assert_allclose(avg_of_avgs, expected_avg_probs, atol=atol)
     assert 0 <= min_prob <= avg_of_avgs <= max_prob <= 1
+
+
+@pytest.fixture
+def nuqe_config_dict(optimizer_config, data_processing_config):
+    encoder = dict(
+        window_size=3, embeddings=dict(source=dict(dim=50), target=dict(dim=50))
+    )
+    decoder_side = dict(hidden_sizes=[40, 20, 10, 5], dropout=0.0)
+    decoder = dict(target=decoder_side, source=decoder_side)
+    outputs = dict(
+        word_level=dict(
+            target=False,
+            gaps=False,
+            source=False,
+            class_weights=dict(
+                target_tags={const.BAD: 3.0},
+                gap_tags={const.BAD: 5.0},
+                source_tags={const.BAD: 5.0},
+            ),
+        ),
+        sentence_level=dict(hter=False, use_distribution=False, binary=False),
+    )
+
+    config = dict(
+        class_name='NuQE',
+        batch_size=8,
+        num_data_workers=0,
+        model=dict(encoder=encoder, decoder=decoder, outputs=outputs),
+        optimizer=optimizer_config,
+        data_processing=data_processing_config,
+    )
+
+    return config
+
+
+@pytest.fixture
+def output_target_config(nuqe_config_dict):
+    nuqe_config_dict['model']['outputs']['word_level']['target'] = True
+    return nuqe_config_dict

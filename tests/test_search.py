@@ -19,47 +19,47 @@ import pytest
 from kiwi import constants as const
 from kiwi.lib import search
 from kiwi.lib.utils import save_config_to_file
-
-
-# TODO: can't import these...
-# from tests.test_nuqe import nuqe_config_dict, output_target_config
-@pytest.fixture
-def nuqe_config_dict(optimizer_config, data_processing_config):
-    encoder = dict(
-        window_size=3, embeddings=dict(source=dict(dim=50), target=dict(dim=50))
-    )
-    decoder_side = dict(hidden_sizes=[40, 20, 10, 5], dropout=0.0)
-    decoder = dict(target=decoder_side, source=decoder_side)
-    outputs = dict(
-        word_level=dict(
-            target=False,
-            gaps=False,
-            source=False,
-            class_weights=dict(
-                target_tags={const.BAD: 3.0},
-                gap_tags={const.BAD: 5.0},
-                source_tags={const.BAD: 5.0},
-            ),
-        ),
-        sentence_level=dict(hter=False, use_distribution=False, binary=False),
-    )
-
-    config = dict(
-        class_name='NuQE',
-        batch_size=8,
-        num_data_workers=0,
-        model=dict(encoder=encoder, decoder=decoder, outputs=outputs),
-        optimizer=optimizer_config,
-        data_processing=data_processing_config,
-    )
-
-    return config
-
-
-@pytest.fixture
-def output_target_config(nuqe_config_dict):
-    nuqe_config_dict['model']['outputs']['word_level']['target'] = True
-    return nuqe_config_dict
+#
+#
+# # TODO: can't import these...
+# # from tests.test_nuqe import nuqe_config_dict, output_target_config
+# @pytest.fixture
+# def nuqe_config_dict(optimizer_config, data_processing_config):
+#     encoder = dict(
+#         window_size=3, embeddings=dict(source=dict(dim=50), target=dict(dim=50))
+#     )
+#     decoder_side = dict(hidden_sizes=[40, 20, 10, 5], dropout=0.0)
+#     decoder = dict(target=decoder_side, source=decoder_side)
+#     outputs = dict(
+#         word_level=dict(
+#             target=False,
+#             gaps=False,
+#             source=False,
+#             class_weights=dict(
+#                 target_tags={const.BAD: 3.0},
+#                 gap_tags={const.BAD: 5.0},
+#                 source_tags={const.BAD: 5.0},
+#             ),
+#         ),
+#         sentence_level=dict(hter=False, use_distribution=False, binary=False),
+#     )
+#
+#     config = dict(
+#         class_name='NuQE',
+#         batch_size=8,
+#         num_data_workers=0,
+#         model=dict(encoder=encoder, decoder=decoder, outputs=outputs),
+#         optimizer=optimizer_config,
+#         data_processing=data_processing_config,
+#     )
+#
+#     return config
+#
+#
+# @pytest.fixture
+# def output_target_config(nuqe_config_dict):
+#     nuqe_config_dict['model']['outputs']['word_level']['target'] = True
+#     return nuqe_config_dict
 
 
 def test_api(
@@ -89,6 +89,9 @@ def test_api(
             'output.log',
         ]
     )
+
+    search_from_file(config_file)
+    assert set([file.name for file in output_dir.glob('*')]) == set(['0', '1'])
 
 
 if __name__ == '__main__':  # pragma: no cover
