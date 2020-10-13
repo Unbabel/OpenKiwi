@@ -267,7 +267,7 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
     # ptl_callback = PyTorchLightningPruningCallback(trial, monitor='val_PEARSON')
     # train_info = train.run(trainconfig, ptl_callback=ptl_callback)
 
-    logger.info(f"############# STARTING TRIAL {trial.number} ####################### ")
+    logger.info(f"############# STARTING TRIAL {trial.number} #############")
     logger.info(f"PARAMETERS: {dict(zip(names, values))}")
     for name, value in zip(names, values):
         logger.info(f'{name}: {value}')
@@ -278,7 +278,7 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
         logger.info(f'ERROR OCCURED; SKIPPING TRIAL: {e}')
         return -1
 
-    logger.info(f"############# TRIAL {trial.number} FINISHED ####################### ")
+    logger.info(f"############# TRIAL {trial.number} FINISHED #############")
     result = train_info.best_metrics.get(main_metric, -1)
     if result == -1:
         logger.error(
