@@ -14,10 +14,8 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-import numpy as np
 import pytest
 
-from conftest import check_computation
 from kiwi import constants as const
 from kiwi.lib import search
 from kiwi.lib.utils import save_config_to_file
@@ -64,7 +62,9 @@ def output_target_config(nuqe_config_dict):
     return nuqe_config_dict
 
 
-def test_api(tmp_path, output_target_config, train_config, search_config, data_config, atol):
+def test_api(
+    tmp_path, output_target_config, train_config, search_config, data_config, atol
+):
     from kiwi.lib.search import search_from_file
 
     output_dir = tmp_path / 'search'
@@ -80,13 +80,16 @@ def test_api(tmp_path, output_target_config, train_config, search_config, data_c
     search_from_file(config_file)
 
     assert [file.name for file in output_dir.glob('*')] == ['0']
-    assert set(file.name for file in (output_dir / '0').glob('*')) == set([
-        'parallel_coordinate.html',
-        'optimization_history.html',
-        'search_config.yaml',
-        'study.pkl',
-        'output.log',
-    ])
+    assert set(file.name for file in (output_dir / '0').glob('*')) == set(
+        [
+            'parallel_coordinate.html',
+            'optimization_history.html',
+            'search_config.yaml',
+            'study.pkl',
+            'output.log',
+        ]
+    )
+
 
 if __name__ == '__main__':  # pragma: no cover
     pytest.main([__file__])  # pragma: no cover

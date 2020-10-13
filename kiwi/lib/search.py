@@ -47,6 +47,7 @@ class RangeConfig(BaseConfig):
 
 class ClassWeightsConfig(BaseConfig):
     """Specify the range to search in for the tag loss weights."""
+
     target_tags: RangeConfig = RangeConfig(lower=1, upper=5)
     gap_tags: RangeConfig = RangeConfig(lower=1, upper=10)
     source_tags: RangeConfig = None
