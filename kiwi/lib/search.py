@@ -191,8 +191,10 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         dropout = trial.suggest_uniform(
             'dropout', config.options.dropout.lower, config.options.dropout.upper
         )
-        base_config['system']['model']['outputs']['dropout'] = dropout
-        # base_config['system']['model']['decoder']['dropout'] = dropout
+        if 'dropout' in base_config['system']['model']['outputs']:
+            base_config['system']['model']['outputs']['dropout'] = dropout
+        if 'dropout' in base_config['system']['model']['decoder']:
+            base_config['system']['model']['decoder']['dropout'] = dropout
         search_values['dropout'] = dropout
 
     if config.options.warmup_steps is not None:
