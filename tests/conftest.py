@@ -203,6 +203,23 @@ def train_config(run_config: dict):
     return config
 
 
+@pytest.fixture(scope='function')
+def search_config(train_config: dict):
+    config = dict(
+        base_config=train_config,
+        num_trials=2,
+        options=dict(
+            search_method='random',
+            freeze_epochs=None,
+            warmup_steps=None,
+            search_hter=True,
+            search_sentence_loss_weight=True,
+            sentence_loss_weight=dict(lower=0, upper=10),
+        ),
+    )
+    return config
+
+
 # @pytest.fixture
 # def model_opts():
 #     opts = argparse.Namespace()
