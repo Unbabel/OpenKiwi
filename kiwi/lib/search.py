@@ -67,8 +67,8 @@ class SearchOptions(BaseConfig):
     """List the integers to search over."""
 
     search_method: Literal['random', 'tpe', 'multivariate_tpe'] = 'multivariate_tpe'
-    """Use random search or the (multivariate)
-    Tree-structured Parzen Estimator (TPE)."""
+    """Use random search or the (multivariate) Tree-structured Parzen Estimator,
+    or sharthand: TPE. See optuna.samplers for more details about these methods."""
 
 
 class Configuration(BaseConfig):
@@ -296,7 +296,8 @@ def objective(trial, config: Configuration, kiwi_config: dict) -> float:
 
 
 def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
-    # TODO: use MLFlow integration: optuna.integration.mlflow
+    # TODO: replace all of this with the MLFlow integration: optuna.integration.mlflow
+    #   In particular: let the output directory be created by MLflow entirely
     if not directory.exists():
         # Initialize a new folder with name '0'
         output_dir = directory / '0'
@@ -343,7 +344,7 @@ def run(config: Configuration):
     )
 
     if not kiwi_config['run'].get('use_mlflow'):
-        logger.info('Setting ``run.use_mlflow=true``')
+        logger.info('Setting ``run.use_mlflow=true`` in the base config')
         kiwi_config['run']['use_mlflow'] = True
 
     kiwi_config['trainer']['checkpoint'][
@@ -355,7 +356,7 @@ def run(config: Configuration):
 
     # Initialize or load a study
     if config.load_study:
-        logger.info(f'Loading study to resume from {config.load_study}')
+        logger.info(f'Loading study to resume from: {config.load_study}')
         study = joblib.load(config.load_study)
     else:
         if config.options.search_method == 'tpe':
@@ -368,7 +369,7 @@ def run(config: Configuration):
             logger.info('Exploring parameters with random sampler')
             sampler = optuna.samplers.RandomSampler(seed=config.seed)
 
-        logger.info('Initializing study')
+        logger.info('Initializing study...')
         pruner = optuna.pruners.MedianPruner()
         study = optuna.create_study(
             study_name=config.search_name,
@@ -381,6 +382,7 @@ def run(config: Configuration):
     # TODO: keep only n best model checkpoints and remove the rest to free up space
     mlflc = optuna.integration.MLflowCallback()
     try:
+        logger.info('Optimizing study...')
         study.optimize(
             partial(objective, config=config, kiwi_config=kiwi_config),
             n_trials=config.num_trials,
@@ -391,10 +393,10 @@ def run(config: Configuration):
     except Exception as e:
         logger.error(
             f'Error occured during search: {e}; '
-            f'current best params are {study.best_params}'
+            f'current best params are: {study.best_params}'
         )
 
-    logger.info(f"Saving study to {output_dir / 'study.pkl'}")
+    logger.info(f"Saving study to: {output_dir / 'study.pkl'}")
     joblib.dump(study, output_dir / 'study.pkl')
 
     try:
@@ -408,7 +410,7 @@ def run(config: Configuration):
     except Exception as e:
         logger.error(f'Logging at end of search failed: {e}')
 
-    logger.info(f'Saving Optuna plots for this search to {output_dir}')
+    logger.info(f'Saving Optuna plots for this search to: {output_dir}')
     save_config_to_file(config, output_dir / 'search_config.yaml')
     try:
         fig = optuna.visualization.plot_optimization_history(study)
@@ -425,7 +427,7 @@ def run(config: Configuration):
         logger.error(f'Failed to create plot ``parallel_coordinate``: {e}')
 
     try:
-        # Evaluator fits a random forest regression model using sklearn
+        # The evaluator fits a random forest regression model using sklearn
         fig = optuna.visualization.plot_param_importances(
             study, evaluator=optuna.importance.FanovaImportanceEvaluator
         )
