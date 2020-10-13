@@ -18,7 +18,7 @@ import datetime
 import logging
 from functools import partial
 from pathlib import Path
-from typing import List, Union, Optional
+from typing import List, Optional, Union
 
 import hydra
 import joblib
@@ -89,6 +89,19 @@ class SearchOptions(BaseConfig):
     search_method: Literal['random', 'tpe', 'multivariate_tpe'] = 'multivariate_tpe'
     """Use random search or the (multivariate) Tree-structured Parzen Estimator,
     or shorthand: TPE. See optuna.samplers for more details about these methods."""
+
+    @validator('search_hter', pre=True, always=True)
+    def check_consistency(cls, v, values):
+        if v and values['search_word_level']:
+            raise ValueError(
+                'Cannot search both word level and sentence level '
+                '(``options.search_hter=true`` and ``options.search_word_level=true``) '
+                'because there will be no metric that covers both single objectives, '
+                'and can lead to no training when neither of the output is selected; '
+                'disable one or the other.'
+            )
+        else:
+            return v
 
 
 class Configuration(BaseConfig):
@@ -259,21 +272,10 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         base_config['system']['model']['outputs']['word_level']['gaps'] = word_level
         search_values['word_level'] = word_level
 
-    if config.options.search_hter and config.options.search_word_level:
-        if hter and word_level and config.options.sentence_loss_weight:
-            # Also search for the sentence weight
-            sentence_loss_weight = get_suggestion(
-                trial, 'sentence_loss_weight', config.options.sentence_loss_weight
-            )
-            base_config['system']['model']['outputs'][
-                'sentence_loss_weight'
-            ] = sentence_loss_weight
-            search_values['sentence_loss_weight'] = sentence_loss_weight
-
-    specified_word_level = base_config['system']['model']['outputs']['word_level'][
+    word_level_is_specified = base_config['system']['model']['outputs']['word_level'][
         'target'
     ]
-    if specified_word_level and config.options.search_hter:
+    if word_level_is_specified and config.options.search_hter:
         if hter and config.options.sentence_loss_weight:
             # Also search for the sentence weight
             sentence_loss_weight = get_suggestion(
@@ -284,10 +286,10 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
             ] = sentence_loss_weight
             search_values['sentence_loss_weight'] = sentence_loss_weight
 
-    specified_sentence_level = base_config['system']['model']['outputs'][
+    sentence_level_is_specified = base_config['system']['model']['outputs'][
         'sentence_level'
     ]['hter']
-    if specified_sentence_level and config.options.sentence_loss_weight:
+    if sentence_level_is_specified and config.options.sentence_loss_weight:
         # Also search for the sentence weight
         sentence_loss_weight = get_suggestion(
             trial, 'sentence_loss_weight', config.options.sentence_loss_weight
