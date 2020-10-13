@@ -18,7 +18,7 @@ import datetime
 import logging
 from functools import partial
 from pathlib import Path
-from typing import List, Union
+from typing import List, Union, Optional
 
 import hydra
 import joblib
@@ -43,14 +43,15 @@ logger = logging.getLogger(__name__)
 class RangeConfig(BaseConfig):
     lower: float
     upper: float
+    step: Optional[float]
 
 
 class ClassWeightsConfig(BaseConfig):
     """Specify the range to search in for the tag loss weights."""
 
-    target_tags: RangeConfig = RangeConfig(lower=1, upper=5)
-    gap_tags: RangeConfig = RangeConfig(lower=1, upper=10)
-    source_tags: RangeConfig = None
+    target_tags: Union[List[float], RangeConfig] = RangeConfig(lower=1, upper=5)
+    gap_tags: Union[List[float], RangeConfig] = RangeConfig(lower=1, upper=10)
+    source_tags: Union[List[float], RangeConfig] = None
 
 
 class SearchOptions(BaseConfig):
@@ -69,26 +70,25 @@ class SearchOptions(BaseConfig):
     """Try with and without sentence level output. Useful to figure
     out if HTER regression is helping word level performance."""
 
-    search_sentence_loss_weight: bool = False
-    """Search the weight by which the sentence level loss is scaled.
-    If ``search_sentence_loss_weight`` is false then the range specified
-    in ``sentence_loss_weight`` will be searched over."""
-
-    learning_rate: Union[None, RangeConfig] = RangeConfig(lower=5e-7, upper=5e-5)
-    dropout: Union[None, RangeConfig] = RangeConfig(lower=0.0, upper=0.3)
-    warmup_steps: Union[None, RangeConfig] = RangeConfig(lower=0.05, upper=0.4)
-    freeze_epochs: Union[None, RangeConfig] = RangeConfig(lower=0, upper=5)
+    learning_rate: Union[None, List[float], RangeConfig] = RangeConfig(
+        lower=5e-7, upper=5e-5
+    )
+    dropout: Union[None, List[float], RangeConfig] = RangeConfig(lower=0.0, upper=0.3)
+    warmup_steps: Union[None, List[float], RangeConfig] = RangeConfig(
+        lower=0.05, upper=0.4
+    )
+    freeze_epochs: Union[None, List[float], RangeConfig] = RangeConfig(lower=0, upper=5)
     class_weights: Union[None, ClassWeightsConfig] = ClassWeightsConfig()
-    sentence_loss_weight: Union[None, RangeConfig] = None
+    sentence_loss_weight: Union[None, List[float], RangeConfig] = None
     """Specify the ranges to search in."""
 
-    hidden_size: List[int] = None
-    bottleneck_size: List[int] = None
+    hidden_size: Union[None, List[int], RangeConfig] = None
+    bottleneck_size: Union[None, List[int], RangeConfig] = None
     """List the integers to search over."""
 
     search_method: Literal['random', 'tpe', 'multivariate_tpe'] = 'multivariate_tpe'
     """Use random search or the (multivariate) Tree-structured Parzen Estimator,
-    or sharthand: TPE. See optuna.samplers for more details about these methods."""
+    or shorthand: TPE. See optuna.samplers for more details about these methods."""
 
 
 class Configuration(BaseConfig):
@@ -100,9 +100,14 @@ class Configuration(BaseConfig):
     """Output directory."""
 
     seed: int = 42
+    """Make the search reproducible."""
+
     search_name: str = None
+    """The name used by the Optuna MLflow integration.
+    If None, Optuna will create a unique hashed name."""
+
     num_trials: int = 50
-    """General configuration of the search."""
+    """The number of search trials to run."""
 
     options: SearchOptions = SearchOptions()
     """Configure the search method and parameter ranges."""
@@ -159,6 +164,17 @@ def search_from_configuration(configuration_dict):
     return study
 
 
+def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]):
+    if isinstance(config, list):
+        return trial.suggest_categorical(param_name, config)
+    elif config.step is not None:
+        return trial.suggest_discrete_uniform(
+            param_name, config.lower, config.upper, config.step
+        )
+    else:
+        return trial.suggest_uniform(param_name, config.lower, config.upper)
+
+
 def objective(trial, config: Configuration, base_config: dict) -> float:
 
     # Format the main metric name
@@ -179,18 +195,14 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
     # Collect the values to optimize
     search_values = {}
     if config.options.learning_rate is not None:
-        learning_rate = trial.suggest_loguniform(
-            'learning_rate',
-            config.options.learning_rate.lower,
-            config.options.learning_rate.upper,
+        learning_rate = get_suggestion(
+            trial, 'learning_rate', config.options.learning_rate
         )
         base_config['system']['optimizer']['learning_rate'] = learning_rate
         search_values['learning_rate'] = learning_rate
 
     if config.options.dropout is not None:
-        dropout = trial.suggest_uniform(
-            'dropout', config.options.dropout.lower, config.options.dropout.upper
-        )
+        dropout = get_suggestion(trial, 'dropout', config.options.dropout)
         if 'dropout' in base_config['system']['model']['outputs']:
             base_config['system']['model']['outputs']['dropout'] = dropout
         if 'dropout' in base_config['system']['model']['decoder']:
@@ -198,19 +210,15 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         search_values['dropout'] = dropout
 
     if config.options.warmup_steps is not None:
-        warmup_steps = trial.suggest_uniform(
-            'warmup_steps',
-            config.options.warmup_steps.lower,
-            config.options.warmup_steps.upper,
+        warmup_steps = get_suggestion(
+            trial, 'warmup_steps', config.options.warmup_steps
         )
         base_config['system']['optimizer']['warmup_steps'] = warmup_steps
         search_values['warmup_steps'] = warmup_steps
 
     if config.options.freeze_epochs is not None:
-        freeze_epochs = trial.suggest_uniform(
-            'freeze_epochs',
-            config.options.freeze_epochs.lower,
-            config.options.freeze_epochs.upper,
+        freeze_epochs = get_suggestion(
+            trial, 'freeze_epochs', config.options.freeze_epochs
         )
         base_config['system']['model']['encoder']['freeze_for_number_of_steps'] = int(
             updates_per_epochs * freeze_epochs
@@ -218,16 +226,14 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         search_values['freeze_epochs'] = freeze_epochs
 
     if config.options.hidden_size is not None:
-        hidden_size = trial.suggest_categorical(
-            'hidden_size', config.options.hidden_size
-        )
+        hidden_size = get_suggestion(trial, 'hidden_size', config.options.hidden_size)
         base_config['system']['model']['encoder']['hidden_size'] = hidden_size
         base_config['system']['model']['decoder']['hidden_size'] = hidden_size
         search_values['hidden_size'] = hidden_size
 
     if config.options.bottleneck_size is not None:
-        bottleneck_size = trial.suggest_categorical(
-            'bottleneck_size', config.options.bottleneck_size
+        bottleneck_size = get_suggestion(
+            trial, 'bottleneck_size', config.options.bottleneck_size
         )
         base_config['system']['model']['decoder']['bottleneck_size'] = bottleneck_size
         search_values['bottleneck_size'] = bottleneck_size
@@ -254,12 +260,10 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         search_values['word_level'] = word_level
 
     if config.options.search_hter and config.options.search_word_level:
-        if hter and word_level and config.options.search_sentence_loss_weight:
+        if hter and word_level and config.options.sentence_loss_weight:
             # Also search for the sentence weight
-            sentence_loss_weight = trial.suggest_uniform(
-                'sentence_loss_weight',
-                config.options.sentence_loss_weight.lower,
-                config.options.sentence_loss_weight.upper,
+            sentence_loss_weight = get_suggestion(
+                trial, 'sentence_loss_weight', config.options.sentence_loss_weight
             )
             base_config['system']['model']['outputs'][
                 'sentence_loss_weight'
@@ -270,12 +274,10 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         'target'
     ]
     if specified_word_level and config.options.search_hter:
-        if hter and config.options.search_sentence_loss_weight:
+        if hter and config.options.sentence_loss_weight:
             # Also search for the sentence weight
-            sentence_loss_weight = trial.suggest_uniform(
-                'sentence_loss_weight',
-                config.options.sentence_loss_weight.lower,
-                config.options.sentence_loss_weight.upper,
+            sentence_loss_weight = get_suggestion(
+                trial, 'sentence_loss_weight', config.options.sentence_loss_weight
             )
             base_config['system']['model']['outputs'][
                 'sentence_loss_weight'
@@ -285,12 +287,10 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
     specified_sentence_level = base_config['system']['model']['outputs'][
         'sentence_level'
     ]['hter']
-    if specified_sentence_level and config.options.search_sentence_loss_weight:
+    if specified_sentence_level and config.options.sentence_loss_weight:
         # Also search for the sentence weight
-        sentence_loss_weight = trial.suggest_uniform(
-            'sentence_loss_weight',
-            config.options.sentence_loss_weight.lower,
-            config.options.sentence_loss_weight.upper,
+        sentence_loss_weight = get_suggestion(
+            trial, 'sentence_loss_weight', config.options.sentence_loss_weight
         )
         base_config['system']['model']['outputs'][
             'sentence_loss_weight'
@@ -303,30 +303,28 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         #         # Word level disabled; nothing to search over
         #         pass
         if config.options.class_weights.target_tags:
-            class_weight_target_tags = trial.suggest_uniform(
+            class_weight_target_tags = get_suggestion(
+                trial,
                 'class_weight_target_tags',
-                config.options.class_weights.target_tags.lower,
-                config.options.class_weights.target_tags.upper,
+                config.options.class_weights.target_tags,
             )
             base_config['system']['model']['outputs']['word_level']['class_weights'][
                 'target_tags'
             ] = {const.BAD: class_weight_target_tags}
             search_values['class_weight_target_tags'] = class_weight_target_tags
         if config.options.class_weights.gap_tags:
-            class_weight_gap_tags = trial.suggest_uniform(
-                'class_weight_gap_tags',
-                config.options.class_weights.gap_tags.lower,
-                config.options.class_weights.gap_tags.upper,
+            class_weight_gap_tags = get_suggestion(
+                trial, 'class_weight_gap_tags', config.options.class_weights.gap_tags
             )
             base_config['system']['model']['outputs']['word_level']['class_weights'][
                 'gap_tags'
             ] = {const.BAD: class_weight_gap_tags}
             search_values['class_weight_gap_tags'] = class_weight_gap_tags
         if config.options.class_weights.source_tags:
-            class_weight_source_tags = trial.suggest_uniform(
+            class_weight_source_tags = get_suggestion(
+                trial,
                 'class_weight_source_tags',
-                config.options.class_weights.source_tags.lower,
-                config.options.class_weights.source_tags.upper,
+                config.options.class_weights.source_tags,
             )
             base_config['system']['model']['outputs']['word_level']['class_weights'][
                 'source_tags'
@@ -415,10 +413,20 @@ def run(config: Configuration):
 
     if isinstance(config.base_config, Path):
         # FIXME: this is not neat (but it does work)
+        #   We need this in order to support the `defaults` field in the train config,
+        #   like the
+        #     defaults:
+        #        - data: wmt19.qe.en_de
+        #   in the config/xlmroberta. It's Hydra that takes care of that inside
+        #   `kiwi.cli.arguments_to_configuration`. And because Hydra has already
+        #   been configured globally in the Kiwi cli, we need to clear it.
         hydra._internal.hydra.GlobalHydra().clear()
         base_dict = kiwi.cli.arguments_to_configuration(
             {'CONFIG_FILE': config.base_config}
         )
+        # These arguments are not in the train configuration because they are
+        #   added by `kiwi.cli.arguments_to_configuration` (and we remove them
+        #   so Pydantic won't throw an error.)
         del base_dict['verbose'], base_dict['quiet']
         base_config = train.Configuration(**base_dict)
     else:
