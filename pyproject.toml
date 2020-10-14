@@ -67,7 +67,7 @@ pydata-sphinx-theme = "^0.2.2"
 
 [tool.poetry.extras]
 mlflow = ["mlflow"]
-search = ["optuna", "plotly", "sklearn", "mlflow"]
+search = ["optuna", "plotly", "sklearn"]
 
 [tool.black]
 skip-string-normalization = true  # Don't switch to double quotes

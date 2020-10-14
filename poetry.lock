@@ -238,7 +238,7 @@ test = ["codecov", "coverage", "pytest (>=4.6)", "pytest-cov", "pytest-mock", "m
 
 [[package]]
 name = "colorama"
-version = "0.4.3"
+version = "0.4.4"
 description = "Cross-platform colored terminal text."
 category = "main"
 optional = false
@@ -298,7 +298,7 @@ test = ["pytest (>=3.6.0,<3.9.0 || >3.9.0,<3.9.1 || >3.9.1,<3.9.2 || >3.9.2)", "
 
 [[package]]
 name = "databricks-cli"
-version = "0.12.1"
+version = "0.12.2"
 description = "A command line interface for Databricks"
 category = "main"
 optional = true
@@ -641,7 +641,7 @@ lingua = ["lingua"]
 
 [[package]]
 name = "markdown"
-version = "3.3"
+version = "3.3.1"
 description = "Python implementation of Markdown."
 category = "main"
 optional = false
@@ -1377,7 +1377,7 @@ go = ["sphinxcontrib-golangdomain"]
 
 [[package]]
 name = "sphinx-autodoc-typehints"
-version = "1.11.0"
+version = "1.11.1"
 description = "Type hints (PEP 484) support for the Sphinx autodoc extension"
 category = "dev"
 optional = false
@@ -1387,7 +1387,7 @@ python-versions = ">=3.5.2"
 Sphinx = ">=3.0"
 
 [package.extras]
-test = ["pytest (>=3.1.0)", "typing-extensions (>=3.5)", "sphobjinv (>=2.0)", "dataclasses"]
+test = ["pytest (>=3.1.0)", "typing-extensions (>=3.5)", "sphobjinv (>=2.0)", "Sphinx (>=3.2.0)", "dataclasses"]
 type_comments = ["typed-ast (>=1.4.0)"]
 
 [[package]]
@@ -1799,12 +1799,12 @@ testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pyt
 
 [extras]
 mlflow = ["mlflow"]
-search = ["optuna", "plotly", "sklearn", "mlflow"]
+search = ["optuna", "plotly", "sklearn"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "957a96867045d3a4f0c0470c571a7dff32db5ce87f9c5319ec2581f97f23819e"
+content-hash = "6de3c7fa35d2e958e4646f0044f3b1ff107929c148f32b87fbe71ecbbdce77bc"
 
 [metadata.files]
 absl-py = [
@@ -1921,8 +1921,7 @@ cmd2 = [
     {file = "cmd2-1.3.11.tar.gz", hash = "sha256:826a288ee6d9c4ec1184e64e9566c09d3b73be8f4283c1898fa4332f1daf8dbf"},
 ]
 colorama = [
-    {file = "colorama-0.4.3-py2.py3-none-any.whl", hash = "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff"},
-    {file = "colorama-0.4.3.tar.gz", hash = "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"},
+    {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
 ]
 colorlog = [
     {file = "colorlog-4.4.0-py2.py3-none-any.whl", hash = "sha256:f14f30f58e2ce6ef40b0088307cac7efb9ecff5605fa2267a2d29955f26aff23"},
@@ -1993,7 +1992,8 @@ cryptography = [
     {file = "cryptography-3.1.1.tar.gz", hash = "sha256:9d9fc6a16357965d282dd4ab6531013935425d0dc4950df2e0cf2a1b1ac1017d"},
 ]
 databricks-cli = [
-    {file = "databricks-cli-0.12.1.tar.gz", hash = "sha256:5114f37f58c7d539153120a00a1901110752ac7c3a1ca4c6ec0584b979c85410"},
+    {file = "databricks-cli-0.12.2.tar.gz", hash = "sha256:e0772c96c1e3274a239c9cfdd07da19c84804f54eb4f0d32f59fa75b0dce42ae"},
+    {file = "databricks_cli-0.12.2-py2-none-any.whl", hash = "sha256:ea9ff70216d9c6d506cea27b015b5b9b87b57c43cf7986713f1ead8198b4326a"},
 ]
 distlib = [
     {file = "distlib-0.3.1-py2.py3-none-any.whl", hash = "sha256:8c09de2c67b3e7deef7184574fc060ab8a793e7adbb183d942c389c8b13c52fb"},
@@ -2161,8 +2161,8 @@ mako = [
     {file = "Mako-1.1.3.tar.gz", hash = "sha256:8195c8c1400ceb53496064314c6736719c6f25e7479cd24c77be3d9361cddc27"},
 ]
 markdown = [
-    {file = "Markdown-3.3-py3-none-any.whl", hash = "sha256:fbb1ba54ca41e8991dc5a561d9c6f752f5e4546f8750e56413ea50f2385761d3"},
-    {file = "Markdown-3.3.tar.gz", hash = "sha256:4f4172a4e989b97f96860fa434b89895069c576e2b537c4b4eed265266a7affc"},
+    {file = "Markdown-3.3.1-py3-none-any.whl", hash = "sha256:10db1204a6c4aff7c7cf3cf25cc02761703baea54b6fb5e2b9ce2c186d81116f"},
+    {file = "Markdown-3.3.1.tar.gz", hash = "sha256:c3ce9ebb035c078cac0f2036068d054e7dc34354eeecc49c173c33c96b124af6"},
 ]
 markupsafe = [
     {file = "MarkupSafe-1.1.1-cp27-cp27m-macosx_10_6_intel.whl", hash = "sha256:09027a7803a62ca78792ad89403b1b7a73a01c8cb65909cd876f7fcebd79b161"},
@@ -2618,8 +2618,8 @@ sphinx-autoapi = [
     {file = "sphinx_autoapi-1.5.1-py2.py3-none-any.whl", hash = "sha256:ce66306a11a634bdfaef0b528f39202c9ce2db729b2e47f5061a60e852e39170"},
 ]
 sphinx-autodoc-typehints = [
-    {file = "sphinx-autodoc-typehints-1.11.0.tar.gz", hash = "sha256:bbf0b203f1019b0f9843ee8eef0cff856dc04b341f6dbe1113e37f2ebf243e11"},
-    {file = "sphinx_autodoc_typehints-1.11.0-py3-none-any.whl", hash = "sha256:89e19370a55db4aef1be2094d8fb1fb500ca455c55b3fcc8d2600ff805227e04"},
+    {file = "sphinx-autodoc-typehints-1.11.1.tar.gz", hash = "sha256:244ba6d3e2fdb854622f643c7763d6f95b6886eba24bec28e86edf205e4ddb20"},
+    {file = "sphinx_autodoc_typehints-1.11.1-py3-none-any.whl", hash = "sha256:da049791d719f4c9813642496ee4764203e317f0697eb75446183fa2a68e3f77"},
 ]
 sphinx-paramlinks = [
     {file = "sphinx-paramlinks-0.4.2.tar.gz", hash = "sha256:47dc9abffc66651ddacb1498b9993394c7f2eae84bf2a840e0842ef55eb4a35b"},
