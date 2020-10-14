@@ -14,8 +14,8 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-import datetime
 import logging
+from datetime import datetime
 from functools import partial
 from pathlib import Path
 from typing import List, Optional, Union
@@ -41,6 +41,8 @@ logger = logging.getLogger(__name__)
 
 
 class RangeConfig(BaseConfig):
+    """Specify a continuous interval, or a discrete range when step is set."""
+
     lower: float
     upper: float
     step: Optional[float]
@@ -49,9 +51,9 @@ class RangeConfig(BaseConfig):
 class ClassWeightsConfig(BaseConfig):
     """Specify the range to search in for the tag loss weights."""
 
-    target_tags: Union[List[float], RangeConfig] = RangeConfig(lower=1, upper=5)
-    gap_tags: Union[List[float], RangeConfig] = RangeConfig(lower=1, upper=10)
-    source_tags: Union[List[float], RangeConfig] = None
+    target_tags: Union[None, List[float], RangeConfig] = RangeConfig(lower=1, upper=5)
+    gap_tags: Union[None, List[float], RangeConfig] = RangeConfig(lower=1, upper=10)
+    source_tags: Union[None, List[float], RangeConfig] = None
 
 
 class SearchOptions(BaseConfig):
@@ -139,12 +141,11 @@ class Configuration(BaseConfig):
             except pydantic.error_wrappers.ValidationError as e:
                 logger.info(str(e))
                 if 'defaults' in str(e):
-                    logger.error(
-                        'Configuration field `defaults` from the training config '
-                        'is not supported in the search config; specify the data '
-                        'fields in the regular way'
+                    raise pydantic.ValidationError(
+                        f'{e}. Configuration field `defaults` from the training '
+                        'config is not supported in the search config; specify '
+                        'the data fields in the regular way'
                     )
-                exit()
         else:
             return Path(v)
 
@@ -197,10 +198,11 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
     num_train_lines = sum(
         1 for _ in open(base_config['data']['train']['input']['source'])
     )
-    batch_size = base_config['system']['batch_size']['train']
-    updates_per_epochs = num_train_lines // batch_size
-    if base_config['trainer'].get('gradient_accumulation_steps'):
-        updates_per_epochs //= base_config['trainer']['gradient_accumulation_steps']
+    updates_per_epochs = int(
+        num_train_lines
+        / base_config['system']['batch_size']['train']
+        / base_config['trainer']['gradient_accumulation_steps']
+    )
     base_config['system']['optimizer']['training_steps'] = (
         updates_per_epochs
     ) * base_config['trainer']['epochs']
@@ -217,10 +219,15 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
     # Suggest a dropout probability
     if config.options.dropout is not None:
         dropout = get_suggestion(trial, 'dropout', config.options.dropout)
-        if 'dropout' in base_config['system']['model']['outputs']:
-            base_config['system']['model']['outputs']['dropout'] = dropout
-        if 'dropout' in base_config['system']['model']['decoder']:
+        base_config['system']['model']['outputs']['dropout'] = dropout
+        if base_config['system']['model']['encoder'].get('dropout') is not None:
+            base_config['system']['model']['encoder']['dropout'] = dropout
+        if base_config['system']['model']['decoder'].get('dropout') is not None:
             base_config['system']['model']['decoder']['dropout'] = dropout
+        if base_config['system']['model']['decoder'].get('source') is not None:
+            base_config['system']['model']['decoder']['source']['dropout'] = dropout
+        if base_config['system']['model']['decoder'].get('target') is not None:
+            base_config['system']['model']['decoder']['target']['dropout'] = dropout
         search_values['dropout'] = dropout
     # Suggest the number of warmup steps
     if config.options.warmup_steps is not None:
@@ -234,6 +241,7 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         freeze_epochs = get_suggestion(
             trial, 'freeze_epochs', config.options.freeze_epochs
         )
+        base_config['system']['model']['encoder']['freeze'] = True
         base_config['system']['model']['encoder']['freeze_for_number_of_steps'] = int(
             updates_per_epochs * freeze_epochs
         )
@@ -257,7 +265,7 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         base_config['system']['model']['encoder']['use_mlp'] = use_mlp
         search_values['use_mlp'] = use_mlp
 
-    ## Search word_level and sentence_level and their combinations
+    # Search word_level and sentence_level and their combinations
     # Suggest whether to include the sentence level objective
     if config.options.search_hter:
         assert base_config['data']['train']['output']['sentence_scores'] is not None
@@ -278,15 +286,11 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
     #   and a sentence level objective. Otherwise it does not matter to weigh the loss
     #   of one objective: for the loss it's the ratio between the two objectives that
     #   matters, not the absolute value of one loss separately.
-    word_level_is_specified = base_config['system']['model']['outputs']['word_level'][
-        'target'
-    ]
-    sentence_level_is_specified = base_config['system']['model']['outputs'][
-        'sentence_level'
-    ]['hter']
+    word_level_config = base_config['system']['model']['outputs']['word_level']
+    sentence_level_config = base_config['system']['model']['outputs']['sentence_level']
     if (
-        word_level_is_specified
-        and sentence_level_is_specified
+        word_level_config.get('target')
+        and sentence_level_config.get('hter')
         and config.options.sentence_loss_weight
     ):
         sentence_loss_weight = get_suggestion(
@@ -302,7 +306,7 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
     #   `sentence_loss_weight` when we are actually including the sentence level
     #   objevtive (`hter = True`). See the above definition of the variable `hter`.
     if (
-        word_level_is_specified
+        word_level_config.get('target')
         and config.options.search_hter
         and config.options.sentence_loss_weight
     ):
@@ -315,12 +319,12 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
             ] = sentence_loss_weight
             search_values['sentence_loss_weight'] = sentence_loss_weight
 
-    if config.options.class_weights is not None:
+    if config.options.class_weights and word_level_config:
         # if config.options.search_word_level:
         #     if not word_level:
         #         # Word level disabled; nothing to search over
         #         pass
-        if config.options.class_weights.target_tags:
+        if config.options.class_weights.target_tags and word_level_config['target']:
             class_weight_target_tags = get_suggestion(
                 trial,
                 'class_weight_target_tags',
@@ -330,7 +334,7 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
                 'target_tags'
             ] = {const.BAD: class_weight_target_tags}
             search_values['class_weight_target_tags'] = class_weight_target_tags
-        if config.options.class_weights.gap_tags:
+        if config.options.class_weights.gap_tags and word_level_config['gaps']:
             class_weight_gap_tags = get_suggestion(
                 trial, 'class_weight_gap_tags', config.options.class_weights.gap_tags
             )
@@ -338,7 +342,7 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
                 'gap_tags'
             ] = {const.BAD: class_weight_gap_tags}
             search_values['class_weight_gap_tags'] = class_weight_gap_tags
-        if config.options.class_weights.source_tags:
+        if config.options.class_weights.source_tags and word_level_config['source']:
             class_weight_source_tags = get_suggestion(
                 trial,
                 'class_weight_source_tags',
@@ -349,10 +353,10 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
             ] = {const.BAD: class_weight_source_tags}
             search_values['class_weight_source_tags'] = class_weight_source_tags
 
-    if base_config['quiet'] is None:
-        base_config['quiet'] = False
-    if base_config['verbose'] is None:
-        base_config['verbose'] = False
+    # if base_config['quiet'] is None:
+    #     base_config['quiet'] = False
+    # if base_config['verbose'] is None:
+    #     base_config['verbose'] = False
     trainconfig = train.Configuration(**base_config)
 
     # TODO: integrate PTL trainer callback
@@ -399,11 +403,12 @@ def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
         output_dir = directory / str(len(list(directory.glob('*'))))
         if output_dir.exists():
             backup_directory = output_dir.with_name(
-                f'{output_dir.name}_{datetime.now().isoformat()}'
+                f'{output_dir.name}_backup_{datetime.now().isoformat()}'
             )
             logger.warning(
                 f'Folder {output_dir} already exists; moving it to {backup_directory}'
             )
+            output_dir.rename(backup_directory)
         output_dir.mkdir(parents=True)
 
     logger.info(f'Initializing new search folder at: {output_dir}')
@@ -418,12 +423,12 @@ def run(config: Configuration):
     try:
         import optuna
     except ImportError as e:
-        logger.error(
-            f'ImportError: {e}. Install the search dependencies with '
-            '``pip install -U openkiwi[search]``, or with ``poetry install -E search`` '
-            'when setting up for local development'
+        raise ImportError(
+            f'{e}. Install the search dependencies with '
+            '``pip install -U openkiwi[search]``, or with '
+            '``poetry install -E search`` when setting '
+            'up for local development'
         )
-        exit()
 
     output_dir = setup_run(config.directory, config.seed)
     logger.info(f'Saving all Optuna results to: {output_dir}')
@@ -452,16 +457,16 @@ def run(config: Configuration):
 
     # Perform some checks of the training config
     use_mlflow = True if base_config['run'].get('use_mlflow') else False
-    logger.warning(
-        'Using MLflow is recommend; set `run.use_mlflow=true` in the base config'
-    )
+    if not use_mlflow:
+        logger.warning(
+            'Using MLflow is recommend; set `run.use_mlflow=true` in the base config'
+        )
     # The main metric should be explicitly set
     if base_config['trainer']['main_metric'] is None:
-        logger.error(
+        raise ValueError(
             'The metric should be explicitly set in `trainer.main_metric` '
             'in the training config (`base_config`).'
         )
-        exit()
     # The main metric(s) should be inside a list
     if not isinstance(base_config['trainer']['main_metric'], list):
         base_config['trainer']['main_metric'] = [base_config['trainer']['main_metric']]
@@ -479,15 +484,18 @@ def run(config: Configuration):
         logger.info(f'Loading study to resume from: {config.load_study}')
         study = joblib.load(config.load_study)
     else:
-        if config.options.search_method == 'tpe':
-            logger.info('Exploring parameters with TPE sampler')
-            sampler = optuna.samplers.TPESampler(seed=config.seed)
-        elif config.options.search_method == 'multivariate_tpe':
-            logger.info('Exploring parameters with multivariate TPE sampler')
-            sampler = optuna.samplers.TPESampler(seed=config.seed, multivariate=True)
-        else:
+        if config.options.search_method == 'random':
             logger.info('Exploring parameters with random sampler')
             sampler = optuna.samplers.RandomSampler(seed=config.seed)
+        else:
+            multivariate = (config.options.search_method == 'multivariate_tpe',)
+            logger.info(
+                'Exploring parameters with '
+                f'{"multivariate " if multivariate else ""}TPE sampler'
+            )
+            sampler = optuna.samplers.TPESampler(
+                seed=config.seed, multivariate=multivariate,
+            )
         logger.info('Initializing study...')
         pruner = optuna.pruners.MedianPruner()
         study = optuna.create_study(

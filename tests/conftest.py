@@ -204,7 +204,7 @@ def train_config(run_config: dict):
 
 
 @pytest.fixture(scope='function')
-def search_config(train_config: dict):
+def base_search_config(train_config: dict):
     config = dict(
         base_config=train_config,
         num_trials=2,
@@ -213,7 +213,13 @@ def search_config(train_config: dict):
             freeze_epochs=None,
             warmup_steps=None,
             search_hter=True,
-            sentence_loss_weight=dict(lower=0, upper=10),
+            sentence_loss_weight=dict(lower=0, upper=10, step=1),
+            dropout=[0, 0.1, 0.2, 0.3],
+            class_weights=dict(
+                target_tags=dict(lower=1, upper=10, step=1),
+                gap_tags=dict(lower=1, upper=10, step=1),
+                source_tags=dict(lower=1, upper=10, step=1),
+            ),
         ),
     )
     return config
