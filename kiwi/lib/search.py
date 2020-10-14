@@ -193,7 +193,7 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
     # Format the main metric name
     main_metric = 'val_' + '+'.join(base_config['trainer']['main_metric'])
 
-    # Set the training steps
+    # Compute the training steps from the training data and set it in the base config
     num_train_lines = sum(
         1 for _ in open(base_config['data']['train']['input']['source'])
     )
@@ -207,13 +207,14 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
 
     # Collect the values to optimize
     search_values = {}
+    # Suggest a learning rate
     if config.options.learning_rate is not None:
         learning_rate = get_suggestion(
             trial, 'learning_rate', config.options.learning_rate
         )
         base_config['system']['optimizer']['learning_rate'] = learning_rate
         search_values['learning_rate'] = learning_rate
-
+    # Suggest a dropout probability
     if config.options.dropout is not None:
         dropout = get_suggestion(trial, 'dropout', config.options.dropout)
         if 'dropout' in base_config['system']['model']['outputs']:
@@ -221,14 +222,14 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         if 'dropout' in base_config['system']['model']['decoder']:
             base_config['system']['model']['decoder']['dropout'] = dropout
         search_values['dropout'] = dropout
-
+    # Suggest the number of warmup steps
     if config.options.warmup_steps is not None:
         warmup_steps = get_suggestion(
             trial, 'warmup_steps', config.options.warmup_steps
         )
         base_config['system']['optimizer']['warmup_steps'] = warmup_steps
         search_values['warmup_steps'] = warmup_steps
-
+    # Suggest the number of freeze epochs
     if config.options.freeze_epochs is not None:
         freeze_epochs = get_suggestion(
             trial, 'freeze_epochs', config.options.freeze_epochs
@@ -237,33 +238,34 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
             updates_per_epochs * freeze_epochs
         )
         search_values['freeze_epochs'] = freeze_epochs
-
+    # Suggest a hidden size
     if config.options.hidden_size is not None:
         hidden_size = get_suggestion(trial, 'hidden_size', config.options.hidden_size)
         base_config['system']['model']['encoder']['hidden_size'] = hidden_size
         base_config['system']['model']['decoder']['hidden_size'] = hidden_size
         search_values['hidden_size'] = hidden_size
-
+    # Suggest a bottleneck size
     if config.options.bottleneck_size is not None:
         bottleneck_size = get_suggestion(
             trial, 'bottleneck_size', config.options.bottleneck_size
         )
         base_config['system']['model']['decoder']['bottleneck_size'] = bottleneck_size
         search_values['bottleneck_size'] = bottleneck_size
-
+    # Suggest whether to use the MLP after the encoder
     if config.options.search_mlp:
         use_mlp = trial.suggest_categorical('mlp', [True, False])
         base_config['system']['model']['encoder']['use_mlp'] = use_mlp
         search_values['use_mlp'] = use_mlp
 
-    # Search word_level and sentence_level and their combinations
+    ## Search word_level and sentence_level and their combinations
+    # Suggest whether to include the sentence level objective
     if config.options.search_hter:
         assert base_config['data']['train']['output']['sentence_scores'] is not None
         assert base_config['data']['valid']['output']['sentence_scores'] is not None
         hter = trial.suggest_categorical('hter', [True, False])
         base_config['system']['model']['outputs']['sentence_level']['hter'] = hter
         search_values['hter'] = hter
-
+    # Suggest whether to include the word level objective
     if config.options.search_word_level:
         assert base_config['data']['train']['output']['target_tags'] is not None
         assert base_config['data']['valid']['output']['target_tags'] is not None
@@ -272,25 +274,21 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
         base_config['system']['model']['outputs']['word_level']['gaps'] = word_level
         search_values['word_level'] = word_level
 
+    # We search for `sentence_loss_weight` when there is both a word level objective
+    #   and a sentence level objective. Otherwise it does not matter to weigh the loss
+    #   of one objective: for the loss it's the ratio between the two objectives that
+    #   matters, not the absolute value of one loss separately.
     word_level_is_specified = base_config['system']['model']['outputs']['word_level'][
         'target'
     ]
-    if word_level_is_specified and config.options.search_hter:
-        if hter and config.options.sentence_loss_weight:
-            # Also search for the sentence weight
-            sentence_loss_weight = get_suggestion(
-                trial, 'sentence_loss_weight', config.options.sentence_loss_weight
-            )
-            base_config['system']['model']['outputs'][
-                'sentence_loss_weight'
-            ] = sentence_loss_weight
-            search_values['sentence_loss_weight'] = sentence_loss_weight
-
     sentence_level_is_specified = base_config['system']['model']['outputs'][
         'sentence_level'
     ]['hter']
-    if sentence_level_is_specified and config.options.sentence_loss_weight:
-        # Also search for the sentence weight
+    if (
+        word_level_is_specified
+        and sentence_level_is_specified
+        and config.options.sentence_loss_weight
+    ):
         sentence_loss_weight = get_suggestion(
             trial, 'sentence_loss_weight', config.options.sentence_loss_weight
         )
@@ -298,6 +296,24 @@ def objective(trial, config: Configuration, base_config: dict) -> float:
             'sentence_loss_weight'
         ] = sentence_loss_weight
         search_values['sentence_loss_weight'] = sentence_loss_weight
+
+    # The same logic applies here: when search whether to include the sentence level
+    #   objective (`search_hter`) then we will only want to search the
+    #   `sentence_loss_weight` when we are actually including the sentence level
+    #   objevtive (`hter = True`). See the above definition of the variable `hter`.
+    if (
+        word_level_is_specified
+        and config.options.search_hter
+        and config.options.sentence_loss_weight
+    ):
+        if hter:
+            sentence_loss_weight = get_suggestion(
+                trial, 'sentence_loss_weight', config.options.sentence_loss_weight
+            )
+            base_config['system']['model']['outputs'][
+                'sentence_loss_weight'
+            ] = sentence_loss_weight
+            search_values['sentence_loss_weight'] = sentence_loss_weight
 
     if config.options.class_weights is not None:
         # if config.options.search_word_level:
@@ -410,7 +426,6 @@ def run(config: Configuration):
         exit()
 
     output_dir = setup_run(config.directory, config.seed)
-
     logger.info(f'Saving all Optuna results to: {output_dir}')
 
     if isinstance(config.base_config, Path):
@@ -436,18 +451,22 @@ def run(config: Configuration):
     base_config = base_config.dict()
 
     # Perform some checks of the training config
-    if not base_config['run'].get('use_mlflow'):
-        logger.info('Setting `run.use_mlflow=true` in the base config')
-        base_config['run']['use_mlflow'] = True
+    use_mlflow = True if base_config['run'].get('use_mlflow') else False
+    logger.warning(
+        'Using MLflow is recommend; set `run.use_mlflow=true` in the base config'
+    )
+    # The main metric should be explicitly set
     if base_config['trainer']['main_metric'] is None:
         logger.error(
             'The metric should be explicitly set in `trainer.main_metric` '
             'in the training config (`base_config`).'
         )
         exit()
+    # The main metric(s) should be inside a list
     if not isinstance(base_config['trainer']['main_metric'], list):
         base_config['trainer']['main_metric'] = [base_config['trainer']['main_metric']]
 
+    # Use the early stopping logic of the Kiwi trainer
     base_config['trainer']['checkpoint'][
         'early_stop_patience'
     ] = config.options.patience
@@ -455,7 +474,7 @@ def run(config: Configuration):
         'validation_steps'
     ] = config.options.validation_steps
 
-    # Initialize or load a study
+    # Load or initialize a study
     if config.load_study:
         logger.info(f'Loading study to resume from: {config.load_study}')
         study = joblib.load(config.load_study)
@@ -469,7 +488,6 @@ def run(config: Configuration):
         else:
             logger.info('Exploring parameters with random sampler')
             sampler = optuna.samplers.RandomSampler(seed=config.seed)
-
         logger.info('Initializing study...')
         pruner = optuna.pruners.MedianPruner()
         study = optuna.create_study(
