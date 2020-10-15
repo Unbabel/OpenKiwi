@@ -45,45 +45,10 @@ def load_torch_file(file_path, map_location=None):
     if not file_path.exists():
         raise ValueError(f'Torch file not found: {file_path}')
 
-    try:
-        if map_location is None:
-            map_location = default_map_location
-        file_dict = torch.load(file_path, map_location=map_location)
-    except ModuleNotFoundError as e:
-        # Caused, e.g., by moving the Vocabulary or DefaultFrozenDict classes
-        logger.info(
-            'Trying to load a slightly outdated file and encountered an issue when '
-            'unpickling; trying to work around it.'
-        )
-        if e.name == 'kiwi.data.utils':
-            import sys
-            from kiwi.utils import data_structures
+    if map_location is None:
+        map_location = default_map_location
+    file_dict = torch.load(file_path, map_location=map_location)
 
-            sys.modules['kiwi.data.utils'] = data_structures
-            file_dict = torch.load(file_path, map_location=map_location)
-            del sys.modules['kiwi.data.utils']
-        elif e.name == 'torchtext':
-            import sys
-            from kiwi.data import vocabulary
-
-            vocabulary.Vocab = vocabulary.Vocabulary
-            sys.modules['torchtext'] = ''
-            sys.modules['torchtext.vocab'] = vocabulary
-            file_dict = torch.load(file_path, map_location=map_location)
-            del sys.modules['torchtext.vocab']
-            del sys.modules['torchtext']
-        else:
-            raise e
-
-    if isinstance(file_dict, Path):
-        # Resolve cases where file is just a link to another torch file
-        # (specially for `best_model.torch`)
-        linked_path = file_dict / 'model.torch'
-        if not linked_path.exists():
-            relative_path = file_path.with_name(file_dict.name) / 'model.torch'
-            if relative_path.exists():
-                linked_path = relative_path
-        return load_torch_file(linked_path)
     return file_dict
 
 
