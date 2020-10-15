@@ -72,5 +72,5 @@ system:
             min_frequency: 2
 
     optimizer:
-        class_name: dense_sparse_adam
+        class_name: adam
         learning_rate: 0.001

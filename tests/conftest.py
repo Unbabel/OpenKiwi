@@ -304,7 +304,7 @@ def transformer_predictor_opts(data_opts_17, predest_opts):
 @pytest.fixture
 def optimizer_config():
     return dict(
-        class_name='dense_sparse_adam',
+        class_name='adam',
         learning_rate=0.001,
         learning_rate_decay=1.0,
         learning_rate_decay_start=0,

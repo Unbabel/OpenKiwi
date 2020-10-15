@@ -14,14 +14,11 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-import copy
 from collections import OrderedDict
 from typing import Dict, Optional
 
-import numpy as np
 import torch
 import torch.nn.functional as F
-from more_itertools import first, flatten
 from torch import nn
 from torch.autograd import Function
 from torch.nn.utils.rnn import pack_padded_sequence as pack
@@ -36,19 +33,6 @@ def pad_zeros_around_timesteps(batched_tensor: torch.Tensor) -> torch.Tensor:
     left_pad = batched_tensor.new_zeros(input_size[0], 1, *input_size[2:])
     right_pad = batched_tensor.new_zeros(input_size[0], 1, *input_size[2:])
     return torch.cat((left_pad, batched_tensor, right_pad), dim=1)
-
-
-def unroll(list_of_lists):
-    """
-    Argument:
-        list_of_lists: a list that contains lists.
-
-    Return:
-        a flattened list
-    """
-    if isinstance(first(list_of_lists), (np.ndarray, list)):
-        return list(flatten(list_of_lists))
-    return list_of_lists
 
 
 def convolve_tensor(sequences, window_size, pad_value=0):
@@ -148,20 +132,6 @@ def make_classes_loss_weights(vocab: Vocabulary, label_weights: Dict[str, float]
         class_idx = vocab.stoi[class_label]
         class_weights[class_idx] = weight
     return class_weights
-
-
-def clones(module, N):
-    """Produce N identical layers."""
-    return torch.nn.ModuleList([copy.deepcopy(module) for _ in range(N)])
-
-
-def subsequent_mask(size: int):
-    """Mask out subsequent positions.
-
-    Arguments:
-        size: squared tensor size
-    """
-    return torch.tril(torch.ones(size, size, dtype=torch.uint8))
 
 
 def sequence_mask(lengths: torch.LongTensor, max_len: Optional[int] = None):

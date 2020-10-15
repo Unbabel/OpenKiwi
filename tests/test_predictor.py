@@ -44,7 +44,7 @@ model:
         use_mismatch_features: false
 
 optimizer:
-    class_name: dense_sparse_adam
+    class_name: adam
     learning_rate: 0.001
     learning_rate_decay: 0.6
     learning_rate_decay_start: 2
