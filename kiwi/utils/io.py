@@ -21,8 +21,6 @@ from typing import Any, Dict
 import torch
 from pydantic import BaseModel, Extra
 
-from kiwi.utils.migrations.v0_to_v2 import convert_trained_model_from_v0_to_v2
-
 logger = logging.getLogger(__name__)
 
 
@@ -116,15 +114,6 @@ def target_gaps_to_target(batch):
 def target_gaps_to_gaps(batch):
     """Extract gap tags from wmt18 format file."""
     return batch[::2]
-
-
-def convert_model_dict_if_needed(model_dict: Dict[str, Any]) -> Dict[str, Any]:
-    version = model_dict.get('__version__')
-    if version is None or version.startswith('0.3'):
-        # Initial Kiwi versions, like the ones first in production
-        logger.info(f'Loading model trained in an old version of Kiwi ({version})')
-        return convert_trained_model_from_v0_to_v2(model_dict)
-    return model_dict
 
 
 def generate_slug(text, delimiter="-"):

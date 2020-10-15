@@ -40,7 +40,7 @@ from kiwi.data.datasets.wmt_qe_dataset import WMTQEDataset
 from kiwi.data.encoders.wmt_qe_data_encoder import WMTQEDataEncoder
 from kiwi.systems._meta_module import MetaModule, Serializable
 from kiwi.training import optimizers
-from kiwi.utils.io import BaseConfig, convert_model_dict_if_needed, load_torch_file
+from kiwi.utils.io import BaseConfig, load_torch_file
 
 logger = logging.getLogger(__name__)
 
@@ -161,7 +161,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
     def _load_encoder(self, path: Path):
         logger.info(f'Loading encoder from {path}')
         module_dict = load_torch_file(path)
-        module_dict = convert_model_dict_if_needed(module_dict)
 
         encoder_cls = MetaModule.retrieve_subclass(module_dict['encoder']['class_name'])
         self.data_encoders = WMTQEDataEncoder(
@@ -535,7 +534,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
 
     @classmethod
     def from_dict(cls, module_dict: Dict[str, Any]):
-        module_dict = convert_model_dict_if_needed(module_dict)
         system_cls = cls.retrieve_subclass(module_dict['class_name'])
         config = system_cls.Config(**module_dict[const.CONFIG])
         system = system_cls(config=config, module_dict=module_dict)
