@@ -45,6 +45,36 @@ def load_torch_file(file_path, map_location=None):
     if not file_path.exists():
         raise ValueError(f'Torch file not found: {file_path}')
 
+    try:
+        if map_location is None:
+            map_location = default_map_location
+        file_dict = torch.load(file_path, map_location=map_location)
+    except ModuleNotFoundError as e:
+        # Caused, e.g., by moving the Vocabulary or DefaultFrozenDict classes
+        logger.info(
+            'Trying to load a slightly outdated file and encountered an issue when '
+            'unpickling; trying to work around it.'
+        )
+        if e.name == 'kiwi.data.utils':
+            import sys
+            from kiwi.utils import data_structures
+
+            sys.modules['kiwi.data.utils'] = data_structures
+            file_dict = torch.load(file_path, map_location=map_location)
+            del sys.modules['kiwi.data.utils']
+        elif e.name == 'torchtext':
+            import sys
+            from kiwi.data import vocabulary
+
+            vocabulary.Vocab = vocabulary.Vocabulary
+            sys.modules['torchtext'] = ''
+            sys.modules['torchtext.vocab'] = vocabulary
+            file_dict = torch.load(file_path, map_location=map_location)
+            del sys.modules['torchtext.vocab']
+            del sys.modules['torchtext']
+        else:
+            raise e
+
     if map_location is None:
         map_location = default_map_location
     file_dict = torch.load(file_path, map_location=map_location)
