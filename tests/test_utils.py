@@ -18,19 +18,7 @@ from pathlib import Path
 
 import pytest
 
-from kiwi.utils.io import load_torch_file, generate_slug
-
-
-def test_load_torch_file(model_dir):
-    load_torch_file(model_dir / 'nuqe.ckpt')
-    load_torch_file(model_dir / 'model-0.3.1.torch')
-    load_torch_file(model_dir / 'model-0.3.4.torch')
-    # There's no CUDA:
-    with pytest.raises(AssertionError):
-        load_torch_file(model_dir / 'model-0.3.1.torch', map_location='cuda')
-    # And this file does not exist:
-    with pytest.raises(ValueError):
-        load_torch_file(model_dir / 'nonexistent.torch')
+from kiwi.utils.io import generate_slug
 
 
 def test_generate_slug():
