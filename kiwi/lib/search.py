@@ -506,14 +506,15 @@ def run(config: Configuration):
         )
 
     # Optimize the study
-    # TODO: keep only n best model checkpoints and remove the rest to free up space
-    mlflc = optuna.integration.MLflowCallback()
+    optimize_kwargs = {}
+    if use_mlflow:
+        optimize_kwargs['callbacks'] = [optuna.integration.MLflowCallback()]
     try:
         logger.info('Optimizing study...')
         study.optimize(
             partial(objective, config=config, base_config=base_config),
             n_trials=config.num_trials,
-            callbacks=[mlflc],
+            **optimize_kwargs,
         )
     except KeyboardInterrupt:
         logger.info('Early stopping search caused by ctrl-C')
@@ -522,6 +523,8 @@ def run(config: Configuration):
             f'Error occured during search: {e}; '
             f'current best params are: {study.best_params}'
         )
+    # TODO: After optimizing, keep only n best model checkpoints
+    #   and remove the rest to free up space
 
     logger.info(f"Saving study to: {output_dir / 'study.pkl'}")
     joblib.dump(study, output_dir / 'study.pkl')
