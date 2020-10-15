@@ -69,7 +69,6 @@ optimizer:
     class_name: adamw
     learning_rate: 0.00001
     warmup_steps: 0.1
-    training_steps: 12000
 
 data_processing:
     share_input_fields_encoders: true
@@ -122,6 +121,18 @@ def test_computation_target(
     xlmr_model.save_pretrained(tmp_path)
     train_config['system']['model']['encoder']['model_name'] = str(tmp_path)
 
+    # When using `adamw` optimizer and the `optimizer.training_steps` are not set:
+    with pytest.raises(ValueError):
+        check_computation(
+            train_config,
+            tmp_path,
+            output_name=const.TARGET_TAGS,
+            expected_avg_probs=0.383413,
+            atol=big_atol,
+        )
+
+    # Now things will run:
+    train_config['optimizer']['training_steps'] = 10
     check_computation(
         train_config,
         tmp_path,

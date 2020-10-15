@@ -41,7 +41,7 @@ def nuqe_config_dict(optimizer_config, data_processing_config):
                 source_tags={const.BAD: 5.0},
             ),
         ),
-        sentence_level=dict(hter=False, use_distribution=False, binary=False),
+        sentence_level=dict(hter=False, use_distribution=True, binary=False),
     )
 
     config = dict(

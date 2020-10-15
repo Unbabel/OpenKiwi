@@ -75,6 +75,7 @@ def get_noam_decay_schedule(
 
     def lr_lambda(current_step: int) -> float:
         """Compute a multiplicative factor given an integer parameter epoch."""
+        current_step += 1
         sqrt_model_size = math.pow(float(model_size), -0.5)
         sqrt_warmup_steps = math.pow(float(num_warmup_steps), -1.5)
         sqrt_step = math.pow(float(current_step), -0.5)
