@@ -200,12 +200,14 @@ def test_qe_dataset_wmt18(data_config):
 
 def test_batched_sentence(batched_sentence):
     assert batched_sentence == batched_sentence.to('cpu')
+    # There's no CUDA to pin to:
     with pytest.raises(RuntimeError):
         batched_sentence.pin_memory()
 
 
 def test_batched_sentence(multifield_batch):
     assert multifield_batch == multifield_batch.to('cpu')
+    # There's no CUDA to pin to:
     with pytest.raises(RuntimeError):
         multifield_batch.pin_memory()
 
