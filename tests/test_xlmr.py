@@ -131,7 +131,7 @@ def test_computation_target(
             atol=big_atol,
         )
 
-    # Now things will run:
+    # Now training will run:
     train_config['system']['optimizer']['training_steps'] = 10
     check_computation(
         train_config,

@@ -18,7 +18,7 @@ from pathlib import Path
 
 import pytest
 
-from kiwi.utils.io import load_torch_file, generate_slug
+from kiwi.utils.io import generate_slug
 
 
 def test_load_torch_file(model_dir):
@@ -26,7 +26,9 @@ def test_load_torch_file(model_dir):
     load_torch_file(model_dir / 'model-0.3.1.torch')
     load_torch_file(model_dir / 'model-0.3.4.torch')
     with pytest.raises(AssertionError):
-        model = load_torch_file(model_dir / 'model-0.3.1.torch', map_location='cuda')
+        load_torch_file(model_dir / 'model-0.3.1.torch', map_location='cuda')
+    with pytest.raises(ValueError):
+        load_torch_file(model_dir / 'nonexistent.torch')
 
 
 def test_generate_slug():

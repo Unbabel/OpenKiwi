@@ -94,21 +94,6 @@ def model_dir(base_dir):
     return base_dir.joinpath('models/')
 
 
-# @pytest.fixture(scope='session')
-# def quetch_model_path(model_dir):
-#     return model_dir.joinpath('quetch.torch')
-#
-#
-# @pytest.fixture(scope='session')
-# def predictor_model_path(model_dir):
-#     return model_dir.joinpath('predictor.torch')
-#
-#
-# @pytest.fixture(scope='session')
-# def predest_dir(base_dir):
-#     return base_dir.joinpath('predest/')
-
-
 @pytest.fixture
 def data_processing_config():
     config = dict(
@@ -201,35 +186,6 @@ def train_config(run_config: dict):
         ),
     )
     return config
-
-
-# @pytest.fixture
-# def model_opts():
-#     opts = argparse.Namespace()
-#
-#     opts.predict_target = True
-#     opts.predict_source = False
-#     opts.predict_gaps = False
-#     opts.sentence_level = False
-#
-#     opts.field_embedders = None
-#     opts.embedder = None
-#
-#     opts.load_field_embedders = None
-#     opts.load_embedder = None
-#
-#     opts.embeddings_size = {const.SOURCE: 50, const.TARGET: 50}
-#     opts.embeddings_dropout = 0.0
-#     opts.freeze_embeddings = False
-#
-#     opts.use_position_embeddings = True
-#     opts.max_position_embeddings = 1000
-#     opts.sparse_embeddings = True
-#     opts.scale_embeddings = True
-#     opts.input_layer_norm = True
-#
-#     return opts
-#
 
 
 @pytest.fixture
