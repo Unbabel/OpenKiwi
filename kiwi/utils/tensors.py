@@ -58,19 +58,6 @@ def convolve_tensor(sequences, window_size, pad_value=0):
     return t
 
 
-# def convolve_sequence(sequence, window_size, pad_value=0):
-#     """Convolve a sequence and apply padding
-#
-#     :param sequence: list of ids
-#     :param window_size: filter length
-#     :param pad_value: int value used as padding
-#     :return: list of lists with size of window_size
-#     """
-#     pad = [pad_value for _ in range(window_size // 2)]
-#     pad_sequence = pad + sequence + pad
-#     return list(windowed(pad_sequence, window_size, fillvalue=pad_value))
-
-
 def apply_packed_sequence(rnn, padded_sequences, lengths):
     """Run a forward pass of padded_sequences through an rnn using packed sequence.
 
