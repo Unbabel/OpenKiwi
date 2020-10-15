@@ -132,7 +132,7 @@ def test_computation_target(
         )
 
     # Now things will run:
-    train_config['optimizer']['training_steps'] = 10
+    train_config['system']['optimizer']['training_steps'] = 10
     check_computation(
         train_config,
         tmp_path,
