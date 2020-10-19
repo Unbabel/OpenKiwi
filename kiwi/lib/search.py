@@ -610,7 +610,7 @@ def run(config: Configuration):
             for path in models_to_keep:
                 logger.info(f'\t{path}')
             for path in models_to_remove:
-                path.unlink(missing_ok=True)
+                Path(path).unlink()
         except Exception as e:
             logger.error(f'Logging at end of search failed: {e}')
 

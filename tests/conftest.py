@@ -208,6 +208,7 @@ def base_search_config(train_config: dict):
     config = dict(
         base_config=train_config,
         num_trials=2,
+        num_models_to_keep=1,
         options=dict(
             search_method='random',
             freeze_epochs=None,

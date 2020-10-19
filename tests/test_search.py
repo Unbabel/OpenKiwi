@@ -15,7 +15,6 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 import pytest
-import yaml
 from pydantic import ValidationError
 
 from kiwi.lib import search
@@ -57,6 +56,7 @@ def test_api(tmp_path, search_config, search_output):
 
     from kiwi.lib.search import search_from_file
 
+    train_dir = tmp_path / 'runs'
     output_dir = tmp_path / 'search'
     search_config['directory'] = output_dir
 
@@ -64,6 +64,8 @@ def test_api(tmp_path, search_config, search_output):
 
     search_config['base_config']['trainer']['gradient_accumulation_steps'] = 2
     search_config['base_config']['trainer']['main_metric'] = 'target_tags_MCC'
+    search_config['base_config']['run']['use_mlflow'] = True
+    search_config['base_config']['run']['output_dir'] = train_dir
     search_config['base_config']['system']['model']['outputs']['word_level'][
         'gaps'
     ] = True
@@ -74,10 +76,16 @@ def test_api(tmp_path, search_config, search_output):
 
     # Check a first run
     search_from_file(config_file)
+    assert set([file.name for file in tmp_path.glob('*')]) == set(
+        ['config.yaml', 'search', 'runs']
+    )
     assert [file.name for file in output_dir.glob('*')] == ['0']
     assert set(file.name for file in (output_dir / '0').glob('*')) == set(search_output)
+    # Because `num_models_to_keep=1`, the second model should have been deleted
+    assert len([file.name for file in train_dir.glob('checkpoints/*')]) == 1
 
     # Check a second run with different settings
+    search_config['base_config']['run']['use_mlflow'] = False
     search_config['options']['search_method'] = 'multivariate_tpe'
     search_config['options']['search_hter'] = False
     search_config['options']['learning_rate'] = None
