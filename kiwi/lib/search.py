@@ -16,7 +16,6 @@
 #
 import logging
 from datetime import datetime
-from functools import partial
 from pathlib import Path
 from typing import List, Optional, Union
 
@@ -124,6 +123,11 @@ class Configuration(BaseConfig):
     num_trials: int = 50
     """The number of search trials to run."""
 
+    num_models_to_keep: int = 5
+    """The number of model checkpoints that are kept after training.
+    The best ones are kept, the other ones removed for free up space.
+    Keep all model checkpoints by setting this to -1."""
+
     options: SearchOptions = SearchOptions()
     """Configure the search method and parameter ranges."""
 
@@ -189,206 +193,261 @@ def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]):
         return trial.suggest_uniform(param_name, config.lower, config.upper)
 
 
-def objective(trial, config: Configuration, base_config: dict) -> float:
+class Objective:
+    def __init__(self, config: Configuration, base_config: dict):
+        self.config = config
+        self.base_config = base_config
+        self.model_paths = []
 
-    # Format the main metric name
-    main_metric = 'val_' + '+'.join(base_config['trainer']['main_metric'])
+    def __call__(self, trial) -> float:
+        # Format the main metric name
+        main_metric = 'val_' + '+'.join(self.base_config['trainer']['main_metric'])
 
-    # Compute the training steps from the training data and set it in the base config
-    num_train_lines = sum(
-        1 for _ in open(base_config['data']['train']['input']['source'])
-    )
-    updates_per_epochs = int(
-        num_train_lines
-        / base_config['system']['batch_size']['train']
-        / base_config['trainer']['gradient_accumulation_steps']
-    )
-    base_config['system']['optimizer']['training_steps'] = (
-        updates_per_epochs
-    ) * base_config['trainer']['epochs']
+        # Compute the training steps from the training data and set in the base config
+        num_train_lines = sum(
+            1 for _ in open(self.base_config['data']['train']['input']['source'])
+        )
+        updates_per_epochs = int(
+            num_train_lines
+            / self.base_config['system']['batch_size']['train']
+            / self.base_config['trainer']['gradient_accumulation_steps']
+        )
+        self.base_config['system']['optimizer']['training_steps'] = (
+            updates_per_epochs
+        ) * self.base_config['trainer']['epochs']
 
-    # Collect the values to optimize
-    search_values = {}
-    # Suggest a learning rate
-    if config.options.learning_rate is not None:
-        learning_rate = get_suggestion(
-            trial, 'learning_rate', config.options.learning_rate
-        )
-        base_config['system']['optimizer']['learning_rate'] = learning_rate
-        search_values['learning_rate'] = learning_rate
-    # Suggest a dropout probability
-    if config.options.dropout is not None:
-        dropout = get_suggestion(trial, 'dropout', config.options.dropout)
-        base_config['system']['model']['outputs']['dropout'] = dropout
-        if base_config['system']['model']['encoder'].get('dropout') is not None:
-            base_config['system']['model']['encoder']['dropout'] = dropout
-        if base_config['system']['model']['decoder'].get('dropout') is not None:
-            base_config['system']['model']['decoder']['dropout'] = dropout
-        if base_config['system']['model']['decoder'].get('source') is not None:
-            base_config['system']['model']['decoder']['source']['dropout'] = dropout
-        if base_config['system']['model']['decoder'].get('target') is not None:
-            base_config['system']['model']['decoder']['target']['dropout'] = dropout
-        search_values['dropout'] = dropout
-    # Suggest the number of warmup steps
-    if config.options.warmup_steps is not None:
-        warmup_steps = get_suggestion(
-            trial, 'warmup_steps', config.options.warmup_steps
-        )
-        base_config['system']['optimizer']['warmup_steps'] = warmup_steps
-        search_values['warmup_steps'] = warmup_steps
-    # Suggest the number of freeze epochs
-    if config.options.freeze_epochs is not None:
-        freeze_epochs = get_suggestion(
-            trial, 'freeze_epochs', config.options.freeze_epochs
-        )
-        base_config['system']['model']['encoder']['freeze'] = True
-        base_config['system']['model']['encoder']['freeze_for_number_of_steps'] = int(
-            updates_per_epochs * freeze_epochs
-        )
-        search_values['freeze_epochs'] = freeze_epochs
-    # Suggest a hidden size
-    if config.options.hidden_size is not None:
-        hidden_size = get_suggestion(trial, 'hidden_size', config.options.hidden_size)
-        base_config['system']['model']['encoder']['hidden_size'] = hidden_size
-        base_config['system']['model']['decoder']['hidden_size'] = hidden_size
-        search_values['hidden_size'] = hidden_size
-    # Suggest a bottleneck size
-    if config.options.bottleneck_size is not None:
-        bottleneck_size = get_suggestion(
-            trial, 'bottleneck_size', config.options.bottleneck_size
-        )
-        base_config['system']['model']['decoder']['bottleneck_size'] = bottleneck_size
-        search_values['bottleneck_size'] = bottleneck_size
-    # Suggest whether to use the MLP after the encoder
-    if config.options.search_mlp:
-        use_mlp = trial.suggest_categorical('mlp', [True, False])
-        base_config['system']['model']['encoder']['use_mlp'] = use_mlp
-        search_values['use_mlp'] = use_mlp
-
-    # Search word_level and sentence_level and their combinations
-    # Suggest whether to include the sentence level objective
-    if config.options.search_hter:
-        assert base_config['data']['train']['output']['sentence_scores'] is not None
-        assert base_config['data']['valid']['output']['sentence_scores'] is not None
-        hter = trial.suggest_categorical('hter', [True, False])
-        base_config['system']['model']['outputs']['sentence_level']['hter'] = hter
-        search_values['hter'] = hter
-    # Suggest whether to include the word level objective
-    if config.options.search_word_level:
-        assert base_config['data']['train']['output']['target_tags'] is not None
-        assert base_config['data']['valid']['output']['target_tags'] is not None
-        word_level = trial.suggest_categorical('word_level', [True, False])
-        base_config['system']['model']['outputs']['word_level']['target'] = word_level
-        base_config['system']['model']['outputs']['word_level']['gaps'] = word_level
-        search_values['word_level'] = word_level
-
-    # We search for `sentence_loss_weight` when there is both a word level objective
-    #   and a sentence level objective. Otherwise it does not matter to weigh the loss
-    #   of one objective: for the loss it's the ratio between the two objectives that
-    #   matters, not the absolute value of one loss separately.
-    word_level_config = base_config['system']['model']['outputs']['word_level']
-    sentence_level_config = base_config['system']['model']['outputs']['sentence_level']
-    if (
-        word_level_config.get('target')
-        and sentence_level_config.get('hter')
-        and config.options.sentence_loss_weight
-    ):
-        sentence_loss_weight = get_suggestion(
-            trial, 'sentence_loss_weight', config.options.sentence_loss_weight
-        )
-        base_config['system']['model']['outputs'][
-            'sentence_loss_weight'
-        ] = sentence_loss_weight
-        search_values['sentence_loss_weight'] = sentence_loss_weight
-
-    # The same logic applies here: when search whether to include the sentence level
-    #   objective (`search_hter`) then we will only want to search the
-    #   `sentence_loss_weight` when we are actually including the sentence level
-    #   objevtive (`hter = True`). See the above definition of the variable `hter`.
-    if (
-        word_level_config.get('target')
-        and config.options.search_hter
-        and config.options.sentence_loss_weight
-    ):
-        if hter:
-            sentence_loss_weight = get_suggestion(
-                trial, 'sentence_loss_weight', config.options.sentence_loss_weight
+        # Collect the values to optimize
+        search_values = {}
+        # Suggest a learning rate
+        if self.config.options.learning_rate is not None:
+            learning_rate = get_suggestion(
+                trial, 'learning_rate', self.config.options.learning_rate
             )
-            base_config['system']['model']['outputs'][
+            self.base_config['system']['optimizer']['learning_rate'] = learning_rate
+            search_values['learning_rate'] = learning_rate
+        # Suggest a dropout probability
+        if self.config.options.dropout is not None:
+            dropout = get_suggestion(trial, 'dropout', self.config.options.dropout)
+            self.base_config['system']['model']['outputs']['dropout'] = dropout
+            if (
+                self.base_config['system']['model']['encoder'].get('dropout')
+                is not None
+            ):
+                self.base_config['system']['model']['encoder']['dropout'] = dropout
+            if (
+                self.base_config['system']['model']['decoder'].get('dropout')
+                is not None
+            ):
+                self.base_config['system']['model']['decoder']['dropout'] = dropout
+            if self.base_config['system']['model']['decoder'].get('source') is not None:
+                self.base_config['system']['model']['decoder']['source'][
+                    'dropout'
+                ] = dropout
+            if self.base_config['system']['model']['decoder'].get('target') is not None:
+                self.base_config['system']['model']['decoder']['target'][
+                    'dropout'
+                ] = dropout
+            search_values['dropout'] = dropout
+        # Suggest the number of warmup steps
+        if self.config.options.warmup_steps is not None:
+            warmup_steps = get_suggestion(
+                trial, 'warmup_steps', self.config.options.warmup_steps
+            )
+            self.base_config['system']['optimizer']['warmup_steps'] = warmup_steps
+            search_values['warmup_steps'] = warmup_steps
+        # Suggest the number of freeze epochs
+        if self.config.options.freeze_epochs is not None:
+            freeze_epochs = get_suggestion(
+                trial, 'freeze_epochs', self.config.options.freeze_epochs
+            )
+            self.base_config['system']['model']['encoder']['freeze'] = True
+            self.base_config['system']['model']['encoder'][
+                'freeze_for_number_of_steps'
+            ] = int(updates_per_epochs * freeze_epochs)
+            search_values['freeze_epochs'] = freeze_epochs
+        # Suggest a hidden size
+        if self.config.options.hidden_size is not None:
+            hidden_size = get_suggestion(
+                trial, 'hidden_size', self.config.options.hidden_size
+            )
+            self.base_config['system']['model']['encoder']['hidden_size'] = hidden_size
+            self.base_config['system']['model']['decoder']['hidden_size'] = hidden_size
+            search_values['hidden_size'] = hidden_size
+        # Suggest a bottleneck size
+        if self.config.options.bottleneck_size is not None:
+            bottleneck_size = get_suggestion(
+                trial, 'bottleneck_size', self.config.options.bottleneck_size
+            )
+            self.base_config['system']['model']['decoder'][
+                'bottleneck_size'
+            ] = bottleneck_size
+            search_values['bottleneck_size'] = bottleneck_size
+        # Suggest whether to use the MLP after the encoder
+        if self.config.options.search_mlp:
+            use_mlp = trial.suggest_categorical('mlp', [True, False])
+            self.base_config['system']['model']['encoder']['use_mlp'] = use_mlp
+            search_values['use_mlp'] = use_mlp
+
+        # Search word_level and sentence_level and their combinations
+        # Suggest whether to include the sentence level objective
+        if self.config.options.search_hter:
+            assert (
+                self.base_config['data']['train']['output']['sentence_scores']
+                is not None
+            )
+            assert (
+                self.base_config['data']['valid']['output']['sentence_scores']
+                is not None
+            )
+            hter = trial.suggest_categorical('hter', [True, False])
+            self.base_config['system']['model']['outputs']['sentence_level'][
+                'hter'
+            ] = hter
+            search_values['hter'] = hter
+        # Suggest whether to include the word level objective
+        if self.config.options.search_word_level:
+            assert (
+                self.base_config['data']['train']['output']['target_tags'] is not None
+            )
+            assert (
+                self.base_config['data']['valid']['output']['target_tags'] is not None
+            )
+            word_level = trial.suggest_categorical('word_level', [True, False])
+            self.base_config['system']['model']['outputs']['word_level'][
+                'target'
+            ] = word_level
+            self.base_config['system']['model']['outputs']['word_level'][
+                'gaps'
+            ] = word_level
+            search_values['word_level'] = word_level
+
+        # We search for `sentence_loss_weight` when there is both a word level
+        #   objective and a sentence level objective. Otherwise it does not matter
+        #   to weigh the loss of one objective: for the loss it's the ratio between
+        #   the two objectives that matters, not the absolute value of one loss
+        #   separately.
+        word_level_config = self.base_config['system']['model']['outputs']['word_level']
+        sentence_level_config = self.base_config['system']['model']['outputs'][
+            'sentence_level'
+        ]
+        if (
+            word_level_config.get('target')
+            and sentence_level_config.get('hter')
+            and self.config.options.sentence_loss_weight
+        ):
+            sentence_loss_weight = get_suggestion(
+                trial, 'sentence_loss_weight', self.config.options.sentence_loss_weight
+            )
+            self.base_config['system']['model']['outputs'][
                 'sentence_loss_weight'
             ] = sentence_loss_weight
             search_values['sentence_loss_weight'] = sentence_loss_weight
 
-    if config.options.class_weights and word_level_config:
-        # if config.options.search_word_level:
-        #     if not word_level:
-        #         # Word level disabled; nothing to search over
-        #         pass
-        if config.options.class_weights.target_tags and word_level_config['target']:
-            class_weight_target_tags = get_suggestion(
-                trial,
-                'class_weight_target_tags',
-                config.options.class_weights.target_tags,
+        # The same logic applies here: when search whether to include the sentence level
+        #   objective (`search_hter`) then we will only want to search the
+        #   `sentence_loss_weight` when we are actually including the sentence level
+        #   objevtive (`hter = True`). See the above definition of the variable `hter`.
+        if (
+            word_level_config.get('target')
+            and self.config.options.search_hter
+            and self.config.options.sentence_loss_weight
+        ):
+            if hter:
+                sentence_loss_weight = get_suggestion(
+                    trial,
+                    'sentence_loss_weight',
+                    self.config.options.sentence_loss_weight,
+                )
+                self.base_config['system']['model']['outputs'][
+                    'sentence_loss_weight'
+                ] = sentence_loss_weight
+                search_values['sentence_loss_weight'] = sentence_loss_weight
+
+        if self.config.options.class_weights and word_level_config:
+            # if self.config.options.search_word_level:
+            #     if not word_level:
+            #         # Word level disabled; nothing to search over
+            #         pass
+            if (
+                self.config.options.class_weights.target_tags
+                and word_level_config['target']
+            ):
+                class_weight_target_tags = get_suggestion(
+                    trial,
+                    'class_weight_target_tags',
+                    self.config.options.class_weights.target_tags,
+                )
+                self.base_config['system']['model']['outputs']['word_level'][
+                    'class_weights'
+                ]['target_tags'] = {const.BAD: class_weight_target_tags}
+                search_values['class_weight_target_tags'] = class_weight_target_tags
+            if self.config.options.class_weights.gap_tags and word_level_config['gaps']:
+                class_weight_gap_tags = get_suggestion(
+                    trial,
+                    'class_weight_gap_tags',
+                    self.config.options.class_weights.gap_tags,
+                )
+                self.base_config['system']['model']['outputs']['word_level'][
+                    'class_weights'
+                ]['gap_tags'] = {const.BAD: class_weight_gap_tags}
+                search_values['class_weight_gap_tags'] = class_weight_gap_tags
+            if (
+                self.config.options.class_weights.source_tags
+                and word_level_config['source']
+            ):
+                class_weight_source_tags = get_suggestion(
+                    trial,
+                    'class_weight_source_tags',
+                    self.config.options.class_weights.source_tags,
+                )
+                self.base_config['system']['model']['outputs']['word_level'][
+                    'class_weights'
+                ]['source_tags'] = {const.BAD: class_weight_source_tags}
+                search_values['class_weight_source_tags'] = class_weight_source_tags
+
+        trainconfig = train.Configuration(**self.base_config)
+
+        # TODO: integrate PTL trainer callback
+        # ptl_callback = PyTorchLightningPruningCallback(trial, monitor='val_PEARSON')
+        # train_info = train.run(trainconfig, ptl_callback=ptl_callback)
+
+        logger.info(f'############# STARTING TRIAL {trial.number} #############')
+        logger.info(f'PARAMETERS: {search_values}')
+        for name, value in search_values.items():
+            logger.info(f'{name}: {value}')
+
+        try:
+            train_info = train.run(trainconfig)
+        except RuntimeError as e:
+            logger.info(f'ERROR OCCURED; SKIPPING TRIAL: {e}')
+            return -1
+
+        logger.info(f'############# TRIAL {trial.number} FINISHED #############')
+        result = train_info.best_metrics.get(main_metric, -1)
+        if result == -1:
+            logger.error(
+                'Trial did not converge:\n'
+                f'    `train_info.best_metrics={train_info.best_metrics}`\n'
+                f'Setting result to -1'
             )
-            base_config['system']['model']['outputs']['word_level']['class_weights'][
-                'target_tags'
-            ] = {const.BAD: class_weight_target_tags}
-            search_values['class_weight_target_tags'] = class_weight_target_tags
-        if config.options.class_weights.gap_tags and word_level_config['gaps']:
-            class_weight_gap_tags = get_suggestion(
-                trial, 'class_weight_gap_tags', config.options.class_weights.gap_tags
-            )
-            base_config['system']['model']['outputs']['word_level']['class_weights'][
-                'gap_tags'
-            ] = {const.BAD: class_weight_gap_tags}
-            search_values['class_weight_gap_tags'] = class_weight_gap_tags
-        if config.options.class_weights.source_tags and word_level_config['source']:
-            class_weight_source_tags = get_suggestion(
-                trial,
-                'class_weight_source_tags',
-                config.options.class_weights.source_tags,
-            )
-            base_config['system']['model']['outputs']['word_level']['class_weights'][
-                'source_tags'
-            ] = {const.BAD: class_weight_source_tags}
-            search_values['class_weight_source_tags'] = class_weight_source_tags
 
-    # if base_config['quiet'] is None:
-    #     base_config['quiet'] = False
-    # if base_config['verbose'] is None:
-    #     base_config['verbose'] = False
-    trainconfig = train.Configuration(**base_config)
+        logger.info(f'RESULTS: {result} {main_metric}')
+        logger.info(f'MODEL: {train_info.best_model_path}')
+        logger.info(f'PARAMETERS: {search_values}')
+        for name, value in search_values.items():
+            logger.info(f'{name}: {value}')
 
-    # TODO: integrate PTL trainer callback
-    # ptl_callback = PyTorchLightningPruningCallback(trial, monitor='val_PEARSON')
-    # train_info = train.run(trainconfig, ptl_callback=ptl_callback)
+        # Store the path for later access
+        self.model_paths.append((train_info.best_model_path, result))
 
-    logger.info(f'############# STARTING TRIAL {trial.number} #############')
-    logger.info(f'PARAMETERS: {search_values}')
-    for name, value in search_values.items():
-        logger.info(f'{name}: {value}')
+        return result
 
-    try:
-        train_info = train.run(trainconfig)
-    except RuntimeError as e:
-        logger.info(f'ERROR OCCURED; SKIPPING TRIAL: {e}')
-        return -1
-
-    logger.info(f'############# TRIAL {trial.number} FINISHED #############')
-    result = train_info.best_metrics.get(main_metric, -1)
-    if result == -1:
-        logger.error(
-            'Trial did not converge:\n'
-            f'    `train_info.best_metrics={train_info.best_metrics}`\n'
-            f'Setting result to -1'
+    @property
+    def best_model_paths(self) -> List[Path]:
+        """Return the model paths sorted from high to low by their objective score."""
+        return list(
+            tuple(zip(*sorted(self.model_paths, key=lambda t: t[1], reverse=True)))[0]
         )
-
-    logger.info(f'RESULTS: {result} {main_metric}')
-    logger.info(f'PARAMETERS: {search_values}')
-    for name, value in search_values.items():
-        logger.info(f'{name}: {value}')
-
-    return result
 
 
 def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
@@ -511,10 +570,9 @@ def run(config: Configuration):
         optimize_kwargs['callbacks'] = [optuna.integration.MLflowCallback()]
     try:
         logger.info('Optimizing study...')
+        objective = Objective(config=config, base_config=base_config)
         study.optimize(
-            partial(objective, config=config, base_config=base_config),
-            n_trials=config.num_trials,
-            **optimize_kwargs,
+            objective, n_trials=config.num_trials, **optimize_kwargs,
         )
     except KeyboardInterrupt:
         logger.info('Early stopping search caused by ctrl-C')
@@ -523,8 +581,6 @@ def run(config: Configuration):
             f'Error occured during search: {e}; '
             f'current best params are: {study.best_params}'
         )
-    # TODO: After optimizing, keep only n best model checkpoints
-    #   and remove the rest to free up space
 
     logger.info(f"Saving study to: {output_dir / 'study.pkl'}")
     joblib.dump(study, output_dir / 'study.pkl')
@@ -539,6 +595,24 @@ def run(config: Configuration):
             logger.info('    {}: {}'.format(key, value))
     except Exception as e:
         logger.error(f'Logging at end of search failed: {e}')
+
+    if config.num_models_to_keep > 0 and config.num_trials > config.num_models_to_keep:
+        # Keep only n best model checkpoints and remove the rest to free up space
+        try:
+            best_model_paths = objective.best_model_paths
+            models_to_keep = best_model_paths[: config.num_models_to_keep]
+            models_to_remove = best_model_paths[config.num_models_to_keep :]
+            logger.info(
+                f'Keeping the {config.num_models_to_keep} best models '
+                'from the search and removing the other ones.'
+            )
+            logger.info('Models that are kept:')
+            for path in models_to_keep:
+                logger.info(f'\t{path}')
+            for path in models_to_remove:
+                path.unlink(missing_ok=True)
+        except Exception as e:
+            logger.error(f'Logging at end of search failed: {e}')
 
     logger.info(f'Saving Optuna plots for this search to: {output_dir}')
     save_config_to_file(config, output_dir / 'search_config.yaml')
