@@ -102,26 +102,26 @@ class BertEncoder(MetaModule):
         encode_source: bool = False
 
         model_name: Union[str, Path] = 'bert-base-multilingual-cased'
-        'Pre-trained BERT model to use.'
+        """Pre-trained BERT model to use."""
 
         use_mismatch_features: bool = False
-        "Use Alibaba's mismatch features"
+        """Use Alibaba's mismatch features."""
 
         use_predictor_features: bool = False
-        'Use features originally proposed in the Predictor model'
+        """Use features originally proposed in the Predictor model."""
 
         interleave_input: bool = False
         """Concatenate SOURCE and TARGET without internal padding
         (111222000 instead of 111002220)"""
 
         freeze: bool = False
-        'Freeze BERT during training.'
+        """Freeze BERT during training."""
 
         use_mlp: bool = True
-        'Apply a linear layer on top of BERT'
+        """Apply a linear layer on top of BERT."""
 
         hidden_size: int = 100
-        'Size of the linear layer on top of BERT'
+        """Size of the linear layer on top of BERT."""
 
         scalar_mix_dropout: confloat(ge=0.0, le=1.0) = 0.1
         scalar_mix_layer_norm: bool = True

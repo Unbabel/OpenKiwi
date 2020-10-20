@@ -107,34 +107,33 @@ class XLMRobertaEncoder(MetaModule):
         encode_source: bool = False
 
         model_name: Union[str, Path] = 'xlm-roberta-base'
-        'Pre-trained XLMRoberta model to use.'
+        """Pre-trained XLMRoberta model to use."""
 
         interleave_input: bool = False
         """Concatenate SOURCE and TARGET without internal padding
         (111222000 instead of 111002220)"""
 
         use_mlp: bool = True
-        'Apply a linear layer on top of XLMRoberta'
+        """Apply a linear layer on top of XLMRoberta."""
 
         hidden_size: int = 100
-        'Size of the linear layer on top of XLMRoberta'
+        """Size of the linear layer on top of XLMRoberta."""
 
         pooling: Literal['first_token', 'mean', 'll_mean', 'mixed'] = 'mixed'
         """Type of pooling used to extract features from the encoder. Options are:
             first_token: CLS_token is used for sentence representation
             mean: Use avg pooling for sentence representation using scalar mixed layers
             ll_mean: Mean pool of only last layer embeddings
-            mixed: Concat CLS token with mean_pool
-        """
+            mixed: Concat CLS token with mean_pool"""
 
         scalar_mix_dropout: confloat(ge=0.0, le=1.0) = 0.1
         scalar_mix_layer_norm: bool = True
 
         freeze: bool = False
-        'Freeze XLMRoberta during training.'
+        """Freeze XLMRoberta during training."""
 
         freeze_for_number_of_steps: int = 0
-        'Freeze XLMR during training for this number of steps.'
+        """Freeze XLMR during training for this number of steps."""
 
         @validator('model_name', pre=True)
         def fix_relative_path(cls, v):

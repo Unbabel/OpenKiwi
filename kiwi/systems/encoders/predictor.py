@@ -227,21 +227,21 @@ class PredictorEncoder(MetaModule):
         encode_source: bool = False
 
         hidden_size: int = 400
-        'Size of hidden layers in LSTM'
+        """Size of hidden layers in LSTM."""
 
         rnn_layers: int = 3
-        'Number of RNN layers in the Predictor'
+        """Number of RNN layers in the Predictor."""
 
         dropout: float = 0.0
 
         share_embeddings: bool = False
-        'Tie input and output embeddings for target.'
+        """Tie input and output embeddings for target."""
 
         out_embeddings_dim: Optional[int] = None
-        'Word Embedding in Output layer'
+        """Word Embedding in Output layer."""
 
         use_mismatch_features: bool = False
-        "Whether to use Alibaba's mismatch features."
+        """Whether to use Alibaba's mismatch features."""
 
         embeddings: InputEmbeddingsConfig = InputEmbeddingsConfig()
 
@@ -251,7 +251,8 @@ class PredictorEncoder(MetaModule):
         embeddings for applying the backward LSTM (also short by 2). This flag is set
         to true when loading a saved model from those versions."""
         v0_start_stop: bool = False
-        'Whether pre_qe_f_v is padded on both ends or post_qe_f_v is strip on both ends'
+        """Whether pre_qe_f_v is padded on both ends or
+        post_qe_f_v is strip on both ends."""
 
         @validator('dropout', pre=True)
         def dropout_on_rnns(cls, v, values):
