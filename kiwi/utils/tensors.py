@@ -14,12 +14,10 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-from collections import OrderedDict
 from typing import Dict, Optional
 
 import torch
 import torch.nn.functional as F
-from torch import nn
 from torch.autograd import Function
 from torch.nn.utils.rnn import pack_padded_sequence as pack
 from torch.nn.utils.rnn import pad_packed_sequence as unpack
@@ -190,31 +188,6 @@ class GradientMul(Function):
 
 
 gradient_mul = GradientMul.apply
-
-
-def feedforward(
-    in_dim,
-    n_layers,
-    shrink=2,
-    out_dim=None,
-    activation=nn.Tanh,
-    final_activation=False,
-    dropout=0.0,
-):
-    """Constructor for FeedForward Layers"""
-    dim = in_dim
-    module_dict = OrderedDict()
-    for layer_i in range(n_layers - 1):
-        next_dim = dim // shrink
-        module_dict['linear_{}'.format(layer_i)] = nn.Linear(dim, next_dim)
-        module_dict['activation_{}'.format(layer_i)] = activation()
-        module_dict['dropout_{}'.format(layer_i)] = nn.Dropout(dropout)
-        dim = next_dim
-    next_dim = out_dim or (dim // 2)
-    module_dict['linear_{}'.format(n_layers - 1)] = nn.Linear(dim, next_dim)
-    if final_activation:
-        module_dict['activation_{}'.format(n_layers - 1)] = activation()
-    return nn.Sequential(module_dict)
 
 
 def retrieve_tokens_mask(input_batch: BatchedSentence):
