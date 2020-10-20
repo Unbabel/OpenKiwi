@@ -49,15 +49,15 @@ class ParallelDataset(torch.utils.data.Dataset):
     class Config(BaseModel):
 
         buffer_size: int = None
-        '''Number of consecutive instances to be temporarily stored in
-        the buffer, which will be used later for batching/bucketing.'''
+        """Number of consecutive instances to be temporarily stored in
+        the buffer, which will be used later for batching/bucketing."""
 
         train: Optional[TrainingConfig] = None
         valid: Optional[TrainingConfig] = None
         test: Optional[TestConfig] = None
 
         split: Optional[confloat(gt=0.0, lt=1.0)] = None
-        'Split train dataset in case that no validation set is given.'
+        """Split train dataset in case that no validation set is given."""
 
         @validator('split', pre=True, always=True)
         def ensure_there_is_validation_data(cls, v, values):
