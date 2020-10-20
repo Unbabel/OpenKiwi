@@ -14,8 +14,6 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-from pathlib import Path
-
 import pytest
 
 from kiwi.cli import arguments_to_configuration
@@ -47,10 +45,13 @@ def config():
 
     """
 
+
 def test_arguments_to_configuration(config, config_path):
 
     config_path.write_text(config)
-    config_dict = arguments_to_configuration({'CONFIG_FILE': config_path, 'OVERWRITES': ['class_name=XLMR']})
+    config_dict = arguments_to_configuration(
+        {'CONFIG_FILE': config_path, 'OVERWRITES': ['class_name=XLMR']}
+    )
 
     assert 'num_data_workers' in config_dict
     assert 'model' in config_dict

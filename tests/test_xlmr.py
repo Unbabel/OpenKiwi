@@ -14,12 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-import shutil
-
 import pytest
 import yaml
 from transformers import XLMRobertaConfig, XLMRobertaModel
-from transformers.tokenization_xlm_roberta import VOCAB_FILES_NAMES
 
 from conftest import check_computation
 from kiwi import constants as const

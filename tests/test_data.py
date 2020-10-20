@@ -64,7 +64,9 @@ def test_build_training_dataset(data_config):
     with pytest.raises(ValueError):
         config = WMTQEDataset.Config(**data_config)
     with pytest.raises(NotImplementedError):
-        data_sources = WMTQEDataset.build(config=config, train=True, valid=False, split=0.1)
+        data_sources = WMTQEDataset.build(
+            config=config, train=True, valid=False, split=0.1
+        )
 
 
 def test_build_test_dataset(data_config):
@@ -86,9 +88,11 @@ def test_parallel_dataset(data_config):
     # Some error checks:
     data_config['valid'] = None
     with pytest.raises(ValueError):
-        config = ParallelDataset.Config(**data_config)
+        ParallelDataset.Config(**data_config)
     with pytest.raises(NotImplementedError):
-        data_sources = ParallelDataset.build(config=config, train=True, valid=False, split=0.1)
+        ParallelDataset.build(
+            config=config, train=True, valid=False, split=0.1
+        )
 
     sampler = BatchSampler(
         SequentialSampler(train_dataset), batch_size=8, drop_last=False
@@ -146,7 +150,9 @@ def test_parallel_dataset(data_config):
     ]
 
     # Now initialize the ParallelDataEncoder from a field encoder
-    data_encoder = ParallelDataEncoder(config=ParallelDataEncoder.Config(), field_encoders=data_encoders.field_encoders)
+    data_encoder = ParallelDataEncoder(
+        config=ParallelDataEncoder.Config(), field_encoders=data_encoders.field_encoders
+    )
     # Fit vocabularies
     for dataset in datasets:
         data_encoder.fit_vocabularies(dataset)
@@ -232,7 +238,7 @@ def test_batched_sentence(batched_sentence):
         batched_sentence.pin_memory()
 
 
-def test_batched_sentence(multifield_batch):
+def test_multifield_batch(multifield_batch):
     assert multifield_batch == multifield_batch.to('cpu')
     # There's no CUDA to pin to:
     with pytest.raises(RuntimeError):

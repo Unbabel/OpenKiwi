@@ -14,11 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-from pathlib import Path
-
 import pytest
 
-from kiwi.utils.io import load_torch_file, generate_slug
+from kiwi.utils.io import generate_slug, load_torch_file
 
 
 def test_load_torch_file(model_dir):

@@ -116,7 +116,7 @@ def data_processing_config():
 def make_data_config(directory: Path):
     config = {}
     for set_name, file_name in [('train', 'train'), ('valid', 'dev'), ('test', 'dev')]:
-        if set_name is not 'test':
+        if set_name != 'test':
             split_config = dict(
                 input=dict(
                     source=directory / f'{file_name}.src',
