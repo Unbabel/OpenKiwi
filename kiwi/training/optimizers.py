@@ -22,6 +22,7 @@ from typing import Any, Iterator, List, Tuple, Union
 
 import torch
 import torch.optim
+from pydantic import validator
 from torch.nn import Parameter
 from torch.optim.lr_scheduler import LambdaLR, ReduceLROnPlateau
 from torch.optim.optimizer import Optimizer
@@ -70,6 +71,7 @@ class OptimizerConfig(BaseConfig):
             else:
                 return float(v)
         return v
+
 
 def get_noam_decay_schedule(
     optimizer: Optimizer, num_warmup_steps: int, model_size: int
