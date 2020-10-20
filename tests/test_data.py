@@ -236,13 +236,6 @@ def test_batched_sentence(batched_sentence):
         batched_sentence.pin_memory()
 
 
-# def test_multifield_batch(multifield_batch):
-#     assert multifield_batch == multifield_batch.to('cpu')
-#     # There's no CUDA to pin to:
-#     with pytest.raises(RuntimeError):
-#         multifield_batch.pin_memory()
-
-
 def test_tensors_to(batched_sentence, multifield_batch, batch_dict):
     assert batched_sentence == tensors_to(batched_sentence, 'cpu')
     assert multifield_batch == tensors_to(multifield_batch, 'cpu')
