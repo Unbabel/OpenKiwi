@@ -90,9 +90,7 @@ def test_parallel_dataset(data_config):
     with pytest.raises(ValueError):
         ParallelDataset.Config(**data_config)
     with pytest.raises(NotImplementedError):
-        ParallelDataset.build(
-            config=config, train=True, valid=False, split=0.1
-        )
+        ParallelDataset.build(config=config, train=True, valid=False, split=0.1)
 
     sampler = BatchSampler(
         SequentialSampler(train_dataset), batch_size=8, drop_last=False
