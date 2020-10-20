@@ -15,9 +15,10 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 import logging
+from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional, Union
+from typing import List, Optional, Tuple, Union
 
 import hydra
 import joblib
@@ -81,11 +82,9 @@ class SearchOptions(BaseConfig):
     freeze_epochs: Union[None, List[float], RangeConfig] = RangeConfig(lower=0, upper=5)
     class_weights: Union[None, ClassWeightsConfig] = ClassWeightsConfig()
     sentence_loss_weight: Union[None, List[float], RangeConfig] = None
-    """Specify the ranges to search in."""
-
     hidden_size: Union[None, List[int], RangeConfig] = None
     bottleneck_size: Union[None, List[int], RangeConfig] = None
-    """List the integers to search over."""
+    """Specify the hyperparameters to search over."""
 
     search_method: Literal['random', 'tpe', 'multivariate_tpe'] = 'multivariate_tpe'
     """Use random search or the (multivariate) Tree-structured Parzen Estimator,
@@ -183,6 +182,7 @@ def search_from_configuration(configuration_dict):
 
 
 def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]):
+    """Let the trial suggest a parameter value base on the range configuration."""
     if isinstance(config, list):
         return trial.suggest_categorical(param_name, config)
     elif config.step is not None:
@@ -194,27 +194,44 @@ def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]):
 
 
 class Objective:
-    def __init__(self, config: Configuration, base_config: dict):
+    def __init__(self, config: Configuration, base_config_dict: dict):
         self.config = config
-        self.base_config = base_config
+        self.base_config_dict = base_config_dict
         self.model_paths = []
 
-    def __call__(self, trial) -> float:
-        # Format the main metric name
-        main_metric = 'val_' + '+'.join(self.base_config['trainer']['main_metric'])
+    @property
+    def main_metric(self) -> str:
+        return 'val_' + '+'.join(self.base_config_dict['trainer']['main_metric'])
+
+    @property
+    def num_train_lines(self) -> int:
+        return sum(
+            1 for _ in open(self.base_config_dict['data']['train']['input']['source'])
+        )
+
+    @property
+    def updates_per_epochs(self) -> int:
+        return int(
+            self.num_train_lines
+            / self.base_config_dict['system']['batch_size']['train']
+            / self.base_config_dict['trainer']['gradient_accumulation_steps']
+        )
+
+    @property
+    def best_model_paths(self) -> List[Path]:
+        """Return the model paths sorted from high to low by their objective score."""
+        return list(
+            tuple(zip(*sorted(self.model_paths, key=lambda t: t[1], reverse=True)))[0]
+        )
+
+    def suggest_train_config(self, trial) -> Tuple[train.Configuration, dict]:
+        """Use the trial to suggest values to initialize a training configuration."""
+        base_config_dict = deepcopy(self.base_config_dict)
 
         # Compute the training steps from the training data and set in the base config
-        num_train_lines = sum(
-            1 for _ in open(self.base_config['data']['train']['input']['source'])
-        )
-        updates_per_epochs = int(
-            num_train_lines
-            / self.base_config['system']['batch_size']['train']
-            / self.base_config['trainer']['gradient_accumulation_steps']
-        )
-        self.base_config['system']['optimizer']['training_steps'] = (
-            updates_per_epochs
-        ) * self.base_config['trainer']['epochs']
+        base_config_dict['system']['optimizer']['training_steps'] = (
+            self.updates_per_epochs
+        ) * base_config_dict['trainer']['epochs']
 
         # Collect the values to optimize
         search_values = {}
@@ -223,28 +240,28 @@ class Objective:
             learning_rate = get_suggestion(
                 trial, 'learning_rate', self.config.options.learning_rate
             )
-            self.base_config['system']['optimizer']['learning_rate'] = learning_rate
+            base_config_dict['system']['optimizer']['learning_rate'] = learning_rate
             search_values['learning_rate'] = learning_rate
         # Suggest a dropout probability
         if self.config.options.dropout is not None:
             dropout = get_suggestion(trial, 'dropout', self.config.options.dropout)
-            self.base_config['system']['model']['outputs']['dropout'] = dropout
+            base_config_dict['system']['model']['outputs']['dropout'] = dropout
             if (
-                self.base_config['system']['model']['encoder'].get('dropout')
+                base_config_dict['system']['model']['encoder'].get('dropout')
                 is not None
             ):
-                self.base_config['system']['model']['encoder']['dropout'] = dropout
+                base_config_dict['system']['model']['encoder']['dropout'] = dropout
             if (
-                self.base_config['system']['model']['decoder'].get('dropout')
+                base_config_dict['system']['model']['decoder'].get('dropout')
                 is not None
             ):
-                self.base_config['system']['model']['decoder']['dropout'] = dropout
-            if self.base_config['system']['model']['decoder'].get('source') is not None:
-                self.base_config['system']['model']['decoder']['source'][
+                base_config_dict['system']['model']['decoder']['dropout'] = dropout
+            if base_config_dict['system']['model']['decoder'].get('source') is not None:
+                base_config_dict['system']['model']['decoder']['source'][
                     'dropout'
                 ] = dropout
-            if self.base_config['system']['model']['decoder'].get('target') is not None:
-                self.base_config['system']['model']['decoder']['target'][
+            if base_config_dict['system']['model']['decoder'].get('target') is not None:
+                base_config_dict['system']['model']['decoder']['target'][
                     'dropout'
                 ] = dropout
             search_values['dropout'] = dropout
@@ -253,70 +270,70 @@ class Objective:
             warmup_steps = get_suggestion(
                 trial, 'warmup_steps', self.config.options.warmup_steps
             )
-            self.base_config['system']['optimizer']['warmup_steps'] = warmup_steps
+            base_config_dict['system']['optimizer']['warmup_steps'] = warmup_steps
             search_values['warmup_steps'] = warmup_steps
         # Suggest the number of freeze epochs
         if self.config.options.freeze_epochs is not None:
             freeze_epochs = get_suggestion(
                 trial, 'freeze_epochs', self.config.options.freeze_epochs
             )
-            self.base_config['system']['model']['encoder']['freeze'] = True
-            self.base_config['system']['model']['encoder'][
+            base_config_dict['system']['model']['encoder']['freeze'] = True
+            base_config_dict['system']['model']['encoder'][
                 'freeze_for_number_of_steps'
-            ] = int(updates_per_epochs * freeze_epochs)
+            ] = int(self.updates_per_epochs * freeze_epochs)
             search_values['freeze_epochs'] = freeze_epochs
         # Suggest a hidden size
         if self.config.options.hidden_size is not None:
             hidden_size = get_suggestion(
                 trial, 'hidden_size', self.config.options.hidden_size
             )
-            self.base_config['system']['model']['encoder']['hidden_size'] = hidden_size
-            self.base_config['system']['model']['decoder']['hidden_size'] = hidden_size
+            base_config_dict['system']['model']['encoder']['hidden_size'] = hidden_size
+            base_config_dict['system']['model']['decoder']['hidden_size'] = hidden_size
             search_values['hidden_size'] = hidden_size
         # Suggest a bottleneck size
         if self.config.options.bottleneck_size is not None:
             bottleneck_size = get_suggestion(
                 trial, 'bottleneck_size', self.config.options.bottleneck_size
             )
-            self.base_config['system']['model']['decoder'][
+            base_config_dict['system']['model']['decoder'][
                 'bottleneck_size'
             ] = bottleneck_size
             search_values['bottleneck_size'] = bottleneck_size
         # Suggest whether to use the MLP after the encoder
         if self.config.options.search_mlp:
             use_mlp = trial.suggest_categorical('mlp', [True, False])
-            self.base_config['system']['model']['encoder']['use_mlp'] = use_mlp
+            base_config_dict['system']['model']['encoder']['use_mlp'] = use_mlp
             search_values['use_mlp'] = use_mlp
 
         # Search word_level and sentence_level and their combinations
         # Suggest whether to include the sentence level objective
         if self.config.options.search_hter:
             assert (
-                self.base_config['data']['train']['output']['sentence_scores']
+                base_config_dict['data']['train']['output']['sentence_scores']
                 is not None
             )
             assert (
-                self.base_config['data']['valid']['output']['sentence_scores']
+                base_config_dict['data']['valid']['output']['sentence_scores']
                 is not None
             )
             hter = trial.suggest_categorical('hter', [True, False])
-            self.base_config['system']['model']['outputs']['sentence_level'][
+            base_config_dict['system']['model']['outputs']['sentence_level'][
                 'hter'
             ] = hter
             search_values['hter'] = hter
         # Suggest whether to include the word level objective
         if self.config.options.search_word_level:
             assert (
-                self.base_config['data']['train']['output']['target_tags'] is not None
+                base_config_dict['data']['train']['output']['target_tags'] is not None
             )
             assert (
-                self.base_config['data']['valid']['output']['target_tags'] is not None
+                base_config_dict['data']['valid']['output']['target_tags'] is not None
             )
             word_level = trial.suggest_categorical('word_level', [True, False])
-            self.base_config['system']['model']['outputs']['word_level'][
+            base_config_dict['system']['model']['outputs']['word_level'][
                 'target'
             ] = word_level
-            self.base_config['system']['model']['outputs']['word_level'][
+            base_config_dict['system']['model']['outputs']['word_level'][
                 'gaps'
             ] = word_level
             search_values['word_level'] = word_level
@@ -326,8 +343,8 @@ class Objective:
         #   to weigh the loss of one objective: for the loss it's the ratio between
         #   the two objectives that matters, not the absolute value of one loss
         #   separately.
-        word_level_config = self.base_config['system']['model']['outputs']['word_level']
-        sentence_level_config = self.base_config['system']['model']['outputs'][
+        word_level_config = base_config_dict['system']['model']['outputs']['word_level']
+        sentence_level_config = base_config_dict['system']['model']['outputs'][
             'sentence_level'
         ]
         if (
@@ -338,7 +355,7 @@ class Objective:
             sentence_loss_weight = get_suggestion(
                 trial, 'sentence_loss_weight', self.config.options.sentence_loss_weight
             )
-            self.base_config['system']['model']['outputs'][
+            base_config_dict['system']['model']['outputs'][
                 'sentence_loss_weight'
             ] = sentence_loss_weight
             search_values['sentence_loss_weight'] = sentence_loss_weight
@@ -358,7 +375,7 @@ class Objective:
                     'sentence_loss_weight',
                     self.config.options.sentence_loss_weight,
                 )
-                self.base_config['system']['model']['outputs'][
+                base_config_dict['system']['model']['outputs'][
                     'sentence_loss_weight'
                 ] = sentence_loss_weight
                 search_values['sentence_loss_weight'] = sentence_loss_weight
@@ -377,7 +394,7 @@ class Objective:
                     'class_weight_target_tags',
                     self.config.options.class_weights.target_tags,
                 )
-                self.base_config['system']['model']['outputs']['word_level'][
+                base_config_dict['system']['model']['outputs']['word_level'][
                     'class_weights'
                 ]['target_tags'] = {const.BAD: class_weight_target_tags}
                 search_values['class_weight_target_tags'] = class_weight_target_tags
@@ -387,7 +404,7 @@ class Objective:
                     'class_weight_gap_tags',
                     self.config.options.class_weights.gap_tags,
                 )
-                self.base_config['system']['model']['outputs']['word_level'][
+                base_config_dict['system']['model']['outputs']['word_level'][
                     'class_weights'
                 ]['gap_tags'] = {const.BAD: class_weight_gap_tags}
                 search_values['class_weight_gap_tags'] = class_weight_gap_tags
@@ -400,16 +417,18 @@ class Objective:
                     'class_weight_source_tags',
                     self.config.options.class_weights.source_tags,
                 )
-                self.base_config['system']['model']['outputs']['word_level'][
+                base_config_dict['system']['model']['outputs']['word_level'][
                     'class_weights'
                 ]['source_tags'] = {const.BAD: class_weight_source_tags}
                 search_values['class_weight_source_tags'] = class_weight_source_tags
+        return train.Configuration(**base_config_dict), search_values
 
-        trainconfig = train.Configuration(**self.base_config)
-
+    def __call__(self, trial) -> float:
         # TODO: integrate PTL trainer callback
         # ptl_callback = PyTorchLightningPruningCallback(trial, monitor='val_PEARSON')
         # train_info = train.run(trainconfig, ptl_callback=ptl_callback)
+
+        train_config, search_values = self.suggest_train_config(trial)
 
         logger.info(f'############# STARTING TRIAL {trial.number} #############')
         logger.info(f'PARAMETERS: {search_values}')
@@ -417,13 +436,13 @@ class Objective:
             logger.info(f'{name}: {value}')
 
         try:
-            train_info = train.run(trainconfig)
+            train_info = train.run(train_config)
         except RuntimeError as e:
             logger.info(f'ERROR OCCURED; SKIPPING TRIAL: {e}')
             return -1
 
         logger.info(f'############# TRIAL {trial.number} FINISHED #############')
-        result = train_info.best_metrics.get(main_metric, -1)
+        result = train_info.best_metrics.get(self.main_metric, -1)
         if result == -1:
             logger.error(
                 'Trial did not converge:\n'
@@ -431,23 +450,16 @@ class Objective:
                 f'Setting result to -1'
             )
 
-        logger.info(f'RESULTS: {result} {main_metric}')
+        logger.info(f'RESULTS: {result} {self.main_metric}')
         logger.info(f'MODEL: {train_info.best_model_path}')
         logger.info(f'PARAMETERS: {search_values}')
         for name, value in search_values.items():
             logger.info(f'{name}: {value}')
 
-        # Store the path for later access
+        # Store the checkpoint path for later access
         self.model_paths.append((train_info.best_model_path, result))
 
         return result
-
-    @property
-    def best_model_paths(self) -> List[Path]:
-        """Return the model paths sorted from high to low by their objective score."""
-        return list(
-            tuple(zip(*sorted(self.model_paths, key=lambda t: t[1], reverse=True)))[0]
-        )
 
 
 def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
@@ -512,29 +524,31 @@ def run(config: Configuration):
         base_config = train.Configuration(**base_dict)
     else:
         base_config = config.base_config
-    base_config = base_config.dict()
+    base_config_dict = base_config.dict()
 
     # Perform some checks of the training config
-    use_mlflow = True if base_config['run'].get('use_mlflow') else False
+    use_mlflow = True if base_config_dict['run'].get('use_mlflow') else False
     if not use_mlflow:
         logger.warning(
             'Using MLflow is recommend; set `run.use_mlflow=true` in the base config'
         )
     # The main metric should be explicitly set
-    if base_config['trainer']['main_metric'] is None:
+    if base_config_dict['trainer']['main_metric'] is None:
         raise ValueError(
             'The metric should be explicitly set in `trainer.main_metric` '
             'in the training config (`base_config`).'
         )
     # The main metric(s) should be inside a list
-    if not isinstance(base_config['trainer']['main_metric'], list):
-        base_config['trainer']['main_metric'] = [base_config['trainer']['main_metric']]
+    if not isinstance(base_config_dict['trainer']['main_metric'], list):
+        base_config_dict['trainer']['main_metric'] = [
+            base_config_dict['trainer']['main_metric']
+        ]
 
     # Use the early stopping logic of the Kiwi trainer
-    base_config['trainer']['checkpoint'][
+    base_config_dict['trainer']['checkpoint'][
         'early_stop_patience'
     ] = config.options.patience
-    base_config['trainer']['checkpoint'][
+    base_config_dict['trainer']['checkpoint'][
         'validation_steps'
     ] = config.options.validation_steps
 
@@ -570,7 +584,7 @@ def run(config: Configuration):
         optimize_kwargs['callbacks'] = [optuna.integration.MLflowCallback()]
     try:
         logger.info('Optimizing study...')
-        objective = Objective(config=config, base_config=base_config)
+        objective = Objective(config=config, base_config_dict=base_config_dict)
         study.optimize(
             objective, n_trials=config.num_trials, **optimize_kwargs,
         )

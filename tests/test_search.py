@@ -74,8 +74,9 @@ def test_api(tmp_path, search_config, search_output):
     ] = True
     save_config_to_file(search.Configuration(**search_config), config_file)
 
-    # Check a first run
+    # Perfom a first search run
     search_from_file(config_file)
+    # Check for search output and for training output
     assert set([file.name for file in tmp_path.glob('*')]) == set(
         ['config.yaml', 'search', 'runs']
     )
@@ -84,7 +85,7 @@ def test_api(tmp_path, search_config, search_output):
     # Because `num_models_to_keep=1`, the second model should have been deleted
     assert len([file.name for file in train_dir.glob('checkpoints/*')]) == 1
 
-    # Check a second run with different settings
+    # Perfom a second search run, with different settings
     search_config['base_config']['run']['use_mlflow'] = False
     search_config['options']['search_method'] = 'multivariate_tpe'
     search_config['options']['search_hter'] = False
@@ -98,10 +99,10 @@ def test_api(tmp_path, search_config, search_output):
     search_from_file(config_file)
     assert set([file.name for file in output_dir.glob('*')]) == set(['0', '1'])
 
-    # Check a third time to test the folder backup and load a study
+    # Perfom a third search run, with yet different settings
     #   Create a folder that will clash with the next folder name...
     (output_dir / '3').mkdir(parents=True)
-    #   ...and oad the previous study.
+    #   ...and load the previous study.
     search_config['load_study'] = output_dir / '0' / 'study.pkl'
     save_config_to_file(search.Configuration(**search_config), config_file)
     search_from_file(config_file)
@@ -109,7 +110,7 @@ def test_api(tmp_path, search_config, search_output):
     assert '0' in folders
     assert '1' in folders
     assert '3' in folders
-    # Check backup logic
+    # Check the folder backup system
     assert sum(folder.startswith('3_backup_') for folder in folders) == 1
 
 
