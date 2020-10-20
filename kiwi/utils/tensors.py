@@ -49,10 +49,6 @@ def convolve_tensor(sequences, window_size, pad_value=0):
     t = F.pad(sequences, pad=pad, value=pad_value)
     t = t.unfold(1, window_size, 1)
 
-    # For 3D tensors
-    # torch.nn.ConstantPad2d((0, 0, 1, 1), 0)(x).unfold(1, 3, 1)
-    # F.pad(x, (0, 0, 1, 1), value=0).unfold(1, 3, 1)
-
     return t
 
 
@@ -128,8 +124,6 @@ def sequence_mask(lengths: torch.LongTensor, max_len: Optional[int] = None):
     """
     if max_len is None:
         max_len = lengths.max()
-    # aranges = torch.arange(max_len).repeat(lengths.size(0), 1)
-    # mask = aranges < lengths.unsqueeze(1)
     # This is equivalent
     mask = torch.arange(max_len, device=lengths.device)[None, :] < lengths[:, None]
     return mask

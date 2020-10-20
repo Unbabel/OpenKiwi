@@ -71,11 +71,6 @@ class NuQE(QESystem):
             self.data_encoders.load_vocabularies(self.config.load_vocabs)
         if self.train_dataset:
             self.data_encoders.fit_vocabularies(self.train_dataset)
-        # else:
-        #     raise ValueError(
-        #         'No training data available and no pretrained vocabulary loaded; '
-        #         'pass a data configuration or `load_vocabs`'
-        #     )
 
         # Input to features
         if not self.encoder:

@@ -67,12 +67,6 @@ from kiwi.lib import evaluate, predict, pretrain, train
 def arguments_to_configuration(arguments: Dict) -> Dict:
     config_file = Path(arguments['CONFIG_FILE'])
 
-    # # Using OmegaConf
-    # config_dict = load_config(config_file)
-    # # Update config from command line arguments
-    # config = OmegaConf.create(config_dict)
-    # config.merge_with_dotlist(arguments.get('OVERWRITES', []))
-
     # Using Hydra
     relative_dir = Path(
         os.path.relpath(config_file.resolve().parent, start=Path(__file__).parent)
@@ -86,12 +80,10 @@ def arguments_to_configuration(arguments: Dict) -> Dict:
     config = hydra.experimental.compose(
         config_file=config_file.name, overrides=arguments.get('OVERWRITES', [])
     )
-    # print(config.pretty())
 
     # Back to a dictionary
     config_dict = OmegaConf.to_container(config)
 
-    # config_dict['anchor_directory'] = config_file.parent
     config_dict['verbose'] = arguments.get('--verbose')
     config_dict['quiet'] = arguments.get('--quiet')
 

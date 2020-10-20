@@ -82,8 +82,6 @@ class MLPScorer(Scorer):
         layers = []
         for n_in, n_out in sizes:
             layers.append(nn.Sequential(nn.Linear(n_in, n_out), activation()))
-            # layers.append(nn.Linear(n_in, n_out))
-            # layers.append(activation())
         self.layers = nn.ModuleList(layers)
 
     def forward(self, query, keys):

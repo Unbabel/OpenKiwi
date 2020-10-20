@@ -199,24 +199,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
             self.data_config = data_config
             self.prepare_data()
 
-    # @property
-    # def vocabs(self):
-    #     return self.data_encoders.vocabularies
-
-    # @property
-    # def hparams(self):
-    #     """This is a hack in order to have PyTorch-Lightning saving the config inside
-    #     a checkpoint.
-    #     """
-    #     # This works better than self.config.dict() because the later doesn't convert
-    #     # PosixPath to str.
-    #     config_dict = json.loads(self.config.json())
-    #     return SimpleNamespace(**config_dict)  # PTL is going to call `vars(hparams)`
-
-    # @hparams.setter
-    # def hparams(self, hparams):
-    #     self._hparams = hparams
-
     def prepare_data(self):
         """Initialize the data sources the model will use to create the data loaders."""
 
@@ -275,10 +257,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
             SequentialSampler(self.valid_dataset),
             batch_size=self.config.batch_size.valid,
             drop_last=False,
-            # sort_key=train_dataset.sort_key,
-            # biggest_batches_first=True,
-            # bucket_size_multiplier=model_options.__dict__.get('buffer_size'),
-            # shuffle=True,
         )
         return torch.utils.data.DataLoader(
             self.valid_dataset,
@@ -311,15 +289,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
             collate_fn=self.data_encoders.collate_fn,
             pin_memory=torch.cuda.is_initialized(),  # NOQA
         )
-
-    # def make_test_dataloader(
-    #     self,
-    #     samples: Dict[str, Iterable[str]],
-    #     batch_size: int = 1,
-    #     num_workers: int = 0,
-    # ):
-    #     dataset = WMTQEDataset(samples)
-    #     return self.prepare_dataloader(dataset, batch_size, num_workers)
 
     def forward(self, batch_inputs):
         encoder_features = self.encoder(batch_inputs)
@@ -365,13 +334,7 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
         for metric in summary:
             summary[metric] = summary[metric] / len(outputs)
         main_metric_dict = {self._main_metric_name: summary[self._main_metric_name]}
-        return dict(
-            loss=loss_avg,
-            # metrics=summary,
-            log=summary,
-            progress_bar=main_metric_dict,
-            # **main_metric_dict,
-        )
+        return dict(loss=loss_avg, log=summary, progress_bar=main_metric_dict,)
 
     def validation_step(self, batch, batch_idx):
         model_out = self(batch)
@@ -574,7 +537,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
                 'class_name': self.__class__.__name__,
                 'config': json.loads(self.config.json()),  # Round-trip to remove nests
                 'vocab': self.data_encoders.vocabularies,
-                # 'data_encoders': self.data_encoders.to_dict(),
                 'encoder': self.encoder.to_dict(),
                 'decoder': self.decoder.to_dict(),
                 'outputs': self.outputs.to_dict(),

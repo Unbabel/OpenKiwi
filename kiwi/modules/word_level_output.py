@@ -45,18 +45,6 @@ class WordLevelOutput(nn.Module):
         nn.init.xavier_uniform_(self.linear.weight)
         nn.init.constant_(self.linear.bias, 0.0)
 
-        # nn.init.xavier_uniform_(self.outputs[const.TARGET_TAGS].weight)
-        # size = math.sqrt(
-        #     3.0 / nn.init._calculate_fan_in_and_fan_out(
-        #         self.outputs[const.TARGET_TAGS].weight
-        #     )
-        # )
-        # nn.init.uniform_(
-        #     self.outputs[const.TARGET_TAGS].weight, -1, 1
-        # )
-        # nn.init.constant_(self.outputs[const.TARGET_TAGS].bias, 0.)
-        # nn.init.normal_(self.outputs[const.TARGET_TAGS].bias)
-
     def forward(self, features_tensor, batch_inputs=None):
         logits = self.linear(features_tensor)
         logits = logits[:, self.start_pos : self.stop_pos]

@@ -56,9 +56,6 @@ class NuQETargetDecoder(nn.Module):
         self.dropout_out = nn.Dropout(self.config.dropout)
 
         # Explicit initializations
-        # nn.init.xavier_uniform_(
-        #     self.linear_in.weight, gain=nn.init.calculate_gain('relu')
-        # )
         nn.init.xavier_uniform_(self.linear_in.weight)
         nn.init.xavier_uniform_(self.linear_2.weight)
         nn.init.xavier_uniform_(self.linear_3.weight)
@@ -128,7 +125,6 @@ class NuQESourceDecoder(nn.Module):
 
         l1_dim = self.config.hidden_sizes[0]
         l2_dim = self.config.hidden_sizes[1]
-        # l3_dim = self.config.hidden_sizes[2]
         l4_dim = self.config.hidden_sizes[3]
         self._size = l4_dim
 
@@ -141,9 +137,6 @@ class NuQESourceDecoder(nn.Module):
         self.linear_source_3 = nn.Linear(2 * l2_dim, l2_dim)
         self.linear_source_6 = nn.Linear(l2_dim, l4_dim)
         self.gru_source_1 = nn.GRU(l1_dim, l2_dim, bidirectional=True, batch_first=True)
-        # self.gru_source_2 = nn.GRU(
-        #     l2_dim, l2_dim, bidirectional=True, batch_first=True
-        # )
 
         nn.init.xavier_uniform_(self.linear_source_target.weight)
         nn.init.xavier_uniform_(self.linear_target_source.weight)
@@ -163,27 +156,16 @@ class NuQESourceDecoder(nn.Module):
         self._activation_fn = torch.relu
 
     def forward(self, features, batch_inputs):
-        # alignments = batch_inputs[const.ALIGNMENTS]
-        # h_target = features[const.TARGET]
-        # h_target = h_target[..., 1, None]
-        # aligned_target = torch.matmul(alignments.float(), h_target)
-
         h_source = features[const.SOURCE]
-        # h_source += aligned_target
 
         h_source = self.linear_source_in(h_source)
-        # h_source += aligned_target.expand_as(h_source)
         h_source = self._activation_fn(h_source)  # This improves
-        # h_source += aligned_target
 
         h_source = self._activation_fn(self.linear_source_2(h_source))
         h_source, _ = self.gru_source_1(h_source)
         h_source = self._activation_fn(self.linear_source_3(h_source))
 
         h_source = self._activation_fn(self.linear_source_6(h_source))
-
-        # h_source += aligned_target[..., 1, None]
-        # h_source += aligned_target
 
         return h_source
 
@@ -211,15 +193,6 @@ class NuQEDecoder(MetaModule):
         self.decoders[const.SOURCE] = NuQESourceDecoder(
             input_dim=self.features_dims[const.SOURCE], config=self.config.source
         )
-
-        # self.start = nn.Parameter(
-        #     torch.zeros(1, 1, self.features_dims[const.TARGET]), requires_grad=True
-        # )
-        # self.end = nn.Parameter(
-        #     torch.zeros(1, 1, self.features_dims[const.TARGET]), requires_grad=True
-        # )
-
-        # self.unaligned = nn.Parameter(torch.ones(l4_dim))
 
         self._sizes = {
             const.TARGET: self.decoders[const.TARGET].size(),

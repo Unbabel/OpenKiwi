@@ -15,7 +15,6 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 import math
-from distutils.util import strtobool
 
 from torch import nn
 
@@ -35,64 +34,6 @@ class TokenEmbeddings(nn.Module):
         sparse_embeddings: bool = False
         scale_embeddings: bool = False
         input_layer_norm: bool = False
-
-        @staticmethod
-        def add_cli_args(parent_parser):
-            group = parent_parser.add_argument_group('encoder hyper-parameters')
-
-            group.add_argument(
-                '--freeze-embeddings',
-                type=lambda x: bool(strtobool(x)),
-                nargs='?',
-                const=True,
-                default=False,
-                help='Freeze embedding weights during training.',
-            )
-            # group.add_argument(
-            #     '--embeddings-dropout',
-            #     type=float,
-            #     default=0.0,
-            #     help='Dropout rate for embedding layers.',
-            # )
-            group.add_argument(
-                '--sparse-embeddings',
-                type=lambda x: bool(strtobool(x)),
-                nargs='?',
-                const=True,
-                default=False,
-                help='Whether to have sparse embedding vectors.',
-            )
-            group.add_argument(
-                '--scale-embeddings',
-                type=lambda x: bool(strtobool(x)),
-                nargs='?',
-                const=True,
-                default=False,
-                help='Whether to scale embeddings by sqrt(hidden_size)'
-                'before applying positional encoding.',
-            )
-            group.add_argument(
-                '--use-position-embeddings',
-                type=lambda x: bool(strtobool(x)),
-                nargs='?',
-                const=True,
-                default=False,
-                help='Whether to use positional embeddings.',
-            )
-            group.add_argument(
-                '--max-position-embeddings',
-                type=int,
-                default=4000,
-                help='Maximum length of positional encoding.',
-            )
-            group.add_argument(
-                '--input-layer-norm',
-                type=lambda x: bool(strtobool(x)),
-                nargs='?',
-                const=True,
-                default=False,
-                help='Whether to apply layer normalization for embedding vectors',
-            )
 
     def __init__(self, num_embeddings: int, pad_idx: int, config: Config, vectors=None):
         """A model for embedding a single type of tokens."""
@@ -123,7 +64,6 @@ class TokenEmbeddings(nn.Module):
 
         if config.freeze:
             self.embedding.weight.requires_grad = False
-            # self.embedding.bias.requires_grad = False
 
         self.dropout = nn.Dropout(config.dropout)
 
@@ -161,9 +101,4 @@ class TokenEmbeddings(nn.Module):
 
         embeddings = self.dropout(embeddings)
 
-        # FIXME: this is deprecated; use BatchedSentence.strict_masks
-        # mask = self.get_mask(batch_input)
-        # mask = retrieve_tokens_mask(batch_input)
-
         return embeddings
-        # return embeddings, mask
