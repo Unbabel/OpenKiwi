@@ -60,6 +60,16 @@ class OptimizerConfig(BaseConfig):
 
     load: Path = None
 
+    @validator('warmup_steps', pre=False)
+    def cast_steps(cls, v):
+        if v is not None:
+            if 0 <= v <= 1:
+                return float(v)
+            elif float(v) == int(v):
+                return int(v)
+            else:
+                return float(v)
+        return v
 
 def get_noam_decay_schedule(
     optimizer: Optimizer, num_warmup_steps: int, model_size: int
