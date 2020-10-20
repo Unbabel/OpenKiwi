@@ -92,4 +92,3 @@ class MLPScorer(Scorer):
         for layer in self.layers:
             x = layer(x)
         return x.squeeze(-1)  # remove last dimension
-
