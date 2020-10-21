@@ -49,53 +49,13 @@ Options:
     --example             print an example configuration file
 
 """
-import os.path
 import sys
-from pathlib import Path
-from typing import Dict
 
-import hydra.experimental
-import hydra.utils
 from docopt import docopt
-from hydra._internal.hydra import Hydra
-from omegaconf import OmegaConf
 
 from kiwi import __version__
 from kiwi.lib import evaluate, predict, pretrain, train
-
-
-def arguments_to_configuration(arguments: Dict) -> Dict:
-    config_file = Path(arguments['CONFIG_FILE'])
-
-    # # Using OmegaConf
-    # config_dict = load_config(config_file)
-    # # Update config from command line arguments
-    # config = OmegaConf.create(config_dict)
-    # config.merge_with_dotlist(arguments.get('OVERWRITES', []))
-
-    # Using Hydra
-    relative_dir = Path(
-        os.path.relpath(config_file.resolve().parent, start=Path(__file__).parent)
-    )
-    Hydra.create_main_hydra_file_or_module(
-        calling_file=__file__,
-        calling_module=None,
-        config_dir=str(relative_dir),
-        strict=False,
-    )
-    config = hydra.experimental.compose(
-        config_file=config_file.name, overrides=arguments.get('OVERWRITES', [])
-    )
-    # print(config.pretty())
-
-    # Back to a dictionary
-    config_dict = OmegaConf.to_container(config)
-
-    # config_dict['anchor_directory'] = config_file.parent
-    config_dict['verbose'] = arguments.get('--verbose')
-    config_dict['quiet'] = arguments.get('--quiet')
-
-    return config_dict
+from kiwi.lib.utils import arguments_to_configuration
 
 
 def cli():

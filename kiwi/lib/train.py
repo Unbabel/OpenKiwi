@@ -34,7 +34,7 @@ from kiwi.lib.predict import load_system
 from kiwi.lib.utils import (
     configure_logging,
     configure_seed,
-    load_config,
+    file_to_configuration,
     save_config_to_file,
 )
 from kiwi.loggers import MLFlowTrackingLogger
@@ -232,7 +232,7 @@ def train_from_file(filename) -> TrainRunInfo:
     Return:
         an object with training information.
     """
-    config = load_config(filename)
+    config = file_to_configuration(filename)
     return train_from_configuration(config)
 
 
