@@ -185,14 +185,9 @@ class TagEncoder(TextEncoder):
             eos_token=None,
             unaligned_token=None,
             specials_first=False,
-            # postprocessing=postprocessing,
             include_lengths=include_lengths,
             include_bounds=False,
         )
-
-    # def encode(self, example):
-    #     ids, _ = super().encode(example)
-    #     return ids
 
 
 class InputEncoder:
@@ -210,7 +205,6 @@ class ScoreEncoder(InputEncoder):
         return torch.tensor(casted, dtype=self.dtype)
 
     def batch_encode(self, iterator):
-        # batch = [self.encode(example) for example in iterator]
         return torch.tensor([self.encode(example) for example in iterator])
 
 

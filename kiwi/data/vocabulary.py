@@ -165,15 +165,7 @@ class Vocabulary:
 
         self.vectors = None
         if vectors is not None:
-            # self.load_vectors(vectors, unk_init=unk_init, cache=vectors_cache)
             raise NotImplementedError('Loading pretrained embeddings is not supported')
-        # else:
-        #     assert unk_init is None and vectors_cache is None
-
-    # def __eq__(self, other):
-    #     if other is None:
-    #         return False
-    #     return super().__eq__(other)
 
     def token_to_id(self, token):
         token_id = self.stoi.get(token)
@@ -230,8 +222,6 @@ class Vocabulary:
         else:
             self.itos = {i: s for i, s in self.itos.items() if i < max_size}
             self.stoi = {s: i for i, s in self.itos.items()}
-        # self.counts = {k: v for k, v in self.counts.items() if k in self.stoi}
-        # self.check_valid()
         logger.info(
             f"Maximum vocabulary size: {max_size:d}. "
             f"Dictionary size: {init_size:d} -> {len(self):d} "
@@ -252,18 +242,5 @@ class Vocabulary:
         # it here.
 
         self.__dict__.update(state)
-        # if 'stoi' not in state:
-        #     # stoi is simply a reverse dict for itos
-        #     if isinstance(self.itos, dict):
-        #         # Special case for BERT vocabularies
-        #         self.stoi = DefaultFrozenDict(
-        #             zip(self.itos.values(), self.itos.keys()),
-        #             default_key=self.unk_token,
-        #         )
-        #     else:
-        #         self.stoi = DefaultFrozenDict(
-        #             {tok: i for i, tok in enumerate(self.itos)},
-        #             default_key=self.unk_token,
-        #         )
 
         self.vectors = None

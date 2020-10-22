@@ -14,12 +14,9 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-import shutil
-
 import pytest
 import yaml
 from transformers import XLMConfig, XLMModel, XLMTokenizer
-from transformers.tokenization_xlm import VOCAB_FILES_NAMES
 
 from conftest import check_computation
 from kiwi import constants as const
@@ -135,7 +132,6 @@ def test_computation_target(
     train_config['data'] = data_config
     train_config['system'] = xlm_config_dict
 
-    # shutil.copy2(xlm_model_dir / VOCAB_FILES_NAMES['vocab_file'], tmp_path)
     xlm_model.save_pretrained(tmp_path)
     xlm_tokenizer.save_pretrained(tmp_path)
     train_config['system']['model']['encoder']['model_name'] = str(tmp_path)

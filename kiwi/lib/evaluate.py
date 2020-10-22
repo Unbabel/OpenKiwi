@@ -48,17 +48,17 @@ logger = logging.getLogger(__name__)
 
 class OutputConfig(wmt_qe_dataset.OutputConfig):
     gap_tags: Optional[FilePath] = None
-    '''Path to label file for gaps (only for predictions)'''
+    """Path to label file for gaps (only for predictions)."""
     targetgaps_tags: Optional[FilePath] = None
-    '''Path to label file for target+gaps (only for predictions)'''
+    """Path to label file for target+gaps (only for predictions)."""
 
 
 class Configuration(BaseConfig):
     gold_files: wmt_qe_dataset.OutputConfig
     predicted_files: Optional[List[OutputConfig]]
     predicted_dir: Optional[List[Path]] = None
-    '''One or more directories from where to read predicted files (using standard output
-    names.'''
+    """One or more directories from where to read predicted files (using standard output
+    names."""
 
     @validator(
         'predicted_files', 'predicted_dir', pre=True, always=False, each_item=False

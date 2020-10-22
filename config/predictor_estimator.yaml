@@ -1,5 +1,5 @@
 run:
-    experiment_name: PredictorEstimator WMT19 Target en_de.nmt
+    experiment_name: PredictorEstimator WMT20 Target en_de.nmt
     seed: 42
     mlflow_tracking_uri: mlruns/
     # output_dir: runs/predictor-estimator  # mlflow will create one if this is null
@@ -22,7 +22,7 @@ trainer:
         early_stop_patience: 8
 
 defaults:
-    - data: wmt19.qe.en_de
+    - data: wmt20.qe.en_de
 
 system:
     class_name: PredictorEstimator
@@ -74,7 +74,7 @@ system:
             fine_tune: true
 
     optimizer:
-        class_name: dense_sparse_adam
+        class_name: adam
         learning_rate: 0.001
         learning_rate_decay: 0.6
         learning_rate_decay_start: 2

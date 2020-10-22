@@ -44,7 +44,7 @@ class InputEmbeddingsConfig(BaseConfig):
 class QUETCHEncoder(MetaModule):
     class Config(BaseConfig):
         window_size: int = 3
-        'Size of sliding window.'
+        """Size of sliding window."""
 
         embeddings: InputEmbeddingsConfig
 

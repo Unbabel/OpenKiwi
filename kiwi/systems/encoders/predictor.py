@@ -227,21 +227,21 @@ class PredictorEncoder(MetaModule):
         encode_source: bool = False
 
         hidden_size: int = 400
-        'Size of hidden layers in LSTM'
+        """Size of hidden layers in LSTM."""
 
         rnn_layers: int = 3
-        'Number of RNN layers in the Predictor'
+        """Number of RNN layers in the Predictor."""
 
         dropout: float = 0.0
 
         share_embeddings: bool = False
-        'Tie input and output embeddings for target.'
+        """Tie input and output embeddings for target."""
 
         out_embeddings_dim: Optional[int] = None
-        'Word Embedding in Output layer'
+        """Word Embedding in Output layer."""
 
         use_mismatch_features: bool = False
-        "Whether to use Alibaba's mismatch features."
+        """Whether to use Alibaba's mismatch features."""
 
         embeddings: InputEmbeddingsConfig = InputEmbeddingsConfig()
 
@@ -251,7 +251,8 @@ class PredictorEncoder(MetaModule):
         embeddings for applying the backward LSTM (also short by 2). This flag is set
         to true when loading a saved model from those versions."""
         v0_start_stop: bool = False
-        'Whether pre_qe_f_v is padded on both ends or post_qe_f_v is strip on both ends'
+        """Whether pre_qe_f_v is padded on both ends or
+        post_qe_f_v is strip on both ends."""
 
         @validator('dropout', pre=True)
         def dropout_on_rnns(cls, v, values):
@@ -344,37 +345,6 @@ class PredictorEncoder(MetaModule):
             const.PE_LOGITS: self.output_embeddings[const.TARGET].num_embeddings,
         }
 
-        # For multi-tasking on source side
-        # if self.config.encode_source:
-        #     if self.config.share_embeddings:
-        #         self.output_embeddings[const.SOURCE] = (
-        #             self.embeddings[const.SOURCE].embedding
-        #         )
-        #     else:
-        #         self.output_embeddings[const.SOURCE] = nn.Embedding(
-        #             num_embeddings=self.embeddings[const.SOURCE].vocab_size(),
-        #             embedding_dim=self.config.out_embeddings_dim,
-        #             padding_idx=self.embeddings[const.SOURCE].pad_idx,
-        #         )
-        #
-        #     self.encode_source = PredictorSourceEncoder(
-        #         hidden_size=self.config.hidden_size
-        #     )
-        #
-        #     # Don't initialize this (TODO: but check what happens)
-        #     self.start_PreQEFV_source = nn.Parameter(
-        #         torch.zeros(1, 1, self.output_embeddings[const.SOURCE].size(0)),
-        #         requires_grad=True
-        #     )
-        #     self.end_PreQEFV_source = nn.Parameter(
-        #         torch.zeros(1, 1, self.output_embeddings[const.SOURCE].size(0)),
-        #         requires_grad=True
-        #     )
-        #     self._sizes[const.SOURCE] = (
-        #         self.output_embeddings[const.SOURCE].size(0)\
-        #         + 2 * self.config.hidden_size
-        #     )
-
     @classmethod
     def input_data_encoders(cls, config: Config):
         return None  # Use defaults, i.e., TextEncoder
@@ -450,68 +420,5 @@ class PredictorEncoder(MetaModule):
             output_features[const.PE_LOGITS] = torch.einsum(
                 'vh,bsh->bsv', [self.output_embeddings[const.TARGET].weight, f]
             )
-
-        # if self.config.predict_source:
-        #     f, backward_contexts, forward_contexts = self.encode_source(
-        #         target_embeddings,
-        #         target_lengths,
-        #         target_attention_mask,
-        #         source_embeddings,
-        #         source_lengths,
-        #     )
-        #
-        #     if output_logits:
-        #         logits = torch.einsum(
-        #             'vh,bsh->bsv', [self.output_embeddings.weight, f]
-        #         )
-        #         return logits
-        #     else:
-        #         if self.config.predict_source:
-        #             field_ids = input_ids[const.SOURCE]
-        #         else:
-        #             field_ids = input_ids[const.TARGET]
-        #         if isinstance(field_ids, tuple):
-        #             raise DeprecationWarning
-        #             # field_ids, _field_lengths = field_ids
-        #         elif isinstance(field_ids, BatchedSentence):
-        #             field_ids = field_ids.tensor
-        #
-        #         PreQEFV = torch.einsum(
-        #             'bsh,bsh->bsh', [self.output_embeddings(field_ids[:, 1:-1]), f]
-        #         )
-        #         start = self.start_PreQEFV.expand(PreQEFV.size(0), -1, -1)
-        #         end = self.end_PreQEFV.expand(PreQEFV.size(0), -1, -1)
-        #         PreQEFV = torch.cat((start, PreQEFV, end), dim=1)
-        #
-        #         PostQEFV = torch.cat([forward_contexts, backward_contexts], dim=-1)
-        #
-        #         features = torch.cat([PreQEFV, PostQEFV], dim=-1)
-        #         return features
-
-        # if use_mismatch_features:
-        #     logits = torch.einsum('vh,bsh->bsv', [self.output_embeddings.weight, f])
-        #
-        #     # get target and prediction ids (this target doesnt mean mt)
-        #     target = field_ids[:, 1:-1]
-        #     pred = torch.argmax(logits, dim=-1)
-        #
-        #     # calculate mismatch features and concat them
-        #     t_max = torch.gather(logits, -1, target.unsqueeze(-1))
-        #     p_max = torch.gather(logits, -1, pred.unsqueeze(-1))
-        #     diff_max = t_max - p_max
-        #     diff_arg = (target != pred).float().unsqueeze(-1)
-        #     mismatch = torch.cat((t_max, p_max, diff_max, diff_arg), dim=-1)
-        #
-        #     # add a start and end token to mismatch features
-        #     start = torch.zeros(
-        #         (mismatch.size(0), 1, mismatch.size(-1)), device=mismatch.device
-        #     )
-        #     end = torch.zeros(
-        #         (mismatch.size(0), 1, mismatch.size(-1)), device=mismatch.device
-        #     )
-        #     mismatch = torch.cat((start, mismatch, end), dim=1)
-        #
-        #     # concat mismatch features with predictor features
-        #     features = torch.cat((features, mismatch), dim=-1)
 
         return output_features

@@ -17,28 +17,23 @@
 from torch import nn as nn
 
 from kiwi.modules.common.distributions import TruncatedNormal
-from kiwi.utils.tensors import feedforward, sequence_mask
+from kiwi.modules.common.feedforward import feedforward
+from kiwi.utils.tensors import sequence_mask
 
 
 class SentenceFromLogits(nn.Module):
     def __init__(self):
         super().__init__()
-        # self.dropout = nn.Dropout(0.25)
         self.linear_out = nn.Linear(2, 1)
         nn.init.xavier_uniform_(self.linear_out.weight)
         nn.init.constant_(self.linear_out.bias, 0.0)
 
-        # self.loss_fn = nn.MSELoss(reduction='sum')
         self._loss_fn = nn.BCEWithLogitsLoss(reduction='sum')
 
     def forward(self, inputs, lengths):
-        # inputs = torch.softmax(inputs, dim=-1)
-        # inputs = self.dropout(inputs)
         mask = sequence_mask(lengths, max_len=inputs.size(1)).float()
         average = (inputs * mask[..., None]).sum(1) / lengths[:, None].float()
         h = self.linear_out(average)
-        # h = torch.sigmoid(h)
-        # return average[:, 1]  # Only BAD mean logit
         return h
 
     def loss_fn(self, predicted, target):
@@ -102,8 +97,6 @@ class SentenceScoreDistribution(nn.Module):
         _, (mu, sigma) = predicted
         # Compute log-likelihood of x given mu, sigma
         dist = TruncatedNormal(mu, sigma + 1e-12, 0.0, 1.0)
-        # dist = Normal(mu, sigma + 1e-12)
-        # dist = HalfNormal(mu + 1e-12)
         nll = -dist.log_prob(target)
         return nll.sum()
 
@@ -114,8 +107,6 @@ class SentenceScoreDistribution(nn.Module):
         dist = TruncatedNormal(
             mu.clone().detach(), sigma.clone().detach() + 1e-12, 0.0, 1.0
         )
-        # dist = Normal(mu.clone().detach(), sigma.clone().detach())
-        # dist = HalfNormal(mu.clone().detach())
         sentence_scores = dist.mean
         return sentence_scores.squeeze(), (mu, sigma)
 

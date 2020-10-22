@@ -18,10 +18,11 @@ import logging
 import math
 from pathlib import Path
 from statistics import mode
-from typing import Any, Callable, Iterable, Iterator, List, Tuple, Union
+from typing import Any, Iterator, List, Tuple, Union
 
 import torch
 import torch.optim
+from pydantic import validator
 from torch.nn import Parameter
 from torch.optim.lr_scheduler import LambdaLR, ReduceLROnPlateau
 from torch.optim.optimizer import Optimizer
@@ -60,140 +61,16 @@ class OptimizerConfig(BaseConfig):
 
     load: Path = None
 
-
-class DenseSparseAdam(Optimizer):
-    # pylint: disable=protected-access,cell-var-from-loop
-    # pylint: disable=unneeded-not,misplaced-comparison-constant
-    # pylint: disable=len-as-condition,invalid-name,
-    # anomalous-backslash-in-string
-    """Adam optimizer combining its dense and sparse versions.
-
-    This class has been copied from AllenNLP:
-    https://github.com/allenai/allennlp/blob/v0.7.2/allennlp/training/optimizers.py
-
-    NOTE: This class has been copied verbatim from the separate Dense and
-    Sparse versions of Adam in Pytorch.
-    Implements Adam algorithm with dense & sparse gradients.
-    It has been proposed in Adam: A Method for Stochastic Optimization.
-
-    Arguments:
-        params (iterable): iterable of parameters to optimize or dicts defining
-            parameter groups.
-        lr: the learning rate.
-        betas: coefficients used for computing running averages of gradient and its
-            square.
-        eps: A term added to the denominator to improve numerical stability.
-
-    """
-
-    def __init__(
-        self,
-        params: Iterable,
-        lr: float = 1e-3,
-        betas: Tuple[float, float] = (0.9, 0.999),
-        eps: float = 1e-8,
-    ):
-        if not 0.0 <= lr:
-            raise ValueError("Invalid learning rate: {}".format(lr))
-        if not 0.0 <= eps:
-            raise ValueError("Invalid epsilon value: {}".format(eps))
-        if not 0.0 <= betas[0] < 1.0:
-            raise ValueError("Invalid beta parameter at index 0: {}".format(betas[0]))
-        if not 0.0 <= betas[1] < 1.0:
-            raise ValueError("Invalid beta parameter at index 1: {}".format(betas[1]))
-        defaults = dict(lr=lr, betas=betas, eps=eps)
-        super(DenseSparseAdam, self).__init__(params, defaults)
-
-    def step(self, closure: Callable = None):
-        """Performs a single optimization step.
-
-        Arguments:
-            closure: a closure that reevaluates the model and returns the loss.
-        """
-        loss = None
-        if closure is not None:
-            loss = closure()
-
-        for group in self.param_groups:
-            for p in group['params']:
-                if p.grad is None:
-                    continue
-                grad = p.grad.data
-
-                state = self.state[p]
-
-                # State initialization
-                if len(state) == 0:
-                    state['step'] = 0
-                    # Exponential moving average of gradient values
-                    state['exp_avg'] = torch.zeros_like(p.data)
-                    # Exponential moving average of squared gradient values
-                    state['exp_avg_sq'] = torch.zeros_like(p.data)
-
-                state['step'] += 1
-
-                exp_avg, exp_avg_sq = state['exp_avg'], state['exp_avg_sq']
-                beta1, beta2 = group['betas']
-
-                if grad.is_sparse:
-                    grad = grad.coalesce()  # the update is non-linear so
-                    # indices must be unique
-                    grad_indices = grad._indices()
-                    grad_values = grad._values()
-                    size = grad.size()
-
-                    def make_sparse(values):
-                        constructor = grad.new
-                        if grad_indices.dim() == 0 or values.dim() == 0:
-                            return constructor().resize_as_(grad)
-                        return constructor(grad_indices, values, size)
-
-                    # Decay the first and second moment running average
-                    # coefficient
-                    #      old <- b * old + (1 - b) * new
-                    # <==> old += (1 - b) * (new - old)
-                    old_exp_avg_values = exp_avg.sparse_mask(grad)._values()
-                    exp_avg_update_values = grad_values.sub(old_exp_avg_values).mul_(
-                        1 - beta1
-                    )
-                    exp_avg.add_(make_sparse(exp_avg_update_values))
-                    old_exp_avg_sq_values = exp_avg_sq.sparse_mask(grad)._values()
-                    exp_avg_sq_update_values = (
-                        grad_values.pow(2).sub_(old_exp_avg_sq_values).mul_(1 - beta2)
-                    )
-                    exp_avg_sq.add_(make_sparse(exp_avg_sq_update_values))
-
-                    # Dense addition again is intended, avoiding another
-                    # _sparse_mask
-                    numer = exp_avg_update_values.add_(old_exp_avg_values)
-                    exp_avg_sq_update_values.add_(old_exp_avg_sq_values)
-                    denom = exp_avg_sq_update_values.sqrt_().add_(group['eps'])
-                    del exp_avg_update_values, exp_avg_sq_update_values
-
-                    bias_correction1 = 1 - beta1 ** state['step']
-                    bias_correction2 = 1 - beta2 ** state['step']
-                    step_size = (
-                        group['lr'] * math.sqrt(bias_correction2) / bias_correction1
-                    )
-
-                    p.data.add_(make_sparse(-step_size * numer.div_(denom)))
-
-                else:
-                    # Decay the first and second moment running average
-                    # coefficient
-                    exp_avg.mul_(beta1).add_(1 - beta1, grad)
-                    exp_avg_sq.mul_(beta2).addcmul_(1 - beta2, grad, grad)
-                    denom = exp_avg_sq.sqrt().add_(group['eps'])
-
-                    bias_correction1 = 1 - beta1 ** state['step']
-                    bias_correction2 = 1 - beta2 ** state['step']
-                    step_size = (
-                        group['lr'] * math.sqrt(bias_correction2) / bias_correction1
-                    )
-
-                    p.data.addcdiv_(-step_size, exp_avg, denom)
-
-        return loss
+    @validator('warmup_steps', pre=False)
+    def cast_steps(cls, v):
+        if v is not None:
+            if 0 <= v <= 1:
+                return float(v)
+            elif float(v) == int(v):
+                return int(v)
+            else:
+                return float(v)
+        return v
 
 
 def get_noam_decay_schedule(
@@ -210,6 +87,7 @@ def get_noam_decay_schedule(
 
     def lr_lambda(current_step: int) -> float:
         """Compute a multiplicative factor given an integer parameter epoch."""
+        current_step += 1
         sqrt_model_size = math.pow(float(model_size), -0.5)
         sqrt_warmup_steps = math.pow(float(num_warmup_steps), -1.5)
         sqrt_step = math.pow(float(current_step), -0.5)
@@ -224,7 +102,6 @@ OPTIMIZERS_MAPPING = {
     'adam': torch.optim.Adam,
     'noam': torch.optim.Adam,  # Noam is actually a scheduler
     'sparse_adam': torch.optim.SparseAdam,
-    'dense_sparse_adam': DenseSparseAdam,
     'adamw': AdamW,
     'adagrad': torch.optim.Adagrad,
     'adadelta': torch.optim.Adadelta,
