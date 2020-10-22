@@ -1,7 +1,6 @@
 run:
-    experiment_name: Predictor WMT19 Target en_de.nmt
+    experiment_name: Predictor WMT20 Target en_de.nmt
     mlflow_tracking_uri: mlruns/
-    # output_dir: null  # mlflow will create one if this is null
 
 trainer:
     gpus: -1
@@ -9,7 +8,6 @@ trainer:
 
     resume: false
     epochs: 5
-    # gradient_accumulation_steps: 2
 
     checkpoint:
         validation_steps: 200
@@ -17,7 +15,7 @@ trainer:
         early_stop_patience: 8
 
 defaults:
-    - data: wmt19.qe.en_de
+    - data: wmt20.qe.en_de
 
 system:
     class_name: Predictor
