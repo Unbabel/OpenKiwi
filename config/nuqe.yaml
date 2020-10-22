@@ -1,15 +1,13 @@
 run:
-    experiment_name: NuQE WMT19 Target en_de.nmt
+    experiment_name: NuQE WMT20 Target en_de.nmt
     seed: 42
     mlflow_tracking_uri: mlruns/
     use_mlflow: true
-    # output_dir: null  # mlflow will create one if this is null
 
 trainer:
     gpus: -1
     log_interval: 10
     epochs: 2
-    # gradient_accumulation_steps: 2
 
     main_metric:
         - WMT19_F1_MULT
@@ -20,7 +18,7 @@ trainer:
         early_stop_patience: 10
 
 defaults:
-    - data: wmt19.qe.en_de
+    - data: wmt20.qe.en_de
 
 system:
     class_name: NuQE
@@ -72,5 +70,5 @@ system:
             min_frequency: 2
 
     optimizer:
-        class_name: dense_sparse_adam
+        class_name: adam
         learning_rate: 0.001

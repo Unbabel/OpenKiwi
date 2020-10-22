@@ -16,12 +16,9 @@
 #
 import logging
 from pathlib import Path
-from typing import Any, Dict
 
 import torch
 from pydantic import BaseModel, Extra
-
-from kiwi.utils.migrations.v0_to_v2 import convert_trained_model_from_v0_to_v2
 
 logger = logging.getLogger(__name__)
 
@@ -75,15 +72,10 @@ def load_torch_file(file_path, map_location=None):
         else:
             raise e
 
-    if isinstance(file_dict, Path):
-        # Resolve cases where file is just a link to another torch file
-        # (specially for `best_model.torch`)
-        linked_path = file_dict / 'model.torch'
-        if not linked_path.exists():
-            relative_path = file_path.with_name(file_dict.name) / 'model.torch'
-            if relative_path.exists():
-                linked_path = relative_path
-        return load_torch_file(linked_path)
+    if map_location is None:
+        map_location = default_map_location
+    file_dict = torch.load(file_path, map_location=map_location)
+
     return file_dict
 
 
@@ -121,15 +113,6 @@ def target_gaps_to_target(batch):
 def target_gaps_to_gaps(batch):
     """Extract gap tags from wmt18 format file."""
     return batch[::2]
-
-
-def convert_model_dict_if_needed(model_dict: Dict[str, Any]) -> Dict[str, Any]:
-    version = model_dict.get('__version__')
-    if version is None or version.startswith('0.3'):
-        # Initial Kiwi versions, like the ones first in production
-        logger.info(f'Loading model trained in an old version of Kiwi ({version})')
-        return convert_trained_model_from_v0_to_v2(model_dict)
-    return model_dict
 
 
 def generate_slug(text, delimiter="-"):

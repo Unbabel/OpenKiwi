@@ -76,10 +76,11 @@ class VocabularyConfig(BaseConfig):
     pretrained vocabularies)."""
 
     keep_rare_words_with_embeddings = False
-    'Keep words that occur less then min-frequency but are in embeddings vocabulary'
+    """Keep words that occur less then min-frequency but are
+    in embeddings vocabulary."""
 
     add_embeddings_vocab = False
-    'Add words from embeddings vocabulary to source/target vocabulary'
+    """Add words from embeddings vocabulary to source/target vocabulary."""
 
     # TODO: add this feature
     # source_max_length: PositiveInt = float("inf")
@@ -197,9 +198,6 @@ class WMTQEDataEncoder(DataEncoders):
                 target_samples,
                 vocab_size=self.config.vocab.max_size.target,
                 vocab_min_freq=self.config.vocab.min_frequency.target,
-                # embeddings_name=self.config.embeddings,
-                # keep_rare_words_with_embeddings=self.config.vocab.keep_rare_words_with_embeddings,  # NoQA
-                # add_embeddings_vocab=self.config.vocab.add_embeddings_vocab,
             )
         if source_samples:
             if self.field_encoders[const.SOURCE].vocab is not None:
@@ -212,9 +210,6 @@ class WMTQEDataEncoder(DataEncoders):
                     source_samples,
                     vocab_size=self.config.vocab.max_size.source,
                     vocab_min_freq=self.config.vocab.min_frequency.source,
-                    # embeddings_name=self.config.embeddings,
-                    # keep_rare_words_with_embeddings=self.config.vocab.keep_rare_words_with_embeddings,  # NoQA
-                    # add_embeddings_vocab=self.config.vocab.add_embeddings_vocab,
                 )
 
         # Outputs

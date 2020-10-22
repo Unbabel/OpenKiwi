@@ -44,7 +44,7 @@ model:
         use_mismatch_features: false
 
 optimizer:
-    class_name: dense_sparse_adam
+    class_name: adam
     learning_rate: 0.001
     learning_rate_decay: 0.6
     learning_rate_decay_start: 2
@@ -59,36 +59,6 @@ data_processing:
 @pytest.fixture
 def predictor_config_dict():
     return yaml.unsafe_load(predictor_yaml)
-
-
-# @pytest.fixture
-# def extend_vocab(predictor_opts, predest_dir):
-#     options = predictor_opts
-#     options.extend_source_vocab = str(predest_dir.joinpath('extend.src'))
-#     options.extend_target_vocab = str(predest_dir.joinpath('extend.tgt'))
-#     return options
-#
-#
-# def test_extend_vocabs(extend_vocab):
-#     options = extend_vocab
-#     OOV_SRC = 'oov_word_src'
-#     OOV_TGT = 'oov_word_tgt'
-#
-#     fieldset = Predictor.fieldset(wmt18_format=options.wmt18_format)
-#     vocabs_fieldset = extend_vocabs_fieldset.build_fieldset(fieldset)
-#
-#     dataset, _ = build_training_datasets(
-#         fieldset, extend_vocabs_fieldset=vocabs_fieldset, **vars(options)
-#     )
-#     assert OOV_SRC in dataset.fields[const.SOURCE].vocab.stoi
-#     assert OOV_TGT in dataset.fields[const.TARGET].vocab.stoi
-#
-#     fieldset = Predictor.fieldset(wmt18_format=options.wmt18_format)
-#     options.extend_source_vocab = None
-#     options.extend_target_vocab = None
-#     dataset, _ = build_training_datasets(fieldset, **vars(options))
-#     assert OOV_SRC not in dataset.fields[const.SOURCE].vocab.stoi
-#     assert OOV_TGT not in dataset.fields[const.TARGET].vocab.stoi
 
 
 def test_pretrain_predictor(

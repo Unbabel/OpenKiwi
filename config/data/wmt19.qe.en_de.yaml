@@ -5,8 +5,6 @@ data:
             target: data/WMT19/sentence_level/en_de.nmt/train.mt
             alignments: data/WMT19/sentence_level/en_de.nmt/train.src-mt.alignments
             post_edit: data/WMT19/sentence_level/en_de.nmt/train.pe
-            #source-pos: data/WMT19/sentence_level/en_de.nmt/additional/train.src.pos
-            #target-pos: data/WMT19/sentence_level/en_de.nmt/additional/train.mt.pos
 
         output:
             source_tags: data/WMT19/sentence_level/en_de.nmt/train.source_tags
@@ -19,8 +17,6 @@ data:
             target: data/WMT19/sentence_level/en_de.nmt/dev.mt
             alignments: data/WMT19/sentence_level/en_de.nmt/dev.src-mt.alignments
             post_edit: data/WMT19/sentence_level/en_de.nmt/dev.pe
-            #source_pos: data/WMT19/sentence_level/en_de.nmt/additional/dev.src.pos
-            #target_pos: data/WMT19/sentence_level/en_de.nmt/additional/dev.mt.pos
 
         output:
             source_tags: data/WMT19/sentence_level/en_de.nmt/dev.source_tags
@@ -33,4 +29,3 @@ data:
             target: data/WMT19/sentence_level/en_de.nmt/test.mt
             alignments: data/WMT19/sentence_level/en_de.nmt/test.src-mt.alignments
             post_edit: data/WMT19/sentence_level/en_de.nmt/test.pe
-

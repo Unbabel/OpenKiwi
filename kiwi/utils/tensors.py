@@ -14,15 +14,10 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-import copy
-from collections import OrderedDict
 from typing import Dict, Optional
 
-import numpy as np
 import torch
 import torch.nn.functional as F
-from more_itertools import first, flatten
-from torch import nn
 from torch.autograd import Function
 from torch.nn.utils.rnn import pack_padded_sequence as pack
 from torch.nn.utils.rnn import pad_packed_sequence as unpack
@@ -36,19 +31,6 @@ def pad_zeros_around_timesteps(batched_tensor: torch.Tensor) -> torch.Tensor:
     left_pad = batched_tensor.new_zeros(input_size[0], 1, *input_size[2:])
     right_pad = batched_tensor.new_zeros(input_size[0], 1, *input_size[2:])
     return torch.cat((left_pad, batched_tensor, right_pad), dim=1)
-
-
-def unroll(list_of_lists):
-    """
-    Argument:
-        list_of_lists: a list that contains lists.
-
-    Return:
-        a flattened list
-    """
-    if isinstance(first(list_of_lists), (np.ndarray, list)):
-        return list(flatten(list_of_lists))
-    return list_of_lists
 
 
 def convolve_tensor(sequences, window_size, pad_value=0):
@@ -67,24 +49,7 @@ def convolve_tensor(sequences, window_size, pad_value=0):
     t = F.pad(sequences, pad=pad, value=pad_value)
     t = t.unfold(1, window_size, 1)
 
-    # For 3D tensors
-    # torch.nn.ConstantPad2d((0, 0, 1, 1), 0)(x).unfold(1, 3, 1)
-    # F.pad(x, (0, 0, 1, 1), value=0).unfold(1, 3, 1)
-
     return t
-
-
-# def convolve_sequence(sequence, window_size, pad_value=0):
-#     """Convolve a sequence and apply padding
-#
-#     :param sequence: list of ids
-#     :param window_size: filter length
-#     :param pad_value: int value used as padding
-#     :return: list of lists with size of window_size
-#     """
-#     pad = [pad_value for _ in range(window_size // 2)]
-#     pad_sequence = pad + sequence + pad
-#     return list(windowed(pad_sequence, window_size, fillvalue=pad_value))
 
 
 def apply_packed_sequence(rnn, padded_sequences, lengths):
@@ -150,20 +115,6 @@ def make_classes_loss_weights(vocab: Vocabulary, label_weights: Dict[str, float]
     return class_weights
 
 
-def clones(module, N):
-    """Produce N identical layers."""
-    return torch.nn.ModuleList([copy.deepcopy(module) for _ in range(N)])
-
-
-def subsequent_mask(size: int):
-    """Mask out subsequent positions.
-
-    Arguments:
-        size: squared tensor size
-    """
-    return torch.tril(torch.ones(size, size, dtype=torch.uint8))
-
-
 def sequence_mask(lengths: torch.LongTensor, max_len: Optional[int] = None):
     """Create a boolean mask from sequence lengths.
 
@@ -173,8 +124,6 @@ def sequence_mask(lengths: torch.LongTensor, max_len: Optional[int] = None):
     """
     if max_len is None:
         max_len = lengths.max()
-    # aranges = torch.arange(max_len).repeat(lengths.size(0), 1)
-    # mask = aranges < lengths.unsqueeze(1)
     # This is equivalent
     mask = torch.arange(max_len, device=lengths.device)[None, :] < lengths[:, None]
     return mask
@@ -233,31 +182,6 @@ class GradientMul(Function):
 
 
 gradient_mul = GradientMul.apply
-
-
-def feedforward(
-    in_dim,
-    n_layers,
-    shrink=2,
-    out_dim=None,
-    activation=nn.Tanh,
-    final_activation=False,
-    dropout=0.0,
-):
-    """Constructor for FeedForward Layers"""
-    dim = in_dim
-    module_dict = OrderedDict()
-    for layer_i in range(n_layers - 1):
-        next_dim = dim // shrink
-        module_dict['linear_{}'.format(layer_i)] = nn.Linear(dim, next_dim)
-        module_dict['activation_{}'.format(layer_i)] = activation()
-        module_dict['dropout_{}'.format(layer_i)] = nn.Dropout(dropout)
-        dim = next_dim
-    next_dim = out_dim or (dim // 2)
-    module_dict['linear_{}'.format(n_layers - 1)] = nn.Linear(dim, next_dim)
-    if final_activation:
-        module_dict['activation_{}'.format(n_layers - 1)] = activation()
-    return nn.Sequential(module_dict)
 
 
 def retrieve_tokens_mask(input_batch: BatchedSentence):

@@ -83,7 +83,6 @@ class MLFlowTrackingLogger(MLFlowLogger):
         from mlflow import get_tracking_uri
 
         return get_tracking_uri()
-        # return self._mlflow_client._tracking_client.tracking_uri
 
     @rank_zero_only
     def log_param(self, key, value):

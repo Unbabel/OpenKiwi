@@ -102,26 +102,26 @@ class BertEncoder(MetaModule):
         encode_source: bool = False
 
         model_name: Union[str, Path] = 'bert-base-multilingual-cased'
-        'Pre-trained BERT model to use.'
+        """Pre-trained BERT model to use."""
 
         use_mismatch_features: bool = False
-        "Use Alibaba's mismatch features"
+        """Use Alibaba's mismatch features."""
 
         use_predictor_features: bool = False
-        'Use features originally proposed in the Predictor model'
+        """Use features originally proposed in the Predictor model."""
 
         interleave_input: bool = False
         """Concatenate SOURCE and TARGET without internal padding
         (111222000 instead of 111002220)"""
 
         freeze: bool = False
-        'Freeze BERT during training.'
+        """Freeze BERT during training."""
 
         use_mlp: bool = True
-        'Apply a linear layer on top of BERT'
+        """Apply a linear layer on top of BERT."""
 
         hidden_size: int = 100
-        'Size of the linear layer on top of BERT'
+        """Size of the linear layer on top of BERT."""
 
         scalar_mix_dropout: confloat(ge=0.0, le=1.0) = 0.1
         scalar_mix_layer_norm: bool = True
@@ -186,15 +186,7 @@ class BertEncoder(MetaModule):
             const.SOURCE: output_size,
         }
 
-        # if self.config.use_mismatch_features:
-        #     self._size += 4
-        # if self.config.use_predictor_features:
-        #     self._size += self.bert.config.hidden_size
-
         self.output_embeddings = self.bert.embeddings.word_embeddings
-
-        # if self.config.use_predictor_features:
-        #     self._size += self.bert.config.hidden_size
 
         if self.config.freeze:
             for param in self.bert.parameters():
@@ -282,35 +274,6 @@ class BertEncoder(MetaModule):
         source_features = pieces_to_tokens(
             output_features[const.SOURCE], batch_inputs[const.SOURCE]
         )
-        # source_len = batch_inputs[const.SOURCE].bounds_lengths
-        # target_len = batch_inputs[const.TARGET].bounds_lengths
-        # If we were still dealing with pieces
-        # source_len = batch_inputs[const.SOURCE].lengths
-        # target_len = batch_inputs[const.TARGET].lengths
-
-        # Sentence
-        # sentence_features = target_features[:, 0]
-        # Substitute CLS on target side
-        # target_features[:, 0] = 0
-
-        # sentence_target_features = target_features[:, 0].unsqueeze(
-        #     1
-        # ) + select_positions(target_features, (target_len - 1).unsqueeze(1))
-        # sentence_source_features = select_positions(
-        #     source_features, (source_len - 1).unsqueeze(1)
-        # )
-        # sentence_features = torch.cat(
-        #     (sentence_target_features, sentence_source_features), dim=-1
-        # )
-
-        # sentence_features = torch.cat(
-        #     (
-        #         target_features[:, 0].unsqueeze(1),
-        #         select_positions(target_features, (target_len - 1).unsqueeze(1)),
-        #         select_positions(source_features, (source_len - 1).unsqueeze(1)),
-        #     ),
-        #     dim=-1,
-        # )
 
         # sentence_features = pooler_output
         sentence_features = last_hidden_state.mean(dim=1)
@@ -473,95 +436,3 @@ class BertEncoder(MetaModule):
         diff_arg = (target != pred).float().unsqueeze(-1)
         mismatch = torch.cat((t_max, p_max, diff_max, diff_arg), dim=-1)
         return mismatch
-
-    @staticmethod
-    def previous_experiments(features):
-        # All of this has been commented out as it wasn't used in our subsmission to
-        # obtain the best results
-        # range_vector = torch.arange(
-        #     token_type_ids[token_type_ids == 1].size(0), device=input_ids.device
-        # ).unsqueeze(1)
-        #
-        # feats_target = []
-        # feats_source = []
-        # feats_sentence = []
-        #
-        # if self.config.use_predictor_features:
-        #     target_target = batch[const.TARGET][0]
-        #     target_bounds = batch[const.TARGET][2]
-        #     target_target = target_target[range_vector, target_bounds][:, 1:]
-        #     predictor_features_target = torch.einsum(
-        #         'bsh,bsh->bsh',
-        #         self.output_embeddings(target_target),
-        #         features[const.GAP_TAGS],
-        #     )
-        #     feats_target.append(predictor_features_target)
-        #
-        #     target_source = batch[const.SOURCE][0]  # source doesnt have CLS
-        #     source_bounds = batch[const.SOURCE][2]
-        #     target_source = target_source[range_vector, source_bounds]
-        #     predictor_features_source = torch.einsum(
-        #         'bsh,bsh->bsh',
-        #         self.output_embeddings(target_source),
-        #         features[const.SOURCE_TAGS],
-        #     )
-        #     feats_source.append(predictor_features_source)
-        #
-        #     predictor_features_sentence = 0.5 * predictor_features_target.mean(
-        #         dim=1
-        #     ) + 0.5 * predictor_features_source.mean(dim=1)
-        #     feats_sentence.append(predictor_features_sentence)
-        #
-        # if self.config.use_mismatch_features:
-        #     def get_mismatch_features(logits, target, pred):
-        #         # calculate mismatch features and concat them
-        #         t_max = torch.gather(logits, -1, target.unsqueeze(-1))
-        #         p_max = torch.gather(logits, -1, pred.unsqueeze(-1))
-        #         diff_max = t_max - p_max
-        #         diff_arg = (target != pred).float().unsqueeze(-1)
-        #         mismatch = torch.cat((t_max, p_max, diff_max, diff_arg), dim=-1)
-        #         return mismatch
-        #
-        #     logits_target = torch.einsum(
-        #         'vh,bsh->bsv',
-        #         self.output_embeddings.weight,
-        #         features[const.GAP_TAGS],
-        #     )
-        #     target_target = batch[const.TARGET][0]
-        #     target_bounds = batch[const.TARGET][2]
-        #     target_target = target_target[range_vector, target_bounds][:, 1:]
-        #     pred_target = torch.argmax(logits_target, dim=-1)
-        #     mismatch_target = get_mismatch_features(
-        #         logits_target, target_target, pred_target
-        #     )
-        #     feats_target.append(mismatch_target)
-        #
-        #     logits_source = torch.einsum(
-        #         'vh,bsh->bsv',
-        #         self.output_embeddings.weight,
-        #         features[const.SOURCE_TAGS],
-        #     )
-        #     target_source = batch[const.SOURCE][0]  # source doesnt have CLS
-        #     source_bounds = batch[const.SOURCE][2]
-        #     target_source = target_source[range_vector, source_bounds]
-        #     pred_source = torch.argmax(logits_source, dim=-1)
-        #     mismatch_source = get_mismatch_features(
-        #         logits_source, target_source, pred_source
-        #     )
-        #     feats_source.append(mismatch_source)
-        #
-        #     mismatch_sentence = 0.5 * mismatch_target.mean(
-        #         dim=1
-        #     ) + 0.5 * mismatch_source.mean(dim=1)
-        #
-        # features[const.GAP_TAGS] = torch.cat(
-        #     (features[const.GAP_TAGS], *feats_target), dim=-1
-        # )
-        # features[const.TARGET] = features[const.GAP_TAGS][:, :-1]
-        # features[const.SOURCE] = torch.cat(
-        #     (features[const.SOURCE], *feats_source), dim=-1
-        # )
-        # features[const.SENTENCE_SCORES] = torch.cat(
-        #     (features[const.SENTENCE_SCORES], *feats_sentence), dim=-1
-        # )
-        return features

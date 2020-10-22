@@ -68,11 +68,11 @@ class Configuration(BaseConfig):
     system: QESystem.Config
 
     use_gpu: bool = False
-    '''If true and only if available, use the CUDA device specified in ``gpu_id`` or the
-    first CUDA device. Otherwise, use the CPU.'''
+    """If true and only if available, use the CUDA device specified in ``gpu_id`` or the
+    first CUDA device. Otherwise, use the CPU."""
 
     gpu_id: Optional[int]
-    '''Use CUDA on the listed device, only if ``use_gpu`` is true.'''
+    """Use CUDA on the listed device, only if ``use_gpu`` is true."""
 
     verbose: bool = False
     quiet: bool = False

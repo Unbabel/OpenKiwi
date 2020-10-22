@@ -156,29 +156,29 @@ class XLMEncoder(MetaModule):
         encode_source: bool = False
 
         model_name: Union[str, Path] = 'xlm-mlm-tlm-xnli15-1024'
-        'Pre-trained XLM model to use.'
+        """Pre-trained XLM model to use."""
 
         source_language: str = 'en'
         target_language: str = 'de'
 
         use_mismatch_features: bool = False
-        "Use Alibaba's mismatch features"
+        """Use Alibaba's mismatch features."""
 
         use_predictor_features: bool = False
-        'Use features originally proposed in the Predictor model'
+        """Use features originally proposed in the Predictor model."""
 
         interleave_input: bool = False
         """Concatenate SOURCE and TARGET without internal padding
         (111222000 instead of 111002220)"""
 
         freeze: bool = False
-        'Freeze XLM during training.'
+        """Freeze XLM during training."""
 
         use_mlp: bool = True
-        'Apply a linear layer on top of XLM'
+        """Apply a linear layer on top of XLM."""
 
         hidden_size: int = 100
-        'Size of the linear layer on top of XLM'
+        """Size of the linear layer on top of XLM."""
 
         @validator('model_name', pre=True)
         def fix_relative_path(cls, v):
@@ -241,15 +241,7 @@ class XLMEncoder(MetaModule):
             const.SOURCE: vocabs[const.SOURCE],
         }
 
-        # if self.config.use_mismatch_features:
-        #     self._size += 4
-        #     self.output_embeddings = self.xlm.embeddings
-        # else:
-        #     self.output_embeddings = self.xlm.embeddings
         self.output_embeddings = self.xlm.embeddings
-
-        # if self.config.use_predictor_features:
-        #     self._size += self.xlm.config.hidden_size
 
         if self.config.freeze:
             for param in self.xlm.parameters():
@@ -343,9 +335,6 @@ class XLMEncoder(MetaModule):
         )
         source_len = batch_inputs[const.SOURCE].bounds_lengths
         target_len = batch_inputs[const.TARGET].bounds_lengths
-        # If we were still dealing with pieces
-        # source_len = batch_inputs[const.SOURCE].lengths
-        # target_len = batch_inputs[const.TARGET].lengths
 
         # NOTE: assuming here that features is already split into target and source
         source_features = output_features[const.SOURCE]
@@ -361,18 +350,6 @@ class XLMEncoder(MetaModule):
         sentence_features = torch.cat(
             (sentence_target_features, sentence_source_features), dim=-1
         )
-
-        # gap_features_0 = torch.cat(
-        #     (target_features[:, 0].unsqueeze(1), target_features), dim=1
-        # )
-        # gap_features_1 = torch.cat(
-        #     (
-        #         target_features,
-        #         select_positions(target_features, (target_len - 1).unsqueeze(1))
-        #     ),
-        #     dim=1
-        # )
-        # gap_features = torch.cat((gap_features_0, gap_features_1), dim=-1)
 
         output_features[const.TARGET_SENTENCE] = sentence_features
         output_features[const.TARGET] = target_features

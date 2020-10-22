@@ -31,26 +31,26 @@ logger = logging.getLogger(__name__)
 
 class InputConfig(BaseConfig):
     source: FilePath
-    'Path to a corpus file in the source language'
+    """Path to a corpus file in the source language."""
     target: FilePath
-    'Path to a corpus file in the target language'
+    """Path to a corpus file in the target language."""
     alignments: Optional[FilePath] = None
-    'Path to alignments between source and target.'
+    """Path to alignments between source and target."""
     post_edit: Optional[FilePath] = None
-    'Path to file containing post-edited target.'
+    """Path to file containing post-edited target."""
     source_pos: Optional[FilePath] = None
-    'Path to input file with POS tags for source'
+    """Path to input file with POS tags for source."""
     target_pos: Optional[FilePath] = None
-    'Path to input file with POS tags for source'
+    """Path to input file with POS tags for source."""
 
 
 class OutputConfig(BaseConfig):
     target_tags: Optional[FilePath] = None
-    'Path to label file for target'
+    """Path to label file for target."""
     source_tags: Optional[FilePath] = None
-    'Path to label file for source'
+    """Path to label file for source."""
     sentence_scores: Optional[FilePath] = None
-    'Path to file containing sentence level scores (HTER).'
+    """Path to file containing sentence level scores (HTER)."""
 
 
 class TrainingConfig(BaseConfig):
@@ -65,15 +65,15 @@ class TestConfig(BaseConfig):
 class WMTQEDataset(torch.utils.data.Dataset):
     class Config(BaseConfig):
         buffer_size: int = None
-        '''Number of consecutive instances to be temporarily stored in
-        the buffer, which will be used later for batching/bucketing.'''
+        """Number of consecutive instances to be temporarily stored in
+        the buffer, which will be used later for batching/bucketing."""
 
         train: TrainingConfig = None
         valid: TrainingConfig = None
         test: TestConfig = None
 
         split: Optional[confloat(gt=0.0, lt=1.0)] = None
-        'Split train dataset in case that no validation set is given.'
+        """Split train dataset in case that no validation set is given."""
 
         @validator('split', pre=True, always=True)
         def ensure_there_is_validation_data(cls, v, values):

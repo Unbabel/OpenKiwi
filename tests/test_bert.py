@@ -67,9 +67,9 @@ model:
         fine_tune: false
 
 optimizer:
-    class_name: adamw
+    class_name: noam
     learning_rate: 0.00001
-    warmup_steps: 0.1
+    warmup_steps: 1000
     training_steps: 12000
 
 data_processing:

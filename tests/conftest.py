@@ -94,21 +94,6 @@ def model_dir(base_dir):
     return base_dir.joinpath('models/')
 
 
-# @pytest.fixture(scope='session')
-# def quetch_model_path(model_dir):
-#     return model_dir.joinpath('quetch.torch')
-#
-#
-# @pytest.fixture(scope='session')
-# def predictor_model_path(model_dir):
-#     return model_dir.joinpath('predictor.torch')
-#
-#
-# @pytest.fixture(scope='session')
-# def predest_dir(base_dir):
-#     return base_dir.joinpath('predest/')
-
-
 @pytest.fixture
 def data_processing_config():
     config = dict(
@@ -131,7 +116,7 @@ def data_processing_config():
 def make_data_config(directory: Path):
     config = {}
     for set_name, file_name in [('train', 'train'), ('valid', 'dev'), ('test', 'dev')]:
-        if set_name is not 'test':
+        if set_name != 'test':
             split_config = dict(
                 input=dict(
                     source=directory / f'{file_name}.src',
@@ -201,35 +186,6 @@ def train_config(run_config: dict):
         ),
     )
     return config
-
-
-# @pytest.fixture
-# def model_opts():
-#     opts = argparse.Namespace()
-#
-#     opts.predict_target = True
-#     opts.predict_source = False
-#     opts.predict_gaps = False
-#     opts.sentence_level = False
-#
-#     opts.field_embedders = None
-#     opts.embedder = None
-#
-#     opts.load_field_embedders = None
-#     opts.load_embedder = None
-#
-#     opts.embeddings_size = {const.SOURCE: 50, const.TARGET: 50}
-#     opts.embeddings_dropout = 0.0
-#     opts.freeze_embeddings = False
-#
-#     opts.use_position_embeddings = True
-#     opts.max_position_embeddings = 1000
-#     opts.sparse_embeddings = True
-#     opts.scale_embeddings = True
-#     opts.input_layer_norm = True
-#
-#     return opts
-#
 
 
 @pytest.fixture
@@ -304,7 +260,7 @@ def transformer_predictor_opts(data_opts_17, predest_opts):
 @pytest.fixture
 def optimizer_config():
     return dict(
-        class_name='dense_sparse_adam',
+        class_name='adam',
         learning_rate=0.001,
         learning_rate_decay=1.0,
         learning_rate_decay_start=0,

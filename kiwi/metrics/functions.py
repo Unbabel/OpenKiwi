@@ -20,23 +20,6 @@ from typing import Any, Tuple
 import numpy as np
 from more_itertools import collapse
 
-# def calibrate_threshold(scores, labels, MetricClass=LazyF1):
-#     """Finds optimal decision threshold according to metric.
-#     Args:
-#         scores (list[float]): List of model output scores
-#         labels (list): List of corresponding target labels
-#     Returns:
-#     (metric, threshold): The value of the Metric and the Threshold to be used.
-#     """
-#     metric = MetricClass(scores, labels)
-#     scores, labels = metric.sort(scores, labels)
-#     init_threshold = scores[0]
-#     thresholds = [(metric.compute(), init_threshold)]
-#     for score, label in zip(scores, labels):
-#         metric.update(score, label)
-#         thresholds.append((metric.compute(), score))
-#     return metric.choose(thresholds)
-
 
 def mean_absolute_error(y, y_hat):
     return np.mean(np.absolute(y_hat - y))

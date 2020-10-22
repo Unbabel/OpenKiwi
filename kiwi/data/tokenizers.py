@@ -28,10 +28,5 @@ def align_tokenize(s):
     return [tuple(map(int, x.split('-'))) for x in s.strip().split()]
 
 
-# def align_reversed_tokenizer(s):
-#     """Return a list of pair of integers for each sentence."""
-#     return [tuple(map(int, x.split('-')))[::-1] for x in s.strip().split()]
-
-
 def bert_tokenizer(sentence):
     raise NotImplementedError

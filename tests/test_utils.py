@@ -14,3 +14,20 @@
 #  You should have received a copy of the GNU Affero General Public License
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
+import pytest
+
+from kiwi.utils.io import generate_slug, load_torch_file
+
+
+def test_load_torch_file(model_dir):
+    load_torch_file(model_dir / 'nuqe.ckpt')
+    # There's no CUDA:
+    with pytest.raises(AssertionError):
+        load_torch_file(model_dir / 'nuqe.ckpt', map_location='cuda')
+    # And this file does not exist:
+    with pytest.raises(ValueError):
+        load_torch_file(model_dir / 'nonexistent.torch')
+
+
+def test_generate_slug():
+    assert generate_slug('Some Random Text!') == 'some-random-text'
