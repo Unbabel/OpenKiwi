@@ -281,9 +281,14 @@ class Objective:
     @property
     def best_model_paths(self) -> List[Path]:
         """Return the model paths sorted from high to low by their objective score."""
-        return list(
-            tuple(zip(*sorted(self.model_paths, key=lambda t: t[1], reverse=True)))[0]
-        )
+        if not self.model_paths:
+            return []
+        else:
+            return list(
+                tuple(zip(*sorted(self.model_paths, key=lambda t: t[1], reverse=True)))[
+                    0
+                ]
+            )
 
     def suggest_train_config(self, trial) -> Tuple[train.Configuration, dict]:
         """Use the trial to suggest values to initialize a training configuration.
@@ -641,7 +646,7 @@ def run(config: Configuration):
     )
     fig.write_html(str(output_dir / 'parallel_coordinate.html'))
 
-    if len(study.trials) > 1:
+    if len(study.trials) > 2:
         try:
             # This fits a random forest regression model using sklearn to predict the
             #   importance of each parameter
