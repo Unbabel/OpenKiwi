@@ -58,14 +58,14 @@ Or:
 .. code-block:: python
 
    from kiwi.lib.train import train_from_configuration
-   from kiwi.lib.utils import load_config
+   from kiwi.lib.utils import file_to_configuration
 
-   configuration_dict = load_config('config/bert.yaml')
+   configuration_dict = file_to_configuration('config/bert.yaml')
    run_info = train_from_configuration(configuration_dict)
 
 
 The ``configuration_dict`` is only validated inside ``train_from_configuration``, which
-means other file formats can be used. In fact, ``load_config`` also supports JSON files
+means other file formats can be used. In fact, ``file_to_configuration`` also supports JSON files
 (but that is a not well known fact, as YAML is preferred).
 
 Pretraining the ``Predictor`` can be down by calling:
@@ -97,9 +97,9 @@ To load a trained model and produce predictions on a full dataset, use:
 .. code-block:: python
 
    from kiwi.lib.predict import predict_from_configuration
-   from kiwi.lib.utils import load_config
+   from kiwi.lib.utils import file_to_configuration
 
-   configuration_dict = load_config('config/predict.yaml')
+   configuration_dict = file_to_configuration('config/predict.yaml')
    predictions, metrics = predict_from_configuration(configuration_dict)
 
 
@@ -148,9 +148,9 @@ Or alternatively:
 .. code-block:: python
 
    from kiwi.lib.evaluate import evaluate_from_configuration
-   from kiwi.lib.utils import load_config
+   from kiwi.lib.utils import file_to_configuration
 
-   configuration_dict = load_config('config/evaluate.yaml')
+   configuration_dict = file_to_configuration('config/evaluate.yaml')
    report = evaluate_from_configuration(configuration_dict)
    print(report)
 
@@ -183,9 +183,9 @@ Or:
 .. code-block:: python
 
    from kiwi.lib.search import search_from_configuration
-   from kiwi.lib.utils import load_config
+   from kiwi.lib.utils import file_to_configuration
 
-   configuration_dict = load_config('config/search.yaml')
+   configuration_dict = file_to_configuration('config/search.yaml')
    optuna_study = search_from_configuration(configuration_dict)
 
 
