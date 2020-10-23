@@ -3,7 +3,7 @@ Usage
 
 Kiwi's functionality is split in ``pipelines``::
 
-   train, pretrain, predict, evaluate
+   train, pretrain, predict, evaluate, search
 
 
 Currently supported models are:
@@ -23,7 +23,7 @@ The predicting pipeline additionally provides a simplified interface with explic
 
 For CLI usage, the general command is::
 
-    kiwi (train|pretrain|predict|evaluate) CONFIG_FILE
+    kiwi (train|pretrain|predict|evaluate|search) CONFIG_FILE
 
 Example configuration files can be found in ``config/``. Details are covered in
 :ref:`configuration`, including how to override options in the CLI.
@@ -156,3 +156,39 @@ Or alternatively:
 
 
 You can check all the configuration options in :ref:`configuration`.
+
+
+Searching
+---------
+
+The search pipeline enables hyperparameter search for the Kiwi models using the Optuna library.
+
+Examples of how to call Kiwi to search hyperparameters for BERT for QE:
+
+.. code-block:: bash
+
+   kiwi search config/search.yaml
+
+Or:
+
+.. code-block:: python
+
+   from kiwi.lib.search import search_from_file
+
+   optuna_study = search_from_file('config/search.yaml')
+
+Or:
+
+.. code-block:: python
+
+   from kiwi.lib.train import train_from_configuration
+   from kiwi.lib.utils import load_config
+
+   configuration_dict = load_config('config/bert.yaml')
+   run_info = train_from_configuration(configuration_dict)
+
+
+The search configuration ``search.yaml`` points to the base training config
+(``config/bert.yaml`` in the above BERT example) which defines the basic model,
+and the rest of the options are dedicated to configuring the hyperparameters to search
+and the ranges to search them in.
