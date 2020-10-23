@@ -251,6 +251,7 @@ class Objective:
     value obtained for that model. These can be used to prune model checkpoints
     after completion of the search.
     """
+
     def __init__(self, config: Configuration, base_config_dict: dict):
         self.config = config
         self.base_config_dict = base_config_dict
@@ -442,12 +443,12 @@ class Objective:
 
         if self.config.options.class_weights and word_level_config:
             for tag_side in ['source', 'target', 'gaps']:
-                tag_weight_search_range = self.config.options.class_weights.__dict__.get(
+                tag_weight_range = self.config.options.class_weights.__dict__.get(
                     f'{tag_side}_tags'
                 )
-                if word_level_config[tag_side] and tag_weight_search_range:
+                if word_level_config[tag_side] and tag_weight_range:
                     class_weight = get_suggestion(
-                        trial, f'class_weight_{tag_side}_tags', tag_weight_search_range,
+                        trial, f'class_weight_{tag_side}_tags', tag_weight_range,
                     )
                     base_config_dict['system']['model']['outputs']['word_level'][
                         'class_weights'
@@ -648,7 +649,8 @@ def run(config: Configuration):
             fig.write_html(str(output_dir / 'param_importances.html'))
         except RuntimeError as e:
             logger.info(
-                f'Error training the regression model to compute the parameter importances: {e}'
+                f'Error training the regression model '
+                f'to compute the parameter importances: {e}'
             )
 
     return study
