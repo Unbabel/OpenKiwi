@@ -535,6 +535,14 @@ class Objective:
 
 
 def run(config: Configuration):
+    """Run hyperparameter search according to the search configuration.
+
+    Args:
+        config (Configuration): search configuration
+
+    Return:
+        an optuna study summarizing the search results
+    """
     try:
         import optuna
     except ImportError as e:
@@ -640,7 +648,7 @@ def run(config: Configuration):
         logger.info(f'    {key}: {value}')
 
     if config.num_models_to_keep > 0 and config.num_trials > config.num_models_to_keep:
-        # Keep only n best model checkpoints and remove the rest to free up space
+        # Keep only the best model checkpoints and remove the rest to free up space
         best_model_paths = objective.best_model_paths
         models_to_keep = best_model_paths[: config.num_models_to_keep]
         models_to_remove = best_model_paths[config.num_models_to_keep :]
