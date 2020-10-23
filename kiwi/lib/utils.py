@@ -16,11 +16,16 @@
 #
 import json
 import logging
+import os.path
 from pathlib import Path
 from time import gmtime
 from typing import Dict, Union
 
+import hydra.experimental
+import hydra.utils
 import yaml
+from hydra._internal.hydra import Hydra
+from omegaconf import OmegaConf
 from pytorch_lightning import seed_everything
 
 from kiwi.utils.io import BaseConfig
@@ -120,19 +125,59 @@ def setup_output_directory(
     return output_dir
 
 
-def load_config(config_file: Path) -> Dict:
-    """Load configuration options from a YAML or JSON file."""
-    if not config_file.exists():
-        raise FileNotFoundError(f"'{config_file}' does not exist")
-    with config_file.open() as f:
-        if config_file.suffix == '.json':
-            import json
+def file_to_configuration(config_file: Union[str, Path]) -> Dict:
+    """Utility function to handle converting a configuration file to
+    a dictionary with the correct hydra composition.
 
-            config_dict = json.load(f)
-        elif config_file.suffix == '.yaml' or config_file.suffix == 'yml':
-            import yaml
+    Creates an argument dict and calls `arguments_to_configuration`
 
-            config_dict = yaml.load(f, Loader=yaml.FullLoader)
-        else:
-            raise TypeError(f'Unsupported config file format: {config_file.suffix}')
+    Arguments:
+        config_file: path to a configuration file.
+
+    Return:
+        Dictionary of the configuration imported from config file.
+    """
+    _reset_hydra()
+    return arguments_to_configuration({'CONFIG_FILE': config_file})
+
+
+def arguments_to_configuration(arguments: Dict) -> Dict:
+    """Processes command line arguments into a dictionary.
+    Handles hydra file composition and parameter overwrites.
+
+    Arguments:
+        arguments: dictionary with all the cmd_line arguments passed to kiwi.
+
+    Returns:
+        Dictionary of the config imported from the config file.
+    """
+    _reset_hydra()
+    config_file = Path(arguments['CONFIG_FILE'])
+
+    # Using Hydra
+    relative_dir = Path(
+        os.path.relpath(config_file.resolve().parent, start=Path(__file__).parent)
+    )
+    Hydra.create_main_hydra_file_or_module(
+        calling_file=__file__,
+        calling_module=None,
+        config_dir=str(relative_dir),
+        strict=False,
+    )
+    config = hydra.experimental.compose(
+        config_file=config_file.name, overrides=arguments.get('OVERWRITES', [])
+    )
+
+    # Back to a dictionary
+    config_dict = OmegaConf.to_container(config)
+
+    config_dict['verbose'] = arguments.get('--verbose', False)
+    config_dict['quiet'] = arguments.get('--quiet', False)
+
     return config_dict
+
+
+def _reset_hydra():
+    """Utility function used to handle global hydra state"""
+    # TODO remove me when upgrading hydra version
+    hydra._internal.hydra.GlobalHydra().clear()

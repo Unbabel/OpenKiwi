@@ -30,9 +30,10 @@ import kiwi.cli
 from kiwi import constants as const
 from kiwi.lib import train
 from kiwi.lib.utils import (
+    arguments_to_configuration,
     configure_logging,
     configure_seed,
-    load_config,
+    file_to_configuration,
     save_config_to_file,
 )
 from kiwi.utils.io import BaseConfig
@@ -190,7 +191,7 @@ def search_from_file(filename: Path):
     Returns:
         an object with training information.
     """
-    config = load_config(filename)
+    config = arguments_to_configuration(filename)
     return search_from_configuration(config)
 
 
@@ -545,18 +546,7 @@ def run(config: Configuration):
     save_config_to_file(config, output_dir / 'search_config.yaml')
 
     if isinstance(config.base_config, Path):
-        # FIXME: this is not neat (but it does work)
-        #   We need this in order to support the `defaults` field in the train config,
-        #   like the
-        #     defaults:
-        #        - data: wmt19.qe.en_de
-        #   in the config/xlmroberta. It's Hydra that takes care of that inside
-        #   `kiwi.cli.arguments_to_configuration`. And because Hydra has already
-        #   been configured globally in the Kiwi cli, we need to clear it.
-        hydra._internal.hydra.GlobalHydra().clear()
-        base_dict = kiwi.cli.arguments_to_configuration(
-            {'CONFIG_FILE': config.base_config}
-        )
+        base_dict = file_to_configuration(config.base_config)
         # These arguments are not in the train configuration because they are
         #   added by `kiwi.cli.arguments_to_configuration` (and we remove them
         #   so Pydantic won't throw an error.)

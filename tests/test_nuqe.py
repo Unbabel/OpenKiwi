@@ -103,7 +103,6 @@ def test_api(tmp_path, output_target_config, train_config, data_config, atol):
 
     train_config['data'] = data_config
     train_config['system'] = output_target_config
-    train_config['run']['use_mlflow'] = True
 
     config_file = tmp_path / 'config.yaml'
     save_config_to_file(train.Configuration(**train_config), config_file)
