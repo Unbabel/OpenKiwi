@@ -1,4 +1,4 @@
-base_config: config/xlmroberta.yaml
+base_config: config/bert.yaml
 
 options:
     search_method: random

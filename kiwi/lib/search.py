@@ -199,7 +199,9 @@ def search_from_configuration(configuration_dict):
 
 
 def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]):
-    """Let the trial suggest a parameter value base on the range configuration."""
+    """Let the Optuna trial suggest a parameter value with name ``param_name``
+    based on the range configuration.
+    """
     if isinstance(config, list):
         return trial.suggest_categorical(param_name, config)
     elif config.step is not None:
@@ -211,6 +213,7 @@ def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]):
 
 
 def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
+    """Set up the output directory structure for the Optuna search outputs."""
     # TODO: replace all of this with the MLFlow integration: optuna.integration.mlflow
     #   In particular: let the output directory be created by MLflow entirely
     if not directory.exists():
@@ -239,6 +242,15 @@ def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
 
 
 class Objective:
+    """The objective to be optimized by the Optuna hyperparameter search.
+
+    The call method initializes a Kiwi training config based on Optuna parameter
+    suggestions, trains Kiwi, and then returns the output.
+
+    The model paths of the models are saved internally together with the objective
+    value obtained for that model. These can be used to prune model checkpoints
+    after completion of the search.
+    """
     def __init__(self, config: Configuration, base_config_dict: dict):
         self.config = config
         self.base_config_dict = base_config_dict
@@ -246,16 +258,19 @@ class Objective:
 
     @property
     def main_metric(self) -> str:
+        """Format the main validation metric as it is formatted by the Kiwi trainer."""
         return 'val_' + '+'.join(self.base_config_dict['trainer']['main_metric'])
 
     @property
     def num_train_lines(self) -> int:
+        """Compute the number of lines in the training data."""
         return sum(
             1 for _ in open(self.base_config_dict['data']['train']['input']['source'])
         )
 
     @property
     def updates_per_epochs(self) -> int:
+        """Compute the number of parameter updates per epochs."""
         return int(
             self.num_train_lines
             / self.base_config_dict['system']['batch_size']['train']
@@ -270,7 +285,14 @@ class Objective:
         )
 
     def suggest_train_config(self, trial) -> Tuple[train.Configuration, dict]:
-        """Use the trial to suggest values to initialize a training configuration."""
+        """Use the trial to suggest values to initialize a training configuration.
+
+        Arguments:
+            trial: An Optuna trial to make hyperparameter suggestions.
+
+        Returns: A Kiwi train configuration and a dictionary with the suggested Optuna
+            parameter names and values that were set in the train config.
+        """
         base_config_dict = deepcopy(self.base_config_dict)
 
         # Compute the training steps from the training data and set in the base config
@@ -373,6 +395,10 @@ class Objective:
                 'hter'
             ] = hter
             search_values['hter'] = hter
+        else:
+            hter = base_config_dict['system']['model']['outputs']['sentence_level'].get(
+                'hter'
+            )
 
         # Suggest whether to include the word level objective
         if self.config.options.search_word_level:
@@ -404,6 +430,7 @@ class Objective:
             word_level_config.get('target')
             and sentence_level_config.get('hter')
             and self.config.options.sentence_loss_weight
+            and hter  # The Optuna suggestion that switches hter on or off
         ):
             sentence_loss_weight = get_suggestion(
                 trial, 'sentence_loss_weight', self.config.options.sentence_loss_weight
@@ -413,71 +440,32 @@ class Objective:
             ] = sentence_loss_weight
             search_values['sentence_loss_weight'] = sentence_loss_weight
 
-        # The same logic applies here: when search whether to include the sentence level
-        #   objective (`search_hter`) then we will only want to search the
-        #   `sentence_loss_weight` when we are actually including the sentence level
-        #   objective (`hter = True`). See the above definition of the variable `hter`.
-        if (
-            word_level_config.get('target')
-            and self.config.options.search_hter
-            and self.config.options.sentence_loss_weight
-        ):
-            if hter:
-                sentence_loss_weight = get_suggestion(
-                    trial,
-                    'sentence_loss_weight',
-                    self.config.options.sentence_loss_weight,
-                )
-                base_config_dict['system']['model']['outputs'][
-                    'sentence_loss_weight'
-                ] = sentence_loss_weight
-                search_values['sentence_loss_weight'] = sentence_loss_weight
-
         if self.config.options.class_weights and word_level_config:
-            # if self.config.options.search_word_level:
-            #     if not word_level:
-            #         # Word level disabled; nothing to search over
-            #         pass
-            if (
-                self.config.options.class_weights.target_tags
-                and word_level_config['target']
-            ):
-                class_weight_target_tags = get_suggestion(
-                    trial,
-                    'class_weight_target_tags',
-                    self.config.options.class_weights.target_tags,
+            for tag_side in ['source', 'target', 'gaps']:
+                tag_weight_search_range = self.config.options.class_weights.__dict__.get(
+                    f'{tag_side}_tags'
                 )
-                base_config_dict['system']['model']['outputs']['word_level'][
-                    'class_weights'
-                ]['target_tags'] = {const.BAD: class_weight_target_tags}
-                search_values['class_weight_target_tags'] = class_weight_target_tags
-            if self.config.options.class_weights.gap_tags and word_level_config['gaps']:
-                class_weight_gap_tags = get_suggestion(
-                    trial,
-                    'class_weight_gap_tags',
-                    self.config.options.class_weights.gap_tags,
-                )
-                base_config_dict['system']['model']['outputs']['word_level'][
-                    'class_weights'
-                ]['gap_tags'] = {const.BAD: class_weight_gap_tags}
-                search_values['class_weight_gap_tags'] = class_weight_gap_tags
-            if (
-                self.config.options.class_weights.source_tags
-                and word_level_config['source']
-            ):
-                class_weight_source_tags = get_suggestion(
-                    trial,
-                    'class_weight_source_tags',
-                    self.config.options.class_weights.source_tags,
-                )
-                base_config_dict['system']['model']['outputs']['word_level'][
-                    'class_weights'
-                ]['source_tags'] = {const.BAD: class_weight_source_tags}
-                search_values['class_weight_source_tags'] = class_weight_source_tags
+                if word_level_config[tag_side] and tag_weight_search_range:
+                    class_weight = get_suggestion(
+                        trial, f'class_weight_{tag_side}_tags', tag_weight_search_range,
+                    )
+                    base_config_dict['system']['model']['outputs']['word_level'][
+                        'class_weights'
+                    ][f'{tag_side}_tags'] = {const.BAD: class_weight}
+                    search_values[f'class_weight_{tag_side}_tags'] = class_weight
+
         return train.Configuration(**base_config_dict), search_values
 
     def __call__(self, trial) -> float:
+        """Train Kiwi with the hyperparameter values suggested by the
+        trial and return the value of the main metric.
 
+        Arguments:
+            trial: An Optuna trial to make hyperparameter suggestions.
+
+        Returns: a float with the value obtained by the Kiwi model,
+            as measured by the main metric configured for the model.
+        """
         train_config, search_values = self.suggest_train_config(trial)
 
         logger.info(f'############# STARTING TRIAL {trial.number} #############')
@@ -648,13 +636,19 @@ def run(config: Configuration):
     fig.write_html(str(output_dir / 'optimization_history.html'))
 
     fig = optuna.visualization.plot_parallel_coordinate(
-        study, params=list(trial.params.keys())
+        study, params=list(study.best_trial.params.keys())
     )
     fig.write_html(str(output_dir / 'parallel_coordinate.html'))
 
-    # This fits a random forest regression model using sklearn to predict the
-    #   importance of each parameter
-    fig = optuna.visualization.plot_param_importances(study)
-    fig.write_html(str(output_dir / 'param_importances.html'))
+    if len(study.trials) > 1:
+        try:
+            # This fits a random forest regression model using sklearn to predict the
+            #   importance of each parameter
+            fig = optuna.visualization.plot_param_importances(study)
+            fig.write_html(str(output_dir / 'param_importances.html'))
+        except RuntimeError as e:
+            logger.info(
+                f'Error training the regression model to compute the parameter importances: {e}'
+            )
 
     return study
