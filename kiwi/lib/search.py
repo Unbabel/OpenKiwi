@@ -58,7 +58,7 @@ class ClassWeightsConfig(BaseConfig):
 
 class SearchOptions(BaseConfig):
     patience: int = 10
-    """The number of validations without improvement to wait before stopping training."""
+    """Number of validations without improvement to wait before stopping training."""
 
     validation_steps: float = 0.2
     """Rely on the Kiwi training options to early stop bad models."""
