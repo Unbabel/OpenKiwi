@@ -32,7 +32,7 @@ from kiwi.lib import train
 from kiwi.lib.utils import (
     configure_logging,
     configure_seed,
-    load_config,
+    file_to_configuration,
     save_config_to_file,
 )
 from kiwi.utils.io import BaseConfig
@@ -58,8 +58,10 @@ class ClassWeightsConfig(BaseConfig):
 
 class SearchOptions(BaseConfig):
     patience: int = 10
+    """The number of validations without improvement to wait before stopping training."""
+
     validation_steps: float = 0.2
-    """Rely on the Kiwi training options to eartly stop bad models."""
+    """Rely on the Kiwi training options to early stop bad models."""
 
     search_mlp: bool = False
     """To use or not to use an MLP after the encoder."""
@@ -75,16 +77,30 @@ class SearchOptions(BaseConfig):
     learning_rate: Union[None, List[float], RangeConfig] = RangeConfig(
         lower=5e-7, upper=5e-5
     )
+    """Search the value for the learning rate."""
+
     dropout: Union[None, List[float], RangeConfig] = RangeConfig(lower=0.0, upper=0.3)
+    """Search the dropout rate used in the decoder."""
+
     warmup_steps: Union[None, List[float], RangeConfig] = RangeConfig(
         lower=0.05, upper=0.4
     )
+    """Search the number of steps to warm up the learning rate."""
+
     freeze_epochs: Union[None, List[float], RangeConfig] = RangeConfig(lower=0, upper=5)
+    """Search the number of epochs to freeze the encoder."""
+
     class_weights: Union[None, ClassWeightsConfig] = ClassWeightsConfig()
+    """Search the word-level tag loss weights."""
+
     sentence_loss_weight: Union[None, List[float], RangeConfig] = None
+    """Search the weight to scale the sentence loss objective with."""
+
     hidden_size: Union[None, List[int], RangeConfig] = None
+    """Search the hidden size of the MLP decoder."""
+
     bottleneck_size: Union[None, List[int], RangeConfig] = None
-    """Specify the hyperparameters to search over."""
+    """Search the size of the hidden layer in the decoder bottleneck."""
 
     search_method: Literal['random', 'tpe', 'multivariate_tpe'] = 'multivariate_tpe'
     """Use random search or the (multivariate) Tree-structured Parzen Estimator,
@@ -107,7 +123,7 @@ class SearchOptions(BaseConfig):
 class Configuration(BaseConfig):
     base_config: Union[FilePath, train.Configuration]
     """Kiwi train configuration used as a base to configure the model.
-    Pass the path or put the entire training config under this argument."""
+    Can be a path or a yaml configuration properly indented under this argument."""
 
     directory: Path = Path('optunaruns')
     """Output directory."""
@@ -124,7 +140,7 @@ class Configuration(BaseConfig):
 
     num_models_to_keep: int = 5
     """The number of model checkpoints that are kept after training.
-    The best ones are kept, the other ones removed for free up space.
+    The best ones are kept, the other ones removed to free up space.
     Keep all model checkpoints by setting this to -1."""
 
     options: SearchOptions = SearchOptions()
@@ -162,7 +178,7 @@ def search_from_file(filename):
     Return:
         an object with training information.
     """
-    config = load_config(filename)
+    config = file_to_configuration(filename)
     return search_from_configuration(config)
 
 
