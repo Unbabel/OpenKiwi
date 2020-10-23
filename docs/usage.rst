@@ -161,7 +161,8 @@ You can check all the configuration options in :ref:`configuration`.
 Searching
 ---------
 
-The search pipeline enables hyperparameter search for the Kiwi models using the Optuna library.
+The search pipeline enables hyperparameter search for the Kiwi models using the
+`Optuna <https://github.com/optuna/optuna>`_ library.
 
 Examples of how to call Kiwi to search hyperparameters for BERT for QE:
 

@@ -64,4 +64,3 @@ MLflow integration
 **Or**::
 
    poetry install -E mlflow
-

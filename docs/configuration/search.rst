@@ -1,7 +1,7 @@
 Search configuration
 ======================
 
-There is an example search configuration file available in ``config/`` for the ``XLMRoberta`` model:
+There is an example search configuration file available in ``config/`` for the ``BERT`` model:
 
 .. literalinclude:: ../../config/search.yaml
    :language: yaml
