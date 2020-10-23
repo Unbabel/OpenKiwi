@@ -44,21 +44,32 @@ class RangeConfig(BaseConfig):
     """Specify a continuous interval, or a discrete range when step is set."""
 
     lower: float
+    """The lower bound of the search range."""
+
     upper: float
+    """The upper bound of the search range."""
+
     step: Optional[float]
+    """Specify a step size to create a discrete range of search values."""
 
 
 class ClassWeightsConfig(BaseConfig):
     """Specify the range to search in for the tag loss weights."""
 
     target_tags: Union[None, List[float], RangeConfig] = RangeConfig(lower=1, upper=5)
+    """Loss weight for the target tags."""
+
     gap_tags: Union[None, List[float], RangeConfig] = RangeConfig(lower=1, upper=10)
+    """Loss weight for the gap tags."""
+
     source_tags: Union[None, List[float], RangeConfig] = None
+    """Loss weight for the source tags."""
 
 
 class SearchOptions(BaseConfig):
     patience: int = 10
-    """Number of validations without improvement to wait before stopping training."""
+    """Number of training validations without improvement to wait
+    before stopping training."""
 
     validation_steps: float = 0.2
     """Rely on the Kiwi training options to early stop bad models."""
@@ -77,7 +88,7 @@ class SearchOptions(BaseConfig):
     learning_rate: Union[None, List[float], RangeConfig] = RangeConfig(
         lower=5e-7, upper=5e-5
     )
-    """Search the value for the learning rate."""
+    """Search the learning rate value."""
 
     dropout: Union[None, List[float], RangeConfig] = RangeConfig(lower=0.0, upper=0.3)
     """Search the dropout rate used in the decoder."""
@@ -104,7 +115,7 @@ class SearchOptions(BaseConfig):
 
     search_method: Literal['random', 'tpe', 'multivariate_tpe'] = 'multivariate_tpe'
     """Use random search or the (multivariate) Tree-structured Parzen Estimator,
-    or shorthand: TPE. See optuna.samplers for more details about these methods."""
+    or shorthand: TPE. See ``optuna.samplers`` for more details about these methods."""
 
     @validator('search_hter', pre=True, always=True)
     def check_consistency(cls, v, values):
@@ -122,7 +133,7 @@ class SearchOptions(BaseConfig):
 
 class Configuration(BaseConfig):
     base_config: Union[FilePath, train.Configuration]
-    """Kiwi train configuration used as a base to configure the model.
+    """Kiwi train configuration used as a base to configure the search models.
     Can be a path or a yaml configuration properly indented under this argument."""
 
     directory: Path = Path('optunaruns')
@@ -139,15 +150,15 @@ class Configuration(BaseConfig):
     """The number of search trials to run."""
 
     num_models_to_keep: int = 5
-    """The number of model checkpoints that are kept after training.
-    The best ones are kept, the other ones removed to free up space.
+    """The number of model checkpoints that are kept after finishing search.
+    The best checkpoints are kept, the others removed to free up space.
     Keep all model checkpoints by setting this to -1."""
 
     options: SearchOptions = SearchOptions()
     """Configure the search method and parameter ranges."""
 
     load_study: FilePath = None
-    """Continue from a previous saved study, i.e. from a `study.pkl` file."""
+    """Continue from a previous saved study, i.e. from a ``study.pkl`` file."""
 
     verbose: bool = False
     quiet: bool = False
@@ -170,26 +181,27 @@ class Configuration(BaseConfig):
             return Path(v)
 
 
-def search_from_file(filename):
+def search_from_file(filename: Path):
     """Load options from a config file and calls the training procedure.
 
     Arguments:
         filename: of the configuration file.
 
-    Return:
+    Returns:
         an object with training information.
     """
     config = load_config(filename)
     return search_from_configuration(config)
 
 
-def search_from_configuration(configuration_dict):
+def search_from_configuration(configuration_dict: dict):
     """Run the entire training pipeline using the configuration options received.
 
     Arguments:
         configuration_dict: dictionary with options.
 
-    Return: object with training information.
+    Returns:
+        object with training information.
     """
     config = Configuration(**configuration_dict)
 
@@ -198,9 +210,17 @@ def search_from_configuration(configuration_dict):
     return study
 
 
-def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]):
+def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]) -> Union[bool, float, int]:
     """Let the Optuna trial suggest a parameter value with name ``param_name``
     based on the range configuration.
+
+    Arguments:
+        trial: an Optuna trial
+        param_name (str): the name of the parameter to suggest a value for
+        config (Union[List, RangeConfig]): the parameter search space
+
+    Returns:
+        The suggested parameter value.
     """
     if isinstance(config, list):
         return trial.suggest_categorical(param_name, config)
@@ -250,6 +270,11 @@ class Objective:
     The model paths of the models are saved internally together with the objective
     value obtained for that model. These can be used to prune model checkpoints
     after completion of the search.
+
+    Arguments:
+        config (Configuration): the search configuration.
+        base_config_dict (dict): the training configuration to serve as base,
+            in dictionary form.
     """
 
     def __init__(self, config: Configuration, base_config_dict: dict):
@@ -296,7 +321,8 @@ class Objective:
         Arguments:
             trial: An Optuna trial to make hyperparameter suggestions.
 
-        Returns: A Kiwi train configuration and a dictionary with the suggested Optuna
+        Return:
+            A Kiwi train configuration and a dictionary with the suggested Optuna
             parameter names and values that were set in the train config.
         """
         base_config_dict = deepcopy(self.base_config_dict)
@@ -469,7 +495,8 @@ class Objective:
         Arguments:
             trial: An Optuna trial to make hyperparameter suggestions.
 
-        Returns: a float with the value obtained by the Kiwi model,
+        Returns:
+            A float with the value obtained by the Kiwi model,
             as measured by the main metric configured for the model.
         """
         train_config, search_values = self.suggest_train_config(trial)

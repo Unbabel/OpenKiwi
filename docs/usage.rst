@@ -182,11 +182,11 @@ Or:
 
 .. code-block:: python
 
-   from kiwi.lib.train import train_from_configuration
+   from kiwi.lib.search import search_from_configuration
    from kiwi.lib.utils import load_config
 
-   configuration_dict = load_config('config/bert.yaml')
-   run_info = train_from_configuration(configuration_dict)
+   configuration_dict = load_config('config/search.yaml')
+   optuna_study = search_from_configuration(configuration_dict)
 
 
 The search configuration ``search.yaml`` points to the base training config
