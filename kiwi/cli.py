@@ -54,7 +54,7 @@ import sys
 from docopt import docopt
 
 from kiwi import __version__
-from kiwi.lib import evaluate, predict, pretrain, train
+from kiwi.lib import evaluate, predict, pretrain, search, train
 from kiwi.lib.utils import arguments_to_configuration
 
 
@@ -77,7 +77,6 @@ def cli():
     # Meta Pipelines
     # if options.pipeline == 'jackknife':
     #     jackknife.main(extra_args)
-
 
 
 if __name__ == '__main__':  # pragma: no cover

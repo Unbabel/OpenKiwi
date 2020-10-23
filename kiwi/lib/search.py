@@ -20,13 +20,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Optional, Tuple, Union
 
-import hydra
 import joblib
 import pydantic
 from pydantic import FilePath, validator
 from typing_extensions import Literal
 
-import kiwi.cli
 from kiwi import constants as const
 from kiwi.lib import train
 from kiwi.lib.utils import (
@@ -286,19 +284,26 @@ class Objective:
 
     @property
     def main_metric(self) -> str:
-        """Format the main validation metric as it is formatted by the Kiwi trainer."""
-        return 'val_' + '+'.join(self.base_config_dict['trainer']['main_metric'])
+        """The main validation metric as it is formatted by the Kiwi trainer.
+
+        This can be used to access the main metric value after training via
+        ``train_info.best_metrics[objective.main_metric]``.
+        """
+        main_metrics = self.base_config_dict['trainer']['main_metric']
+        if not isinstance(main_metrics, list):
+            main_metrics = [main_metrics]
+        return 'val_' + '+'.join(main_metrics)
 
     @property
     def num_train_lines(self) -> int:
-        """Compute the number of lines in the training data."""
+        """The number of lines in the training data."""
         return sum(
             1 for _ in open(self.base_config_dict['data']['train']['input']['source'])
         )
 
     @property
     def updates_per_epochs(self) -> int:
-        """Compute the number of parameter updates per epochs."""
+        """The number of parameter updates per epochs."""
         return int(
             self.num_train_lines
             / self.base_config_dict['system']['batch_size']['train']
@@ -515,7 +520,7 @@ class Objective:
             return -1
 
         logger.info(f'############# TRIAL {trial.number} FINISHED #############')
-        result = train_info.best_metrics.get(self.main_metric, -1)
+        result = train_info.best_metrics[self.main_metric]
 
         logger.info(f'RESULTS: {result} {self.main_metric}')
         logger.info(f'MODEL: {train_info.best_model_path}')
@@ -567,11 +572,6 @@ def run(config: Configuration):
             'The metric should be explicitly set in `trainer.main_metric` '
             'in the training config (`base_config`).'
         )
-    # The main metric(s) should be inside a list
-    if not isinstance(base_config_dict['trainer']['main_metric'], list):
-        base_config_dict['trainer']['main_metric'] = [
-            base_config_dict['trainer']['main_metric']
-        ]
 
     # Use the early stopping logic of the Kiwi trainer
     base_config_dict['trainer']['checkpoint'][
