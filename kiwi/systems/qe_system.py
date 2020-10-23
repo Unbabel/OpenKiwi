@@ -40,7 +40,7 @@ from kiwi.data.datasets.wmt_qe_dataset import WMTQEDataset
 from kiwi.data.encoders.wmt_qe_data_encoder import WMTQEDataEncoder
 from kiwi.systems._meta_module import MetaModule, Serializable
 from kiwi.training import optimizers
-from kiwi.utils.io import BaseConfig, convert_model_dict_if_needed, load_torch_file
+from kiwi.utils.io import BaseConfig, load_torch_file
 
 logger = logging.getLogger(__name__)
 
@@ -161,7 +161,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
     def _load_encoder(self, path: Path):
         logger.info(f'Loading encoder from {path}')
         module_dict = load_torch_file(path)
-        module_dict = convert_model_dict_if_needed(module_dict)
 
         encoder_cls = MetaModule.retrieve_subclass(module_dict['encoder']['class_name'])
         self.data_encoders = WMTQEDataEncoder(
@@ -199,24 +198,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
         if data_config:
             self.data_config = data_config
             self.prepare_data()
-
-    # @property
-    # def vocabs(self):
-    #     return self.data_encoders.vocabularies
-
-    # @property
-    # def hparams(self):
-    #     """This is a hack in order to have PyTorch-Lightning saving the config inside
-    #     a checkpoint.
-    #     """
-    #     # This works better than self.config.dict() because the later doesn't convert
-    #     # PosixPath to str.
-    #     config_dict = json.loads(self.config.json())
-    #     return SimpleNamespace(**config_dict)  # PTL is going to call `vars(hparams)`
-
-    # @hparams.setter
-    # def hparams(self, hparams):
-    #     self._hparams = hparams
 
     def prepare_data(self):
         """Initialize the data sources the model will use to create the data loaders."""
@@ -276,10 +257,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
             SequentialSampler(self.valid_dataset),
             batch_size=self.config.batch_size.valid,
             drop_last=False,
-            # sort_key=train_dataset.sort_key,
-            # biggest_batches_first=True,
-            # bucket_size_multiplier=model_options.__dict__.get('buffer_size'),
-            # shuffle=True,
         )
         return torch.utils.data.DataLoader(
             self.valid_dataset,
@@ -312,15 +289,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
             collate_fn=self.data_encoders.collate_fn,
             pin_memory=torch.cuda.is_initialized(),  # NOQA
         )
-
-    # def make_test_dataloader(
-    #     self,
-    #     samples: Dict[str, Iterable[str]],
-    #     batch_size: int = 1,
-    #     num_workers: int = 0,
-    # ):
-    #     dataset = WMTQEDataset(samples)
-    #     return self.prepare_dataloader(dataset, batch_size, num_workers)
 
     def forward(self, batch_inputs):
         encoder_features = self.encoder(batch_inputs)
@@ -366,13 +334,7 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
         for metric in summary:
             summary[metric] = summary[metric] / len(outputs)
         main_metric_dict = {self._main_metric_name: summary[self._main_metric_name]}
-        return dict(
-            loss=loss_avg,
-            # metrics=summary,
-            log=summary,
-            progress_bar=main_metric_dict,
-            # **main_metric_dict,
-        )
+        return dict(loss=loss_avg, log=summary, progress_bar=main_metric_dict,)
 
     def validation_step(self, batch, batch_idx):
         model_out = self(batch)
@@ -535,7 +497,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
 
     @classmethod
     def from_dict(cls, module_dict: Dict[str, Any]):
-        module_dict = convert_model_dict_if_needed(module_dict)
         system_cls = cls.retrieve_subclass(module_dict['class_name'])
         config = system_cls.Config(**module_dict[const.CONFIG])
         system = system_cls(config=config, module_dict=module_dict)
@@ -576,7 +537,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
                 'class_name': self.__class__.__name__,
                 'config': json.loads(self.config.json()),  # Round-trip to remove nests
                 'vocab': self.data_encoders.vocabularies,
-                # 'data_encoders': self.data_encoders.to_dict(),
                 'encoder': self.encoder.to_dict(),
                 'decoder': self.decoder.to_dict(),
                 'outputs': self.outputs.to_dict(),

@@ -1,14 +1,14 @@
 use_gpu: true
 
 run:
-    output_dir: tmp-test
+    output_dir: predictions
     predict_on_data_partition: valid
 
 defaults:
-    - data: wmt19.qe.en_de
+    - data: wmt20.qe.en_de
 
 system:
-    load: trained-models/tickets/en-it/production_model.torch
+    load: best_model.torch
 
     batch_size: 16
     num_data_workers: 0

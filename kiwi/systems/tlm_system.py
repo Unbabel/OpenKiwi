@@ -177,10 +177,6 @@ class TLMSystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
             # RandomSampler(self.train_dataset),
             batch_size=self.config.batch_size.train,
             drop_last=False,
-            # sort_key=self.train_dataset.sort_key('target'),
-            # biggest_batches_first=True,
-            # bucket_size_multiplier=model_options.__dict__.get('buffer_size'),
-            # shuffle=True,
         )
         return torch.utils.data.DataLoader(
             self.train_dataset,
@@ -202,10 +198,6 @@ class TLMSystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
             SequentialSampler(self.valid_dataset),
             batch_size=self.config.batch_size.valid,
             drop_last=False,
-            # sort_key=train_dataset.sort_key,
-            # biggest_batches_first=True,
-            # bucket_size_multiplier=model_options.__dict__.get('buffer_size'),
-            # shuffle=True,
         )
         return torch.utils.data.DataLoader(
             self.valid_dataset,
@@ -454,6 +446,3 @@ class TLMSystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
         return optimizers.from_config(
             self.config.optimizer, self.parameters(), model_size=hidden_size
         )
-
-    # def predict(self, batch_inputs, positive_class_label=const.BAD, unmask=True):
-    #     raise NotImplementedError('TLM systems do not support predicting')

@@ -1,5 +1,5 @@
 run:
-    output_dir: tmp-test
+    output_dir: evaluations
 
 gold_files:
     source_tags: data/WMT19/sentence_level/en_de.nmt/dev.source_tags
@@ -7,12 +7,10 @@ gold_files:
     sentence_scores: data/WMT19/sentence_level/en_de.nmt/dev.hter
 
 predicted_files:
-    - source_tags: runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/source_tags
-#      target_tags: runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/targetgaps_tags
-      target_tags: runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/target_tags
-      gap_tags: runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/gap_tags
-      sentence_scores: runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/sentence_scores
+    source_tags: source_tags
+    target_tags: target_tags
+    gap_tags: gap_tags
+    sentence_scores: sentence_scores
 
 predicted_dir:
-    - runs/16/2e4586b05bc442bab9c4c311033d2dd4/epoch_2/
-    - runs/19/dd806e69018843feab820cbdb277e9de/epoch_1/
+    - runs

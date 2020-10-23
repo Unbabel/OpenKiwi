@@ -3,7 +3,7 @@ run:
     # Generic configurations options related to
     #  handling of experiments
 
-    experiment_name: BERT-Estimator WMT19 Target en_de.nmt
+    experiment_name: BERT-Estimator WMT20 Target en_de.nmt
     seed: 42
     mlflow_tracking_uri: mlruns/
     # output_dir: null  # mlflow will create one if this is null
