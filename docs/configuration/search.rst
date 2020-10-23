@@ -17,9 +17,9 @@ Full API reference: :class:`kiwi.lib.search.Configuration`
    :toctree: stubs
 
 ..   kiwi.lib.search.Configuration
-   kiwi.lib.train.SearchOptions
-   kiwi.lib.train.ClassWeightsConfig
-   kiwi.lib.train.RangeConfig
+   kiwi.lib.search.SearchOptions
+   kiwi.lib.search.ClassWeightsConfig
+   kiwi.lib.search.RangeConfig
 
 
 .. autoclass:: kiwi.lib.search.Configuration
