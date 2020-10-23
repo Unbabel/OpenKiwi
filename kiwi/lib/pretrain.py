@@ -18,7 +18,7 @@ import logging
 
 from kiwi.lib.train import Configuration as TrainConfig
 from kiwi.lib.train import TrainRunInfo, run
-from kiwi.lib.utils import load_config
+from kiwi.lib.utils import file_to_configuration
 from kiwi.systems.tlm_system import TLMSystem
 
 logger = logging.getLogger(__name__)
@@ -37,7 +37,7 @@ def pretrain_from_file(filename) -> TrainRunInfo:
     Return:
         object with training information.
     """
-    config = load_config(filename)
+    config = file_to_configuration(filename)
     return pretrain_from_configuration(config)
 
 

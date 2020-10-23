@@ -16,7 +16,7 @@
 #
 import pytest
 
-from kiwi.cli import arguments_to_configuration
+from kiwi.lib.utils import arguments_to_configuration, file_to_configuration
 
 
 @pytest.fixture
@@ -46,7 +46,27 @@ def config():
     """
 
 
+def test_file_reading_to_configuration(config, config_path):
+    """Tests if files are being correctly handed to hydra for
+    composition.
+    """
+    config_path.write_text(config)
+    config_dict = file_to_configuration(config_path)
+    assert isinstance(config_dict, dict)
+    assert 'num_data_workers' in config_dict
+
+
+def test_hydra_state_hadnling(config, config_path):
+    """Tests if hydra global state is being handled correctly. 
+    If not, kiwi will not allow a config to be ran twice."""
+
+    config_path.write_text(config)
+    config_dict = file_to_configuration(config_path)
+    config_dict = file_to_configuration(config_path)
+
+
 def test_arguments_to_configuration(config, config_path):
+    """Tests if configuration handling and overwrites are working"""
 
     config_path.write_text(config)
     config_dict = arguments_to_configuration(
