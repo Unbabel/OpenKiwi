@@ -162,8 +162,9 @@ class Configuration(BaseConfig):
                 if 'defaults' in str(e):
                     raise pydantic.ValidationError(
                         f'{e}. Configuration field `defaults` from the training '
-                        'config is not supported in the search config; specify '
-                        'the data fields in the regular way'
+                        'config is not supported in the search config. Either specify '
+                        'the data fields in the regular way, or put the config in '
+                        'a separate file and point to the path.'
                     )
         else:
             return Path(v)
@@ -209,6 +210,34 @@ def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]):
         return trial.suggest_uniform(param_name, config.lower, config.upper)
 
 
+def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
+    # TODO: replace all of this with the MLFlow integration: optuna.integration.mlflow
+    #   In particular: let the output directory be created by MLflow entirely
+    if not directory.exists():
+        # Initialize a new folder with name '0'
+        output_dir = directory / '0'
+        output_dir.mkdir(parents=True)
+    else:
+        # Initialize a new folder incrementing folder count
+        output_dir = directory / str(len(list(directory.glob('*'))))
+        if output_dir.exists():
+            backup_directory = output_dir.with_name(
+                f'{output_dir.name}_backup_{datetime.now().isoformat()}'
+            )
+            logger.warning(
+                f'Folder {output_dir} already exists; moving it to {backup_directory}'
+            )
+            output_dir.rename(backup_directory)
+        output_dir.mkdir(parents=True)
+
+    logger.info(f'Initializing new search folder at: {output_dir}')
+
+    configure_logging(output_dir=output_dir, verbose=debug, quiet=quiet)
+    configure_seed(seed)
+
+    return output_dir
+
+
 class Objective:
     def __init__(self, config: Configuration, base_config_dict: dict):
         self.config = config
@@ -251,6 +280,7 @@ class Objective:
 
         # Collect the values to optimize
         search_values = {}
+
         # Suggest a learning rate
         if self.config.options.learning_rate is not None:
             learning_rate = get_suggestion(
@@ -258,6 +288,7 @@ class Objective:
             )
             base_config_dict['system']['optimizer']['learning_rate'] = learning_rate
             search_values['learning_rate'] = learning_rate
+
         # Suggest a dropout probability
         if self.config.options.dropout is not None:
             dropout = get_suggestion(trial, 'dropout', self.config.options.dropout)
@@ -281,6 +312,7 @@ class Objective:
                     'dropout'
                 ] = dropout
             search_values['dropout'] = dropout
+
         # Suggest the number of warmup steps
         if self.config.options.warmup_steps is not None:
             warmup_steps = get_suggestion(
@@ -288,6 +320,7 @@ class Objective:
             )
             base_config_dict['system']['optimizer']['warmup_steps'] = warmup_steps
             search_values['warmup_steps'] = warmup_steps
+
         # Suggest the number of freeze epochs
         if self.config.options.freeze_epochs is not None:
             freeze_epochs = get_suggestion(
@@ -298,6 +331,7 @@ class Objective:
                 'freeze_for_number_of_steps'
             ] = int(self.updates_per_epochs * freeze_epochs)
             search_values['freeze_epochs'] = freeze_epochs
+
         # Suggest a hidden size
         if self.config.options.hidden_size is not None:
             hidden_size = get_suggestion(
@@ -306,6 +340,7 @@ class Objective:
             base_config_dict['system']['model']['encoder']['hidden_size'] = hidden_size
             base_config_dict['system']['model']['decoder']['hidden_size'] = hidden_size
             search_values['hidden_size'] = hidden_size
+
         # Suggest a bottleneck size
         if self.config.options.bottleneck_size is not None:
             bottleneck_size = get_suggestion(
@@ -315,6 +350,7 @@ class Objective:
                 'bottleneck_size'
             ] = bottleneck_size
             search_values['bottleneck_size'] = bottleneck_size
+
         # Suggest whether to use the MLP after the encoder
         if self.config.options.search_mlp:
             use_mlp = trial.suggest_categorical('mlp', [True, False])
@@ -337,6 +373,7 @@ class Objective:
                 'hter'
             ] = hter
             search_values['hter'] = hter
+
         # Suggest whether to include the word level objective
         if self.config.options.search_word_level:
             assert (
@@ -379,7 +416,7 @@ class Objective:
         # The same logic applies here: when search whether to include the sentence level
         #   objective (`search_hter`) then we will only want to search the
         #   `sentence_loss_weight` when we are actually including the sentence level
-        #   objevtive (`hter = True`). See the above definition of the variable `hter`.
+        #   objective (`hter = True`). See the above definition of the variable `hter`.
         if (
             word_level_config.get('target')
             and self.config.options.search_hter
@@ -440,9 +477,6 @@ class Objective:
         return train.Configuration(**base_config_dict), search_values
 
     def __call__(self, trial) -> float:
-        # TODO: integrate PTL trainer callback
-        # ptl_callback = PyTorchLightningPruningCallback(trial, monitor='val_PEARSON')
-        # train_info = train.run(trainconfig, ptl_callback=ptl_callback)
 
         train_config, search_values = self.suggest_train_config(trial)
 
@@ -459,12 +493,6 @@ class Objective:
 
         logger.info(f'############# TRIAL {trial.number} FINISHED #############')
         result = train_info.best_metrics.get(self.main_metric, -1)
-        if result == -1:
-            logger.error(
-                'Trial did not converge:\n'
-                f'    `train_info.best_metrics={train_info.best_metrics}`\n'
-                f'Setting result to -1'
-            )
 
         logger.info(f'RESULTS: {result} {self.main_metric}')
         logger.info(f'MODEL: {train_info.best_model_path}')
@@ -476,34 +504,6 @@ class Objective:
         self.model_paths.append((train_info.best_model_path, result))
 
         return result
-
-
-def setup_run(directory: Path, seed: int, debug=False, quiet=False) -> Path:
-    # TODO: replace all of this with the MLFlow integration: optuna.integration.mlflow
-    #   In particular: let the output directory be created by MLflow entirely
-    if not directory.exists():
-        # Initialize a new folder with name '0'
-        output_dir = directory / '0'
-        output_dir.mkdir(parents=True)
-    else:
-        # Initialize a new folder incrementing folder count
-        output_dir = directory / str(len(list(directory.glob('*'))))
-        if output_dir.exists():
-            backup_directory = output_dir.with_name(
-                f'{output_dir.name}_backup_{datetime.now().isoformat()}'
-            )
-            logger.warning(
-                f'Folder {output_dir} already exists; moving it to {backup_directory}'
-            )
-            output_dir.rename(backup_directory)
-        output_dir.mkdir(parents=True)
-
-    logger.info(f'Initializing new search folder at: {output_dir}')
-
-    configure_logging(output_dir=output_dir, verbose=debug, quiet=quiet)
-    configure_seed(seed)
-
-    return output_dir
 
 
 def run(config: Configuration):
@@ -519,6 +519,7 @@ def run(config: Configuration):
 
     output_dir = setup_run(config.directory, config.seed)
     logger.info(f'Saving all Optuna results to: {output_dir}')
+    save_config_to_file(config, output_dir / 'search_config.yaml')
 
     if isinstance(config.base_config, Path):
         # FIXME: this is not neat (but it does work)
@@ -597,7 +598,11 @@ def run(config: Configuration):
     # Optimize the study
     optimize_kwargs = {}
     if use_mlflow:
+        # Use MLflow integration
         optimize_kwargs['callbacks'] = [optuna.integration.MLflowCallback()]
+        # NOTE: we tried the integration with the PTL trainer callback,
+        #   but the early stopping of the training was simpler
+        #   and more effective in the end
     try:
         logger.info('Optimizing study...')
         objective = Objective(config=config, base_config_dict=base_config_dict)
@@ -615,57 +620,41 @@ def run(config: Configuration):
     logger.info(f"Saving study to: {output_dir / 'study.pkl'}")
     joblib.dump(study, output_dir / 'study.pkl')
 
-    try:
-        logger.info('Number of finished trials: {}'.format(len(study.trials)))
-        logger.info('Best trial:')
-        trial = study.best_trial
-        logger.info('  Value: {}'.format(trial.value))
-        logger.info('  Params: ')
-        for key, value in trial.params.items():
-            logger.info('    {}: {}'.format(key, value))
-    except Exception as e:
-        logger.error(f'Logging at end of search failed: {e}')
+    logger.info(f'Number of finished trials: {len(study.trials)}')
+    logger.info('Best trial:')
+    logger.info(f'  Value: {study.best_trial.value}')
+    logger.info('  Params:')
+    for key, value in study.best_trial.params.items():
+        logger.info(f'    {key}: {value}')
 
     if config.num_models_to_keep > 0 and config.num_trials > config.num_models_to_keep:
         # Keep only n best model checkpoints and remove the rest to free up space
-        try:
-            best_model_paths = objective.best_model_paths
-            models_to_keep = best_model_paths[: config.num_models_to_keep]
-            models_to_remove = best_model_paths[config.num_models_to_keep :]
-            logger.info(
-                f'Keeping the {config.num_models_to_keep} best models '
-                'from the search and removing the other ones.'
-            )
-            logger.info('Models that are kept:')
-            for path in models_to_keep:
-                logger.info(f'\t{path}')
-            for path in models_to_remove:
-                Path(path).unlink()
-        except Exception as e:
-            logger.error(f'Logging at end of search failed: {e}')
+        best_model_paths = objective.best_model_paths
+        models_to_keep = best_model_paths[: config.num_models_to_keep]
+        models_to_remove = best_model_paths[config.num_models_to_keep :]
+        logger.info(
+            f'Keeping the {config.num_models_to_keep} best models '
+            'from the search and removing the other ones.'
+        )
+        logger.info('Models that are kept:')
+        for path in models_to_keep:
+            logger.info(f'\t{path}')
+        for path in models_to_remove:
+            Path(path).unlink()
 
     logger.info(f'Saving Optuna plots for this search to: {output_dir}')
-    save_config_to_file(config, output_dir / 'search_config.yaml')
-    try:
-        fig = optuna.visualization.plot_optimization_history(study)
-        fig.write_html(str(output_dir / 'optimization_history.html'))
-    except Exception as e:
-        logger.error(f'Failed to create plot `optimization_history`: {e}')
 
-    try:
-        fig = optuna.visualization.plot_parallel_coordinate(
-            study, params=list(trial.params.keys())
-        )
-        fig.write_html(str(output_dir / 'parallel_coordinate.html'))
-    except Exception as e:
-        logger.error(f'Failed to create plot `parallel_coordinate`: {e}')
+    fig = optuna.visualization.plot_optimization_history(study)
+    fig.write_html(str(output_dir / 'optimization_history.html'))
 
-    try:
-        # This fits a random forest regression model using sklearn to predict the
-        #   importance of each parameter
-        fig = optuna.visualization.plot_param_importances(study)
-        fig.write_html(str(output_dir / 'param_importances.html'))
-    except Exception as e:
-        logger.error(f'Failed to create plot `param_importances`: {e}')
+    fig = optuna.visualization.plot_parallel_coordinate(
+        study, params=list(trial.params.keys())
+    )
+    fig.write_html(str(output_dir / 'parallel_coordinate.html'))
+
+    # This fits a random forest regression model using sklearn to predict the
+    #   importance of each parameter
+    fig = optuna.visualization.plot_param_importances(study)
+    fig.write_html(str(output_dir / 'param_importances.html'))
 
     return study
