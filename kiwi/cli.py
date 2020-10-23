@@ -75,8 +75,6 @@ def cli():
     # Meta Pipelines
     # if options.pipeline == 'search':
     #     search.main(extra_args)
-    # if options.pipeline == 'jackknife':
-    #     jackknife.main(extra_args)
 
 
 if __name__ == '__main__':  # pragma: no cover

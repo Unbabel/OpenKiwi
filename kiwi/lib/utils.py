@@ -126,10 +126,32 @@ def setup_output_directory(
 
 
 def file_to_configuration(config_file: Union[str, Path]) -> Dict:
+    """Utility function to handle converting a configuration file to
+    a dictionary with the correct hydra composition.
+
+    Creates an argument dict and calls `arguments_to_configuration`
+
+    Arguments:
+        config_file: path to a configuration file.
+
+    Return:
+        Dictionary of the configuration imported from config file.
+    """
+    _reset_hydra()
     return arguments_to_configuration({'CONFIG_FILE': config_file})
 
 
 def arguments_to_configuration(arguments: Dict) -> Dict:
+    """Processes command line arguments into a dictionary.
+    Handles hydra file composition and parameter overwrites.
+
+    Arguments:
+        arguments: dictionary with all the cmd_line arguments passed to kiwi.
+
+    Returns:
+        Dictionary of the config imported from the config file.
+    """
+    _reset_hydra()
     config_file = Path(arguments['CONFIG_FILE'])
 
     # Using Hydra
@@ -145,13 +167,17 @@ def arguments_to_configuration(arguments: Dict) -> Dict:
     config = hydra.experimental.compose(
         config_file=config_file.name, overrides=arguments.get('OVERWRITES', [])
     )
-    # print(config.pretty())
 
     # Back to a dictionary
     config_dict = OmegaConf.to_container(config)
 
-    # config_dict['anchor_directory'] = config_file.parent
     config_dict['verbose'] = arguments.get('--verbose', False)
     config_dict['quiet'] = arguments.get('--quiet', False)
 
     return config_dict
+
+
+def _reset_hydra():
+    """Utility function used to handle global hydra state"""
+    # TODO remove me when upgrading hydra version
+    hydra._internal.hydra.GlobalHydra().clear()
