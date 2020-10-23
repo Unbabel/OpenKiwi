@@ -32,7 +32,7 @@ from kiwi.lib import train
 from kiwi.lib.utils import (
     configure_logging,
     configure_seed,
-    file_to_configuration,
+    load_config,
     save_config_to_file,
 )
 from kiwi.utils.io import BaseConfig
@@ -178,7 +178,7 @@ def search_from_file(filename):
     Return:
         an object with training information.
     """
-    config = file_to_configuration(filename)
+    config = load_config(filename)
     return search_from_configuration(config)
 
 
