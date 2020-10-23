@@ -210,7 +210,9 @@ def search_from_configuration(configuration_dict: dict):
     return study
 
 
-def get_suggestion(trial, param_name: str, config: Union[List, RangeConfig]) -> Union[bool, float, int]:
+def get_suggestion(
+    trial, param_name: str, config: Union[List, RangeConfig]
+) -> Union[bool, float, int]:
     """Let the Optuna trial suggest a parameter value with name ``param_name``
     based on the range configuration.
 
