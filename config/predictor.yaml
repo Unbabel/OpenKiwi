@@ -1,6 +1,6 @@
 run:
     experiment_name: Predictor WMT20 Target en_de.nmt
-    mlflow_tracking_uri: mlruns/
+    mlflow_tracking_uri: mlruns
 
 trainer:
     gpus: -1

@@ -10,7 +10,6 @@ trainer:
     resume: false
     epochs: 10
     log_interval: 50
-    # gradient_accumulation_steps: 2
 
     main_metric:
         - PEARSON
@@ -30,7 +29,7 @@ system:
     batch_size: 32
     num_data_workers: 4
 
-    load_encoder: data/trained_models/predest/en_de/predictor/kiwi2_indomain_large.torch
+    load_encoder: best_model.torch
 
     model:
         encoder:
