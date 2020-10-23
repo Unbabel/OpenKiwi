@@ -1,7 +1,8 @@
 run:
-    experiment_name: PredictorEstimator WMT20 Target en_de.nmt
+    experiment_name: PredictorEstimator WMT20 en_de
     seed: 42
-    mlflow_tracking_uri: mlruns/
+    mlflow_tracking_uri: mlruns
+    use_mlflow: false
     # output_dir: runs/predictor-estimator  # mlflow will create one if this is null
 
 trainer:

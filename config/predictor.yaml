@@ -1,6 +1,8 @@
 run:
-    experiment_name: Predictor WMT20 Target en_de.nmt
+    experiment_name: Predictor WMT20 en_de
+    seed: 42
     mlflow_tracking_uri: mlruns
+    use_mlflow: false
 
 trainer:
     gpus: -1
