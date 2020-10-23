@@ -30,7 +30,6 @@ import kiwi.cli
 from kiwi import constants as const
 from kiwi.lib import train
 from kiwi.lib.utils import (
-    arguments_to_configuration,
     configure_logging,
     configure_seed,
     file_to_configuration,
@@ -191,7 +190,7 @@ def search_from_file(filename: Path):
     Returns:
         an object with training information.
     """
-    config = arguments_to_configuration(filename)
+    config = file_to_configuration(filename)
     return search_from_configuration(config)
 
 
