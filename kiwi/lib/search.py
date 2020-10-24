@@ -547,10 +547,11 @@ def run(config: Configuration):
         import optuna
     except ImportError as e:
         raise ImportError(
-            f'{e}. Install the search dependencies with '
-            '``pip install -U openkiwi[search]``, or with '
-            '``poetry install -E search`` when setting '
-            'up for local development'
+            f'{e}. Install the search dependencies with\n'
+            'pip install -U openkiwi[search]\n\t'
+            'or with\n\t'
+            'poetry install -E search\n'
+            'when setting up for local development'
         )
 
     output_dir = setup_run(config.directory, config.seed)
