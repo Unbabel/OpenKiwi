@@ -39,7 +39,6 @@ model:
         freeze: false
         use_mismatch_features: false
         use_predictor_features: false
-        encode_source: false
 
     decoder:
         hidden_size: 16
