@@ -29,6 +29,7 @@ def search_output():
         'search_config.yaml',
         'study.pkl',
         'output.log',
+        'best_configs'
     ]
 
 

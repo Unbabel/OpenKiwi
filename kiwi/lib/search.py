@@ -32,6 +32,7 @@ from kiwi.lib.utils import (
     configure_seed,
     file_to_configuration,
     save_config_to_file,
+    sort_by_second_value,
 )
 from kiwi.utils.io import BaseConfig
 
@@ -281,6 +282,7 @@ class Objective:
         self.config = config
         self.base_config_dict = base_config_dict
         self.model_paths = []
+        self.train_configs = []
 
     @property
     def main_metric(self) -> str:
@@ -313,14 +315,23 @@ class Objective:
     @property
     def best_model_paths(self) -> List[Path]:
         """Return the model paths sorted from high to low by their objective score."""
-        if not self.model_paths:
-            return []
-        else:
-            return list(
-                tuple(zip(*sorted(self.model_paths, key=lambda t: t[1], reverse=True)))[
-                    0
-                ]
-            )
+        return sort_by_second_value(self.model_paths)
+
+    @property
+    def best_train_configs(self) -> List[train.Configuration]:
+        """Return the train configs sorted from high to low by their objective score."""
+        return sort_by_second_value(self.train_configs)
+
+    def prune_models(self, num_models_to_keep) -> None:
+        """Keep only the best model checkpoints and remove the rest to free up space."""
+        best_model_paths = self.best_model_paths
+        for path in best_model_paths[num_models_to_keep:]:
+            if Path(path).exists():
+                logger.info(
+                    f'Removing model checkpoint that is not in the top '
+                    f'{num_models_to_keep}: {path}'
+                )
+                Path(path).unlink()
 
     def suggest_train_config(self, trial) -> Tuple[train.Configuration, dict]:
         """Use the trial to suggest values to initialize a training configuration.
@@ -528,8 +539,13 @@ class Objective:
         for name, value in search_values.items():
             logger.info(f'{name}: {value}')
 
-        # Store the checkpoint path for later access
+        # Store the training config for later saving
+        self.train_configs.append((train_config, result))
+
+        # Store the checkpoint path and prune the unsucessful model checkpoints
         self.model_paths.append((train_info.best_model_path, result))
+        if self.config.num_models_to_keep > 0:
+            self.prune_models(self.config.num_models_to_keep)
 
         return result
 
@@ -638,9 +654,11 @@ def run(config: Configuration):
             f'current best params are: {study.best_params}'
         )
 
+    # Save the study objective for possible later continuation
     logger.info(f"Saving study to: {output_dir / 'study.pkl'}")
     joblib.dump(study, output_dir / 'study.pkl')
 
+    # Log the found values of the best search trial
     logger.info(f'Number of finished trials: {len(study.trials)}')
     logger.info('Best trial:')
     logger.info(f'  Value: {study.best_trial.value}')
@@ -648,21 +666,18 @@ def run(config: Configuration):
     for key, value in study.best_trial.params.items():
         logger.info(f'    {key}: {value}')
 
-    if config.num_models_to_keep > 0 and config.num_trials > config.num_models_to_keep:
-        # Keep only the best model checkpoints and remove the rest to free up space
-        best_model_paths = objective.best_model_paths
-        models_to_keep = best_model_paths[: config.num_models_to_keep]
-        models_to_remove = best_model_paths[config.num_models_to_keep :]
-        logger.info(
-            f'Keeping the {config.num_models_to_keep} best models '
-            'from the search and removing the other ones.'
-        )
-        logger.info('Models that are kept:')
-        for path in models_to_keep:
-            logger.info(f'\t{path}')
-        for path in models_to_remove:
-            Path(path).unlink()
+    # Save the training configs for the best models to file
+    configs_dir = output_dir / 'best_configs'
+    logger.info(
+        f'Saving best {config.num_models_to_keep} train configs to: {configs_dir}'
+    )
+    configs_dir.mkdir()
+    for i, train_config in enumerate(
+        objective.best_train_configs[: config.num_models_to_keep]
+    ):
+        save_config_to_file(train_config, configs_dir / f'train_{i}.yaml')
 
+    # Create and save Optuna search plots
     logger.info(f'Saving Optuna plots for this search to: {output_dir}')
 
     fig = optuna.visualization.plot_optimization_history(study)
