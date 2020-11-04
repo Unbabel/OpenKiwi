@@ -491,7 +491,7 @@ class Objective:
             search_values['sentence_loss_weight'] = sentence_loss_weight
 
         if self.config.options.class_weights and word_level_config:
-            for tag_side in ['source', 'target', 'gaps']:
+            for tag_side in ['source', 'target', 'gap']:
                 tag_weight_range = self.config.options.class_weights.__dict__.get(
                     f'{tag_side}_tags'
                 )
