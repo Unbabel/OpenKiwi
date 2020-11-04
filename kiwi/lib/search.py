@@ -491,7 +491,7 @@ class Objective:
             search_values['sentence_loss_weight'] = sentence_loss_weight
 
         if self.config.options.class_weights and word_level_config:
-            for tag_side in ['source', 'target', 'gap']:
+            for tag_side in ['source', 'target', 'gaps']:
                 tag_weight_range = self.config.options.class_weights.__dict__.get(
                     f'{tag_side}_tags'
                 )
@@ -499,10 +499,11 @@ class Objective:
                     class_weight = get_suggestion(
                         trial, f'class_weight_{tag_side}_tags', tag_weight_range,
                     )
+                    tag_name = 'gap_tags' if tag_side == 'gaps' else f'{tag_side}_tags'
                     base_config_dict['system']['model']['outputs']['word_level'][
                         'class_weights'
-                    ][f'{tag_side}_tags'] = {const.BAD: class_weight}
-                    search_values[f'class_weight_{tag_side}_tags'] = class_weight
+                    ][tag_name] = {const.BAD: class_weight}
+                    search_values[f'class_weight_{tag_name}'] = class_weight
 
         return train.Configuration(**base_config_dict), search_values
 
