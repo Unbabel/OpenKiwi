@@ -55,7 +55,7 @@ class RangeConfig(BaseConfig):
 class ClassWeightsConfig(BaseConfig):
     """Specify the range to search in for the tag loss weights."""
 
-    target_tags: Union[None, List[float], RangeConfig] = RangeConfig(lower=1, upper=5)
+    target_tags: Union[None, List[float], RangeConfig] = RangeConfig(lower=1, upper=10)
     """Loss weight for the target tags."""
 
     gap_tags: Union[None, List[float], RangeConfig] = RangeConfig(lower=1, upper=10)
@@ -89,21 +89,21 @@ class SearchOptions(BaseConfig):
     )
     """Search the learning rate value."""
 
-    dropout: Union[None, List[float], RangeConfig] = RangeConfig(lower=0.0, upper=0.3)
+    dropout: Union[None, List[float], RangeConfig] = None
     """Search the dropout rate used in the decoder."""
 
-    warmup_steps: Union[None, List[float], RangeConfig] = RangeConfig(
-        lower=0.05, upper=0.4
-    )
+    warmup_steps: Union[None, List[float], RangeConfig] = None
     """Search the number of steps to warm up the learning rate."""
 
-    freeze_epochs: Union[None, List[float], RangeConfig] = RangeConfig(lower=0, upper=5)
+    freeze_epochs: Union[None, List[float], RangeConfig] = None
     """Search the number of epochs to freeze the encoder."""
 
     class_weights: Union[None, ClassWeightsConfig] = ClassWeightsConfig()
     """Search the word-level tag loss weights."""
 
-    sentence_loss_weight: Union[None, List[float], RangeConfig] = None
+    sentence_loss_weight: Union[None, List[float], RangeConfig] = RangeConfig(
+        lower=1, upper=10
+    )
     """Search the weight to scale the sentence loss objective with."""
 
     hidden_size: Union[None, List[int], RangeConfig] = None
