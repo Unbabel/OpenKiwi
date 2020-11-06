@@ -492,18 +492,19 @@ class Objective:
 
         if self.config.options.class_weights and word_level_config:
             for tag_side in ['source', 'target', 'gaps']:
+                tag_name = 'gap_tags' if tag_side == 'gaps' else f'{tag_side}_tags'
                 tag_weight_range = self.config.options.class_weights.__dict__.get(
-                    f'{tag_side}_tags'
+                    tag_name
                 )
                 if word_level_config[tag_side] and tag_weight_range:
+                    optuna_param_name = f'class_weight_{tag_name}'
                     class_weight = get_suggestion(
-                        trial, f'class_weight_{tag_side}_tags', tag_weight_range,
+                        trial, optuna_param_name, tag_weight_range,
                     )
-                    tag_name = 'gap_tags' if tag_side == 'gaps' else f'{tag_side}_tags'
                     base_config_dict['system']['model']['outputs']['word_level'][
                         'class_weights'
                     ][tag_name] = {const.BAD: class_weight}
-                    search_values[f'class_weight_{tag_name}'] = class_weight
+                    search_values[optuna_param_name] = class_weight
 
         return train.Configuration(**base_config_dict), search_values
 
@@ -666,6 +667,12 @@ def run(config: Configuration):
     logger.info('  Params:')
     for key, value in study.best_trial.params.items():
         logger.info(f'    {key}: {value}')
+
+    # Log the best model paths
+    if config.num_models_to_keep != 0:
+        logger.info(f'The {config.num_models_to_keep} paths that are kept are:')
+        for model_path in objective.best_model_paths[: config.num_models_to_keep]:
+            logger.info(model_path)
 
     # Save the training configs for the best models to file
     configs_dir = output_dir / 'best_configs'
