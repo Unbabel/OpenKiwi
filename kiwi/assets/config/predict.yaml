@@ -1,0 +1,25 @@
+use_gpu: true
+
+run:
+    output_dir: predictions
+    predict_on_data_partition: valid
+
+defaults:
+    - data: wmt20.qe.en_de
+
+system:
+    load: best_model.torch
+
+    batch_size: 16
+    num_data_workers: 0
+
+    model:
+        outputs:
+            word_level:
+                target: true
+                gaps: true
+                source: true
+            sentence_level:
+                hter: true
+                use_distribution: false
+                binary: false

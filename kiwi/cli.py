@@ -23,8 +23,10 @@ Quality Estimation toolkit.
 Invoke as ``kiwi PIPELINE``.
 
 Usage:
-    kiwi [options] (train|pretrain|predict|evaluate) CONFIG_FILE [OVERWRITES ...]
-    kiwi (-h | --help | --version | --example)
+    kiwi (train|pretrain|predict|evaluate) CONFIG_FILE [OVERWRITES ...]
+    kiwi (train|pretrain|predict|evaluate) --example
+    kiwi (-h | --help | --version)
+
 
 Pipelines:
     train          Train a QE model
@@ -54,23 +56,43 @@ import sys
 from docopt import docopt
 
 from kiwi import __version__
+from kiwi.assets import config
 from kiwi.lib import evaluate, predict, pretrain, train
 from kiwi.lib.utils import arguments_to_configuration
+
+
+def handle_example(arguments, caller):
+
+    if arguments.get('--example'):
+        conf_file = f'{caller}.yaml'
+        print(config.file_path(conf_file).read_text())
+        print(
+            f'# Save the above in a file called {conf_file} and then run:\n'
+            f'# {" ".join(sys.argv[:-1])} {conf_file}'
+        )
+        sys.exit(0)
 
 
 def cli():
     arguments = docopt(
         __doc__, argv=sys.argv[1:], help=True, version=__version__, options_first=False
     )
-    config_dict = arguments_to_configuration(arguments)
 
     if arguments['train']:
+        handle_example(arguments, 'train')
+        config_dict = arguments_to_configuration(arguments)
         train.train_from_configuration(config_dict)
     if arguments['predict']:
+        handle_example(arguments, 'predict')
+        config_dict = arguments_to_configuration(arguments)
         predict.predict_from_configuration(config_dict)
     if arguments['pretrain']:
+        handle_example(arguments, 'pretrain')
+        config_dict = arguments_to_configuration(arguments)
         pretrain.pretrain_from_configuration(config_dict)
     if arguments['evaluate']:
+        handle_example(arguments, 'evaluate')
+        config_dict = arguments_to_configuration(arguments)
         evaluate.evaluate_from_configuration(config_dict)
     # Meta Pipelines
     # if options.pipeline == 'search':

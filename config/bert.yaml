@@ -30,7 +30,7 @@ trainer:
 defaults:
     ###################################################
     # Example of composition of configuration files
-    #  this config is sourced from /config/data/wmt19.qe.en_de.yaml
+    #  this config is sourced from /config/data/wmt20.qe.en_de.yaml
 
     - data: wmt20.qe.en_de
 
