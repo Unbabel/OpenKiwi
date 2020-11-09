@@ -86,16 +86,21 @@ def test_api(tmp_path, search_config, search_output):
     # Because `num_models_to_keep=1`, the second model should have been deleted
     assert len([file.name for file in train_dir.glob('checkpoints/*')]) == 1
 
-    # Perfom a second search run, with different settings
+    # Perfom a second search run, with different settings...
     search_config['base_config']['run']['use_mlflow'] = False
+    search_config['base_config']['trainer']['gradient_accumulation_steps'] = 1
+    #   ...use another sampler...
     search_config['options']['search_method'] = 'multivariate_tpe'
+    #   ...do not search sentence level...
     search_config['options']['search_hter'] = False
+    search_config['base_config']['system']['model']['outputs']['sentence_level']['hter'] = True
+    search_config['base_config']['trainer']['main_metric'] = 'PEARSON'
+    #   ...but do search word level...
+    search_config['options']['search_word_level'] = True
+    #   ...and do not search these hyperparameters.
     search_config['options']['learning_rate'] = None
     search_config['options']['dropout'] = None
-    search_config['options']['search_word_level'] = True
-    search_config['options']['search_hter'] = False
     search_config['options']['class_weights'] = None
-    search_config['base_config']['trainer']['gradient_accumulation_steps'] = 1
     save_config_to_file(search.Configuration(**search_config), config_file)
     search_from_file(config_file)
     assert set([file.name for file in output_dir.glob('*')]) == set(['0', '1'])

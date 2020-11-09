@@ -26,7 +26,7 @@ from pydantic import FilePath, validator
 from typing_extensions import Literal
 
 from kiwi import constants as const
-from kiwi.lib import train
+from kiwi.lib import evaluate, train
 from kiwi.lib.utils import (
     configure_logging,
     configure_seed,
@@ -545,7 +545,7 @@ class Objective:
         self.train_configs.append((train_config, result))
 
         # Store the checkpoint path and prune the unsucessful model checkpoints
-        self.model_paths.append((train_info.best_model_path, result))
+        self.model_paths.append((Path(train_info.best_model_path), result))
         if self.config.num_models_to_keep > 0:
             self.prune_models(self.config.num_models_to_keep)
 
@@ -684,6 +684,26 @@ def run(config: Configuration):
         objective.best_train_configs[: config.num_models_to_keep]
     ):
         save_config_to_file(train_config, configs_dir / f'train_{i}.yaml')
+
+    # Re-evaluate the saved model predictions, so that they can easily be compared,
+    # including the *ensemble* score (simple average of model predictions)
+    if 0 < config.num_models_to_keep <= 10:
+        logger.info('Evaluating the saved models jointly...')
+        gold_files = objective.best_train_configs[-1].data.valid.output
+        predicted_dirs = [
+            model_path.parent.parent
+            for model_path in objective.best_model_paths[: config.num_models_to_keep]
+        ]
+        eval_config = evaluate.Configuration(
+            gold_files=gold_files, predicted_dir=predicted_dirs,
+        )
+        metrics = evaluate.run(eval_config)
+        logger.info(f'Evaluation on the validation set:\n{metrics}')
+    else:
+        logger.info(
+            'Too many saved models (``num_models_to_keep`` > 10); '
+            'skipping joint evaluation.'
+        )
 
     # Create and save Optuna search plots
     logger.info(f'Saving Optuna plots for this search to: {output_dir}')
