@@ -1,31 +1,31 @@
 data:
     train:
         input:
-            source: data/WMT19/sentence_level/en_de.nmt/train.src
-            target: data/WMT19/sentence_level/en_de.nmt/train.mt
-            alignments: data/WMT19/sentence_level/en_de.nmt/train.src-mt.alignments
-            post_edit: data/WMT19/sentence_level/en_de.nmt/train.pe
+            source: data/WMT19/en_de.nmt/train.src
+            target: data/WMT19/en_de.nmt/train.mt
+            alignments: data/WMT19/en_de.nmt/train.src-mt.alignments
+            post_edit: data/WMT19/en_de.nmt/train.pe
 
         output:
-            source_tags: data/WMT19/sentence_level/en_de.nmt/train.source_tags
-            target_tags: data/WMT19/sentence_level/en_de.nmt/train.tags
-            sentence_scores: data/WMT19/sentence_level/en_de.nmt/train.hter
+            source_tags: data/WMT19/en_de.nmt/train.source_tags
+            target_tags: data/WMT19/en_de.nmt/train.tags
+            sentence_scores: data/WMT19/en_de.nmt/train.hter
 
     valid:
         input:
-            source: data/WMT19/sentence_level/en_de.nmt/dev.src
-            target: data/WMT19/sentence_level/en_de.nmt/dev.mt
-            alignments: data/WMT19/sentence_level/en_de.nmt/dev.src-mt.alignments
-            post_edit: data/WMT19/sentence_level/en_de.nmt/dev.pe
+            source: data/WMT19/en_de.nmt/dev.src
+            target: data/WMT19/en_de.nmt/dev.mt
+            alignments: data/WMT19/en_de.nmt/dev.src-mt.alignments
+            post_edit: data/WMT19/en_de.nmt/dev.pe
 
         output:
-            source_tags: data/WMT19/sentence_level/en_de.nmt/dev.source_tags
-            target_tags: data/WMT19/sentence_level/en_de.nmt/dev.tags
-            sentence_scores: data/WMT19/sentence_level/en_de.nmt/dev.hter
+            source_tags: data/WMT19/en_de.nmt/dev.source_tags
+            target_tags: data/WMT19/en_de.nmt/dev.tags
+            sentence_scores: data/WMT19/en_de.nmt/dev.hter
 
     test:
         input:
-            source: data/WMT19/sentence_level/en_de.nmt/test.src
-            target: data/WMT19/sentence_level/en_de.nmt/test.mt
-            alignments: data/WMT19/sentence_level/en_de.nmt/test.src-mt.alignments
-            post_edit: data/WMT19/sentence_level/en_de.nmt/test.pe
+            source: data/WMT19/en_de.nmt/test.src
+            target: data/WMT19/en_de.nmt/test.mt
+            alignments: data/WMT19/en_de.nmt/test.src-mt.alignments
+            post_edit: data/WMT19/en_de.nmt/test.pe

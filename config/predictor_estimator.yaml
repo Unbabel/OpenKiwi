@@ -10,8 +10,8 @@ trainer:
     log_interval: 100
 
     main_metric:
-        - PEARSON
         - WMT19_MCC
+        - PEARSON
 
     checkpoint:
         validation_steps: 0.2
@@ -26,7 +26,7 @@ system:
     batch_size: 32
     num_data_workers: 4
 
-    load_encoder: data/trained_models/predest/en_de/predictor/kiwi2_indomain_large.torch
+    load_encoder: best_model.torch
 
     model:
         encoder:

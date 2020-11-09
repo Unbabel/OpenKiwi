@@ -47,7 +47,7 @@ system:
             word_level:
                 target: true
                 gaps: true
-                source: false
+                source: true
                 class_weights:
                     target_tags:
                         BAD: 3.5
@@ -57,7 +57,7 @@ system:
                         BAD: 3.5
             sentence_level:
                 hter: true
-                use_distribution: true
+                use_distribution: false
                 binary: false
             dropout: 0.2
 
