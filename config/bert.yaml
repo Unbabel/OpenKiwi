@@ -3,10 +3,8 @@ run:
     # Generic configurations options related to
     #  handling of experiments
 
-    experiment_name: BERT-Estimator WMT20 Target en_de.nmt
+    experiment_name: BERT WMT20 EN-DE
     seed: 42
-    mlflow_tracking_uri: mlruns/
-    # output_dir: null  # mlflow will create one if this is null
     use_mlflow: false
 
 trainer:
@@ -15,16 +13,17 @@ trainer:
     #  that apply to all models
 
     gpus: -1
-    log_interval: 100
     epochs: 10
 
+    log_interval: 100
+
     main_metric:
+        - WMT19_MCC
         - PEARSON
-        - WMT19_F1_MULT
 
     checkpoint:
-        validation_steps: 250
-        early_stop_patience: 20
+        validation_steps: 0.2
+        early_stop_patience: 10
 
     gradient_max_norm: 1.
 
@@ -33,7 +32,7 @@ defaults:
     # Example of composition of configuration files
     #  this config is sourced from /config/data/wmt19.qe.en_de.yaml
 
-    - data: wmt19.qe.en_de
+    - data: wmt20.qe.en_de
 
 system:
     ###################################################
@@ -44,7 +43,7 @@ system:
     # All configs must have either `class_name` or `load`
     class_name: Bert
 
-    batch_size: 12
+    batch_size: 8
     num_data_workers: 4
 
     model:
@@ -55,16 +54,14 @@ system:
 
         encoder:
             model_name: bert-base-multilingual-cased
-            # model_name: data/trained_models/bert/finetuned_simple_en_de_indomain
-            interleave_input: false
+            use_mlp: false
             freeze: false
-            use_mismatch_features: false
-            use_predictor_features: false
-            encode_source: false
 
         decoder:
-            hidden_size: 250
-            dropout: 0.0
+            hidden_size: 768
+            bottleneck_size: 768
+            dropout: 0.2
+
 
         outputs:
             ####################################################
@@ -94,7 +91,7 @@ system:
 
     optimizer:
         class_name: adamw
-        learning_rate: 0.00001
+        learning_rate: 1e-5
         warmup_steps: 0.1
         training_steps: 12000
 

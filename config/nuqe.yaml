@@ -1,20 +1,20 @@
 run:
-    experiment_name: NuQE WMT20 Target en_de.nmt
+    experiment_name: NuQE WMT20 EN-DE
     seed: 42
-    mlflow_tracking_uri: mlruns/
-    use_mlflow: true
+    use_mlflow: false
 
 trainer:
     gpus: -1
-    log_interval: 10
-    epochs: 2
+    epochs: 10
+
+    log_interval: 100
 
     main_metric:
-        - WMT19_F1_MULT
+        - WMT19_MCC
         - PEARSON
 
     checkpoint:
-        validation_steps: 100
+        validation_steps: 0.2
         early_stop_patience: 10
 
 defaults:

@@ -1,25 +1,21 @@
 run:
-    experiment_name: PredictorEstimator WMT20 Target en_de.nmt
+    experiment_name: PredictorEstimator WMT20 EN-DE
     seed: 42
-    mlflow_tracking_uri: mlruns/
-    # output_dir: runs/predictor-estimator  # mlflow will create one if this is null
+    use_mlflow: false
 
 trainer:
     gpus: -1
-
-    resume: false
     epochs: 10
-    log_interval: 50
-    # gradient_accumulation_steps: 2
+
+    log_interval: 100
 
     main_metric:
         - PEARSON
-        - target_tags_F1_MULT
+        - WMT19_MCC
 
     checkpoint:
-        validation_steps: 100
-        save_top_k: 1
-        early_stop_patience: 8
+        validation_steps: 0.2
+        early_stop_patience: 10
 
 defaults:
     - data: wmt20.qe.en_de

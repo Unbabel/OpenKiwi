@@ -1,21 +1,21 @@
 run:
-    experiment_name: XLM-Estimator WMT20 Target en_de.nmt
+    experiment_name: XLM WMT20 EN-DE
     seed: 42
-    mlflow_tracking_uri: mlruns/
-    # output_dir: null  # mlflow will create one if this is null
+    use_mlflow: false
 
 trainer:
     gpus: -1
-    log_interval: 100
     epochs: 10
 
+    log_interval: 100
+
     main_metric:
+        - WMT19_MCC
         - PEARSON
-        - WMT19_F1_MULT
 
     checkpoint:
-        validation_steps: 100
-        early_stop_patience: 20
+        validation_steps: 0.2
+        early_stop_patience: 10
 
     gradient_max_norm: 1.
 
@@ -25,7 +25,7 @@ defaults:
 system:
     class_name: XLM
 
-    batch_size: 11
+    batch_size: 8
     num_data_workers: 4
 
     model:
@@ -33,14 +33,12 @@ system:
             model_name: xlm-mlm-tlm-xnli15-1024  # this was the one originally used for the shared task
             interleave_input: false
             freeze: false
-            use_mismatch_features: false
-            use_predictor_features: false
-            encode_source: false
-            use_mlp: true
+            use_mlp: false
 
         decoder:
-            hidden_size: 250
-            dropout: 0.0
+            hidden_size: 768
+            bottleneck_size: 768
+            dropout: 0.2
 
         outputs:
             word_level:
@@ -65,7 +63,7 @@ system:
 
     optimizer:
         class_name: adamw
-        learning_rate: 1.0e-05
+        learning_rate: 1e-05
         warmup_steps: 0.1
         training_steps: 12000
         learning_rate_decay: 1.0
