@@ -38,7 +38,7 @@ system:
         decoder:
             hidden_size: 768
             bottleneck_size: 768
-            dropout: 0.2
+            dropout: 0.1
 
         outputs:
             word_level:
@@ -54,7 +54,7 @@ system:
                         BAD: 3.5
             sentence_level:
                 hter: true
-                use_distribution: true
+                use_distribution: false
                 binary: false
             sentence_loss_weight: 2
 

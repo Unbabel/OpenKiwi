@@ -13,18 +13,22 @@ predicted_dir:
     - runs/0/e9200ada6dc84bfea807b3b02b9c7212
 
 # 2. Configure each predicted file separately
-# predicted_files:
-#     source_tags:
-#         - runs/0/4aa891368ff4402fa69a4b081ea2ba62/source_tags
-#         - runs/0/e9200ada6dc84bfea807b3b02b9c7212/source_tags
-#     # Recommended use: pass the predicted `targetgaps_tags` as `target_tags`,
-#     #   the target and gap tags will be split and evaluated separately too
-#     target_tags:
-#         - runs/0/4aa891368ff4402fa69a4b081ea2ba62/targetgaps_tags
-#         - runs/0/e9200ada6dc84bfea807b3b02b9c7212/targetgaps_tags
-#     # Alternatively:
-#     # target_tags: runs/0/4aa891368ff4402fa69a4b081ea2ba62/target_tags
-#     # gap_tags: runs/0/4aa891368ff4402fa69a4b081ea2ba62/gap_tags
-#     sentence_scores:
-#         - runs/0/4aa891368ff4402fa69a4b081ea2ba62/sentence_scores
-#         - runs/0/e9200ada6dc84bfea807b3b02b9c7212/sentence_scores
+predicted_files:
+    source_tags:
+        - runs/0/4aa891368ff4402fa69a4b081ea2ba62/source_tags
+        - runs/0/e9200ada6dc84bfea807b3b02b9c7212/source_tags
+    # (Recommended) Pass the predicted `targetgaps_tags` file as `target_tags`;
+    #   the target and gap tags will be separated and evaluated separately as well as jointly
+    target_tags:
+        - runs/0/4aa891368ff4402fa69a4b081ea2ba62/targetgaps_tags
+        - runs/0/e9200ada6dc84bfea807b3b02b9c7212/targetgaps_tags
+    # Alternatively:
+    # target_tags:
+    #   - runs/0/4aa891368ff4402fa69a4b081ea2ba62/target_tags
+    #   - runs/0/e9200ada6dc84bfea807b3b02b9c7212/target_tags
+    # gap_tags:
+    #   - runs/0/4aa891368ff4402fa69a4b081ea2ba62/gap_tags
+    #   - runs/0/e9200ada6dc84bfea807b3b02b9c7212/gap_tags
+    sentence_scores:
+        - runs/0/4aa891368ff4402fa69a4b081ea2ba62/sentence_scores
+        - runs/0/e9200ada6dc84bfea807b3b02b9c7212/sentence_scores

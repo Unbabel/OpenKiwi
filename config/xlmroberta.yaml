@@ -35,13 +35,12 @@ system:
             freeze: false
             use_mlp: false
             pooling: mixed
-            dropout: 0.2
             freeze_for_number_of_steps: 1000
 
         decoder:
             hidden_size: 768
             bottleneck_size: 768
-            dropout: 0.2
+            dropout: 0.1
 
         outputs:
             word_level:
@@ -59,7 +58,7 @@ system:
                 hter: true
                 use_distribution: false
                 binary: false
-            dropout: 0.2
+            dropout: 0.1
 
         tlm_outputs:
             fine_tune: false

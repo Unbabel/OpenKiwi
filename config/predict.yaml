@@ -18,8 +18,8 @@ system:
             word_level:
                 target: true
                 gaps: true
-                source: false
+                source: true
             sentence_level:
                 hter: true
-                use_distribution: true
-                binary: true
+                use_distribution: false
+                binary: false
