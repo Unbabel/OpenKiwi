@@ -1,8 +1,7 @@
 run:
-    experiment_name: PredictorEstimator WMT20 en_de
+    experiment_name: PredictorEstimator WMT20 Target en_de.nmt
     seed: 42
-    mlflow_tracking_uri: mlruns
-    use_mlflow: false
+    mlflow_tracking_uri: mlruns/
     # output_dir: runs/predictor-estimator  # mlflow will create one if this is null
 
 trainer:
@@ -11,6 +10,7 @@ trainer:
     resume: false
     epochs: 10
     log_interval: 50
+    # gradient_accumulation_steps: 2
 
     main_metric:
         - PEARSON
@@ -30,7 +30,7 @@ system:
     batch_size: 32
     num_data_workers: 4
 
-    load_encoder: best_model.torch
+    load_encoder: data/trained_models/predest/en_de/predictor/kiwi2_indomain_large.torch
 
     model:
         encoder:

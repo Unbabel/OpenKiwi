@@ -5,9 +5,9 @@ run:
 
     experiment_name: BERT-Estimator WMT20 Target en_de.nmt
     seed: 42
-    mlflow_tracking_uri: mlruns
-    use_mlflow: false
+    mlflow_tracking_uri: mlruns/
     # output_dir: null  # mlflow will create one if this is null
+    use_mlflow: false
 
 trainer:
     ###################################################

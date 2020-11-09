@@ -1,8 +1,8 @@
 run:
-    experiment_name: NuQE WMT20 en_de
+    experiment_name: NuQE WMT20 Target en_de.nmt
     seed: 42
-    mlflow_tracking_uri: mlruns
-    use_mlflow: false
+    mlflow_tracking_uri: mlruns/
+    use_mlflow: true
 
 trainer:
     gpus: -1
