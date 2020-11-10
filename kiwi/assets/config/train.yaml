@@ -24,9 +24,9 @@ trainer:
     # Control the model precision, see
     #   https://pytorch-lightning.readthedocs.io/en/stable/amp.html
     # for more info on the configuration options
-    # Full half precision by default:
-    amp_level: O0
-    precision: 32
+    # Fast mixed precision by default:
+    amp_level: O2
+    precision: 16
 
     log_interval: 100
     checkpoint:
