@@ -7,12 +7,11 @@ trainer:
     gpus: -1
     epochs: 10
 
-    log_interval: 100
-
     main_metric:
         - WMT19_MCC
         - PEARSON
 
+    log_interval: 100
     checkpoint:
         validation_steps: 0.2
         early_stop_patience: 10

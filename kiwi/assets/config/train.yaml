@@ -1,41 +1,62 @@
 run:
-    experiment_name: XLM-Roberta WMT20 EN-DE
+    ###################################################
+    # Generic configurations options related to
+    #  handling of experiments
+    experiment_name: BERT WMT20 EN-DE
     seed: 42
     use_mlflow: false
 
 trainer:
+    ###################################################
+    # Generic options related to the training process
+    #  that apply to all models
+    deterministic: true
     gpus: -1
     epochs: 10
-
-    log_interval: 100
 
     main_metric:
         - WMT19_MCC
         - PEARSON
 
+    gradient_max_norm: 1.
+    gradient_accumulation_steps: 1
+
+    amp_level: O1
+    precision: 32
+
+    log_interval: 100
     checkpoint:
         validation_steps: 0.2
         early_stop_patience: 10
 
-    gradient_max_norm: 1.
 
 defaults:
+    ###################################################
+    # Example of composition of configuration files
+    #  this config is sourced from /config/data/wmt20.qe.en_de.yaml
     - data: wmt20.qe.en_de
 
 system:
-    class_name: XLMRoberta
+    ###################################################
+    # System configs are responsible for all the system
+    #  specific configurations. From model settings to
+    #  optimizers and specific processing options.
+
+    # All configs must have either `class_name` or `load`
+    class_name: Bert
 
     batch_size: 8
     num_data_workers: 4
 
     model:
+        ################################################
+        # Modeling options. These can change a lot about
+        #  the architecture of the system. With many configuration
+        #  options adding (or removing) layers.
         encoder:
-            model_name: xlm-roberta-base
-            interleave_input: false
-            freeze: false
+            model_name: bert-base-multilingual-cased
             use_mlp: false
-            pooling: mixed
-            freeze_for_number_of_steps: 1000
+            freeze: false
 
         decoder:
             hidden_size: 768
@@ -43,31 +64,37 @@ system:
             dropout: 0.1
 
         outputs:
+            ####################################################
+            # Output options configure the downstream tasks the
+            #  model will be trained on by adding specific layers
+            #  responsible for transforming decoder features into
+            #  predictions.
             word_level:
                 target: true
                 gaps: true
                 source: true
                 class_weights:
                     target_tags:
-                        BAD: 3.5
+                        BAD: 3.0
                     gap_tags:
-                        BAD: 3.5
+                        BAD: 5.0
                     source_tags:
-                        BAD: 3.5
+                        BAD: 3.0
             sentence_level:
                 hter: true
                 use_distribution: false
                 binary: false
-            dropout: 0.1
+            n_layers_output: 2
+            sentence_loss_weight: 1
 
         tlm_outputs:
             fine_tune: false
 
     optimizer:
         class_name: adamw
-        learning_rate: 1e-05
+        learning_rate: 1e-5
         warmup_steps: 0.1
-        training_steps: 7000
+        training_steps: 12000
 
     data_processing:
         share_input_fields_encoders: true
