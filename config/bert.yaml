@@ -21,7 +21,11 @@ trainer:
     gradient_max_norm: 1.
     gradient_accumulation_steps: 1
 
-    amp_level: O1
+    # Control the model precision, see
+    #   https://pytorch-lightning.readthedocs.io/en/stable/amp.html
+    # for more info on the configuration options
+    # Full half precision by default:
+    amp_level: O0
     precision: 32
 
     log_interval: 100

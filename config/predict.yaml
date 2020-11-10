@@ -2,7 +2,7 @@ use_gpu: true
 
 run:
     output_dir: predictions
-    predict_on_data_partition: valid
+    predict_on_data_partition: test
 
 defaults:
     - data: wmt20.qe.en_de
