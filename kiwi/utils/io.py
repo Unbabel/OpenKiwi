@@ -72,10 +72,6 @@ def load_torch_file(file_path, map_location=None):
         else:
             raise e
 
-    if map_location is None:
-        map_location = default_map_location
-    file_dict = torch.load(file_path, map_location=map_location)
-
     return file_dict
 
 

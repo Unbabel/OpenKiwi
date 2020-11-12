@@ -89,5 +89,5 @@ use_parentheses = true
 line_length = 88
 
 [build-system]
-requires = ["poetry>=1.0.0"]
+requires = ["poetry>=1.1.0"]
 build-backend = "poetry.masonry.api"
