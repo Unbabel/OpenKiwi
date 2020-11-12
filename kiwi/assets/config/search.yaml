@@ -18,6 +18,7 @@ options:
     learning_rate:
         lower: 1e-7
         upper: 1e-5
+        distribution: loguniform  # recommended for the learning rate
     # Search weights for the tag loss
     class_weights:
         target_tags:
