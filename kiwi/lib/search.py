@@ -51,6 +51,11 @@ class RangeConfig(BaseConfig):
     step: Optional[float]
     """Specify a step size to create a discrete range of search values."""
 
+    distribution: Literal['uniform', 'loguniform'] = 'uniform'
+    """Specify the distribution over the search range. Uniform is recommended
+    for all hyperparameters except for the learning rate, for which loguniform
+    is recommended. Only works when a RangeConfig without step is specified."""
+
 
 class ClassWeightsConfig(BaseConfig):
     """Specify the range to search in for the tag loss weights."""
@@ -85,7 +90,7 @@ class SearchOptions(BaseConfig):
     out if HTER regression is helping word level performance."""
 
     learning_rate: Union[None, List[float], RangeConfig] = RangeConfig(
-        lower=5e-7, upper=5e-5
+        lower=5e-7, upper=5e-5, distribution='loguniform'
     )
     """Search the learning rate value."""
 
@@ -229,6 +234,8 @@ def get_suggestion(
         return trial.suggest_discrete_uniform(
             param_name, config.lower, config.upper, config.step
         )
+    elif config.distribution == 'loguniform':
+        return trial.suggest_loguniform(param_name, config.lower, config.upper)
     else:
         return trial.suggest_uniform(param_name, config.lower, config.upper)
 
