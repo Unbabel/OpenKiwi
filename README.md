@@ -16,7 +16,7 @@ Quality estimation (QE) is one of the missing pieces of machine translation: its
 ## News
 
 A new major version (2.0.0) of OpenKiwi has been released. Introducing HuggingFace Transformers support and adoption of Pytorch-lightning.
-For a condensed view of changed, check the [changelog](CHANGELOG.md)
+For a condensed view of changed, check the [changelog](https://github.com/Unbabel/OpenKiwi/blob/master/CHANGELOG.md)
 
 Following our nomination in early July, we are happy to announce we won the [Best Demo Paper at ACL 2019](http://www.acl2019.org/EN/winners-of-acl-2019-best-paper-awards.xhtml)! Congratulations to the whole team and huge thanks for supporters and issue reporters.
 
@@ -65,12 +65,12 @@ Detailed usage examples and instructions can be found in the [Full Documentation
 ## Contributing
 
 We welcome contributions to improve OpenKiwi.
-Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for quick instructions or to [contributing instructions](https://unbabel.github.io/OpenKiwi/contributing.html) for more detailed instructions on how to set up your development environment.
+Please refer to [CONTRIBUTING.md](https://github.com/Unbabel/OpenKiwi/blob/master/CONTRIBUTING.md) for quick instructions or to [contributing instructions](https://unbabel.github.io/OpenKiwi/contributing.html) for more detailed instructions on how to set up your development environment.
 
 
 ## License
 
-OpenKiwi is Affero GPL licensed. You can see the details of this license in [LICENSE](LICENSE).
+OpenKiwi is Affero GPL licensed. You can see the details of this license in [LICENSE](https://github.com/Unbabel/OpenKiwi/blob/master/LICENSE).
 
 
 ## Citation
