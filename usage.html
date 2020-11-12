@@ -180,6 +180,14 @@
 </div>
 <p>Example configuration files can be found in <code class="docutils literal notranslate"><span class="pre">config/</span></code>. Details are covered in
 <a class="reference internal" href="configuration/index.html#configuration"><span class="std std-ref">Configuration</span></a>, including how to override options in the CLI.</p>
+<p>Alternatively, the same example configurations can be obtained by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="p">(</span><span class="n">train</span><span class="o">|</span><span class="n">pretrain</span><span class="o">|</span><span class="n">predict</span><span class="o">|</span><span class="n">evaluate</span><span class="o">|</span><span class="n">search</span><span class="p">)</span> <span class="o">--</span><span class="n">example</span>
+</pre></div>
+</div>
+<p>This will print the config to the terminal, but can easily be redirected to a file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="n">train</span> <span class="o">--</span><span class="n">example</span> <span class="o">&gt;</span> <span class="n">train</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
 <div class="section" id="training-and-pretraining">
 <h2>Training and pretraining<a class="headerlink" href="#training-and-pretraining" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">PredictorEstimator</span></code> requires pretraining the Predictor model with parallel data.
