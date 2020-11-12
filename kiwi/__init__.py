@@ -17,5 +17,5 @@
 from kiwi.lib.train import train_from_file  # NOQA isort:skip
 from kiwi.lib.predict import load_system  # NOQA isort:skip
 
-__version__ = '2.0.0'
+__version__ = '2.1.0'
 __copyright__ = '2019-2020 Unbabel. All rights reserved.'
