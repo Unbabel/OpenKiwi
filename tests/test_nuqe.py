@@ -43,7 +43,7 @@ def output_targetgaps_config(nuqe_config_dict):
 
 
 def test_computation_target(
-    tmp_path, output_target_config, train_config, data_config, atol
+    tmp_path, output_target_config, train_config, data_config, big_atol
 ):
     train_config['data'] = data_config
     train_config['system'] = output_target_config
@@ -52,7 +52,7 @@ def test_computation_target(
         tmp_path,
         output_name=const.TARGET_TAGS,
         expected_avg_probs=0.498354,
-        atol=atol,
+        atol=big_atol,
     )
 
 
@@ -71,7 +71,7 @@ def test_computation_gaps(
 
 
 def test_computation_source(
-    tmp_path, output_source_config, train_config, data_config, atol
+    tmp_path, output_source_config, train_config, data_config, big_atol
 ):
     train_config['data'] = data_config
     train_config['system'] = output_source_config
@@ -80,12 +80,12 @@ def test_computation_source(
         tmp_path,
         output_name=const.SOURCE_TAGS,
         expected_avg_probs=0.486522,
-        atol=atol,
+        atol=big_atol,
     )
 
 
 def test_computation_targetgaps(
-    tmp_path, output_targetgaps_config, train_config, data_config, atol
+    tmp_path, output_targetgaps_config, train_config, data_config, big_atol
 ):
     train_config['data'] = data_config
     train_config['system'] = output_targetgaps_config
@@ -94,11 +94,11 @@ def test_computation_targetgaps(
         tmp_path,
         output_name=const.TARGET_TAGS,
         expected_avg_probs=0.507699,
-        atol=atol,
+        atol=big_atol,
     )
 
 
-def test_api(tmp_path, output_target_config, train_config, data_config, atol):
+def test_api(tmp_path, output_target_config, train_config, data_config, big_atol):
     from kiwi import train_from_file, load_system
 
     train_config['data'] = data_config
@@ -126,7 +126,7 @@ def test_api(tmp_path, output_target_config, train_config, data_config, atol):
     avg_of_avgs = np.mean(list(map(np.mean, target_tags_probabilities)))
     max_prob = max(map(max, target_tags_probabilities))
     min_prob = min(map(min, target_tags_probabilities))
-    np.testing.assert_allclose(avg_of_avgs, 0.498287, atol=atol)
+    np.testing.assert_allclose(avg_of_avgs, 0.498287, atol=big_atol)
     assert 0 <= min_prob <= avg_of_avgs <= max_prob <= 1
 
     assert len(predictions.target_tags_labels) == len(target)

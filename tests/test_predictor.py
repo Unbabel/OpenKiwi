@@ -70,9 +70,9 @@ def test_pretrain_predictor(
     train_info = pretrain.pretrain_from_configuration(pretrain_config)
 
     stats = train_info.best_metrics
-    np.testing.assert_allclose(stats['target_PERP'], 838.510547, atol=extra_big_atol)
+    np.testing.assert_allclose(stats['target_PERP'], 850.052749, atol=extra_big_atol)
     np.testing.assert_allclose(
-        stats['val_target_PERP'], 501.507831, atol=extra_big_atol
+        stats['val_target_PERP'], 510.482722, atol=extra_big_atol
     )
 
     # Testing predictor with pickled data
@@ -85,9 +85,10 @@ def test_pretrain_predictor(
         stats['target_PERP'], 166.4964834955168, atol=extra_big_atol
     )
     np.testing.assert_allclose(
-        stats['val_target_PERP'], 333.620418, atol=extra_big_atol
+        stats['val_target_PERP'], 339.743725, atol=extra_big_atol
     )
 
 
 if __name__ == '__main__':  # pragma: no cover
+
     pytest.main([__file__])  # pragma: no cover
