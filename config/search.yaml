@@ -1,0 +1,36 @@
+base_config: config/bert.yaml
+
+options:
+    search_method: random
+    # Search the model architecture
+    #   You can specify a list of values...
+    hidden_size:
+        - 768
+        - 324
+    #   ...or you can specify a discrete range...
+    bottleneck_size:
+        lower: 100
+        upper: 500
+        step: 100
+    search_mlp: true
+    # Search optimizer
+    #   ...or you can specify a continuous interval.
+    learning_rate:
+        lower: 1e-7
+        upper: 1e-5
+    # Search weights for the tag loss
+    class_weights:
+        target_tags:
+            lower: 1
+            upper: 10
+            step: 1
+        gap_tags:
+            lower: 1
+            upper: 20
+            step: 1
+        source_tags: null
+    # Search the sentence level objective
+    search_hter: true
+    sentence_loss_weight:
+        lower: 1
+        upper: 10

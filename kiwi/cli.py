@@ -23,7 +23,7 @@ Quality Estimation toolkit.
 Invoke as ``kiwi PIPELINE``.
 
 Usage:
-    kiwi [options] (train|pretrain|predict|evaluate) CONFIG_FILE [OVERWRITES ...]
+    kiwi [options] (train|pretrain|predict|evaluate|search) CONFIG_FILE [OVERWRITES ...]
     kiwi (-h | --help | --version | --example)
 
 Pipelines:
@@ -31,9 +31,9 @@ Pipelines:
     pretrain       Pretrain a TLM model to be used as an encoder for a QE model
     predict        Use a pre-trained model for prediction
     evaluate       Evaluate a model's predictions using popular metrics
+    search         Search training hyper-parameters for a QE model
 
 Disabled pipelines:
-    search         Search training hyper-parameters for a QE model
     jackknife      Jackknife training data with model
 
 Arguments:
@@ -54,7 +54,7 @@ import sys
 from docopt import docopt
 
 from kiwi import __version__
-from kiwi.lib import evaluate, predict, pretrain, train
+from kiwi.lib import evaluate, predict, pretrain, search, train
 from kiwi.lib.utils import arguments_to_configuration
 
 
@@ -72,9 +72,11 @@ def cli():
         pretrain.pretrain_from_configuration(config_dict)
     if arguments['evaluate']:
         evaluate.evaluate_from_configuration(config_dict)
+    if arguments['search']:
+        search.search_from_configuration(config_dict)
     # Meta Pipelines
-    # if options.pipeline == 'search':
-    #     search.main(extra_args)
+    # if options.pipeline == 'jackknife':
+    #     jackknife.main(extra_args)
 
 
 if __name__ == '__main__':  # pragma: no cover

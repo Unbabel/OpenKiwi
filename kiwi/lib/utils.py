@@ -19,7 +19,7 @@ import logging
 import os.path
 from pathlib import Path
 from time import gmtime
-from typing import Dict, Union
+from typing import Dict, List, Union
 
 import hydra.experimental
 import hydra.utils
@@ -181,3 +181,11 @@ def _reset_hydra():
     """Utility function used to handle global hydra state"""
     # TODO remove me when upgrading hydra version
     hydra._internal.hydra.GlobalHydra().clear()
+
+
+def sort_by_second_value(tuples: List[tuple]) -> List[tuple]:
+    """Sort a list of tuples by the second value in descending order."""
+    if not tuples:
+        return []
+    else:
+        return list(tuple(zip(*sorted(tuples, key=lambda t: t[1], reverse=True)))[0])
