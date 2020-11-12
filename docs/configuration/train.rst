@@ -3,9 +3,9 @@ Training configuration
 
 There are training configuration files available in ``config/`` for all supported models.
 
-As an example, here is the configuration for the ``PredictorEstimator`` model:
+As an example, here is the configuration for the ``Bert`` model:
 
-.. literalinclude:: ../../config/predictor_estimator.yaml
+.. literalinclude:: ../../config/bert.yaml
    :language: yaml
 
 
