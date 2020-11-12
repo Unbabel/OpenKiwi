@@ -28,6 +28,14 @@ For CLI usage, the general command is::
 Example configuration files can be found in ``config/``. Details are covered in
 :ref:`configuration`, including how to override options in the CLI.
 
+Alternatively, the same example configurations can be obtained by running::
+
+    kiwi (train|pretrain|predict|evaluate|search) --example
+
+This will print the config to the terminal, but can easily be redirected to a file::
+
+    kiwi train --example > train.yaml
+
 
 Training and pretraining
 ------------------------
