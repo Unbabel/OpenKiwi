@@ -1,3 +1,0 @@
-streamlit==0.69.1
-st-annotated-text==1.0.1
-openkiwi

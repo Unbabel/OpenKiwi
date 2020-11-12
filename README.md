@@ -15,14 +15,16 @@ Quality estimation (QE) is one of the missing pieces of machine translation: its
 
 ## News
 
-A new major version (2.0.0) of OpenKiwi has been released. Introducing HuggingFace Transformers support and adoption of Pytorch-lightning.
+* An experimental demonstration interface called OpenKiwi Tasting has been released on [GitHub](https://github.com/Unbabel/OpenKiwiTasting) and can be checked out in [Streamlit Share](https://share.streamlit.io/unbabel/openkiwitasting/main).
+
+* A new major version (2.0.0) of OpenKiwi has been released. Introducing HuggingFace Transformers support and adoption of Pytorch-lightning.
 For a condensed view of changed, check the [changelog](CHANGELOG.md)
 
-Following our nomination in early July, we are happy to announce we won the [Best Demo Paper at ACL 2019](http://www.acl2019.org/EN/winners-of-acl-2019-best-paper-awards.xhtml)! Congratulations to the whole team and huge thanks for supporters and issue reporters.
+* Following our nomination in early July, we are happy to announce we won the [Best Demo Paper at ACL 2019](http://www.acl2019.org/EN/winners-of-acl-2019-best-paper-awards.xhtml)! Congratulations to the whole team and huge thanks for supporters and issue reporters.
 
-Check out the [published paper](https://www.aclweb.org/anthology/P19-3020).
+* Check out the [published paper](https://www.aclweb.org/anthology/P19-3020).
 
-We have released the OpenKiwi [tutorial](https://github.com/Unbabel/KiwiCutter) we presented at MT Marathon 2019.
+* We have released the OpenKiwi [tutorial](https://github.com/Unbabel/KiwiCutter) we presented at MT Marathon 2019.
 
 ## Features
 
