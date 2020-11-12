@@ -60,6 +60,9 @@ class Configuration(BaseConfig):
     """One or more directories from where to read predicted files (using standard output
     names."""
 
+    verbose: bool = False
+    quiet: bool = False
+
     @validator(
         'predicted_files', 'predicted_dir', pre=True, always=False, each_item=False
     )

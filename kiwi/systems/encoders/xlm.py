@@ -153,8 +153,6 @@ class XLMEncoder(MetaModule):
     """
 
     class Config(BaseConfig):
-        encode_source: bool = False
-
         model_name: Union[str, Path] = 'xlm-mlm-tlm-xnli15-1024'
         """Pre-trained XLM model to use."""
 

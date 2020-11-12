@@ -224,8 +224,6 @@ class PredictorEncoder(MetaModule):
     """
 
     class Config(BaseConfig):
-        encode_source: bool = False
-
         hidden_size: int = 400
         """Size of hidden layers in LSTM."""
 

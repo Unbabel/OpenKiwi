@@ -3,7 +3,7 @@ Usage
 
 Kiwi's functionality is split in ``pipelines``::
 
-   train, pretrain, predict, evaluate
+   train, pretrain, predict, evaluate, search
 
 
 Currently supported models are:
@@ -23,7 +23,7 @@ The predicting pipeline additionally provides a simplified interface with explic
 
 For CLI usage, the general command is::
 
-    kiwi (train|pretrain|predict|evaluate) CONFIG_FILE
+    kiwi (train|pretrain|predict|evaluate|search) CONFIG_FILE
 
 Example configuration files can be found in ``config/``. Details are covered in
 :ref:`configuration`, including how to override options in the CLI.
@@ -58,14 +58,14 @@ Or:
 .. code-block:: python
 
    from kiwi.lib.train import train_from_configuration
-   from kiwi.lib.utils import load_config
+   from kiwi.lib.utils import file_to_configuration
 
-   configuration_dict = load_config('config/bert.yaml')
+   configuration_dict = file_to_configuration('config/bert.yaml')
    run_info = train_from_configuration(configuration_dict)
 
 
 The ``configuration_dict`` is only validated inside ``train_from_configuration``, which
-means other file formats can be used. In fact, ``load_config`` also supports JSON files
+means other file formats can be used. In fact, ``file_to_configuration`` also supports JSON files
 (but that is a not well known fact, as YAML is preferred).
 
 Pretraining the ``Predictor`` can be down by calling:
@@ -97,9 +97,9 @@ To load a trained model and produce predictions on a full dataset, use:
 .. code-block:: python
 
    from kiwi.lib.predict import predict_from_configuration
-   from kiwi.lib.utils import load_config
+   from kiwi.lib.utils import file_to_configuration
 
-   configuration_dict = load_config('config/predict.yaml')
+   configuration_dict = file_to_configuration('config/predict.yaml')
    predictions, metrics = predict_from_configuration(configuration_dict)
 
 
@@ -148,11 +148,48 @@ Or alternatively:
 .. code-block:: python
 
    from kiwi.lib.evaluate import evaluate_from_configuration
-   from kiwi.lib.utils import load_config
+   from kiwi.lib.utils import file_to_configuration
 
-   configuration_dict = load_config('config/evaluate.yaml')
+   configuration_dict = file_to_configuration('config/evaluate.yaml')
    report = evaluate_from_configuration(configuration_dict)
    print(report)
 
 
 You can check all the configuration options in :ref:`configuration`.
+
+
+Searching
+---------
+
+The search pipeline enables hyperparameter search for the Kiwi models using the
+`Optuna <https://github.com/optuna/optuna>`_ library.
+
+Examples of how to call Kiwi to search hyperparameters for BERT for QE:
+
+.. code-block:: bash
+
+   kiwi search config/search.yaml
+
+Or:
+
+.. code-block:: python
+
+   from kiwi.lib.search import search_from_file
+
+   optuna_study = search_from_file('config/search.yaml')
+
+Or:
+
+.. code-block:: python
+
+   from kiwi.lib.search import search_from_configuration
+   from kiwi.lib.utils import file_to_configuration
+
+   configuration_dict = file_to_configuration('config/search.yaml')
+   optuna_study = search_from_configuration(configuration_dict)
+
+
+The search configuration ``search.yaml`` points to the base training config
+(``config/bert.yaml`` in the above BERT example) which defines the basic model,
+and the rest of the options are dedicated to configuring the hyperparameters to search
+and the ranges to search them in.

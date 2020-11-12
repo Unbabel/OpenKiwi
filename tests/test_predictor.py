@@ -30,7 +30,6 @@ batch_size:
 
 model:
     encoder:
-        encode_source: false
         hidden_size: 400
         rnn_layers: 2
         embeddings:

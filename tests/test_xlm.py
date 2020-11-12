@@ -34,7 +34,6 @@ model:
         model_name: None
         interleave_input: false
         freeze: false
-        encode_source: false
 
     decoder:
         hidden_size: 16
