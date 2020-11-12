@@ -104,8 +104,6 @@ class XLMRobertaEncoder(MetaModule):
     """XLM-RoBERTa model, using HuggingFace's implementation."""
 
     class Config(BaseConfig):
-        encode_source: bool = False
-
         model_name: Union[str, Path] = 'xlm-roberta-base'
         """Pre-trained XLMRoberta model to use."""
 

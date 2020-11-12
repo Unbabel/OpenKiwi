@@ -99,8 +99,6 @@ class BertEncoder(MetaModule):
     """
 
     class Config(BaseConfig):
-        encode_source: bool = False
-
         model_name: Union[str, Path] = 'bert-base-multilingual-cased'
         """Pre-trained BERT model to use."""
 
