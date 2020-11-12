@@ -67,12 +67,12 @@ Detailed usage examples and instructions can be found in the [Full Documentation
 ## Contributing
 
 We welcome contributions to improve OpenKiwi.
-Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for quick instructions or to [contributing instructions](https://unbabel.github.io/OpenKiwi/contributing.html) for more detailed instructions on how to set up your development environment.
+Please refer to [CONTRIBUTING.md](https://github.com/Unbabel/OpenKiwi/blob/master/CONTRIBUTING.md) for quick instructions or to [contributing instructions](https://unbabel.github.io/OpenKiwi/contributing.html) for more detailed instructions on how to set up your development environment.
 
 
 ## License
 
-OpenKiwi is Affero GPL licensed. You can see the details of this license in [LICENSE](LICENSE).
+OpenKiwi is Affero GPL licensed. You can see the details of this license in [LICENSE](https://github.com/Unbabel/OpenKiwi/blob/master/LICENSE).
 
 
 ## Citation

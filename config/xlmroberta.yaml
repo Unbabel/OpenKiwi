@@ -1,24 +1,27 @@
 run:
-    experiment_name: XLM-R WMT20 en_de
+    experiment_name: XLM-Roberta WMT20 EN-DE
     seed: 42
-    mlflow_tracking_uri: mlruns/
-    # output_dir: null  # mlflow will create one if this is null
     use_mlflow: false
 
 trainer:
+    deterministic: true
     gpus: -1
-    log_interval: 100
     epochs: 10
 
     main_metric:
-        - PEARSON
         - WMT19_MCC
-
-    checkpoint:
-        validation_steps: 200
-        early_stop_patience: 20
+        - PEARSON
 
     gradient_max_norm: 1.
+    gradient_accumulation_steps: 1
+
+    amp_level: O2
+    precision: 16
+
+    log_interval: 100
+    checkpoint:
+        validation_steps: 0.2
+        early_stop_patience: 10
 
 defaults:
     - data: wmt20.qe.en_de
@@ -34,34 +37,33 @@ system:
             model_name: xlm-roberta-base
             interleave_input: false
             freeze: false
-            encode_source: false
             use_mlp: false
-            hidden_size: 600
             pooling: mixed
-           dropout: 0.2
-           freeze_for_number_of_steps: 2100
+            freeze_for_number_of_steps: 1000
 
         decoder:
-            hidden_size: 256
-            dropout: 0.2
+            hidden_size: 768
+            bottleneck_size: 768
+            dropout: 0.1
 
         outputs:
             word_level:
                 target: true
                 gaps: true
-                source: false
+                source: true
                 class_weights:
                     target_tags:
-                        BAD: 3.5
+                        BAD: 3.0
                     gap_tags:
-                        BAD: 3.5
+                        BAD: 5.0
                     source_tags:
-                        BAD: 3.5
+                        BAD: 3.0
             sentence_level:
                 hter: true
-                use_distribution: true
+                use_distribution: false
                 binary: false
-            dropout: 0.2
+            n_layers_output: 2
+            sentence_loss_weight: 1
 
         tlm_outputs:
             fine_tune: false
@@ -69,8 +71,8 @@ system:
     optimizer:
         class_name: adamw
         learning_rate: 1e-05
-        warmup_steps: 0.15
-        training_steps: 7000
+        warmup_steps: 0.1
+        training_steps: 12000
 
     data_processing:
         share_input_fields_encoders: true
