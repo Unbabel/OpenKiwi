@@ -24,8 +24,11 @@ def test_load_torch_file(model_dir):
     load_torch_file(model_dir / 'nuqe.ckpt')
     # There's no CUDA:
     if not torch.cuda.is_available():
-        with pytest.raises(AssertionError):
-            load_torch_file(model_dir / 'nuqe.ckpt', map_location='cuda')
+        with pytest.raises(RuntimeError, match='No CUDA GPUs are available'):
+            load_torch_file(
+                model_dir / 'nuqe.ckpt',
+                map_location=lambda storage, loc: storage.cuda(0),
+            )
     # And this file does not exist:
     with pytest.raises(ValueError):
         load_torch_file(model_dir / 'nonexistent.torch')
