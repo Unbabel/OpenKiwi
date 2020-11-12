@@ -147,10 +147,6 @@
             </ul>
         </li>
     
-        <li class="nav-item toc-entry toc-h4">
-            <a href="#kiwi.modules.common.attention.batch_size" class="nav-link">batch_size</a>
-        </li>
-    
             </ul>
         </li>
     
@@ -190,7 +186,7 @@
 <dl class="py class">
 <dt id="kiwi.modules.common.attention.Attention">
 <em class="property">class </em><code class="sig-prename descclassname">kiwi.modules.common.attention.</code><code class="sig-name descname">Attention</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scorer</span></em>, <em class="sig-param"><span class="n">dropout</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.attention.Attention" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
 <p>Generic Attention Implementation.</p>
 <blockquote>
 <div><ol class="arabic simple">
@@ -203,7 +199,7 @@
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>scorer</strong> (<em>kiwi.modules.common.Scorer</em>) – a scorer object</p></li>
-<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – dropout rate after softmax (default: 0.)</p></li>
+<li><p><strong>dropout</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – dropout rate after softmax (default: 0.)</p></li>
 </ul>
 </dd>
 </dl>
@@ -214,11 +210,11 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>query</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><em>torch.Tensor</em></a>) – set of query vectors with shape of
+<li><p><strong>query</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><em>torch.Tensor</em></a>) – set of query vectors with shape of
 (batch_size, …, target_len, hidden_size)</p></li>
-<li><p><strong>keys</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><em>torch.Tensor</em></a>) – set of keys vectors with shape of
+<li><p><strong>keys</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><em>torch.Tensor</em></a>) – set of keys vectors with shape of
 (batch_size, …, source_len, hidden_size)</p></li>
-<li><p><strong>values</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><em>torch.Tensor</em></a><em>, </em><em>optional</em>) – set of values vectors with
+<li><p><strong>values</strong> (<a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><em>torch.Tensor</em></a><em>, </em><em>optional</em>) – set of values vectors with
 shape of: (batch_size, …, source_len, hidden_size).
 If None, keys are treated as values. Default: None</p></li>
 <li><p><strong>mask</strong> (<em>torch.ByteTensor</em><em>, </em><em>optional</em>) – Tensor representing valid
@@ -236,17 +232,12 @@ Shape of (batch_size, target_len)</p></li>
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.7.0a0+125df29 ))">torch.Tensor</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://pytorch.org/docs/master/tensors.html#torch.Tensor" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))">torch.Tensor</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 </dd></dl>
-
-<dl class="py data">
-<dt id="kiwi.modules.common.attention.batch_size">
-<code class="sig-prename descclassname">kiwi.modules.common.attention.</code><code class="sig-name descname">batch_size</code><em class="property"> = 4</em><a class="headerlink" href="#kiwi.modules.common.attention.batch_size" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </div>
 </div>

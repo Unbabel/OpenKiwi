@@ -13,6 +13,7 @@ Submodules
    evaluate/index.rst
    predict/index.rst
    pretrain/index.rst
+   search/index.rst
    train/index.rst
    utils/index.rst
 

@@ -180,14 +180,8 @@
             <a href="#kiwi.training.optimizers.OptimizerConfig.load" class="nav-link">load</a>
         </li>
     
-            </ul>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h4">
-            <a href="#kiwi.training.optimizers.DenseSparseAdam" class="nav-link">DenseSparseAdam</a><ul class="nav section-nav flex-column">
-                
         <li class="nav-item toc-entry toc-h5">
-            <a href="#kiwi.training.optimizers.DenseSparseAdam.step" class="nav-link">step</a>
+            <a href="#kiwi.training.optimizers.OptimizerConfig.cast_steps" class="nav-link">cast_steps</a>
         </li>
     
             </ul>
@@ -246,9 +240,6 @@
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.training.optimizers.OptimizerConfig" title="kiwi.training.optimizers.OptimizerConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">OptimizerConfig</span></code></a></p></td>
 <td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.training.optimizers.DenseSparseAdam" title="kiwi.training.optimizers.DenseSparseAdam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DenseSparseAdam</span></code></a></p></td>
-<td><p>Adam optimizer combining its dense and sparse versions.</p></td>
 </tr>
 </tbody>
 </table>
@@ -347,47 +338,16 @@ Only applicable if <code class="docutils literal notranslate"><span class="pre">
 <code class="sig-name descname">load</code><em class="property"> :Path</em><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-<dl class="py class">
-<dt id="kiwi.training.optimizers.DenseSparseAdam">
-<em class="property">class </em><code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">DenseSparseAdam</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">params</span><span class="p">:</span> <span class="n">Iterable</span></em>, <em class="sig-param"><span class="n">lr</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span> <span class="o">=</span> <span class="default_value">0.001</span></em>, <em class="sig-param"><span class="n">betas</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">0.9, 0.999</span></em>, <em class="sig-param"><span class="n">eps</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span> <span class="o">=</span> <span class="default_value">1e-08</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.DenseSparseAdam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">torch.optim.optimizer.Optimizer</span></code></p>
-<p>Adam optimizer combining its dense and sparse versions.</p>
-<p>This class has been copied from AllenNLP:
-<a class="reference external" href="https://github.com/allenai/allennlp/blob/v0.7.2/allennlp/training/optimizers.py">https://github.com/allenai/allennlp/blob/v0.7.2/allennlp/training/optimizers.py</a></p>
-<p>NOTE: This class has been copied verbatim from the separate Dense and
-Sparse versions of Adam in Pytorch.
-Implements Adam algorithm with dense &amp; sparse gradients.
-It has been proposed in Adam: A Method for Stochastic Optimization.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>params</strong> (<em>iterable</em>) – iterable of parameters to optimize or dicts defining
-parameter groups.</p></li>
-<li><p><strong>lr</strong> – the learning rate.</p></li>
-<li><p><strong>betas</strong> – coefficients used for computing running averages of gradient and its
-square.</p></li>
-<li><p><strong>eps</strong> – A term added to the denominator to improve numerical stability.</p></li>
-</ul>
-</dd>
-</dl>
 <dl class="py method">
-<dt id="kiwi.training.optimizers.DenseSparseAdam.step">
-<code class="sig-name descname">step</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">closure</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.DenseSparseAdam.step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Performs a single optimization step.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>closure</strong> – a closure that reevaluates the model and returns the loss.</p>
-</dd>
-</dl>
-</dd></dl>
+<dt id="kiwi.training.optimizers.OptimizerConfig.cast_steps">
+<code class="sig-name descname">cast_steps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.OptimizerConfig.cast_steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt id="kiwi.training.optimizers.get_noam_decay_schedule">
-<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">get_noam_decay_schedule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimizer</span><span class="p">:</span> <span class="n">Optimizer</span></em>, <em class="sig-param"><span class="n">num_warmup_steps</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em>, <em class="sig-param"><span class="n">model_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.get_noam_decay_schedule" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">get_noam_decay_schedule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">optimizer</span><span class="p">:</span> <span class="n">Optimizer</span></em>, <em class="sig-param"><span class="n">num_warmup_steps</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="n">model_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.training.optimizers.get_noam_decay_schedule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a schedule with the learning rate decay strategy from the AIAYN paper.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -418,7 +378,7 @@ parameters in your model.</p></li>
 
 <dl class="py function">
 <dt id="kiwi.training.optimizers.from_config">
-<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">from_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.training.optimizers.OptimizerConfig" title="kiwi.training.optimizers.OptimizerConfig">OptimizerConfig</a></span></em>, <em class="sig-param"><span class="n">parameters</span><span class="p">:</span> <span class="n">Iterator<span class="p">[</span>Parameter<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">model_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">training_data_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>Optimizer<span class="p">, </span>List<span class="p">[</span>Optimizer<span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span>List<span class="p">[</span>Optimizer<span class="p">]</span><span class="p">, </span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.training.optimizers.from_config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.training.optimizers.</code><code class="sig-name descname">from_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.training.optimizers.OptimizerConfig" title="kiwi.training.optimizers.OptimizerConfig">OptimizerConfig</a></span></em>, <em class="sig-param"><span class="n">parameters</span><span class="p">:</span> <span class="n">Iterator<span class="p">[</span>Parameter<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">model_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">training_data_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>Optimizer<span class="p">, </span>List<span class="p">[</span>Optimizer<span class="p">]</span><span class="p">, </span>Tuple<span class="p">[</span>List<span class="p">[</span>Optimizer<span class="p">]</span><span class="p">, </span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.training.optimizers.from_config" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">

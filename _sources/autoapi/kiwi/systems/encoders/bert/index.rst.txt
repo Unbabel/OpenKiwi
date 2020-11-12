@@ -50,11 +50,6 @@ Classes
 
       Base class for all pydantic configs. Used to configure base behaviour of configs.
 
-      .. attribute:: encode_source
-         :annotation: :bool = False
-
-         
-
       .. attribute:: model_name
          :annotation: :Union[str, Path] = bert-base-multilingual-cased
 
@@ -64,13 +59,13 @@ Classes
       .. attribute:: use_mismatch_features
          :annotation: :bool = False
 
-         Use Alibaba's mismatch features
+         Use Alibaba's mismatch features.
 
 
       .. attribute:: use_predictor_features
          :annotation: :bool = False
 
-         Use features originally proposed in the Predictor model
+         Use features originally proposed in the Predictor model.
 
 
       .. attribute:: interleave_input
@@ -89,13 +84,13 @@ Classes
       .. attribute:: use_mlp
          :annotation: :bool = True
 
-         Apply a linear layer on top of BERT
+         Apply a linear layer on top of BERT.
 
 
       .. attribute:: hidden_size
          :annotation: :int = 100
 
-         Size of the linear layer on top of BERT
+         Size of the linear layer on top of BERT.
 
 
       .. attribute:: scalar_mix_dropout
@@ -184,10 +179,6 @@ Classes
 
 
    .. method:: get_mismatch_features(logits, target, pred)
-      :staticmethod:
-
-
-   .. method:: previous_experiments(features)
       :staticmethod:
 
 

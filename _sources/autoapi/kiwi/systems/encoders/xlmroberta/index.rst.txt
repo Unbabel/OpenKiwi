@@ -46,11 +46,6 @@ Classes
 
       Base class for all pydantic configs. Used to configure base behaviour of configs.
 
-      .. attribute:: encode_source
-         :annotation: :bool = False
-
-         
-
       .. attribute:: model_name
          :annotation: :Union[str, Path] = xlm-roberta-base
 
@@ -67,13 +62,13 @@ Classes
       .. attribute:: use_mlp
          :annotation: :bool = True
 
-         Apply a linear layer on top of XLMRoberta
+         Apply a linear layer on top of XLMRoberta.
 
 
       .. attribute:: hidden_size
          :annotation: :int = 100
 
-         Size of the linear layer on top of XLMRoberta
+         Size of the linear layer on top of XLMRoberta.
 
 
       .. attribute:: pooling

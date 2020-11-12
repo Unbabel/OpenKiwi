@@ -28,7 +28,6 @@ Functions
    kiwi.utils.io.read_file
    kiwi.utils.io.target_gaps_to_target
    kiwi.utils.io.target_gaps_to_gaps
-   kiwi.utils.io.convert_model_dict_if_needed
    kiwi.utils.io.generate_slug
 
 
@@ -77,9 +76,6 @@ Functions
 .. function:: target_gaps_to_gaps(batch)
 
    Extract gap tags from wmt18 format file.
-
-
-.. function:: convert_model_dict_if_needed(model_dict: Dict[str, Any]) -> Dict[str, Any]
 
 
 .. function:: generate_slug(text, delimiter='-')

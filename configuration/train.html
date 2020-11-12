@@ -121,6 +121,12 @@
               </li>
           
         
+          
+              <li class="">
+                  <a href="search.html">Search configuration</a>
+              </li>
+          
+        
       
       
       
@@ -163,92 +169,111 @@
   <div class="section" id="training-configuration">
 <h1>Training configuration<a class="headerlink" href="#training-configuration" title="Permalink to this headline">¶</a></h1>
 <p>There are training configuration files available in <code class="docutils literal notranslate"><span class="pre">config/</span></code> for all supported models.</p>
-<p>As an example, here is the configuration for the <code class="docutils literal notranslate"><span class="pre">PredictorEstimator</span></code> model:</p>
+<p>As an example, here is the configuration for the <code class="docutils literal notranslate"><span class="pre">Bert</span></code> model:</p>
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">run</span><span class="p">:</span>
-    <span class="nt">experiment_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PredictorEstimator WMT19 Target en_de.nmt</span>
+    <span class="c1">###################################################</span>
+    <span class="c1"># Generic configurations options related to</span>
+    <span class="c1">#  handling of experiments</span>
+    <span class="nt">experiment_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">BERT WMT20 EN-DE</span>
     <span class="nt">seed</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">42</span>
-    <span class="nt">mlflow_tracking_uri</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">mlruns/</span>
-    <span class="c1"># output_dir: runs/predictor-estimator  # mlflow will create one if this is null</span>
+    <span class="nt">use_mlflow</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 
 <span class="nt">trainer</span><span class="p">:</span>
+    <span class="c1">###################################################</span>
+    <span class="c1"># Generic options related to the training process</span>
+    <span class="c1">#  that apply to all models</span>
+    <span class="nt">deterministic</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
     <span class="nt">gpus</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">-1</span>
-
-    <span class="nt">resume</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
     <span class="nt">epochs</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
-    <span class="nt">log_interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">50</span>
-    <span class="c1"># gradient_accumulation_steps: 2</span>
 
     <span class="nt">main_metric</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">WMT19_MCC</span>
         <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">PEARSON</span>
-        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">target_tags_F1_MULT</span>
 
+    <span class="nt">gradient_max_norm</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1.</span>
+    <span class="nt">gradient_accumulation_steps</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+
+    <span class="c1"># Control the model precision, see</span>
+    <span class="c1">#   https://pytorch-lightning.readthedocs.io/en/stable/amp.html</span>
+    <span class="c1"># for more info on the configuration options</span>
+    <span class="c1"># Fast mixed precision by default:</span>
+    <span class="nt">amp_level</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">O2</span>
+    <span class="nt">precision</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">16</span>
+
+    <span class="nt">log_interval</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
     <span class="nt">checkpoint</span><span class="p">:</span>
-        <span class="nt">validation_steps</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
-        <span class="nt">save_top_k</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-        <span class="nt">early_stop_patience</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8</span>
+        <span class="nt">validation_steps</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.2</span>
+        <span class="nt">early_stop_patience</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+
 
 <span class="nt">defaults</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">data</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wmt19.qe.en_de</span>
+    <span class="c1">###################################################</span>
+    <span class="c1"># Example of composition of configuration files</span>
+    <span class="c1">#  this config is sourced from /config/data/wmt20.qe.en_de.yaml</span>
+    <span class="p p-Indicator">-</span> <span class="nt">data</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wmt20.qe.en_de</span>
 
 <span class="nt">system</span><span class="p">:</span>
-    <span class="nt">class_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">PredictorEstimator</span>
+    <span class="c1">###################################################</span>
+    <span class="c1"># System configs are responsible for all the system</span>
+    <span class="c1">#  specific configurations. From model settings to</span>
+    <span class="c1">#  optimizers and specific processing options.</span>
 
-    <span class="nt">batch_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">32</span>
+    <span class="c1"># All configs must have either `class_name` or `load`</span>
+    <span class="nt">class_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Bert</span>
+
+    <span class="nt">batch_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">8</span>
     <span class="nt">num_data_workers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">4</span>
 
-    <span class="nt">load_encoder</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data/trained_models/predest/en_de/predictor/kiwi2_indomain_large.torch</span>
-
     <span class="nt">model</span><span class="p">:</span>
+        <span class="c1">################################################</span>
+        <span class="c1"># Modeling options. These can change a lot about</span>
+        <span class="c1">#  the architecture of the system. With many configuration</span>
+        <span class="c1">#  options adding (or removing) layers.</span>
         <span class="nt">encoder</span><span class="p">:</span>
-            <span class="nt">encode_source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-            <span class="nt">hidden_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">400</span>
-            <span class="nt">rnn_layers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
-            <span class="nt">embeddings</span><span class="p">:</span>
-                <span class="nt">source</span><span class="p">:</span>
-                    <span class="nt">dim</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">200</span>
-                <span class="nt">target</span><span class="p">:</span>
-                    <span class="nt">dim</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">200</span>
-            <span class="nt">out_embeddings_dim</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">200</span>
-            <span class="nt">share_embeddings</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-            <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.5</span>
-            <span class="nt">use_mismatch_features</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+            <span class="nt">model_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">bert-base-multilingual-cased</span>
+            <span class="nt">use_mlp</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+            <span class="nt">freeze</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 
         <span class="nt">decoder</span><span class="p">:</span>
-            <span class="nt">hidden_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">125</span>
-            <span class="nt">rnn_layers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-            <span class="nt">use_mlp</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-            <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.0</span>
+            <span class="nt">hidden_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">768</span>
+            <span class="nt">bottleneck_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">768</span>
+            <span class="nt">dropout</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1</span>
 
         <span class="nt">outputs</span><span class="p">:</span>
+            <span class="c1">####################################################</span>
+            <span class="c1"># Output options configure the downstream tasks the</span>
+            <span class="c1">#  model will be trained on by adding specific layers</span>
+            <span class="c1">#  responsible for transforming decoder features into</span>
+            <span class="c1">#  predictions.</span>
             <span class="nt">word_level</span><span class="p">:</span>
                 <span class="nt">target</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-                <span class="nt">gaps</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-                <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+                <span class="nt">gaps</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+                <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
                 <span class="nt">class_weights</span><span class="p">:</span>
                     <span class="nt">target_tags</span><span class="p">:</span>
-                        <span class="nt">BAD</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5.0</span>
+                        <span class="nt">BAD</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3.0</span>
                     <span class="nt">gap_tags</span><span class="p">:</span>
                         <span class="nt">BAD</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5.0</span>
                     <span class="nt">source_tags</span><span class="p">:</span>
                         <span class="nt">BAD</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3.0</span>
             <span class="nt">sentence_level</span><span class="p">:</span>
                 <span class="nt">hter</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-                <span class="nt">use_distribution</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+                <span class="nt">use_distribution</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
                 <span class="nt">binary</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+            <span class="nt">n_layers_output</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+            <span class="nt">sentence_loss_weight</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
 
         <span class="nt">tlm_outputs</span><span class="p">:</span>
-            <span class="nt">fine_tune</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+            <span class="nt">fine_tune</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
 
     <span class="nt">optimizer</span><span class="p">:</span>
-        <span class="nt">class_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">dense_sparse_adam</span>
-        <span class="nt">learning_rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.001</span>
-        <span class="nt">learning_rate_decay</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.6</span>
-        <span class="nt">learning_rate_decay_start</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+        <span class="nt">class_name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">adamw</span>
+        <span class="nt">learning_rate</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1e-5</span>
+        <span class="nt">warmup_steps</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0.1</span>
+        <span class="nt">training_steps</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">12000</span>
 
     <span class="nt">data_processing</span><span class="p">:</span>
-        <span class="nt">vocab</span><span class="p">:</span>
-            <span class="nt">min_frequency</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
-            <span class="nt">max_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60_000</span>
+        <span class="nt">share_input_fields_encoders</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
 <div class="section" id="configuration-class">

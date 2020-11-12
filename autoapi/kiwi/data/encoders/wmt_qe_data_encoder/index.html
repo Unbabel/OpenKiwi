@@ -394,13 +394,14 @@ pretrained vocabularies).</p>
 <dl class="py attribute">
 <dt id="kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.keep_rare_words_with_embeddings">
 <code class="sig-name descname">keep_rare_words_with_embeddings</code><em class="property"> = False</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.keep_rare_words_with_embeddings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Keep words that occur less then min-frequency but are in embeddings vocabulary</p>
+<dd><p>Keep words that occur less then min-frequency but are
+in embeddings vocabulary.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.add_embeddings_vocab">
 <code class="sig-name descname">add_embeddings_vocab</code><em class="property"> = False</em><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.VocabularyConfig.add_embeddings_vocab" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add words from embeddings vocabulary to source/target vocabulary</p>
+<dd><p>Add words from embeddings vocabulary to source/target vocabulary.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -412,7 +413,7 @@ pretrained vocabularies).</p>
 
 <dl class="py class">
 <dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder">
-<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.wmt_qe_data_encoder.</code><code class="sig-name descname">WMTQEDataEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">field_encoders</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>TextEncoder<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.data.encoders.wmt_qe_data_encoder.</code><code class="sig-name descname">WMTQEDataEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">field_encoders</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>TextEncoder<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../base/index.html#kiwi.data.encoders.base.DataEncoders" title="kiwi.data.encoders.base.DataEncoders"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.data.encoders.base.DataEncoders</span></code></a></p>
 <dl class="py class">
 <dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.Config">
@@ -449,13 +450,13 @@ pretrained vocabularies).</p>
 
 <dl class="py method">
 <dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.load_vocabularies">
-<code class="sig-name descname">load_vocabularies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">load_vocabs_from</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.load_vocabularies" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load_vocabularies</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">load_vocabs_from</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.load_vocabularies" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load serialized Vocabularies from disk into fields.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.vocabularies_from_dict">
-<code class="sig-name descname">vocabularies_from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">vocabs_dict</span><span class="p">:</span> <span class="n">Dict</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.vocabularies_from_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">vocabularies_from_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">vocabs_dict</span><span class="p">:</span> <span class="n">Dict</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.encoders.wmt_qe_data_encoder.WMTQEDataEncoder.vocabularies_from_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">

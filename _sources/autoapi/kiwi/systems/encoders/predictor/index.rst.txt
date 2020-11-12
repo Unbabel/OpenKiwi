@@ -95,21 +95,16 @@ Classes
 
       Base class for all pydantic configs. Used to configure base behaviour of configs.
 
-      .. attribute:: encode_source
-         :annotation: :bool = False
-
-         
-
       .. attribute:: hidden_size
          :annotation: :int = 400
 
-         Size of hidden layers in LSTM
+         Size of hidden layers in LSTM.
 
 
       .. attribute:: rnn_layers
          :annotation: :int = 3
 
-         Number of RNN layers in the Predictor
+         Number of RNN layers in the Predictor.
 
 
       .. attribute:: dropout
@@ -126,7 +121,7 @@ Classes
       .. attribute:: out_embeddings_dim
          :annotation: :Optional[int]
 
-         Word Embedding in Output layer
+         Word Embedding in Output layer.
 
 
       .. attribute:: use_mismatch_features
@@ -152,7 +147,8 @@ Classes
       .. attribute:: v0_start_stop
          :annotation: :bool = False
 
-         Whether pre_qe_f_v is padded on both ends or post_qe_f_v is strip on both ends
+         Whether pre_qe_f_v is padded on both ends or
+         post_qe_f_v is strip on both ends.
 
 
       .. method:: dropout_on_rnns(cls, v, values)

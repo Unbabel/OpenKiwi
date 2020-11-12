@@ -158,10 +158,6 @@
             <a href="#kiwi.systems.encoders.bert.BertEncoder.Config" class="nav-link">Config</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h6">
-            <a href="#kiwi.systems.encoders.bert.BertEncoder.Config.encode_source" class="nav-link">encode_source</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h6">
             <a href="#kiwi.systems.encoders.bert.BertEncoder.Config.model_name" class="nav-link">model_name</a>
         </li>
     
@@ -240,10 +236,6 @@
             <a href="#kiwi.systems.encoders.bert.BertEncoder.get_mismatch_features" class="nav-link">get_mismatch_features</a>
         </li>
     
-        <li class="nav-item toc-entry toc-h5">
-            <a href="#kiwi.systems.encoders.bert.BertEncoder.previous_experiments" class="nav-link">previous_experiments</a>
-        </li>
-    
             </ul>
         </li>
     
@@ -306,7 +298,7 @@
 
 <dl class="py class">
 <dt id="kiwi.systems.encoders.bert.BertEncoder">
-<em class="property">class </em><code class="sig-prename descclassname">kiwi.systems.encoders.bert.</code><code class="sig-name descname">BertEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vocabs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Vocabulary<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">pre_load_model</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.systems.encoders.bert.</code><code class="sig-name descname">BertEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vocabs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Vocabulary<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">pre_load_model</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../_meta_module/index.html#kiwi.systems._meta_module.MetaModule" title="kiwi.systems._meta_module.MetaModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.systems._meta_module.MetaModule</span></code></a></p>
 <p>BERT model as presented in Google’s paper and using Hugging Face’s code</p>
 <p class="rubric">References</p>
@@ -317,11 +309,6 @@
 <dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
 <p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
 <dl class="py attribute">
-<dt id="kiwi.systems.encoders.bert.BertEncoder.Config.encode_source">
-<code class="sig-name descname">encode_source</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.Config.encode_source" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt id="kiwi.systems.encoders.bert.BertEncoder.Config.model_name">
 <code class="sig-name descname">model_name</code><em class="property"> :Union[str, Path] = bert-base-multilingual-cased</em><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.Config.model_name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pre-trained BERT model to use.</p>
@@ -330,13 +317,13 @@
 <dl class="py attribute">
 <dt id="kiwi.systems.encoders.bert.BertEncoder.Config.use_mismatch_features">
 <code class="sig-name descname">use_mismatch_features</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.Config.use_mismatch_features" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use Alibaba’s mismatch features</p>
+<dd><p>Use Alibaba’s mismatch features.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="kiwi.systems.encoders.bert.BertEncoder.Config.use_predictor_features">
 <code class="sig-name descname">use_predictor_features</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.Config.use_predictor_features" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use features originally proposed in the Predictor model</p>
+<dd><p>Use features originally proposed in the Predictor model.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -355,13 +342,13 @@
 <dl class="py attribute">
 <dt id="kiwi.systems.encoders.bert.BertEncoder.Config.use_mlp">
 <code class="sig-name descname">use_mlp</code><em class="property"> :bool = True</em><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.Config.use_mlp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply a linear layer on top of BERT</p>
+<dd><p>Apply a linear layer on top of BERT.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="kiwi.systems.encoders.bert.BertEncoder.Config.hidden_size">
 <code class="sig-name descname">hidden_size</code><em class="property"> :int = 100</em><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.Config.hidden_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Size of the linear layer on top of BERT</p>
+<dd><p>Size of the linear layer on top of BERT.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -388,19 +375,19 @@
 
 <dl class="py method">
 <dt id="kiwi.systems.encoders.bert.BertEncoder.load_state_dict">
-<code class="sig-name descname">load_state_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">state_dict</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">strict</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.load_state_dict" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load_state_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">state_dict</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Tensor<span class="p">]</span><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Tensor<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">strict</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.load_state_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>Copies parameters and buffers from <code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code> into
 this module and its descendants. If <code class="xref py py-attr docutils literal notranslate"><span class="pre">strict</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, then
 the keys of <code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code> must exactly match the keys returned
-by this module’s <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module.state_dict" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> function.</p>
+by this module’s <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module.state_dict" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><em>dict</em></a>) – a dict containing parameters and
+<li><p><strong>state_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – a dict containing parameters and
 persistent buffers.</p></li>
-<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – whether to strictly enforce that the keys
+<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a><em>, </em><em>optional</em>) – whether to strictly enforce that the keys
 in <code class="xref py py-attr docutils literal notranslate"><span class="pre">state_dict</span></code> match the keys returned by this module’s
-<a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module.state_dict" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> function. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
+<a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module.state_dict" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-meth docutils literal notranslate"><span class="pre">state_dict()</span></code></a> function. Default: <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -448,7 +435,7 @@ in <code class="xref py py-attr docutils literal notranslate"><span class="pre">
 
 <dl class="py method">
 <dt id="kiwi.systems.encoders.bert.BertEncoder.split_outputs">
-<em class="property">static </em><code class="sig-name descname">split_outputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">features</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">batch_inputs</span><span class="p">:</span> <span class="n">MultiFieldBatch</span></em>, <em class="sig-param"><span class="n">interleaved</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Tensor<span class="p">]</span><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.split_outputs" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">split_outputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">features</span><span class="p">:</span> <span class="n">Tensor</span></em>, <em class="sig-param"><span class="n">batch_inputs</span><span class="p">:</span> <span class="n">MultiFieldBatch</span></em>, <em class="sig-param"><span class="n">interleaved</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Tensor<span class="p">]</span><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.split_outputs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Split features back into sentences A and B.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -485,11 +472,6 @@ batches</p></li>
 <dl class="py method">
 <dt id="kiwi.systems.encoders.bert.BertEncoder.get_mismatch_features">
 <em class="property">static </em><code class="sig-name descname">get_mismatch_features</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">logits</span></em>, <em class="sig-param"><span class="n">target</span></em>, <em class="sig-param"><span class="n">pred</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.get_mismatch_features" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="kiwi.systems.encoders.bert.BertEncoder.previous_experiments">
-<em class="property">static </em><code class="sig-name descname">previous_experiments</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">features</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.encoders.bert.BertEncoder.previous_experiments" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

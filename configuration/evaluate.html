@@ -21,7 +21,7 @@
     <link rel="shortcut icon" href="../_static/openkiwi-logo-icon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Systems" href="../systems/index.html" />
+    <link rel="next" title="Search configuration" href="search.html" />
     <link rel="prev" title="Prediction configuration" href="predict.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -121,6 +121,12 @@
               </li>
           
         
+          
+              <li class="">
+                  <a href="search.html">Search configuration</a>
+              </li>
+          
+        
       
       
       
@@ -163,24 +169,40 @@
   <div class="section" id="evaluation-configuration">
 <h1>Evaluation configuration<a class="headerlink" href="#evaluation-configuration" title="Permalink to this headline">¶</a></h1>
 <p>An example configuration file is provided in <code class="docutils literal notranslate"><span class="pre">config/evaluate.yaml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">run</span><span class="p">:</span>
-    <span class="nt">output_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tmp-test</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">gold_files</span><span class="p">:</span>
+    <span class="nt">source_tags</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data/WMT20/sentence_level/en_de.nmt/dev.source_tags</span>
+    <span class="nt">target_tags</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data/WMT20/sentence_level/en_de.nmt/dev.tags</span>
+    <span class="nt">sentence_scores</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data/WMT20/sentence_level/en_de.nmt/dev.hter</span>
 
-<span class="nt">gold_files</span><span class="p">:</span>
-    <span class="nt">source_tags</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data/WMT19/sentence_level/en_de.nmt/dev.source_tags</span>
-    <span class="nt">target_tags</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data/WMT19/sentence_level/en_de.nmt/dev.tags</span>
-    <span class="nt">sentence_scores</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">data/WMT19/sentence_level/en_de.nmt/dev.hter</span>
-
-<span class="nt">predicted_files</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">source_tags</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/source_tags</span>
-<span class="c1">#      target_tags: runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/targetgaps_tags</span>
-      <span class="nt">target_tags</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/target_tags</span>
-      <span class="nt">gap_tags</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/gap_tags</span>
-      <span class="nt">sentence_scores</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">runs/16/85f0a822754c4fc68c397a1cf9b8f6d4/epoch_5/sentence_scores</span>
-
+<span class="c1"># Two configuration options:</span>
+<span class="c1"># 1. (Recommended) Pass the root folders where the predictions live,</span>
+<span class="c1">#    with the standard file names</span>
 <span class="nt">predicted_dir</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">runs/16/2e4586b05bc442bab9c4c311033d2dd4/epoch_2/</span>
-    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">runs/19/dd806e69018843feab820cbdb277e9de/epoch_1/</span>
+    <span class="c1"># The evaluation pipeline supports evaluating multiple predictions at the same time</span>
+    <span class="c1">#   by passing the folders as a list</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">runs/0/4aa891368ff4402fa69a4b081ea2ba62</span>
+    <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">runs/0/e9200ada6dc84bfea807b3b02b9c7212</span>
+
+<span class="c1"># 2. Configure each predicted file separately</span>
+<span class="c1"># predicted_files:</span>
+<span class="c1">#     source_tags:</span>
+<span class="c1">#         - runs/0/4aa891368ff4402fa69a4b081ea2ba62/source_tags</span>
+<span class="c1">#         - runs/0/e9200ada6dc84bfea807b3b02b9c7212/source_tags</span>
+<span class="c1">#     # (Recommended) Pass the predicted `targetgaps_tags` file as `target_tags`;</span>
+<span class="c1">#     #   the target and gap tags will be separated and evaluated separately as well as jointly</span>
+<span class="c1">#     target_tags:</span>
+<span class="c1">#         - runs/0/4aa891368ff4402fa69a4b081ea2ba62/targetgaps_tags</span>
+<span class="c1">#         - runs/0/e9200ada6dc84bfea807b3b02b9c7212/targetgaps_tags</span>
+<span class="c1">#     # Alternatively:</span>
+<span class="c1">#     # target_tags:</span>
+<span class="c1">#     #   - runs/0/4aa891368ff4402fa69a4b081ea2ba62/target_tags</span>
+<span class="c1">#     #   - runs/0/e9200ada6dc84bfea807b3b02b9c7212/target_tags</span>
+<span class="c1">#     # gap_tags:</span>
+<span class="c1">#     #   - runs/0/4aa891368ff4402fa69a4b081ea2ba62/gap_tags</span>
+<span class="c1">#     #   - runs/0/e9200ada6dc84bfea807b3b02b9c7212/gap_tags</span>
+<span class="c1">#     sentence_scores:</span>
+<span class="c1">#         - runs/0/4aa891368ff4402fa69a4b081ea2ba62/sentence_scores</span>
+<span class="c1">#         - runs/0/e9200ada6dc84bfea807b3b02b9c7212/sentence_scores</span>
 </pre></div>
 </div>
 <div class="section" id="configuration-class">
@@ -196,7 +218,7 @@
               <div class='prev-next-bottom'>
                 
     <a class='left-prev' id="prev-link" href="predict.html" title="previous page">Prediction configuration</a>
-    <a class='right-next' id="next-link" href="../systems/index.html" title="next page">Systems</a>
+    <a class='right-next' id="next-link" href="search.html" title="next page">Search configuration</a>
 
               </div>
               

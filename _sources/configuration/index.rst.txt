@@ -10,6 +10,7 @@ Configuration
    train
    predict
    evaluate
+   search
 
 
 Kiwi can be configured essentially by using dictionaries. To persist configuration
@@ -51,5 +52,3 @@ For example, we can use::
 
 to use a different dataset (where ``config/data/unbabel.qe.en_pt.yaml`` contains the
 configuration for the data files).
-
-

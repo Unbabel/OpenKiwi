@@ -137,6 +137,10 @@
             <a href="#evaluating" class="nav-link">Evaluating</a>
         </li>
     
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#searching" class="nav-link">Searching</a>
+        </li>
+    
     </ul>
 </nav>
 
@@ -153,7 +157,7 @@
   <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
 <p>Kiwi’s functionality is split in <code class="docutils literal notranslate"><span class="pre">pipelines</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">,</span> <span class="n">pretrain</span><span class="p">,</span> <span class="n">predict</span><span class="p">,</span> <span class="n">evaluate</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">train</span><span class="p">,</span> <span class="n">pretrain</span><span class="p">,</span> <span class="n">predict</span><span class="p">,</span> <span class="n">evaluate</span><span class="p">,</span> <span class="n">search</span>
 </pre></div>
 </div>
 <p>Currently supported models are:</p>
@@ -171,7 +175,7 @@
 </ul>
 <p>The predicting pipeline additionally provides a simplified interface with explicit arguments.</p>
 <p>For CLI usage, the general command is:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="p">(</span><span class="n">train</span><span class="o">|</span><span class="n">pretrain</span><span class="o">|</span><span class="n">predict</span><span class="o">|</span><span class="n">evaluate</span><span class="p">)</span> <span class="n">CONFIG_FILE</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kiwi</span> <span class="p">(</span><span class="n">train</span><span class="o">|</span><span class="n">pretrain</span><span class="o">|</span><span class="n">predict</span><span class="o">|</span><span class="n">evaluate</span><span class="o">|</span><span class="n">search</span><span class="p">)</span> <span class="n">CONFIG_FILE</span>
 </pre></div>
 </div>
 <p>Example configuration files can be found in <code class="docutils literal notranslate"><span class="pre">config/</span></code>. Details are covered in
@@ -195,14 +199,14 @@ found in <code class="docutils literal notranslate"><span class="pre">scripts/pr
 </div>
 <p>Or:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.train</span> <span class="kn">import</span> <span class="n">train_from_configuration</span>
-<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">load_config</span>
+<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">file_to_configuration</span>
 
-<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;config/bert.yaml&#39;</span><span class="p">)</span>
+<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">file_to_configuration</span><span class="p">(</span><span class="s1">&#39;config/bert.yaml&#39;</span><span class="p">)</span>
 <span class="n">run_info</span> <span class="o">=</span> <span class="n">train_from_configuration</span><span class="p">(</span><span class="n">configuration_dict</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">configuration_dict</span></code> is only validated inside <code class="docutils literal notranslate"><span class="pre">train_from_configuration</span></code>, which
-means other file formats can be used. In fact, <code class="docutils literal notranslate"><span class="pre">load_config</span></code> also supports JSON files
+means other file formats can be used. In fact, <code class="docutils literal notranslate"><span class="pre">file_to_configuration</span></code> also supports JSON files
 (but that is a not well known fact, as YAML is preferred).</p>
 <p>Pretraining the <code class="docutils literal notranslate"><span class="pre">Predictor</span></code> can be down by calling:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi pretrain config/predictor.yaml
@@ -223,9 +227,9 @@ means other file formats can be used. In fact, <code class="docutils literal not
 <p>As a package, there a few alternatives, depending on the use.</p>
 <p>To load a trained model and produce predictions on a full dataset, use:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.predict</span> <span class="kn">import</span> <span class="n">predict_from_configuration</span>
-<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">load_config</span>
+<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">file_to_configuration</span>
 
-<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;config/predict.yaml&#39;</span><span class="p">)</span>
+<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">file_to_configuration</span><span class="p">(</span><span class="s1">&#39;config/predict.yaml&#39;</span><span class="p">)</span>
 <span class="n">predictions</span><span class="p">,</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">predict_from_configuration</span><span class="p">(</span><span class="n">configuration_dict</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -249,7 +253,7 @@ means other file formats can be used. In fact, <code class="docutils literal not
 <span class="n">gap_tags_labels</span>
 </pre></div>
 </div>
-<p>More details can be found in the code <a class="reference external" href="https://docs.python.org/3/distutils/commandref.html#reference" title="(in Python v3.8)"><span>Command Reference</span></a>.</p>
+<p>More details can be found in the code <a class="reference external" href="https://docs.python.org/3/distutils/commandref.html#reference" title="(in Python v3.9)"><span>Command Reference</span></a>.</p>
 </div>
 <div class="section" id="evaluating">
 <h2>Evaluating<a class="headerlink" href="#evaluating" title="Permalink to this headline">¶</a></h2>
@@ -262,14 +266,41 @@ of predictions, format of reference and the location of these files, and run:</p
 </div>
 <p>Or alternatively:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.evaluate</span> <span class="kn">import</span> <span class="n">evaluate_from_configuration</span>
-<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">load_config</span>
+<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">file_to_configuration</span>
 
-<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="s1">&#39;config/evaluate.yaml&#39;</span><span class="p">)</span>
+<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">file_to_configuration</span><span class="p">(</span><span class="s1">&#39;config/evaluate.yaml&#39;</span><span class="p">)</span>
 <span class="n">report</span> <span class="o">=</span> <span class="n">evaluate_from_configuration</span><span class="p">(</span><span class="n">configuration_dict</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can check all the configuration options in <a class="reference internal" href="configuration/index.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
+</div>
+<div class="section" id="searching">
+<h2>Searching<a class="headerlink" href="#searching" title="Permalink to this headline">¶</a></h2>
+<p>The search pipeline enables hyperparameter search for the Kiwi models using the
+<a class="reference external" href="https://github.com/optuna/optuna">Optuna</a> library.</p>
+<p>Examples of how to call Kiwi to search hyperparameters for BERT for QE:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kiwi search config/search.yaml
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.search</span> <span class="kn">import</span> <span class="n">search_from_file</span>
+
+<span class="n">optuna_study</span> <span class="o">=</span> <span class="n">search_from_file</span><span class="p">(</span><span class="s1">&#39;config/search.yaml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">kiwi.lib.search</span> <span class="kn">import</span> <span class="n">search_from_configuration</span>
+<span class="kn">from</span> <span class="nn">kiwi.lib.utils</span> <span class="kn">import</span> <span class="n">file_to_configuration</span>
+
+<span class="n">configuration_dict</span> <span class="o">=</span> <span class="n">file_to_configuration</span><span class="p">(</span><span class="s1">&#39;config/search.yaml&#39;</span><span class="p">)</span>
+<span class="n">optuna_study</span> <span class="o">=</span> <span class="n">search_from_configuration</span><span class="p">(</span><span class="n">configuration_dict</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The search configuration <code class="docutils literal notranslate"><span class="pre">search.yaml</span></code> points to the base training config
+(<code class="docutils literal notranslate"><span class="pre">config/bert.yaml</span></code> in the above BERT example) which defines the basic model,
+and the rest of the options are dedicated to configuring the hyperparameters to search
+and the ranges to search them in.</p>
 </div>
 </div>
 

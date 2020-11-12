@@ -174,10 +174,6 @@
             <a href="#kiwi.systems.encoders.predictor.PredictorEncoder.Config" class="nav-link">Config</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h6">
-            <a href="#kiwi.systems.encoders.predictor.PredictorEncoder.Config.encode_source" class="nav-link">encode_source</a>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h6">
             <a href="#kiwi.systems.encoders.predictor.PredictorEncoder.Config.hidden_size" class="nav-link">hidden_size</a>
         </li>
     
@@ -286,7 +282,7 @@
 <dl class="py class">
 <dt id="kiwi.systems.encoders.predictor.DualSequencesEncoder">
 <em class="property">class </em><code class="sig-prename descclassname">kiwi.systems.encoders.predictor.</code><code class="sig-name descname">DualSequencesEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_size_a</span></em>, <em class="sig-param"><span class="n">input_size_b</span></em>, <em class="sig-param"><span class="n">hidden_size</span></em>, <em class="sig-param"><span class="n">output_size</span></em>, <em class="sig-param"><span class="n">num_layers</span></em>, <em class="sig-param"><span class="n">dropout</span></em>, <em class="sig-param"><span class="n">_use_v0_buggy_strategy</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.encoders.predictor.DualSequencesEncoder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
 <p>Modules can also contain other Modules, allowing to nest them in
@@ -346,7 +342,7 @@ consistent and less surprising. The old behaviour can be forced by setting
 
 <dl class="py class">
 <dt id="kiwi.systems.encoders.predictor.PredictorEncoder">
-<em class="property">class </em><code class="sig-prename descclassname">kiwi.systems.encoders.predictor.</code><code class="sig-name descname">PredictorEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vocabs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Vocabulary<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">pretraining</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pre_load_model</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.encoders.predictor.PredictorEncoder" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.systems.encoders.predictor.</code><code class="sig-name descname">PredictorEncoder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">vocabs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Vocabulary<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">pretraining</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">pre_load_model</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.systems.encoders.predictor.PredictorEncoder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="../../_meta_module/index.html#kiwi.systems._meta_module.MetaModule" title="kiwi.systems._meta_module.MetaModule"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.systems._meta_module.MetaModule</span></code></a></p>
 <p>Bidirectional Conditional Language Model</p>
 <p>Implemented after Kim et al 2017, see: <a class="reference external" href="http://www.statmt.org/wmt17/pdf/WMT63.pdf">http://www.statmt.org/wmt17/pdf/WMT63.pdf</a></p>
@@ -356,20 +352,15 @@ consistent and less surprising. The old behaviour can be forced by setting
 <dd><p>Bases: <a class="reference internal" href="../../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
 <p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
 <dl class="py attribute">
-<dt id="kiwi.systems.encoders.predictor.PredictorEncoder.Config.encode_source">
-<code class="sig-name descname">encode_source</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.encoders.predictor.PredictorEncoder.Config.encode_source" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
 <dt id="kiwi.systems.encoders.predictor.PredictorEncoder.Config.hidden_size">
 <code class="sig-name descname">hidden_size</code><em class="property"> :int = 400</em><a class="headerlink" href="#kiwi.systems.encoders.predictor.PredictorEncoder.Config.hidden_size" title="Permalink to this definition">¶</a></dt>
-<dd><p>Size of hidden layers in LSTM</p>
+<dd><p>Size of hidden layers in LSTM.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="kiwi.systems.encoders.predictor.PredictorEncoder.Config.rnn_layers">
 <code class="sig-name descname">rnn_layers</code><em class="property"> :int = 3</em><a class="headerlink" href="#kiwi.systems.encoders.predictor.PredictorEncoder.Config.rnn_layers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Number of RNN layers in the Predictor</p>
+<dd><p>Number of RNN layers in the Predictor.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -386,7 +377,7 @@ consistent and less surprising. The old behaviour can be forced by setting
 <dl class="py attribute">
 <dt id="kiwi.systems.encoders.predictor.PredictorEncoder.Config.out_embeddings_dim">
 <code class="sig-name descname">out_embeddings_dim</code><em class="property"> :Optional[int]</em><a class="headerlink" href="#kiwi.systems.encoders.predictor.PredictorEncoder.Config.out_embeddings_dim" title="Permalink to this definition">¶</a></dt>
-<dd><p>Word Embedding in Output layer</p>
+<dd><p>Word Embedding in Output layer.</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -412,7 +403,8 @@ to true when loading a saved model from those versions.</p>
 <dl class="py attribute">
 <dt id="kiwi.systems.encoders.predictor.PredictorEncoder.Config.v0_start_stop">
 <code class="sig-name descname">v0_start_stop</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.systems.encoders.predictor.PredictorEncoder.Config.v0_start_stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether pre_qe_f_v is padded on both ends or post_qe_f_v is strip on both ends</p>
+<dd><p>Whether pre_qe_f_v is padded on both ends or
+post_qe_f_v is strip on both ends.</p>
 </dd></dl>
 
 <dl class="py method">

@@ -42,13 +42,13 @@ Functions
    .. attribute:: source
       :annotation: :FilePath
 
-      Path to a corpus file in the source language
+      Path to a corpus file in the source language.
 
 
    .. attribute:: target
       :annotation: :FilePath
 
-      Path to a corpus file in the target language
+      Path to a corpus file in the target language.
 
 
    .. attribute:: alignments
@@ -66,13 +66,13 @@ Functions
    .. attribute:: source_pos
       :annotation: :Optional[FilePath]
 
-      Path to input file with POS tags for source
+      Path to input file with POS tags for source.
 
 
    .. attribute:: target_pos
       :annotation: :Optional[FilePath]
 
-      Path to input file with POS tags for source
+      Path to input file with POS tags for source.
 
 
 
@@ -85,13 +85,13 @@ Functions
    .. attribute:: target_tags
       :annotation: :Optional[FilePath]
 
-      Path to label file for target
+      Path to label file for target.
 
 
    .. attribute:: source_tags
       :annotation: :Optional[FilePath]
 
-      Path to label file for source
+      Path to label file for source.
 
 
    .. attribute:: sentence_scores

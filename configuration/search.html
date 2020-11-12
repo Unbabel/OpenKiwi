@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search configuration &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Systems" href="../systems/index.html" />
+    <link rel="prev" title="Evaluation configuration" href="evaluate.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../index.html">
+      <img src="../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../autoapi/index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="">
+                  <a href="train.html">Training configuration</a>
+              </li>
+          
+        
+          
+              <li class="">
+                  <a href="predict.html">Prediction configuration</a>
+              </li>
+          
+        
+          
+              <li class="">
+                  <a href="evaluate.html">Evaluation configuration</a>
+              </li>
+          
+        
+          
+              <li class="active">
+                  <a href="">Search configuration</a>
+              </li>
+          
+        
+      
+      
+      
+      
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#configuration-class" class="nav-link">Configuration class</a>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="search-configuration">
+<h1>Search configuration<a class="headerlink" href="#search-configuration" title="Permalink to this headline">¶</a></h1>
+<p>There is an example search configuration file available in <code class="docutils literal notranslate"><span class="pre">config/</span></code> for the <code class="docutils literal notranslate"><span class="pre">BERT</span></code> model:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">base_config</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">config/bert.yaml</span>
+
+<span class="nt">options</span><span class="p">:</span>
+    <span class="nt">search_method</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">random</span>
+    <span class="c1"># Search the model architecture</span>
+    <span class="c1">#   You can specify a list of values...</span>
+    <span class="nt">hidden_size</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">768</span>
+        <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">324</span>
+    <span class="c1">#   ...or you can specify a discrete range...</span>
+    <span class="nt">bottleneck_size</span><span class="p">:</span>
+        <span class="nt">lower</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+        <span class="nt">upper</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">500</span>
+        <span class="nt">step</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">100</span>
+    <span class="nt">search_mlp</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="c1"># Search optimizer</span>
+    <span class="c1">#   ...or you can specify a continuous interval.</span>
+    <span class="nt">learning_rate</span><span class="p">:</span>
+        <span class="nt">lower</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1e-7</span>
+        <span class="nt">upper</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1e-5</span>
+    <span class="c1"># Search weights for the tag loss</span>
+    <span class="nt">class_weights</span><span class="p">:</span>
+        <span class="nt">target_tags</span><span class="p">:</span>
+            <span class="nt">lower</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+            <span class="nt">upper</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+            <span class="nt">step</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="nt">gap_tags</span><span class="p">:</span>
+            <span class="nt">lower</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+            <span class="nt">upper</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20</span>
+            <span class="nt">step</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="nt">source_tags</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+    <span class="c1"># Search the sentence level objective</span>
+    <span class="nt">search_hter</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">sentence_loss_weight</span><span class="p">:</span>
+        <span class="nt">lower</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+        <span class="nt">upper</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">10</span>
+</pre></div>
+</div>
+<div class="section" id="configuration-class">
+<h2>Configuration class<a class="headerlink" href="#configuration-class" title="Permalink to this headline">¶</a></h2>
+<p>Full API reference: <a class="reference internal" href="../autoapi/kiwi/lib/search/index.html#kiwi.lib.search.Configuration" title="kiwi.lib.search.Configuration"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.lib.search.Configuration</span></code></a></p>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="evaluate.html" title="previous page">Evaluation configuration</a>
+    <a class='right-next' id="next-link" href="../systems/index.html" title="next page">Systems</a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

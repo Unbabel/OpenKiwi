@@ -89,10 +89,6 @@ Classes
 
          
 
-      .. method:: add_cli_args(parent_parser)
-         :staticmethod:
-
-
 
    .. method:: num_embeddings(self)
       :property:

@@ -60,8 +60,3 @@ Classes
 
 
 
-.. data:: batch_size
-   :annotation: = 4
-
-   
-

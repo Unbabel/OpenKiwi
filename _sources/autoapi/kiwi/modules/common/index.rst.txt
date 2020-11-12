@@ -13,6 +13,7 @@ Submodules
    activations/index.rst
    attention/index.rst
    distributions/index.rst
+   feedforward/index.rst
    layer_norm/index.rst
    positional_encoding/index.rst
    scalar_mix/index.rst

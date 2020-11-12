@@ -121,6 +121,12 @@
               </li>
           
         
+          
+              <li class="">
+                  <a href="search.html">Search configuration</a>
+              </li>
+          
+        
       
       
       
@@ -166,14 +172,14 @@
 <div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">use_gpu</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 
 <span class="nt">run</span><span class="p">:</span>
-    <span class="nt">output_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tmp-test</span>
-    <span class="nt">predict_on_data_partition</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">valid</span>
+    <span class="nt">output_dir</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">predictions</span>
+    <span class="nt">predict_on_data_partition</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">test</span>
 
 <span class="nt">defaults</span><span class="p">:</span>
-    <span class="p p-Indicator">-</span> <span class="nt">data</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wmt19.qe.en_de</span>
+    <span class="p p-Indicator">-</span> <span class="nt">data</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">wmt20.qe.en_de</span>
 
 <span class="nt">system</span><span class="p">:</span>
-    <span class="nt">load</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">trained-models/tickets/en-it/production_model.torch</span>
+    <span class="nt">load</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">best_model.torch</span>
 
     <span class="nt">batch_size</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">16</span>
     <span class="nt">num_data_workers</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">0</span>
@@ -183,11 +189,9 @@
             <span class="nt">word_level</span><span class="p">:</span>
                 <span class="nt">target</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
                 <span class="nt">gaps</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-                <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+                <span class="nt">source</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
             <span class="nt">sentence_level</span><span class="p">:</span>
                 <span class="nt">hter</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-                <span class="nt">use_distribution</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
-                <span class="nt">binary</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
 </pre></div>
 </div>
 <div class="section" id="configuration-class">

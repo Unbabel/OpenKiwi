@@ -13,17 +13,19 @@
    Invoke as ``kiwi PIPELINE``.
 
    Usage:
-       kiwi [options] (train|pretrain|predict|evaluate) CONFIG_FILE [OVERWRITES ...]
-       kiwi (-h | --help | --version | --example)
+       kiwi [options] (train|pretrain|predict|evaluate|search) CONFIG_FILE [OVERWRITES ...]
+       kiwi (train|pretrain|predict|evaluate|search) --example
+       kiwi (-h | --help | --version)
+
 
    Pipelines:
        train          Train a QE model
        pretrain       Pretrain a TLM model to be used as an encoder for a QE model
        predict        Use a pre-trained model for prediction
        evaluate       Evaluate a model's predictions using popular metrics
+       search         Search training hyper-parameters for a QE model
 
    Disabled pipelines:
-       search         Search training hyper-parameters for a QE model
        jackknife      Jackknife training data with model
 
    :param CONFIG_FILE    configuration file to use:
@@ -48,11 +50,11 @@ Functions
 
 .. autoapisummary::
 
-   kiwi.cli.arguments_to_configuration
+   kiwi.cli.handle_example
    kiwi.cli.cli
 
 
-.. function:: arguments_to_configuration(arguments: Dict) -> Dict
+.. function:: handle_example(arguments, caller)
 
 
 .. function:: cli()

@@ -137,6 +137,10 @@
             <a href="#mlflow-integration" class="nav-link">MLflow integration</a>
         </li>
     
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#hyperparameter-search-with-optuna" class="nav-link">Hyperparameter search with Optuna</a>
+        </li>
+    
     </ul>
 </nav>
 
@@ -204,6 +208,18 @@ and the dependency manager. All dependencies are specified in that file.</p>
 </div>
 <p><strong>Or</strong>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">install</span> <span class="o">-</span><span class="n">E</span> <span class="n">mlflow</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hyperparameter-search-with-optuna">
+<h2>Hyperparameter search with Optuna<a class="headerlink" href="#hyperparameter-search-with-optuna" title="Permalink to this headline">¶</a></h2>
+<p><strong>Optionally</strong>, to use the hyperparameter search pipeline with <a class="reference external" href="https://github.com/optuna/optuna">Optuna</a>,
+install Kiwi with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">openkiwi</span><span class="p">[</span><span class="n">search</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Or</strong>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">poetry</span> <span class="n">install</span> <span class="o">-</span><span class="n">E</span> <span class="n">search</span>
 </pre></div>
 </div>
 </div>

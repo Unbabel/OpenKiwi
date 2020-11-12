@@ -142,7 +142,7 @@
             <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h4">
-            <a href="#kiwi.cli.arguments_to_configuration" class="nav-link">arguments_to_configuration</a>
+            <a href="#kiwi.cli.handle_example" class="nav-link">handle_example</a>
         </li>
     
         <li class="nav-item toc-entry toc-h4">
@@ -174,16 +174,17 @@
 <p>Quality Estimation toolkit.</p>
 <p>Invoke as <code class="docutils literal notranslate"><span class="pre">kiwi</span> <span class="pre">PIPELINE</span></code>.</p>
 <dl class="simple">
-<dt>Usage:</dt><dd><p>kiwi [options] (train|pretrain|predict|evaluate) CONFIG_FILE [OVERWRITES …]
-kiwi (-h | –help | –version | –example)</p>
+<dt>Usage:</dt><dd><p>kiwi [options] (train|pretrain|predict|evaluate|search) CONFIG_FILE [OVERWRITES …]
+kiwi (train|pretrain|predict|evaluate|search) –example
+kiwi (-h | –help | –version)</p>
 </dd>
 <dt>Pipelines:</dt><dd><p>train          Train a QE model
 pretrain       Pretrain a TLM model to be used as an encoder for a QE model
 predict        Use a pre-trained model for prediction
-evaluate       Evaluate a model’s predictions using popular metrics</p>
+evaluate       Evaluate a model’s predictions using popular metrics
+search         Search training hyper-parameters for a QE model</p>
 </dd>
-<dt>Disabled pipelines:</dt><dd><p>search         Search training hyper-parameters for a QE model
-jackknife      Jackknife training data with model</p>
+<dt>Disabled pipelines:</dt><dd><p>jackknife      Jackknife training data with model</p>
 </dd>
 </dl>
 <dl class="field-list simple">
@@ -215,7 +216,7 @@ jackknife      Jackknife training data with model</p>
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.cli.arguments_to_configuration" title="kiwi.cli.arguments_to_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arguments_to_configuration</span></code></a>(arguments: Dict) → Dict</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.cli.handle_example" title="kiwi.cli.handle_example"><code class="xref py py-obj docutils literal notranslate"><span class="pre">handle_example</span></code></a>(arguments, caller)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#kiwi.cli.cli" title="kiwi.cli.cli"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cli</span></code></a>()</p></td>
@@ -224,8 +225,8 @@ jackknife      Jackknife training data with model</p>
 </tbody>
 </table>
 <dl class="py function">
-<dt id="kiwi.cli.arguments_to_configuration">
-<code class="sig-prename descclassname">kiwi.cli.</code><code class="sig-name descname">arguments_to_configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arguments</span><span class="p">:</span> <span class="n">Dict</span></em><span class="sig-paren">)</span> &#x2192; Dict<a class="headerlink" href="#kiwi.cli.arguments_to_configuration" title="Permalink to this definition">¶</a></dt>
+<dt id="kiwi.cli.handle_example">
+<code class="sig-prename descclassname">kiwi.cli.</code><code class="sig-name descname">handle_example</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arguments</span></em>, <em class="sig-param"><span class="n">caller</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.cli.handle_example" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">

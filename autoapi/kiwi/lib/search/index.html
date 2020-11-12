@@ -1,0 +1,860 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>kiwi.lib.search &#8212; openkiwi 2.0.0 documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../../../../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../../_static/basic.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+    <script id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/language_data.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="shortcut icon" href="../../../../_static/openkiwi-logo-icon.ico"/>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <link rel="next" title="kiwi.lib.train" href="../train/index.html" />
+    <link rel="prev" title="kiwi.lib.pretrain" href="../pretrain/index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main">
+<div class="container-xl">
+
+    
+    <a class="navbar-brand" href="../../../../index.html">
+      <img src="../../../../_static/openkiwi-logo-horizontal.svg" class="logo" alt="logo">
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar-menu" class="col-lg-9 collapse navbar-collapse">
+      <ul id="navbar-main-elements" class="navbar-nav mr-auto">
+        
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../installation.html">Installation</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../usage.html">Usage</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../configuration/index.html">Configuration</a>
+        </li>
+        
+        <li class="nav-item ">
+            <a class="nav-link" href="../../../../systems/index.html">Systems</a>
+        </li>
+        
+        <li class="nav-item active">
+            <a class="nav-link" href="../../../index.html">API Reference</a>
+        </li>
+        
+        
+      </ul>
+
+
+      
+
+      <ul class="navbar-nav">
+        
+        
+      </ul>
+    </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+          <div class="col-12 col-md-3 bd-sidebar">
+
+<form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form>
+
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+
+  <div class="bd-toc-item active">
+  
+
+  <ul class="nav bd-sidenav">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+        
+          
+              <li class="active">
+                  <a href="../../index.html">kiwi</a>
+              </li>
+          
+        
+      
+      
+    </ul>
+
+</nav>
+          </div>
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+              
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="nav section-nav flex-column">
+    
+        <li class="nav-item toc-entry toc-h2">
+            <a href="#module-contents" class="nav-link">Module Contents</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#classes" class="nav-link">Classes</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h3">
+            <a href="#functions" class="nav-link">Functions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.logger" class="nav-link">logger</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.RangeConfig" class="nav-link">RangeConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.RangeConfig.lower" class="nav-link">lower</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.RangeConfig.upper" class="nav-link">upper</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.RangeConfig.step" class="nav-link">step</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.RangeConfig.distribution" class="nav-link">distribution</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.ClassWeightsConfig" class="nav-link">ClassWeightsConfig</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.ClassWeightsConfig.target_tags" class="nav-link">target_tags</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.ClassWeightsConfig.gap_tags" class="nav-link">gap_tags</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.ClassWeightsConfig.source_tags" class="nav-link">source_tags</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.SearchOptions" class="nav-link">SearchOptions</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.patience" class="nav-link">patience</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.validation_steps" class="nav-link">validation_steps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.search_mlp" class="nav-link">search_mlp</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.search_word_level" class="nav-link">search_word_level</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.search_hter" class="nav-link">search_hter</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.learning_rate" class="nav-link">learning_rate</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.dropout" class="nav-link">dropout</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.warmup_steps" class="nav-link">warmup_steps</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.freeze_epochs" class="nav-link">freeze_epochs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.class_weights" class="nav-link">class_weights</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.sentence_loss_weight" class="nav-link">sentence_loss_weight</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.hidden_size" class="nav-link">hidden_size</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.bottleneck_size" class="nav-link">bottleneck_size</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.search_method" class="nav-link">search_method</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.SearchOptions.check_consistency" class="nav-link">check_consistency</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.Configuration" class="nav-link">Configuration</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.base_config" class="nav-link">base_config</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.directory" class="nav-link">directory</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.seed" class="nav-link">seed</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.search_name" class="nav-link">search_name</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.num_trials" class="nav-link">num_trials</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.num_models_to_keep" class="nav-link">num_models_to_keep</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.options" class="nav-link">options</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.load_study" class="nav-link">load_study</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.verbose" class="nav-link">verbose</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.quiet" class="nav-link">quiet</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Configuration.parse_base_config" class="nav-link">parse_base_config</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.search_from_file" class="nav-link">search_from_file</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.search_from_configuration" class="nav-link">search_from_configuration</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.get_suggestion" class="nav-link">get_suggestion</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.setup_run" class="nav-link">setup_run</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.Objective" class="nav-link">Objective</a><ul class="nav section-nav flex-column">
+                
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Objective.main_metric" class="nav-link">main_metric</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Objective.num_train_lines" class="nav-link">num_train_lines</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Objective.updates_per_epochs" class="nav-link">updates_per_epochs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Objective.best_model_paths" class="nav-link">best_model_paths</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Objective.best_train_configs" class="nav-link">best_train_configs</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Objective.prune_models" class="nav-link">prune_models</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Objective.suggest_train_config" class="nav-link">suggest_train_config</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.search.Objective.__call__" class="nav-link">__call__</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.search.run" class="nav-link">run</a>
+        </li>
+    
+            </ul>
+        </li>
+    
+            </ul>
+        </li>
+    
+    </ul>
+</nav>
+
+
+              
+          </div>
+          
+
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="module-kiwi.lib.search">
+<span id="kiwi-lib-search"></span><h1><a class="reference internal" href="#module-kiwi.lib.search" title="kiwi.lib.search"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.search</span></code></a><a class="headerlink" href="#module-kiwi.lib.search" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="classes">
+<h3>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.search.RangeConfig" title="kiwi.lib.search.RangeConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RangeConfig</span></code></a></p></td>
+<td><p>Specify a continuous interval, or a discrete range when step is set.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.search.ClassWeightsConfig" title="kiwi.lib.search.ClassWeightsConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClassWeightsConfig</span></code></a></p></td>
+<td><p>Specify the range to search in for the tag loss weights.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.search.SearchOptions" title="kiwi.lib.search.SearchOptions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SearchOptions</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.search.Configuration" title="kiwi.lib.search.Configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Configuration</span></code></a></p></td>
+<td><p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.search.Objective" title="kiwi.lib.search.Objective"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Objective</span></code></a></p></td>
+<td><p>The objective to be optimized by the Optuna hyperparameter search.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<table class="longtable table">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.search.search_from_file" title="kiwi.lib.search.search_from_file"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_from_file</span></code></a>(filename: Path)</p></td>
+<td><p>Load options from a config file and calls the training procedure.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.search.search_from_configuration" title="kiwi.lib.search.search_from_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">search_from_configuration</span></code></a>(configuration_dict: dict)</p></td>
+<td><p>Run the entire training pipeline using the configuration options received.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.search.get_suggestion" title="kiwi.lib.search.get_suggestion"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_suggestion</span></code></a>(trial, param_name: str, config: Union[List, RangeConfig]) → Union[bool, float, int]</p></td>
+<td><p>Let the Optuna trial suggest a parameter value with name <code class="docutils literal notranslate"><span class="pre">param_name</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.search.setup_run" title="kiwi.lib.search.setup_run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_run</span></code></a>(directory: Path, seed: int, debug=False, quiet=False) → Path</p></td>
+<td><p>Set up the output directory structure for the Optuna search outputs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.search.run" title="kiwi.lib.search.run"><code class="xref py py-obj docutils literal notranslate"><span class="pre">run</span></code></a>(config: Configuration)</p></td>
+<td><p>Run hyperparameter search according to the search configuration.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py data">
+<dt id="kiwi.lib.search.logger">
+<code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">logger</code><a class="headerlink" href="#kiwi.lib.search.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.search.RangeConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">RangeConfig</code><a class="headerlink" href="#kiwi.lib.search.RangeConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Specify a continuous interval, or a discrete range when step is set.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.search.RangeConfig.lower">
+<code class="sig-name descname">lower</code><em class="property"> :float</em><a class="headerlink" href="#kiwi.lib.search.RangeConfig.lower" title="Permalink to this definition">¶</a></dt>
+<dd><p>The lower bound of the search range.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.RangeConfig.upper">
+<code class="sig-name descname">upper</code><em class="property"> :float</em><a class="headerlink" href="#kiwi.lib.search.RangeConfig.upper" title="Permalink to this definition">¶</a></dt>
+<dd><p>The upper bound of the search range.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.RangeConfig.step">
+<code class="sig-name descname">step</code><em class="property"> :Optional[float]</em><a class="headerlink" href="#kiwi.lib.search.RangeConfig.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify a step size to create a discrete range of search values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.RangeConfig.distribution">
+<code class="sig-name descname">distribution</code><em class="property"> :Literal['uniform', 'loguniform'] = uniform</em><a class="headerlink" href="#kiwi.lib.search.RangeConfig.distribution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specify the distribution over the search range. Uniform is recommended
+for all hyperparameters except for the learning rate, for which loguniform
+is recommended. Only works when a RangeConfig without step is specified.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.search.ClassWeightsConfig">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">ClassWeightsConfig</code><a class="headerlink" href="#kiwi.lib.search.ClassWeightsConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Specify the range to search in for the tag loss weights.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.search.ClassWeightsConfig.target_tags">
+<code class="sig-name descname">target_tags</code><em class="property"> :Union[None, List[float], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.ClassWeightsConfig.target_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss weight for the target tags.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.ClassWeightsConfig.gap_tags">
+<code class="sig-name descname">gap_tags</code><em class="property"> :Union[None, List[float], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.ClassWeightsConfig.gap_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss weight for the gap tags.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.ClassWeightsConfig.source_tags">
+<code class="sig-name descname">source_tags</code><em class="property"> :Union[None, List[float], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.ClassWeightsConfig.source_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss weight for the source tags.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.search.SearchOptions">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">SearchOptions</code><a class="headerlink" href="#kiwi.lib.search.SearchOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.patience">
+<code class="sig-name descname">patience</code><em class="property"> :int = 10</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.patience" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of training validations without improvement to wait
+before stopping training.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.validation_steps">
+<code class="sig-name descname">validation_steps</code><em class="property"> :float = 0.2</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.validation_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rely on the Kiwi training options to early stop bad models.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.search_mlp">
+<code class="sig-name descname">search_mlp</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.search_mlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>To use or not to use an MLP after the encoder.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.search_word_level">
+<code class="sig-name descname">search_word_level</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.search_word_level" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try with and without word level output. Useful to figure
+out if word level prediction is helping HTER regression performance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.search_hter">
+<code class="sig-name descname">search_hter</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.search_hter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try with and without sentence level output. Useful to figure
+out if HTER regression is helping word level performance.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.learning_rate">
+<code class="sig-name descname">learning_rate</code><em class="property"> :Union[None, List[float], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the learning rate value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.dropout">
+<code class="sig-name descname">dropout</code><em class="property"> :Union[None, List[float], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.dropout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the dropout rate used in the decoder.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.warmup_steps">
+<code class="sig-name descname">warmup_steps</code><em class="property"> :Union[None, List[float], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.warmup_steps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the number of steps to warm up the learning rate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.freeze_epochs">
+<code class="sig-name descname">freeze_epochs</code><em class="property"> :Union[None, List[float], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.freeze_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the number of epochs to freeze the encoder.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.class_weights">
+<code class="sig-name descname">class_weights</code><em class="property"> :Union[None, ClassWeightsConfig]</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.class_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the word-level tag loss weights.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.sentence_loss_weight">
+<code class="sig-name descname">sentence_loss_weight</code><em class="property"> :Union[None, List[float], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.sentence_loss_weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the weight to scale the sentence loss objective with.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.hidden_size">
+<code class="sig-name descname">hidden_size</code><em class="property"> :Union[None, List[int], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.hidden_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the hidden size of the MLP decoder.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.bottleneck_size">
+<code class="sig-name descname">bottleneck_size</code><em class="property"> :Union[None, List[int], RangeConfig]</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.bottleneck_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the size of the hidden layer in the decoder bottleneck.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.SearchOptions.search_method">
+<code class="sig-name descname">search_method</code><em class="property"> :Literal['random', 'tpe', 'multivariate_tpe'] = multivariate_tpe</em><a class="headerlink" href="#kiwi.lib.search.SearchOptions.search_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use random search or the (multivariate) Tree-structured Parzen Estimator,
+or shorthand: TPE. See <code class="docutils literal notranslate"><span class="pre">optuna.samplers</span></code> for more details about these methods.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.search.SearchOptions.check_consistency">
+<code class="sig-name descname">check_consistency</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em>, <em class="sig-param"><span class="n">values</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.search.SearchOptions.check_consistency" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.search.Configuration">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">Configuration</code><a class="headerlink" href="#kiwi.lib.search.Configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../utils/io/index.html#kiwi.utils.io.BaseConfig" title="kiwi.utils.io.BaseConfig"><code class="xref py py-class docutils literal notranslate"><span class="pre">kiwi.utils.io.BaseConfig</span></code></a></p>
+<p>Base class for all pydantic configs. Used to configure base behaviour of configs.</p>
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.base_config">
+<code class="sig-name descname">base_config</code><em class="property"> :Union[FilePath, train.Configuration]</em><a class="headerlink" href="#kiwi.lib.search.Configuration.base_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Kiwi train configuration used as a base to configure the search models.
+Can be a path or a yaml configuration properly indented under this argument.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.directory">
+<code class="sig-name descname">directory</code><em class="property"> :Path</em><a class="headerlink" href="#kiwi.lib.search.Configuration.directory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Output directory.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.seed">
+<code class="sig-name descname">seed</code><em class="property"> :int = 42</em><a class="headerlink" href="#kiwi.lib.search.Configuration.seed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make the search reproducible.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.search_name">
+<code class="sig-name descname">search_name</code><em class="property"> :str</em><a class="headerlink" href="#kiwi.lib.search.Configuration.search_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The name used by the Optuna MLflow integration.
+If None, Optuna will create a unique hashed name.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.num_trials">
+<code class="sig-name descname">num_trials</code><em class="property"> :int = 50</em><a class="headerlink" href="#kiwi.lib.search.Configuration.num_trials" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of search trials to run.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.num_models_to_keep">
+<code class="sig-name descname">num_models_to_keep</code><em class="property"> :int = 5</em><a class="headerlink" href="#kiwi.lib.search.Configuration.num_models_to_keep" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of model checkpoints that are kept after finishing search.
+The best checkpoints are kept, the others removed to free up space.
+Keep all model checkpoints by setting this to -1.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.options">
+<code class="sig-name descname">options</code><em class="property"> :SearchOptions</em><a class="headerlink" href="#kiwi.lib.search.Configuration.options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure the search method and parameter ranges.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.load_study">
+<code class="sig-name descname">load_study</code><em class="property"> :FilePath</em><a class="headerlink" href="#kiwi.lib.search.Configuration.load_study" title="Permalink to this definition">¶</a></dt>
+<dd><p>Continue from a previous saved study, i.e. from a <code class="docutils literal notranslate"><span class="pre">study.pkl</span></code> file.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.verbose">
+<code class="sig-name descname">verbose</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.search.Configuration.verbose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.search.Configuration.quiet">
+<code class="sig-name descname">quiet</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.search.Configuration.quiet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.search.Configuration.parse_base_config">
+<code class="sig-name descname">parse_base_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cls</span></em>, <em class="sig-param"><span class="n">v</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.search.Configuration.parse_base_config" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.search.search_from_file">
+<code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">search_from_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span><span class="p">:</span> <span class="n">Path</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.search.search_from_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load options from a config file and calls the training procedure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> – of the configuration file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an object with training information.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.search.search_from_configuration">
+<code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">search_from_configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configuration_dict</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.search.search_from_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run the entire training pipeline using the configuration options received.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>configuration_dict</strong> – dictionary with options.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>object with training information.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.search.get_suggestion">
+<code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">get_suggestion</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">trial</span></em>, <em class="sig-param"><span class="n">param_name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>List<span class="p">, </span><a class="reference internal" href="#kiwi.lib.search.RangeConfig" title="kiwi.lib.search.RangeConfig">RangeConfig</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><a class="headerlink" href="#kiwi.lib.search.get_suggestion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Let the Optuna trial suggest a parameter value with name <code class="docutils literal notranslate"><span class="pre">param_name</span></code>
+based on the range configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trial</strong> – an Optuna trial</p></li>
+<li><p><strong>param_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – the name of the parameter to suggest a value for</p></li>
+<li><p><strong>config</strong> (<em>Union</em><em>[</em><em>List</em><em>, </em><a class="reference internal" href="#kiwi.lib.search.RangeConfig" title="kiwi.lib.search.RangeConfig"><em>RangeConfig</em></a><em>]</em>) – the parameter search space</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The suggested parameter value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.search.setup_run">
+<code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">setup_run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">directory</span><span class="p">:</span> <span class="n">Path</span></em>, <em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="n">debug</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; Path<a class="headerlink" href="#kiwi.lib.search.setup_run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set up the output directory structure for the Optuna search outputs.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="kiwi.lib.search.Objective">
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">Objective</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.lib.search.Configuration" title="kiwi.lib.search.Configuration">Configuration</a></span></em>, <em class="sig-param"><span class="n">base_config_dict</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.search.Objective" title="Permalink to this definition">¶</a></dt>
+<dd><p>The objective to be optimized by the Optuna hyperparameter search.</p>
+<p>The call method initializes a Kiwi training config based on Optuna parameter
+suggestions, trains Kiwi, and then returns the output.</p>
+<p>The model paths of the models are saved internally together with the objective
+value obtained for that model. These can be used to prune model checkpoints
+after completion of the search.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<a class="reference internal" href="../evaluate/index.html#kiwi.lib.evaluate.Configuration" title="kiwi.lib.evaluate.Configuration"><em>Configuration</em></a>) – the search configuration.</p></li>
+<li><p><strong>base_config_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – the training configuration to serve as base,
+in dictionary form.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="kiwi.lib.search.Objective.main_metric">
+<em class="property">property </em><code class="sig-name descname">main_metric</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="headerlink" href="#kiwi.lib.search.Objective.main_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main validation metric as it is formatted by the Kiwi trainer.</p>
+<p>This can be used to access the main metric value after training via
+<code class="docutils literal notranslate"><span class="pre">train_info.best_metrics[objective.main_metric]</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.search.Objective.num_train_lines">
+<em class="property">property </em><code class="sig-name descname">num_train_lines</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><a class="headerlink" href="#kiwi.lib.search.Objective.num_train_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of lines in the training data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.search.Objective.updates_per_epochs">
+<em class="property">property </em><code class="sig-name descname">updates_per_epochs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><a class="headerlink" href="#kiwi.lib.search.Objective.updates_per_epochs" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of parameter updates per epochs.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.search.Objective.best_model_paths">
+<em class="property">property </em><code class="sig-name descname">best_model_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>Path<span class="p">]</span><a class="headerlink" href="#kiwi.lib.search.Objective.best_model_paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the model paths sorted from high to low by their objective score.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.search.Objective.best_train_configs">
+<em class="property">property </em><code class="sig-name descname">best_train_configs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>train.Configuration<span class="p">]</span><a class="headerlink" href="#kiwi.lib.search.Objective.best_train_configs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the train configs sorted from high to low by their objective score.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.search.Objective.prune_models">
+<code class="sig-name descname">prune_models</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">num_models_to_keep</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.9)">None</a><a class="headerlink" href="#kiwi.lib.search.Objective.prune_models" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep only the best model checkpoints and remove the rest to free up space.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.search.Objective.suggest_train_config">
+<code class="sig-name descname">suggest_train_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">trial</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>train.Configuration<span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a><span class="p">]</span><a class="headerlink" href="#kiwi.lib.search.Objective.suggest_train_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the trial to suggest values to initialize a training configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>trial</strong> – An Optuna trial to make hyperparameter suggestions.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A Kiwi train configuration and a dictionary with the suggested Optuna
+parameter names and values that were set in the train config.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="kiwi.lib.search.Objective.__call__">
+<code class="sig-name descname">__call__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">trial</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><a class="headerlink" href="#kiwi.lib.search.Objective.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train Kiwi with the hyperparameter values suggested by the
+trial and return the value of the main metric.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>trial</strong> – An Optuna trial to make hyperparameter suggestions.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A float with the value obtained by the Kiwi model,
+as measured by the main metric configured for the model.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.search.run">
+<code class="sig-prename descclassname">kiwi.lib.search.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#kiwi.lib.search.Configuration" title="kiwi.lib.search.Configuration">Configuration</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.search.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run hyperparameter search according to the search configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config</strong> (<a class="reference internal" href="../evaluate/index.html#kiwi.lib.evaluate.Configuration" title="kiwi.lib.evaluate.Configuration"><em>Configuration</em></a>) – search configuration</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an optuna study summarizing the search results</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <div class='prev-next-bottom'>
+                
+    <a class='left-prev' id="prev-link" href="../pretrain/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.pretrain</span></code></a>
+    <a class='right-next' id="next-link" href="../train/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.lib.train</span></code></a>
+
+              </div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+
+    <script src="../../../../_static/js/index.js"></script>
+    <footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    <p>
+          &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

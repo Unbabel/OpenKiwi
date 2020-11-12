@@ -175,6 +175,14 @@
         </li>
     
         <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.Configuration.verbose" class="nav-link">verbose</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
+            <a href="#kiwi.lib.evaluate.Configuration.quiet" class="nav-link">quiet</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h5">
             <a href="#kiwi.lib.evaluate.Configuration.ensure_list" class="nav-link">ensure_list</a>
         </li>
     
@@ -390,13 +398,13 @@
 <dl class="py attribute">
 <dt id="kiwi.lib.evaluate.OutputConfig.gap_tags">
 <code class="sig-name descname">gap_tags</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.lib.evaluate.OutputConfig.gap_tags" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to label file for gaps (only for predictions)</p>
+<dd><p>Path to label file for gaps (only for predictions).</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="kiwi.lib.evaluate.OutputConfig.targetgaps_tags">
 <code class="sig-name descname">targetgaps_tags</code><em class="property"> :Optional[FilePath]</em><a class="headerlink" href="#kiwi.lib.evaluate.OutputConfig.targetgaps_tags" title="Permalink to this definition">¶</a></dt>
-<dd><p>Path to label file for target+gaps (only for predictions)</p>
+<dd><p>Path to label file for target+gaps (only for predictions).</p>
 </dd></dl>
 
 </dd></dl>
@@ -422,6 +430,16 @@
 <dd><p>One or more directories from where to read predicted files (using standard output
 names.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.evaluate.Configuration.verbose">
+<code class="sig-name descname">verbose</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.evaluate.Configuration.verbose" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="kiwi.lib.evaluate.Configuration.quiet">
+<code class="sig-name descname">quiet</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.lib.evaluate.Configuration.quiet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="kiwi.lib.evaluate.Configuration.ensure_list">
@@ -450,12 +468,12 @@ names.</p>
 
 <dl class="py method">
 <dt id="kiwi.lib.evaluate.MetricsReport.add_word_level_scores">
-<code class="sig-name descname">add_word_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">scores</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.add_word_level_scores" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_word_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">scores</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.add_word_level_scores" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt id="kiwi.lib.evaluate.MetricsReport.add_sentence_level_scores">
-<code class="sig-name descname">add_sentence_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a></span></em>, <em class="sig-param"><span class="n">scores</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.add_sentence_level_scores" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_sentence_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a></span></em>, <em class="sig-param"><span class="n">scores</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport.add_sentence_level_scores" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -471,14 +489,14 @@ names.</p>
 
 <dl class="py method">
 <dt id="kiwi.lib.evaluate.MetricsReport._scores_str">
-<em class="property">static </em><code class="sig-name descname">_scores_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scores</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport._scores_str" title="Permalink to this definition">¶</a></dt>
+<em class="property">static </em><code class="sig-name descname">_scores_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">scores</span><span class="p">:</span> <span class="n">np.ndarray</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="headerlink" href="#kiwi.lib.evaluate.MetricsReport._scores_str" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt id="kiwi.lib.evaluate.evaluate_from_configuration">
-<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">evaluate_from_configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configuration_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.evaluate_from_configuration" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">evaluate_from_configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">configuration_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.evaluate_from_configuration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Evaluate a model’s predictions based on the flags received from the configuration
 files.</p>
 <p>Refer to configuration for a list of available configuration flags for the evaluate
@@ -533,14 +551,14 @@ calculating metrics using <cite>gold_targets</cite> and <cite>prediction_files</
 
 <dl class="py function">
 <dt id="kiwi.lib.evaluate.to_numeric_values">
-<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">to_numeric_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.lib.evaluate.to_numeric_values" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">to_numeric_values</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.lib.evaluate.to_numeric_values" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert text labels or string probabilities (for BAD) to int or float values,
 respectively.</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="kiwi.lib.evaluate.to_numeric_binary_labels">
-<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">to_numeric_binary_labels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">threshold</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span> <span class="o">=</span> <span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.to_numeric_binary_labels" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">to_numeric_binary_labels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span><span class="p">]</span><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">threshold</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a></span> <span class="o">=</span> <span class="default_value">0.5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.evaluate.to_numeric_binary_labels" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate numeric labels from text labels or probabilities (for BAD).</p>
 </dd></dl>
 
@@ -560,7 +578,7 @@ returns false if they do not.</p>
 <dd class="field-even"><p>True if all lenghts match, False if not</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -583,7 +601,7 @@ returns false if they do not.</p>
 <dd class="field-even"><p>True if all lenghts match, False if not</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -595,17 +613,17 @@ returns false if they do not.</p>
 
 <dl class="py function">
 <dt id="kiwi.lib.evaluate.eval_word_level">
-<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">eval_word_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span></em>, <em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; np.ndarray<a class="headerlink" href="#kiwi.lib.evaluate.eval_word_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">eval_word_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span></em>, <em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>List<span class="p">[</span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; np.ndarray<a class="headerlink" href="#kiwi.lib.evaluate.eval_word_level" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="kiwi.lib.evaluate.sentence_level_scores">
-<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">sentence_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">predicted_targets</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tuple<span class="p">, </span>Tuple<span class="p">]</span><a class="headerlink" href="#kiwi.lib.evaluate.sentence_level_scores" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">sentence_level_scores</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">predicted_targets</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>Tuple<span class="p">, </span>Tuple<span class="p">]</span><a class="headerlink" href="#kiwi.lib.evaluate.sentence_level_scores" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="kiwi.lib.evaluate.eval_sentence_level">
-<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">eval_sentence_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span></em>, <em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>np.ndarray<span class="p">, </span>np.ndarray<span class="p">]</span><a class="headerlink" href="#kiwi.lib.evaluate.eval_sentence_level" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.evaluate.</code><code class="sig-name descname">eval_sentence_level</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">true_targets</span></em>, <em class="sig-param"><span class="n">predictions</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)">float</a><span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>np.ndarray<span class="p">, </span>np.ndarray<span class="p">]</span><a class="headerlink" href="#kiwi.lib.evaluate.eval_sentence_level" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">

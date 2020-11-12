@@ -90,13 +90,14 @@ Classes
    .. attribute:: keep_rare_words_with_embeddings
       :annotation: = False
 
-      Keep words that occur less then min-frequency but are in embeddings vocabulary
+      Keep words that occur less then min-frequency but are
+      in embeddings vocabulary.
 
 
    .. attribute:: add_embeddings_vocab
       :annotation: = False
 
-      Add words from embeddings vocabulary to source/target vocabulary
+      Add words from embeddings vocabulary to source/target vocabulary.
 
 
    .. method:: check_nested_options(cls, v)

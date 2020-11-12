@@ -175,10 +175,6 @@
             <a href="#kiwi.modules.token_embeddings.TokenEmbeddings.Config.input_layer_norm" class="nav-link">input_layer_norm</a>
         </li>
     
-        <li class="nav-item toc-entry toc-h6">
-            <a href="#kiwi.modules.token_embeddings.TokenEmbeddings.Config.add_cli_args" class="nav-link">add_cli_args</a>
-        </li>
-    
             </ul>
         </li>
     
@@ -235,8 +231,8 @@
 </table>
 <dl class="py class">
 <dt id="kiwi.modules.token_embeddings.TokenEmbeddings">
-<em class="property">class </em><code class="sig-prename descclassname">kiwi.modules.token_embeddings.</code><code class="sig-name descname">TokenEmbeddings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_embeddings</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em>, <em class="sig-param"><span class="n">pad_idx</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">vectors</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.token_embeddings.TokenEmbeddings" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">kiwi.modules.token_embeddings.</code><code class="sig-name descname">TokenEmbeddings</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_embeddings</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="n">pad_idx</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em>, <em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">Config</span></em>, <em class="sig-param"><span class="n">vectors</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.token_embeddings.TokenEmbeddings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
 <p>Modules can also contain other Modules, allowing to nest them in
@@ -300,11 +296,6 @@ parameters converted too when you call <code class="xref py py-meth docutils lit
 <dl class="py attribute">
 <dt id="kiwi.modules.token_embeddings.TokenEmbeddings.Config.input_layer_norm">
 <code class="sig-name descname">input_layer_norm</code><em class="property"> :bool = False</em><a class="headerlink" href="#kiwi.modules.token_embeddings.TokenEmbeddings.Config.input_layer_norm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="kiwi.modules.token_embeddings.TokenEmbeddings.Config.add_cli_args">
-<em class="property">static </em><code class="sig-name descname">add_cli_args</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_parser</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.token_embeddings.TokenEmbeddings.Config.add_cli_args" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

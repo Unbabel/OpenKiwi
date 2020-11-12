@@ -54,13 +54,13 @@ Functions
    .. attribute:: gap_tags
       :annotation: :Optional[FilePath]
 
-      Path to label file for gaps (only for predictions)
+      Path to label file for gaps (only for predictions).
 
 
    .. attribute:: targetgaps_tags
       :annotation: :Optional[FilePath]
 
-      Path to label file for target+gaps (only for predictions)
+      Path to label file for target+gaps (only for predictions).
 
 
 
@@ -86,6 +86,16 @@ Functions
       One or more directories from where to read predicted files (using standard output
       names.
 
+
+   .. attribute:: verbose
+      :annotation: :bool = False
+
+      
+
+   .. attribute:: quiet
+      :annotation: :bool = False
+
+      
 
    .. method:: ensure_list(cls, v)
 

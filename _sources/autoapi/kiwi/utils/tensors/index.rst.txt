@@ -22,32 +22,20 @@ Functions
 .. autoapisummary::
 
    kiwi.utils.tensors.pad_zeros_around_timesteps
-   kiwi.utils.tensors.unroll
    kiwi.utils.tensors.convolve_tensor
    kiwi.utils.tensors.apply_packed_sequence
    kiwi.utils.tensors.replace_token
    kiwi.utils.tensors.make_classes_loss_weights
-   kiwi.utils.tensors.clones
-   kiwi.utils.tensors.subsequent_mask
    kiwi.utils.tensors.sequence_mask
    kiwi.utils.tensors.unmask
    kiwi.utils.tensors.unsqueeze_as
    kiwi.utils.tensors.make_mergeable_tensors
-   kiwi.utils.tensors.feedforward
    kiwi.utils.tensors.retrieve_tokens_mask
    kiwi.utils.tensors.select_positions
    kiwi.utils.tensors.pieces_to_tokens
 
 
 .. function:: pad_zeros_around_timesteps(batched_tensor: torch.Tensor) -> torch.Tensor
-
-
-.. function:: unroll(list_of_lists)
-
-   Argument:
-       list_of_lists: a list that contains lists.
-
-   :returns: a flattened list
 
 
 .. function:: convolve_tensor(sequences, window_size, pad_value=0)
@@ -94,18 +82,6 @@ Functions
 
    :returns: weight Tensor of shape `nb_classes`.
    :rtype: weights (FloatTensor)
-
-
-.. function:: clones(module, N)
-
-   Produce N identical layers.
-
-
-.. function:: subsequent_mask(size: int)
-
-   Mask out subsequent positions.
-
-   :param size: squared tensor size
 
 
 .. function:: sequence_mask(lengths: torch.LongTensor, max_len: Optional[int] = None)
@@ -220,11 +196,6 @@ Functions
    
 
    
-
-.. function:: feedforward(in_dim, n_layers, shrink=2, out_dim=None, activation=nn.Tanh, final_activation=False, dropout=0.0)
-
-   Constructor for FeedForward Layers
-
 
 .. function:: retrieve_tokens_mask(input_batch: BatchedSentence)
 

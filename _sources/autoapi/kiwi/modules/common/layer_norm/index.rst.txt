@@ -12,28 +12,7 @@ Classes
 
 .. autoapisummary::
 
-   kiwi.modules.common.layer_norm.LayerNorm
    kiwi.modules.common.layer_norm.TFLayerNorm
-
-
-
-.. py:class:: LayerNorm(hidden_size: int, eps: float = 1e-12)
-
-   Bases: :class:`torch.nn.Module`
-
-   Construct a layer normalization module.
-
-   It normalizes the outputs of neurons for a given layer:
-   :math:`out = (\gamma * (x - x.mean(-1)) / (x.std(-1) + \epsilon)) + \beta`
-
-   .. rubric:: References
-
-   https://arxiv.org/abs/1607.06450
-
-   :param hidden_size: number of neurons in the layer x.
-   :param eps: factor to prevent division by zero.
-
-   .. method:: forward(self, x)
 
 
 

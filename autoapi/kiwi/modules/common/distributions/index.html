@@ -21,7 +21,7 @@
     <link rel="shortcut icon" href="../../../../../_static/openkiwi-logo-icon.ico"/>
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
-    <link rel="next" title="kiwi.modules.common.layer_norm" href="../layer_norm/index.html" />
+    <link rel="next" title="kiwi.modules.common.feedforward" href="../feedforward/index.html" />
     <link rel="prev" title="kiwi.modules.common.attention" href="../attention/index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -244,14 +244,14 @@ can introduce correlations among events.</p>
 </pre></div>
 </div>
 <p>For more examples, please look at the implementations of
-<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.gumbel.Gumbel" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gumbel</span></code></a>,
-<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.half_cauchy.HalfCauchy" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">HalfCauchy</span></code></a>,
-<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.half_normal.HalfNormal" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">HalfNormal</span></code></a>,
-<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.log_normal.LogNormal" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogNormal</span></code></a>,
-<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.pareto.Pareto" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pareto</span></code></a>,
-<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.weibull.Weibull" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weibull</span></code></a>,
-<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.relaxed_bernoulli.RelaxedBernoulli" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelaxedBernoulli</span></code></a> and
-<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.relaxed_categorical.RelaxedOneHotCategorical" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelaxedOneHotCategorical</span></code></a></p>
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.gumbel.Gumbel" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Gumbel</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.half_cauchy.HalfCauchy" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">HalfCauchy</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.half_normal.HalfNormal" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">HalfNormal</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.log_normal.LogNormal" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogNormal</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.pareto.Pareto" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pareto</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.weibull.Weibull" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weibull</span></code></a>,
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.relaxed_bernoulli.RelaxedBernoulli" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelaxedBernoulli</span></code></a> and
+<a class="reference external" href="https://pytorch.org/docs/master/distributions.html#torch.distributions.relaxed_categorical.RelaxedOneHotCategorical" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">RelaxedOneHotCategorical</span></code></a></p>
 <dl class="py attribute">
 <dt id="kiwi.modules.common.distributions.TruncatedNormal.arg_constraints">
 <code class="sig-name descname">arg_constraints</code><a class="headerlink" href="#kiwi.modules.common.distributions.TruncatedNormal.arg_constraints" title="Permalink to this definition">¶</a></dt>
@@ -332,7 +332,7 @@ transform(s) and computing the score of the base distribution.</p>
               <div class='prev-next-bottom'>
                 
     <a class='left-prev' id="prev-link" href="../attention/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.attention</span></code></a>
-    <a class='right-next' id="next-link" href="../layer_norm/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.layer_norm</span></code></a>
+    <a class='right-next' id="next-link" href="../feedforward/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.feedforward</span></code></a>
 
               </div>
               

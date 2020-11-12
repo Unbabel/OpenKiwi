@@ -65,3 +65,16 @@ MLflow integration
 
    poetry install -E mlflow
 
+
+Hyperparameter search with Optuna
+---------------------------------
+
+**Optionally**, to use the hyperparameter search pipeline with `Optuna <https://github.com/optuna/optuna>`_,
+install Kiwi with::
+
+  pip install openkiwi[search]
+
+
+**Or**::
+
+  poetry install -E search

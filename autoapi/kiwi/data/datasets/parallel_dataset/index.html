@@ -346,17 +346,17 @@
 <dl class="py class">
 <dt id="kiwi.data.datasets.parallel_dataset.ParallelDataset">
 <em class="property">class </em><code class="sig-prename descclassname">kiwi.data.datasets.parallel_dataset.</code><code class="sig-name descname">ParallelDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">columns</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>Any<span class="p">, </span>Union<span class="p">[</span>Iterable<span class="p">, </span>List<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.datasets.parallel_dataset.ParallelDataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Dataset" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Dataset" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></a></p>
 <p>An abstract class representing a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
 <p>All datasets that represent a map from keys to data samples should subclass
 it. All subclasses should overwrite <a class="reference internal" href="#kiwi.data.datasets.parallel_dataset.ParallelDataset.__getitem__" title="kiwi.data.datasets.parallel_dataset.ParallelDataset.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a>, supporting fetching a
 data sample for a given key. Subclasses could also optionally overwrite
 <a class="reference internal" href="#kiwi.data.datasets.parallel_dataset.ParallelDataset.__len__" title="kiwi.data.datasets.parallel_dataset.ParallelDataset.__len__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__len__()</span></code></a>, which is expected to return the size of the dataset by many
-<a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Sampler" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code></a> implementations and the default options
-of <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a>.</p>
+<a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Sampler" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code></a> implementations and the default options
+of <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a>.</p>
 <div class="alert alert-info">
 <p class="admonition-title">Note</p>
-<p><a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> by default constructs a index
+<p><a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> by default constructs a index
 sampler that yields integral indices.  To make it work with a map-style
 dataset with non-integral indices/keys, a custom sampler must be provided.</p>
 </div>
@@ -413,7 +413,7 @@ to anchor them.</p></li>
 <li><p><strong>train</strong> – whether to build the training dataset.</p></li>
 <li><p><strong>valid</strong> – whether to build the validation dataset.</p></li>
 <li><p><strong>test</strong> – whether to build the testing dataset.</p></li>
-<li><p><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)"><em>float</em></a>) – If no validation set is provided, randomly sample
+<li><p><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.9)"><em>float</em></a>) – If no validation set is provided, randomly sample
 <span class="math notranslate nohighlight">\(1-split\)</span> of training examples as validation set.</p></li>
 </ul>
 </dd>
@@ -422,7 +422,7 @@ to anchor them.</p></li>
 
 <dl class="py method">
 <dt id="kiwi.data.datasets.parallel_dataset.ParallelDataset.__getitem__">
-<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">index_or_field</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Any<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.data.datasets.parallel_dataset.ParallelDataset.__getitem__" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">__getitem__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">index_or_field</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a><span class="p">, </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>List<span class="p">[</span>Any<span class="p">]</span><span class="p">, </span>Dict<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Any<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#kiwi.data.datasets.parallel_dataset.ParallelDataset.__getitem__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get a row with data from all fields or all rows for a given field</p>
 </dd></dl>
 

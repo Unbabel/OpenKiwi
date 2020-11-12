@@ -154,7 +154,19 @@
         </li>
     
         <li class="nav-item toc-entry toc-h4">
-            <a href="#kiwi.lib.utils.load_config" class="nav-link">load_config</a>
+            <a href="#kiwi.lib.utils.file_to_configuration" class="nav-link">file_to_configuration</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.utils.arguments_to_configuration" class="nav-link">arguments_to_configuration</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.utils._reset_hydra" class="nav-link">_reset_hydra</a>
+        </li>
+    
+        <li class="nav-item toc-entry toc-h4">
+            <a href="#kiwi.lib.utils.sort_by_second_value" class="nav-link">sort_by_second_value</a>
         </li>
     
             </ul>
@@ -200,14 +212,23 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.utils.setup_output_directory" title="kiwi.lib.utils.setup_output_directory"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_output_directory</span></code></a>(output_dir, run_uuid=None, experiment_id=None, create=True) → str</p></td>
 <td><p>Set up the output directory.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.utils.load_config" title="kiwi.lib.utils.load_config"><code class="xref py py-obj docutils literal notranslate"><span class="pre">load_config</span></code></a>(config_file: Path) → Dict</p></td>
-<td><p>Load configuration options from a YAML or JSON file.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.utils.file_to_configuration" title="kiwi.lib.utils.file_to_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">file_to_configuration</span></code></a>(config_file: Union[str, Path]) → Dict</p></td>
+<td><p>Utility function to handle converting a configuration file to</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.utils.arguments_to_configuration" title="kiwi.lib.utils.arguments_to_configuration"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arguments_to_configuration</span></code></a>(arguments: Dict) → Dict</p></td>
+<td><p>Processes command line arguments into a dictionary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.lib.utils._reset_hydra" title="kiwi.lib.utils._reset_hydra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">_reset_hydra</span></code></a>()</p></td>
+<td><p>Utility function used to handle global hydra state</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.lib.utils.sort_by_second_value" title="kiwi.lib.utils.sort_by_second_value"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sort_by_second_value</span></code></a>(tuples: List[tuple]) → List[tuple]</p></td>
+<td><p>Sort a list of tuples by the second value in descending order.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt id="kiwi.lib.utils.configure_seed">
-<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">configure_seed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils.configure_seed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">configure_seed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.9)">int</a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils.configure_seed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure the random seed for all relevant packages.</p>
 <p>These include: random, numpy, torch, torch.cuda and PYTHONHASHSEED.</p>
 <dl class="field-list simple">
@@ -219,7 +240,7 @@
 
 <dl class="py function">
 <dt id="kiwi.lib.utils.configure_logging">
-<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">configure_logging</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils.configure_logging" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">configure_logging</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">quiet</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.9)">bool</a></span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils.configure_logging" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure the output logger.</p>
 <p>Set up the log format, logging level, and output directory of logging.</p>
 <dl class="field-list simple">
@@ -235,7 +256,7 @@
 
 <dl class="py function">
 <dt id="kiwi.lib.utils.save_config_to_file">
-<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">save_config_to_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">BaseConfig</span></em>, <em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><span class="p">, </span>Path<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils.save_config_to_file" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">save_config_to_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span><span class="p">:</span> <span class="n">BaseConfig</span></em>, <em class="sig-param"><span class="n">file_name</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Path<span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils.save_config_to_file" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a configuration object to file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -249,7 +270,7 @@
 
 <dl class="py function">
 <dt id="kiwi.lib.utils.setup_output_directory">
-<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">setup_output_directory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_dir</span></em>, <em class="sig-param"><span class="n">run_uuid</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">create</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)">str</a><a class="headerlink" href="#kiwi.lib.utils.setup_output_directory" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">setup_output_directory</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output_dir</span></em>, <em class="sig-param"><span class="n">run_uuid</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">experiment_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">create</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><a class="headerlink" href="#kiwi.lib.utils.setup_output_directory" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set up the output directory.</p>
 <p>This means either creating one, or verifying that the provided directory exists.
 Output directories are created using the run and experiment ids.</p>
@@ -269,9 +290,46 @@ Output directories are created using the run and experiment ids.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="kiwi.lib.utils.load_config">
-<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">load_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config_file</span><span class="p">:</span> <span class="n">Path</span></em><span class="sig-paren">)</span> &#x2192; Dict<a class="headerlink" href="#kiwi.lib.utils.load_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Load configuration options from a YAML or JSON file.</p>
+<dt id="kiwi.lib.utils.file_to_configuration">
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">file_to_configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config_file</span><span class="p">:</span> <span class="n">Union<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)">str</a><span class="p">, </span>Path<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; Dict<a class="headerlink" href="#kiwi.lib.utils.file_to_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility function to handle converting a configuration file to
+a dictionary with the correct hydra composition.</p>
+<p>Creates an argument dict and calls <cite>arguments_to_configuration</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>config_file</strong> – path to a configuration file.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of the configuration imported from config file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.utils.arguments_to_configuration">
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">arguments_to_configuration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arguments</span><span class="p">:</span> <span class="n">Dict</span></em><span class="sig-paren">)</span> &#x2192; Dict<a class="headerlink" href="#kiwi.lib.utils.arguments_to_configuration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes command line arguments into a dictionary.
+Handles hydra file composition and parameter overwrites.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>arguments</strong> – dictionary with all the cmd_line arguments passed to kiwi.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Dictionary of the config imported from the config file.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.utils._reset_hydra">
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">_reset_hydra</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.lib.utils._reset_hydra" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility function used to handle global hydra state</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="kiwi.lib.utils.sort_by_second_value">
+<code class="sig-prename descclassname">kiwi.lib.utils.</code><code class="sig-name descname">sort_by_second_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tuples</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a><span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a><span class="p">]</span><a class="headerlink" href="#kiwi.lib.utils.sort_by_second_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort a list of tuples by the second value in descending order.</p>
 </dd></dl>
 
 </div>

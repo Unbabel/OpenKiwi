@@ -22,7 +22,7 @@
     <link rel="index" title="Index" href="../../../../../genindex.html" />
     <link rel="search" title="Search" href="../../../../../search.html" />
     <link rel="next" title="kiwi.modules.common.positional_encoding" href="../positional_encoding/index.html" />
-    <link rel="prev" title="kiwi.modules.common.distributions" href="../distributions/index.html" />
+    <link rel="prev" title="kiwi.modules.common.feedforward" href="../feedforward/index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
   </head>
@@ -138,16 +138,6 @@
             <a href="#classes" class="nav-link">Classes</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h4">
-            <a href="#kiwi.modules.common.layer_norm.LayerNorm" class="nav-link">LayerNorm</a><ul class="nav section-nav flex-column">
-                
-        <li class="nav-item toc-entry toc-h5">
-            <a href="#kiwi.modules.common.layer_norm.LayerNorm.forward" class="nav-link">forward</a>
-        </li>
-    
-            </ul>
-        </li>
-    
-        <li class="nav-item toc-entry toc-h4">
             <a href="#kiwi.modules.common.layer_norm.TFLayerNorm" class="nav-link">TFLayerNorm</a><ul class="nav section-nav flex-column">
                 
         <li class="nav-item toc-entry toc-h5">
@@ -188,42 +178,15 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.modules.common.layer_norm.LayerNorm" title="kiwi.modules.common.layer_norm.LayerNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LayerNorm</span></code></a></p></td>
-<td><p>Construct a layer normalization module.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#kiwi.modules.common.layer_norm.TFLayerNorm" title="kiwi.modules.common.layer_norm.TFLayerNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TFLayerNorm</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#kiwi.modules.common.layer_norm.TFLayerNorm" title="kiwi.modules.common.layer_norm.TFLayerNorm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TFLayerNorm</span></code></a></p></td>
 <td><p>Construct a layer normalization module with epsilon inside the</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
-<dt id="kiwi.modules.common.layer_norm.LayerNorm">
-<em class="property">class </em><code class="sig-prename descclassname">kiwi.modules.common.layer_norm.</code><code class="sig-name descname">LayerNorm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hidden_size</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)">int</a></span></em>, <em class="sig-param"><span class="n">eps</span><span class="p">:</span> <span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.8)">float</a></span> <span class="o">=</span> <span class="default_value">1e-12</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.layer_norm.LayerNorm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
-<p>Construct a layer normalization module.</p>
-<p>It normalizes the outputs of neurons for a given layer:
-<span class="math notranslate nohighlight">\(out = (\gamma * (x - x.mean(-1)) / (x.std(-1) + \epsilon)) + \beta\)</span></p>
-<p class="rubric">References</p>
-<p><a class="reference external" href="https://arxiv.org/abs/1607.06450">https://arxiv.org/abs/1607.06450</a></p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>hidden_size</strong> – number of neurons in the layer x.</p></li>
-<li><p><strong>eps</strong> – factor to prevent division by zero.</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt id="kiwi.modules.common.layer_norm.LayerNorm.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">self</span></em>, <em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.layer_norm.LayerNorm.forward" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
 <dt id="kiwi.modules.common.layer_norm.TFLayerNorm">
 <em class="property">class </em><code class="sig-prename descclassname">kiwi.modules.common.layer_norm.</code><code class="sig-name descname">TFLayerNorm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hidden_size</span></em>, <em class="sig-param"><span class="n">eps</span><span class="o">=</span><span class="default_value">1e-06</span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.modules.common.layer_norm.TFLayerNorm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.7.0a0+125df29 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/generated/torch.nn.Module.html#torch.nn.Module" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.nn.Module</span></code></a></p>
 <p>Construct a layer normalization module with epsilon inside the
 square root (tensorflow style).</p>
 <p>This is equivalent to HuggingFace’s BertLayerNorm module.</p>
@@ -244,7 +207,7 @@ square root (tensorflow style).</p>
               
               <div class='prev-next-bottom'>
                 
-    <a class='left-prev' id="prev-link" href="../distributions/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.distributions</span></code></a>
+    <a class='left-prev' id="prev-link" href="../feedforward/index.html" title="previous page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.feedforward</span></code></a>
     <a class='right-next' id="next-link" href="../positional_encoding/index.html" title="next page"><code class="xref py py-mod docutils literal notranslate"><span class="pre">kiwi.modules.common.positional_encoding</span></code></a>
 
               </div>
