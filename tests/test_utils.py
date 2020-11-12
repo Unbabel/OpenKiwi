@@ -15,6 +15,7 @@
 #  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
 import pytest
+import torch
 
 from kiwi.utils.io import generate_slug, load_torch_file
 
@@ -22,8 +23,9 @@ from kiwi.utils.io import generate_slug, load_torch_file
 def test_load_torch_file(model_dir):
     load_torch_file(model_dir / 'nuqe.ckpt')
     # There's no CUDA:
-    with pytest.raises(AssertionError):
-        load_torch_file(model_dir / 'nuqe.ckpt', map_location='cuda')
+    if not torch.cuda.is_available():
+        with pytest.raises(AssertionError):
+            load_torch_file(model_dir / 'nuqe.ckpt', map_location='cuda')
     # And this file does not exist:
     with pytest.raises(ValueError):
         load_torch_file(model_dir / 'nonexistent.torch')
