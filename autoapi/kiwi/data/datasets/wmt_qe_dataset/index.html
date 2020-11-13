@@ -6,11 +6,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>kiwi.data.datasets.wmt_qe_dataset &#8212; openkiwi 2.0.0 documentation</title>
+    <title>kiwi.data.datasets.wmt_qe_dataset &#8212; openkiwi 2.1.0 documentation</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../../../../../_static/css/index.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" href="../../../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../../../../_static/basic.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/graphviz.css" />
     <script id="documentation_options" data-url_root="../../../../../" src="../../../../../_static/documentation_options.js"></script>
     <script src="../../../../../_static/jquery.js"></script>
@@ -444,17 +444,17 @@
 <dl class="py class">
 <dt id="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset">
 <em class="property">class </em><code class="sig-prename descclassname">kiwi.data.datasets.wmt_qe_dataset.</code><code class="sig-name descname">WMTQEDataset</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">columns</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>Any<span class="p">, </span>Union<span class="p">[</span>Iterable<span class="p">, </span>List<span class="p">]</span><span class="p">]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Dataset" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Dataset" title="(in PyTorch vmaster (1.8.0a0+17d8633 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">torch.utils.data.Dataset</span></code></a></p>
 <p>An abstract class representing a <code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code>.</p>
 <p>All datasets that represent a map from keys to data samples should subclass
 it. All subclasses should overwrite <a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__getitem__" title="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__getitem__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__getitem__()</span></code></a>, supporting fetching a
 data sample for a given key. Subclasses could also optionally overwrite
 <a class="reference internal" href="#kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__len__" title="kiwi.data.datasets.wmt_qe_dataset.WMTQEDataset.__len__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__len__()</span></code></a>, which is expected to return the size of the dataset by many
-<a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Sampler" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code></a> implementations and the default options
-of <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a>.</p>
+<a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.Sampler" title="(in PyTorch vmaster (1.8.0a0+17d8633 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">Sampler</span></code></a> implementations and the default options
+of <a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.8.0a0+17d8633 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a>.</p>
 <div class="alert alert-info">
 <p class="admonition-title">Note</p>
-<p><a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.8.0a0+9bc97fc ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> by default constructs a index
+<p><a class="reference external" href="https://pytorch.org/docs/master/data.html#torch.utils.data.DataLoader" title="(in PyTorch vmaster (1.8.0a0+17d8633 ))"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a> by default constructs a index
 sampler that yields integral indices.  To make it work with a map-style
 dataset with non-integral indices/keys, a custom sampler must be provided.</p>
 </div>
@@ -573,7 +573,7 @@ to anchor them.</p></li>
   <div class="container">
     <p>
           &copy; Copyright 2019-2020 Unbabel. All rights reserved. Source code available under the AGPL-3.0..<br/>
-        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.2.1.<br/>
+        Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.3.1.<br/>
     </p>
   </div>
 </footer>

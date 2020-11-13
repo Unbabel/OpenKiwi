@@ -37,7 +37,7 @@ Package Contents
 ----------------
 
 .. data:: __version__
-   :annotation: = 2.0.0
+   :annotation: = 2.1.0
 
    
 
