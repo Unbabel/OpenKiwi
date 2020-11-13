@@ -30,7 +30,7 @@ kiwi = 'kiwi.__main__:main'
 
 [tool.poetry.dependencies]
 python = "^3.7"
-torch = "^1.4.0"
+torch = ">=1.4.0, <1.7.0"
 tqdm = "^4.29"
 numpy = "^1.18"
 more-itertools = "^8.0.0"
