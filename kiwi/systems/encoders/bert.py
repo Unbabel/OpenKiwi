@@ -93,8 +93,11 @@ class TransformersTextEncoder(TextEncoder):
 
 
 class EncoderAdapterConfig(BaseConfig):
-    languages: Union[List[str], List[Path]] = None
+    language: str = None
     """Specify the languae adapters that will either loaded when passing a path."""
+
+    load: List[Path] = None
+    """Load adapters."""
 
     fusion: bool = False
     """Train AdapterFusion."""
@@ -168,29 +171,28 @@ class BertEncoder(MetaModule):
                 self.config.model_name, output_hidden_states=True
             )
             if adapter is not None:
-                for language in adapter.languages:
-                    if Path(language).exists():
-                        # Load the adapter module
-                        self.bert.load_adapter(
-                            language, AdapterType.text_lang, config=PfeifferConfig()
-                        )
-                    elif language not in self.bert.config.adapters.adapter_list(
-                        AdapterType.text_lang
-                    ):
-                        # Add an adapter module
-                        self.bert.add_adapter(
-                            language, AdapterType.text_lang, config=PfeifferConfig()
-                        )
+                if adapter.load:
+                    for path in adapter.load:
+                        if path.exists():
+                            # Load the adapter module
+                            self.bert.load_adapter(
+                                str(path),
+                                AdapterType.text_lang,
+                                config=PfeifferConfig(),
+                            )
+                elif adapter.language not in self.bert.config.adapters.adapter_list(
+                    AdapterType.text_lang
+                ):
+                    # Add an adapter module
+                    self.bert.add_adapter(
+                        adapter.language, AdapterType.text_lang, config=PfeifferConfig()
+                    )
                 if adapter.fusion:
-                    adapter_setup = [
-                        [Path(language).name for language in adapter.languages]
-                    ]
+                    adapter_setup = [[path.name for path in adapter.load]]
                     self.bert.add_fusion(adapter_setup[0], "dynamic")
                     self.bert.train_fusion(adapter_setup)
                 else:
-                    for language in adapter.languages:
-                        # Freeze all parameters except for those in the adapter module
-                        self.bert.train_adapter(language)
+                    self.bert.train_adapter(adapter.language)
         else:
             bert_config = BertConfig.from_pretrained(
                 self.config.model_name, output_hidden_states=True

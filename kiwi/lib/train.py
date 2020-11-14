@@ -419,10 +419,12 @@ def run(
         return run_info
 
     if trainer.model.config.model.encoder.adapter is not None:
-        for language in trainer.model.config.model.encoder.adapter.languages:
+        if trainer.model.config.model.encoder.adapter.fusion:
             breakpoint()
+        else:
+            language = trainer.model.config.model.encoder.adapter.language
             adapter_path = (
-                Path(checkpoint_callback.best_model_path).parent / f'adapter_{language}'
+                Path(checkpoint_callback.best_model_path).parent / f'{language}'
             )
             logger.info(f"Saving the Adapter '{language}' to: {adapter_path}")
             trainer.model.encoder.bert.save_adapter(adapter_path, language)
