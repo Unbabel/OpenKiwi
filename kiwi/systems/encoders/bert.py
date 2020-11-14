@@ -93,7 +93,7 @@ class TransformersTextEncoder(TextEncoder):
 
 
 class EncoderAdapterConfig(BaseConfig):
-    languages: Union[str, Path, List[str], List[Path]] = None
+    languages: Union[List[str], List[Path]] = None
     """Specify the languae adapters that will either loaded when passing a path."""
 
     fusion: bool = False

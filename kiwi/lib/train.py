@@ -418,6 +418,15 @@ def run(
         )
         return run_info
 
+    if trainer.model.config.model.encoder.adapter is not None:
+        for language in trainer.model.config.model.encoder.adapter.languages:
+            breakpoint()
+            adapter_path = (
+                Path(checkpoint_callback.best_model_path).parent / f'adapter_{language}'
+            )
+            logger.info(f"Saving the Adapter '{language}' to: {adapter_path}")
+            trainer.model.encoder.bert.save_adapter(adapter_path, language)
+
     if tracking_logger:
         # Send best model file to logger
         tracking_logger.log_model(best_model_path)
