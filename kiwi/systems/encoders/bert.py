@@ -172,26 +172,24 @@ class BertEncoder(MetaModule):
             )
             if adapter is not None:
                 if adapter.load:
+                    # Load the adapter module
                     for path in adapter.load:
                         if path.exists():
-                            # Load the adapter module
                             self.bert.load_adapter(
                                 str(path),
                                 AdapterType.text_lang,
                                 config=PfeifferConfig(),
                             )
-                elif adapter.language not in self.bert.config.adapters.adapter_list(
-                    AdapterType.text_lang
-                ):
+                    # Add fusion of adapters
+                    if adapter.fusion:
+                        adapter_setup = [[path.name for path in adapter.load]]
+                        self.bert.add_fusion(adapter_setup[0], "dynamic")
+                        self.bert.train_fusion(adapter_setup)
+                else:
                     # Add an adapter module
                     self.bert.add_adapter(
                         adapter.language, AdapterType.text_lang, config=PfeifferConfig()
                     )
-                if adapter.fusion:
-                    adapter_setup = [[path.name for path in adapter.load]]
-                    self.bert.add_fusion(adapter_setup[0], "dynamic")
-                    self.bert.train_fusion(adapter_setup)
-                else:
                     self.bert.train_adapter(adapter.language)
         else:
             bert_config = BertConfig.from_pretrained(

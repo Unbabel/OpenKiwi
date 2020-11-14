@@ -420,7 +420,8 @@ def run(
 
     if trainer.model.config.model.encoder.adapter is not None:
         if trainer.model.config.model.encoder.adapter.fusion:
-            breakpoint()
+            # We just save the entire model
+            pass
         else:
             language = trainer.model.config.model.encoder.adapter.language
             adapter_path = (
