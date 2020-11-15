@@ -76,7 +76,6 @@ class Bert(QESystem):
             self.encoder = BertEncoder(
                 vocabs=self.data_encoders.vocabularies,
                 config=self.config.model.encoder,
-                adapter=self.config.model.encoder.adapter,
             )
 
         # Features to output
