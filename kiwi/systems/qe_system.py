@@ -510,7 +510,6 @@ class QESystem(Serializable, pl.LightningModule, metaclass=ABCMeta):
             field_encoders=encoder_cls.input_data_encoders(self.config.model.encoder),
         )
         vocabs = self.data_encoders.vocabularies_from_dict(module_dict[const.VOCAB])
-
         self.encoder = MetaModule.from_dict(
             module_dict=module_dict['encoder'], vocabs=vocabs, pre_load_model=False
         )

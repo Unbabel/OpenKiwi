@@ -428,7 +428,10 @@ def run(
                 Path(checkpoint_callback.best_model_path).parent / f'{language}'
             )
             logger.info(f"Saving the Adapter '{language}' to: {adapter_path}")
-            trainer.model.encoder.bert.save_adapter(adapter_path, language)
+            if 'bert' in trainer.model.encoder.__dict__.keys():
+                trainer.model.encoder.bert.save_adapter(adapter_path, language)
+            elif 'xlm_roberta' in trainer.model.encoder.__dict__.keys():
+                trainer.model.encoder.xlm_roberta.save_adapter(adapter_path, language)
 
     if tracking_logger:
         # Send best model file to logger

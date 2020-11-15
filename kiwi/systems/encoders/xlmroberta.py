@@ -17,7 +17,7 @@
 import logging
 from collections import Counter, OrderedDict
 from pathlib import Path
-from typing import Dict, Union, List
+from typing import Dict, List, Union
 
 import torch
 from pydantic import DirectoryPath, confloat
