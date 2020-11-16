@@ -74,8 +74,7 @@ class Bert(QESystem):
         # Input to features
         if not self.encoder:
             self.encoder = BertEncoder(
-                vocabs=self.data_encoders.vocabularies,
-                config=self.config.model.encoder,
+                vocabs=self.data_encoders.vocabularies, config=self.config.model.encoder,
             )
 
         # Features to output
