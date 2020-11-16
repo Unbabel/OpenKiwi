@@ -17,18 +17,20 @@
 import logging
 from collections import Counter, OrderedDict
 from pathlib import Path
-from typing import Dict, Union
+from typing import Dict, List, Union
 
 import torch
-from pydantic import confloat
+from pydantic import DirectoryPath, confloat
 from pydantic.class_validators import validator
 from torch import Tensor, nn
 from transformers import (
     XLM_ROBERTA_PRETRAINED_MODEL_ARCHIVE_LIST,
+    AdapterType,
     AutoTokenizer,
     XLMRobertaConfig,
     XLMRobertaModel,
 )
+from transformers.adapter_config import PfeifferConfig
 from typing_extensions import Literal
 
 from kiwi import constants as const
@@ -99,6 +101,26 @@ class XLMRobertaTextEncoder(TextEncoder):
             self.vocab.max_size(vocab_size)
 
 
+class EncoderAdapterConfig(BaseConfig):
+    language: str = None
+    """Specify a name to add a new language adapter, e.g. 'en-de', 'en-zh', etc."""
+
+    load: List[DirectoryPath] = None
+    """Load trained adapters to use for prediction or for Adapter Fusion.
+    Point it to the root directory."""
+
+    fusion: bool = False
+    """Train Adapter Fusion on top of the loaded adapters."""
+
+    @validator('fusion')
+    def check_load(cls, v, values):
+        if v and not values.get('load'):
+            raise NotImplementedError(
+                'Specify adapters to load if you want to fuse them'
+            )
+        return v
+
+
 @MetaModule.register_subclass
 class XLMRobertaEncoder(MetaModule):
     """XLM-RoBERTa model, using HuggingFace's implementation."""
@@ -106,6 +128,9 @@ class XLMRobertaEncoder(MetaModule):
     class Config(BaseConfig):
         model_name: Union[str, Path] = 'xlm-roberta-base'
         """Pre-trained XLMRoberta model to use."""
+
+        adapter: EncoderAdapterConfig = None
+        """Use an Adapter to fine tune the encoder."""
 
         interleave_input: bool = False
         """Concatenate SOURCE and TARGET without internal padding
@@ -155,6 +180,28 @@ class XLMRobertaEncoder(MetaModule):
                 self.config.model_name, output_hidden_states=True
             )
             self.xlm_roberta = XLMRobertaModel(xlm_roberta_config)
+
+        # Add Adapters if specified
+        if config.adapter is not None:
+            if config.adapter.language is not None:
+                # Add an adapter module
+                self.xlm_roberta.add_adapter(
+                    config.adapter.language,
+                    AdapterType.text_lang,
+                    config=PfeifferConfig(),
+                )
+                self.xlm_roberta.train_adapter(config.adapter.language)
+            if config.adapter.load is not None:
+                # Load the adapter module
+                for path in config.adapter.load:
+                    self.xlm_roberta.load_adapter(
+                        str(path), AdapterType.text_lang, config=PfeifferConfig(),
+                    )
+            # Add fusion of adapters
+            if config.adapter.fusion:
+                adapter_setup = [[path.name for path in config.adapter.load]]
+                self.xlm_roberta.add_fusion(adapter_setup[0], "dynamic")
+                self.xlm_roberta.train_fusion(adapter_setup)
 
         self.vocabs = {
             const.TARGET: vocabs[const.TARGET],

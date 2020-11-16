@@ -17,19 +17,21 @@
 import logging
 from collections import Counter, OrderedDict
 from pathlib import Path
-from typing import Dict, Union
+from typing import Dict, List, Union
 
 import torch
-from pydantic import confloat
+from pydantic import DirectoryPath, confloat
 from pydantic.class_validators import validator
 from torch import Tensor, nn
 from transformers import (
     BERT_PRETRAINED_MODEL_ARCHIVE_LIST,
     DISTILBERT_PRETRAINED_MODEL_ARCHIVE_LIST,
+    AdapterType,
     AutoTokenizer,
     BertConfig,
     BertModel,
 )
+from transformers.adapter_config import PfeifferConfig
 
 from kiwi import constants as const
 from kiwi.data.batch import MultiFieldBatch
@@ -90,6 +92,26 @@ class TransformersTextEncoder(TextEncoder):
         )
 
 
+class EncoderAdapterConfig(BaseConfig):
+    language: str = None
+    """Specify a name to create a new language adapter, e.g. en-de, en-zh, etc."""
+
+    load: List[DirectoryPath] = None
+    """Load trained adapters to use for prediction or for Adapter Fusion.
+    Point it to the root directory."""
+
+    fusion: bool = False
+    """Train Adapter Fusion on top of the loaded adapters."""
+
+    @validator('fusion')
+    def check_load(cls, v, values):
+        if v and not values.get('load'):
+            raise NotImplementedError(
+                'Specify adapters to load if you want to fuse them'
+            )
+        return v
+
+
 @MetaModule.register_subclass
 class BertEncoder(MetaModule):
     """BERT model as presented in Google's paper and using Hugging Face's code
@@ -101,6 +123,9 @@ class BertEncoder(MetaModule):
     class Config(BaseConfig):
         model_name: Union[str, Path] = 'bert-base-multilingual-cased'
         """Pre-trained BERT model to use."""
+
+        adapter: EncoderAdapterConfig = None
+        """Use an Adapter to fine tune the encoder."""
 
         use_mismatch_features: bool = False
         """Use Alibaba's mismatch features."""
@@ -155,6 +180,28 @@ class BertEncoder(MetaModule):
                 self.config.model_name, output_hidden_states=True
             )
             self.bert = BertModel(bert_config)
+
+        # Add Adapters if specified
+        if config.adapter is not None:
+            if config.adapter.language is not None:
+                # Add an adapter module
+                self.bert.add_adapter(
+                    config.adapter.language,
+                    AdapterType.text_lang,
+                    config=PfeifferConfig(),
+                )
+                self.bert.train_adapter(config.adapter.language)
+            if config.adapter.load is not None:
+                # Load the adapter module
+                for path in config.adapter.load:
+                    self.bert.load_adapter(
+                        str(path), AdapterType.text_lang, config=PfeifferConfig(),
+                    )
+            # Add fusion of adapters
+            if config.adapter.fusion:
+                adapter_setup = [[path.name for path in config.adapter.load]]
+                self.bert.add_fusion(adapter_setup[0], "dynamic")
+                self.bert.train_fusion(adapter_setup)
 
         self.vocabs = {
             const.TARGET: vocabs[const.TARGET],

@@ -418,6 +418,23 @@ def run(
         )
         return run_info
 
+    if trainer.model.config.model.encoder.adapter is not None:
+        if trainer.model.config.model.encoder.adapter.fusion:
+            # We just save the entire model
+            pass
+        else:
+            language = trainer.model.config.model.encoder.adapter.language
+            adapter_path = (
+                Path(checkpoint_callback.best_model_path).parent / f'{language}'
+            )
+            logger.info(f"Saving the Adapter '{language}' to: {adapter_path}")
+            # TODO/FIXME: we should really move towards calling these things with a
+            #   generic name, like 'trainer.model.encoder.transformer' or somtething
+            try:
+                trainer.model.encoder.bert.save_adapter(adapter_path, language)
+            except AttributeError:
+                trainer.model.encoder.xlm_roberta.save_adapter(adapter_path, language)
+
     if tracking_logger:
         # Send best model file to logger
         tracking_logger.log_model(best_model_path)
