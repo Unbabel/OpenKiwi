@@ -105,7 +105,7 @@ class EncoderAdapterConfig(BaseConfig):
 
     @validator('fusion')
     def check_load(cls, v, values):
-        if v and not values['load']:
+        if v and not values.get('load'):
             raise NotImplementedError(
                 'Specify adapters to load if you want to fuse them'
             )
