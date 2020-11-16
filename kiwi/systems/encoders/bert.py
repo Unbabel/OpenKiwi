@@ -167,7 +167,7 @@ class BertEncoder(MetaModule):
             return False
 
     def __init__(
-        self, vocabs: Dict[str, Vocabulary], config: Config, pre_load_model: bool = True,
+        self, vocabs: Dict[str, Vocabulary], config: Config, pre_load_model: bool = True
     ):
         super().__init__(config=config)
 
