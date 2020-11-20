@@ -133,7 +133,7 @@ def test_computation_target(
         train_config,
         tmp_path,
         output_name=const.TARGET_TAGS,
-        expected_avg_probs=0.383413,
+        expected_avg_probs=0.672407,
         atol=big_atol,
     )
 

@@ -20,7 +20,7 @@ from typing import Dict, List
 
 import torch
 from torch import Tensor
-from torch.nn import ModuleDict
+from torch.nn import ModuleDict, Sigmoid
 
 from kiwi import constants as const
 from kiwi.data.batch import MultiFieldBatch
@@ -94,7 +94,7 @@ class QEOutputs(MetaModule):
         'Multiplier for sentence_level loss weight.'
 
         dropout: float = 0.0
-        last_activation: bool = False
+        use_final_sigmoid: bool = False
         n_layers_output: int = 3
 
     def __init__(self, inputs_dims, vocabs: Dict[str, Vocabulary], config: Config):
@@ -178,7 +178,9 @@ class QEOutputs(MetaModule):
                     sentence_scores = SentenceScoreRegression(
                         input_size=input_size,
                         num_layers=self.config.n_layers_output,
-                        final_activation=self.config.last_activation,
+                        final_activation=Sigmoid
+                        if self.config.use_final_sigmoid
+                        else None,
                     )
                 self.sentence_outputs[const.SENTENCE_SCORES] = sentence_scores
         # Binary sentence level

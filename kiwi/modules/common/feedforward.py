@@ -25,7 +25,7 @@ def feedforward(
     shrink=2,
     out_dim=None,
     activation=nn.Tanh,
-    final_activation=False,
+    final_activation=None,
     dropout=0.0,
 ):
     """Constructor for FeedForward Layers"""
@@ -39,6 +39,6 @@ def feedforward(
         dim = next_dim
     next_dim = out_dim or (dim // 2)
     module_dict['linear_{}'.format(n_layers - 1)] = nn.Linear(dim, next_dim)
-    if final_activation:
-        module_dict['activation_{}'.format(n_layers - 1)] = activation()
+    if final_activation is not None:
+        module_dict['activation_{}'.format(n_layers - 1)] = final_activation()
     return nn.Sequential(module_dict)

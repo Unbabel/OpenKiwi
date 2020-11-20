@@ -47,7 +47,7 @@ class SentenceScoreRegression(nn.Module):
         input_size,
         dropout=0.0,
         activation=nn.Tanh,
-        final_activation=False,
+        final_activation=None,
         num_layers=3,
     ):
         super().__init__()
@@ -83,7 +83,7 @@ class SentenceScoreDistribution(nn.Module):
             n_layers=3,
             out_dim=1,
             activation=nn.Sigmoid,
-            final_activation=True,
+            final_activation=nn.Sigmoid,
         )
 
         self.loss_fn = self._loss_fn
