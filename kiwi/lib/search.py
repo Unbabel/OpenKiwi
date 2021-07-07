@@ -81,6 +81,12 @@ class SearchOptions(BaseConfig):
     search_mlp: bool = False
     """To use or not to use an MLP after the encoder."""
 
+    search_interleave_input: bool = False
+    """To encode source and target with or without internal padding"""
+
+    pooling: Union[None, List[Literal['first_token', 'mean', 'll_mean', 'mixed']] = None
+    """Search the pooling method used for the sentence level representation."""
+
     search_word_level: bool = False
     """Try with and without word level output. Useful to figure
     out if word level prediction is helping HTER regression performance."""
@@ -435,6 +441,18 @@ class Objective:
             use_mlp = trial.suggest_categorical('mlp', [True, False])
             base_config_dict['system']['model']['encoder']['use_mlp'] = use_mlp
             search_values['use_mlp'] = use_mlp
+
+        # Suggest whether to use combine source and tartet without internal padding
+        if self.config.options.search_interleave_input:
+            interleave_input = trial.suggest_categorical('interleave_input', [True, False])
+            base_config_dict['system']['model']['encoder']['interleave_input'] = interleave_input
+            search_values['interleave_input'] = interleave_input
+
+        # Suggest pooling method for the sentence level representation
+        if self.config.options.pooling is not None:
+            interleave_input = trial.suggest_categorical('pooling', self.config.options.pooling)
+            base_config_dict['system']['model']['encoder']['pooling'] = pooling
+            search_values['pooling'] = pooling
 
         # Search word_level and sentence_level and their combinations
         # Suggest whether to include the sentence level objective
