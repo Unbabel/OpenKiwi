@@ -45,9 +45,6 @@ logger = logging.getLogger(__name__)
 
 class XLMRobertaTextEncoder(TextEncoder):
     def __init__(self, tokenizer_name='xlm-roberta-base', is_source=False):
-        if tokenizer_name not in XLM_ROBERTA_PRETRAINED_MODEL_ARCHIVE_LIST:
-            tokenizer_name = 'xlm-roberta-base'
-
         tokenizer = AutoTokenizer.from_pretrained(str(tokenizer_name))
         wordpiece_tokenize = tokenizer._tokenize
 
